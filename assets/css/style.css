@@ -3,4 +3,9 @@ body{
 }
 #nav-title{
     font-size: 25px;
+    margin-right: 25px;
+}
+#nav-item{
+    color: blue;
+    text-decoration: none;
 }
