@@ -32,7 +32,7 @@ a{
     margin-right: 25px;
 }
 #content{
-    padding: 40px 0px 0px 0px;
+    padding: 40px 0px 0px 10px;
 }
 iframe{
     position: fixed;
