@@ -1,5 +1,6 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 ::selection{
     color: blue;
@@ -11,6 +12,7 @@ a{
 }
 #nav{
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    background-color: white;
     padding: 10px 25px 10px 25px;
     position: fixed;
     top: 0;
@@ -29,5 +31,10 @@ a{
     margin-right: 25px;
 }
 #content{
-    margin-top: 60px;
+    padding: 40px 0px 0px 0px;
+}
+iframe{
+    position: fixed;
+    border: none;
+    width: 100%;
 }
