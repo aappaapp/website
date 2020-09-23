@@ -13,6 +13,7 @@ a{
 #nav{
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     background-color: white;
+    display: block;
     padding: 10px 25px 10px 25px;
     position: fixed;
     top: 0;
@@ -37,4 +38,22 @@ iframe{
     position: fixed;
     border: none;
     width: 100%;
+}
+#nav-sm{
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    padding: 5px 0px 5px 0px;
+    display: none;
+    margin: 0 auto;
+}
+#nav-sm h1{
+    margin: 0;
+    text-align: center;
+}
+@media only screen and (max-width: 700px){
+    #nav{
+        display: none;
+    }
+    #nav-sm{
+        display: block;
+    }
 }
