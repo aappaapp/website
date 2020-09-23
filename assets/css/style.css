@@ -2,19 +2,31 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 ::selection{
-        color: white;
-        background-color: red;
+    color: blue;
+    background-color: aqua;
+}
+a{
+    color: #0000ff;
+    text-decoration: none;
 }
 #nav{
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     padding: 10px 25px 10px 25px;
-    position: sticky;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
 }
 #nav-title{
     font-size: 25px;
     margin-right: 25px;
+    text-decoration: none;
+    color: #0000ff;
 }
 #nav-item{
-    color: #0000ff;
-    text-decoration: none;
+    margin-right: 25px;
+}
+#content{
+    margin-top: 60px;
 }
