@@ -34,12 +34,48 @@ a{
 #content{
     padding: 40px 0px 0px 10px;
 }
-iframe{
+#header-iframe{
     position: fixed;
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     border: none;
     height: 50px;
     width: 100%;
+}
+#footer-iframe{
+    position: fixed;
+    border: none;
+    width: 100%;
+}
+#footer{
+    text-align: center;
+    display: block;
+}
+#footer-item::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+#footer-item{
+    padding-left: 10px;
+    width: 48%;
+    text-align: left;
+    margin: 0;
+    display: inline-block;
+    float: left;
+    width: 33.33%;
+    padding: 50px;
+}
+#footer #title{
+    font-size: 20px;
+    margin-bottom: 100px;
+}
+#footer-link{
+    margin-bottom: 100px;
+}
+#footer-sm{
+    padding: 5px 0px 5px 0px;
+    display: none;
+    margin: 0 auto;
 }
 #nav-sm{
     padding: 5px 0px 5px 0px;
@@ -55,6 +91,12 @@ iframe{
         display: none;
     }
     #nav-sm{
+        display: block;
+    }
+    #footer{
+        display: none;
+    }
+    #footer-sm{
         display: block;
     }
 }
