@@ -1,0 +1,35 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+h1{
+    font-size: 2em;
+    text-align: center;
+    margin-top: 30%;
+}
+section{
+    padding: 3em;
+    height: 100vh;
+    position: relative;
+    box-sizing: border-box;
+}
+blockquote{
+    font-size: 2em;
+    width: 30%;
+    margin-top: 17%;
+    position: absolute;
+}
+span{
+    width: 100;
+    background-color: red;
+    display: block;
+    height: 5px;
+}
+img{
+    position: absolute;
+}
+img:nth-of-type(1){
+    width: 40%;
+    right: 0;
+    top: 20%;
+}
