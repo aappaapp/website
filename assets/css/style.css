@@ -16,9 +16,12 @@ h1, h2, h3, h4, h5, h6{
 }
 #content{
     padding: 60px 0px 0px 10px;
+    min-height: 100%;
+    margin-bottom: -50px;
 }
 iframe{
     border: none;
+    margin: 0;
 }
 #header-iframe{
     position: fixed;
@@ -26,6 +29,7 @@ iframe{
     border: none;
     height: 50px;
     width: 100%;
+    z-index: 10;
 }
 #nav{
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
@@ -37,7 +41,6 @@ iframe{
     left: 0;
     height: 30px;
     width: 100%;
-    z-index: 10;
 }
 #nav-title{
     font-size: 25px;
@@ -52,12 +55,12 @@ iframe{
     padding: 5px 0px 5px 0px;
     display: none;
     margin: 0 auto;
+    background-color: white;
 }
 #nav-sm h1{
     text-align: center;
 }
 #footer-iframe{
-    position: fixed;
     border: none;
     width: 100%;
 }
@@ -65,18 +68,14 @@ iframe{
     text-align: center;
     display: block;
 }
-#footer-item::after{
-    content: "";
-    clear: both;
-    display: table;
+.push{
+    height: 50px;
 }
 #footer-item{
     padding-left: 10px;
-    width: 48%;
+    width: calc(100vw / 3);
     text-align: left;
     display: inline-block;
-    float: left;
-    width: 33.33%;
     padding: 50px;
 }
 #footer #title{
@@ -132,7 +131,7 @@ iframe{
         display: none;
     }
     #footer-sm{
-        display: block;
+        display: none;
     }
     #bottom-nav-iframe{
         display: block;
