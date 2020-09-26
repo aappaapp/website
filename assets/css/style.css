@@ -10,6 +10,19 @@ a{
     color: #0000ff;
     text-decoration: none;
 }
+#content{
+    padding: 40px 0px 0px 10px;
+}
+iframe{
+    border: none;
+}
+#header-iframe{
+    position: fixed;
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    border: none;
+    height: 50px;
+    width: 100%;
+}
 #nav{
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     background-color: white;
@@ -31,15 +44,14 @@ a{
 #nav-item{
     margin-right: 25px;
 }
-#content{
-    padding: 40px 0px 0px 10px;
+#nav-sm{
+    padding: 5px 0px 5px 0px;
+    display: none;
+    margin: 0 auto;
 }
-#header-iframe{
-    position: fixed;
-    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
-    border: none;
-    height: 50px;
-    width: 100%;
+#nav-sm h1{
+    margin: 0;
+    text-align: center;
 }
 #footer-iframe{
     position: fixed;
@@ -77,14 +89,32 @@ a{
     display: none;
     margin: 0 auto;
 }
-#nav-sm{
-    padding: 5px 0px 5px 0px;
+#bottom-nav-iframe{
+    position: fixed;
+    border: none;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #333333;
     display: none;
-    margin: 0 auto;
 }
-#nav-sm h1{
+#bottom-nav-item{
+    width: 49%;
+    height: 100%;
     margin: 0;
+    display: inline-flex;
     text-align: center;
+    align-items:center;
+    justify-content:center;
+    color: white;
+}
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 @media only screen and (max-width: 700px){
     #nav{
@@ -97,6 +127,9 @@ a{
         display: none;
     }
     #footer-sm{
+        display: block;
+    }
+    #bottom-nav-iframe{
         display: block;
     }
 }
