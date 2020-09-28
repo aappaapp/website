@@ -48,7 +48,6 @@ iframe{
     z-index: 10;
 }
 #nav{
-    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     background-color: white;
     display: block;
     padding: 10px 25px 10px 25px;
@@ -113,8 +112,9 @@ iframe{
     height: 50px;
     width: 100%;
     overflow: hidden;
-    background-color: #333333;
+    background-color: white;
     display: none;
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030, 0 6px 20px 0 #00000030 , 0 6px 20px 0 #00000030;
 }
 #bottom-nav-item{
     width: 49%;
@@ -123,18 +123,17 @@ iframe{
     text-align: center;
     align-items:center;
     justify-content:center;
-    color: var(--text-dark-color);
     float: left;
     padding: 12px 0;
     font-size: 25px;
 }
 #bottom-nav-iframe{
     width: 100%;
-    background-color: #555;
     overflow: auto;
 }
 #bottom-nav-item:hover{
     background-color: #ff0000;
+    color: white;
 }
 #faq-q{
     margin-top: 50px;
