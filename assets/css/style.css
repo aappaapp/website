@@ -17,6 +17,9 @@ a{
     color: var(--link-color);
     text-decoration: none;
 }
+span{
+    display: inline;
+}
 button, input[type='button'], a#btn{
     background-color: red;
     border: none;
@@ -147,6 +150,12 @@ iframe{
     height: 32px;
     width: 32px;
 }
+.mobile-see{
+    display: none;
+}
+.computer-see{
+    display: block;
+}
 @media only screen and (max-width: 700px){
     #nav{
         display: none;
@@ -162,5 +171,11 @@ iframe{
     }
     #bottom-nav-iframe{
         display: block;
+    }
+    .mobile-see{
+        display: block;
+    }
+    .computer-see{
+        display: none;
     }
 }
