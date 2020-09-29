@@ -20,6 +20,9 @@ a{
 span{
     display: inline;
 }
+#center{
+    text-align: center;
+}
 button, input[type='button'], a#btn{
     background-color: red;
     border: none;
