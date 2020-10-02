@@ -27,8 +27,10 @@ textarea{
     resize: none;
     width: 50vw;
     height: 50vh;
-    font-size: 25px;
+    font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
+    outline: none;
+    border: 1px solid black;
 }
 button, input[type='button'], a#btn{
     background-color: red;
