@@ -26,6 +26,9 @@ span{
 .center{
     text-align: center;
 }
+.hide{
+    display: none;
+}
 textarea{
     resize: none;
     width: 50vw;
