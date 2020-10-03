@@ -104,11 +104,16 @@ iframe{
     border: none;
     width: 100%;
     display: block;
+    height: 50vh;
 }
 #footer{
     text-align: center;
     display: block;
     height: fit-content;
+}
+#pece{
+    text-align: center;
+    padding-top: 10px;
 }
 .push{
     height: 50vh;
@@ -123,7 +128,7 @@ iframe{
     margin-bottom: 100px;
 }
 #footer-link{
-    margin-bottom: 100px;
+    margin-bottom: 5px;
 }
 #footer-sm{
     padding: 5px 0px 5px 0px;

@@ -5,3 +5,24 @@
 #list:nth-of-type(1){
     margin-top: 25px;
 }
+#config{
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: #00000066;
+}
+#config-content{
+    background: white;
+    margin: 5vh auto 15vh auto;
+    padding: 15px;
+    width: 80vw;
+    text-align: center;
+}
+#config-content h1{
+    margin-bottom: 10px;
+}
