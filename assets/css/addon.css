@@ -1,0 +1,7 @@
+#list{
+    margin: 0;
+    margin-top: 5px;
+}
+#list:nth-of-type(1){
+    margin-top: 25px;
+}
