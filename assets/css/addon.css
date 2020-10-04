@@ -24,7 +24,7 @@
     text-align: center;
 }
 #config-content h1{
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 .times{
     right: 10vw;
@@ -35,4 +35,16 @@
 }
 .times:hover{
     color: red;
+}
+input[type='text']{
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    font-size: 1px;
+    height: 25px;
+}
+input[type='text']::placeholder{
+    color: black;
+    font-size: 20px;
+    text-align: center;
 }
