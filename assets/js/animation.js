@@ -1,7 +1,3 @@
-var controller = new ScrollMagic.Controller();
-new ScrollMagic.Scene({
-    duration: 100, 
-    offset: 50
-})
-.setPin("#myStickeyElement")
-.addTo(controller)
+window.addEventListener('scroll', () => {
+    document.body.style.setProperty('--scroll',window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
+}, false);
