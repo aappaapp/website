@@ -26,31 +26,13 @@
 #config-content h1{
     margin-bottom: 10px;
 }
-.jump-animation{
-    animation-name: jump;
-    animation-duration: 1s;
+.times{
+    right: 10vw;
+    top: 5vh;
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
 }
-.jump-out-animation{
-    animation-name: jump-out;
-    animation-duration: 0.5s;
-    display: none;
-}
-@keyframes jump{
-    0%{
-        transform: scale(0);
-    }
-    75%{
-        transform: scale(1.25);
-    }
-    100%{
-        transform: scale(1);
-    }
-}
-@keyframes jump-out{
-    0%{
-        transform: scale(1);
-    }
-    100%{
-        transform: scale(0);
-    }
+.times:hover{
+    color: red;
 }
