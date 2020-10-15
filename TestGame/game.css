@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    z-index: -1;
+}
+.sprte{
+    position: absolute;
+    z-index: -1;
+}
+.pausbtn{
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 5px;
+    border: 2.5px solid black;
+    padding: 0;
+    z-index: 1;
+}
+.flip{
+    transform: scaleX(-1);
+    z-index: -2;
+}
+.pauspage{
+    display: none;
+    z-index: 2;
+    background-color: #00000050;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+#gamearea{
+    display: none;
+    z-index: -2;
+}
+input[type='button'], button{
+    cursor: pointer;
+}

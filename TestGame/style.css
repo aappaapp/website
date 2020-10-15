@@ -1,0 +1,68 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+#sprite > img{
+    height: 25px;
+    width: 27.5px;
+}
+#enemy > img{
+    height: 25px;
+    width: 27.5px;
+}
+#HomePage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+#HomePage input{
+    border-radius: 100px;
+    width: fit-content;
+    height: 100px;
+    border: 5px solid black;
+    background-color: orange;
+    color: white;
+    font-weight: 700;
+    font-size: 25px;
+    outline: none;
+}
+#HomePage input:hover{
+    background-color: #c88200;
+    color: grey;
+}
+#pause-btn{
+    background-color: orange;
+}
+#pause-btn:hover{
+    background-color: rgb(200, 130, 0);
+}
+#pause-page .center{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.pausbtn > div{
+    font-size: 30px;
+    z-index: 1;
+}
+#pause-page input{
+    border-radius: 100px;
+    border: 2px solid black;
+    background-color: orange;
+    color: white;
+    height: 50px;
+    font-size: 20px;
+    outline: none;
+}
+#pause-page input:hover{
+    background-color: #c88200;
+    color: grey;
+}
+#pause-page h1{
+    color: white;
+}
