@@ -85,11 +85,11 @@ $.fn.generate = function(){
 $.fn.setCookie = function(cname, cvalue, exdays){
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    var expires = 'expires='+ d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 $.fn.getCookie = function(cname){
-    var name = cname + "=";
+    var name = cname + '=';
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
     for(var i = 0; i <ca.length; i++) {
@@ -101,12 +101,13 @@ $.fn.getCookie = function(cname){
         return c.substring(name.length, c.length);
         }
     }
-    return "";
+    return '';
 }
 $.fn.checkCookie = function(){
     console.log('d')
-    var coordinate = $().getCookie("coordinate");
-    if (coordinate != ""){
+    var xcoordinate = $().getCookie('xcoordinate');
+    var ycoordinate = $().getCookie('ycoordinate');
+    if (xcoordinate != '' && ycoordinate != ''){
         console.log('coordinate is ' + coordinate)
     }
 }
@@ -136,7 +137,8 @@ $(document).ready(function(){
         $('.pausbtn').css('display', 'block');
     });
     $('.savbtn').click(function(){
-        $().setCookie('coordinate', $('.control').css('top'), 365);
+        $().setCookie('xcoordinate', $('.control').css('left'), 365);
+        $().setCookie('ycoordinate', $('.control').css('top'), 365);
     });
     $(window).keydown(function(){
         if(window.start){
