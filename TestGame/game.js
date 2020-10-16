@@ -108,7 +108,7 @@ $.fn.checkCookie = function(){
     var xcoordinate = $().getCookie('xcoordinate');
     var ycoordinate = $().getCookie('ycoordinate');
     if (xcoordinate != '' && ycoordinate != ''){
-        console.log('coordinate is ' + coordinate)
+        console.log('coordinate x is ' + xcoordinate + ', y is ' + ycoordinate)
     }
 }
 $(document).ready(function(){
