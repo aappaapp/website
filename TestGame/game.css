@@ -28,7 +28,8 @@ body{
     background-color: #00000050;
     width: 100vw;
     height: 100vh;
-    position: relative;
+    position: fixed;
+    top: 0;
 }
 #gamearea{
     display: none;

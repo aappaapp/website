@@ -6,7 +6,7 @@ body{
     height: 25px;
     width: 27.5px;
 }
-#enemy > img{
+.enemy > img{
     height: 25px;
     width: 27.5px;
 }
