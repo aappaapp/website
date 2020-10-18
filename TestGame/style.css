@@ -5,6 +5,7 @@
 body{
     font-family: undertale;
     text-align: center;
+    background-color: black;
 }
 input{
     font-family: undertale;
@@ -17,7 +18,11 @@ input{
     height: 25px;
     width: 27.5px;
 }
+#HomePage h1{
+    font-weight: normal;
+}
 #HomePage{
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,16 +33,18 @@ input{
     border-radius: 100px;
     width: fit-content;
     height: 100px;
-    border: 5px solid black;
-    background-color: orange;
+    border: 5px solid white;
+    background-color: black;
     color: white;
+    font-weight: normal;
     font-weight: 700;
     font-size: 25px;
-    outline: none;
+    padding: 20px;
 }
 #HomePage input:hover{
-    background-color: #c88200;
-    color: grey;
+    background-color: white;
+    color: black;
+    border: 5px solid black;
 }
 #pause-btn{
     background-color: orange;
@@ -64,7 +71,6 @@ input{
     color: white;
     height: 50px;
     font-size: 20px;
-    outline: none;
 }
 #pause-page input:hover{
     background-color: #c88200;
@@ -74,18 +80,21 @@ input{
     color: white;
 }
 .fight-page > div > input[type='button']{
-    position: absolute;
     height: 60px;
     width: 140px;
     border: 5px solid white;
     background: none;
     color: white;
     font-size: 30px;
+    margin: 0 50px;
 }
-.fight-page > div > input[type='button']{
-    bottom: 0;
+.fight-page > #btn{
+    bottom: 50px;
+    margin: 0px 30px;
+    position: absolute;
+    width: 100vw;
 }
-.fight-page > input[type='button']:hover{
+.fight-page > #btn > input[type='button']:hover{
     border: 5px solid yellow;
     color: yellow;
 }
