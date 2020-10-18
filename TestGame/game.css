@@ -38,3 +38,7 @@ body{
 input[type='button'], button{
     cursor: pointer;
 }
+.fighpage{
+    display: none;
+    z-index: 1;
+}

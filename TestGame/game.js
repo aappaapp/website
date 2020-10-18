@@ -1,6 +1,6 @@
 var vh = $(window).height();
 var vw = $(window).width();
-$.fn.toUI = function(type){
+$.fn.toUI = function(type, config){
     if(type == 'startbtn'){
         this.addClass('starbtn');
     } else if(type == 'gamearea'){
@@ -15,6 +15,9 @@ $.fn.toUI = function(type){
         this.addClass('continubtn');
     } else if(type == 'savebtn'){
         this.addClass('savbtn');
+    } else if(type == 'fightpage'){
+        this.addClass(config + 'fighpage');
+        this.addClass('fighpage');
     } else {
         console.error('...toUI(\'' + type + '\') is wrong');
     }
@@ -77,7 +80,7 @@ $.fn.overlap = function(firstitem, seconditem){
 	return ! not_colliding;
 };
 $.fn.intoFight = function(enemyname){
-    $('.' + enemyname).css('display', 'none')
+    $('.' + enemyname + 'fighpage').css('display', 'block')
 }
 $.fn.generate = function(){
 
