@@ -81,6 +81,8 @@ $.fn.overlap = function(firstitem, seconditem){
 };
 $.fn.intoFight = function(enemyname){
     $('.' + enemyname + 'fighpage').css('display', 'block')
+    $( '.control' ).css('z-index', '100');
+    $( '.control' ).teleport('', 500, 500);
 }
 $.fn.generate = function(){
 
@@ -145,12 +147,6 @@ $(document).ready(function(){
     });
     $(window).keydown(function(){
         if(window.start){
-            if($().overlap($('.control'), $('.enemy'))){
-                var overlap = window.overlap;
-                if(overlap.includes('santa')){
-                    $().intoFight('santa');
-                }
-            }
             var xspeed = Number(window.xspeed);
             var yspeed = Number(window.yspeed);
             if(event.which == 39){
@@ -170,6 +166,12 @@ $(document).ready(function(){
                     $('.control').teleport('move', Number('-' + xspeed * 10), 0);
                 } else {
                     $('.control').teleport('move', xspeed * 10, 0);
+                }
+            }
+            if($().overlap($('.control'), $('.enemy'))){
+                var overlap = window.overlap;
+                if(overlap.includes('santa')){
+                    $().intoFight('santa');
                 }
             }
         }
