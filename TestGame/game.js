@@ -147,6 +147,9 @@ $(document).ready(function(){
         $().setCookie('xcoordinate', $('.control').css('left'), 365);
         $().setCookie('ycoordinate', $('.control').css('top'), 365);
     });
+    $('#mercy-btn').click(function(){
+        $('#mercy-alert').css('display', 'block');
+    });
     $(window).keydown(function(){
         if(window.start){
             var xspeed = Number(window.xspeed);

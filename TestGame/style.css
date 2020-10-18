@@ -82,7 +82,7 @@ h1{
     background: none;
     color: white;
     font-size: 30px;
-    margin: 0 50px;
+    margin: 0 25px;
 }
 .fight-page > #btn{
     bottom: 50px;
@@ -115,4 +115,20 @@ h1{
     left: 50%;
     transform: translate(-50%, -25%);
     transition: 1s;
+}
+#mercy-alert{
+    margin-top: 10px;
+    display: none;
+    z-index: 10;
+    position: absolute;
+    color: white;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0%);
+}
+#mercy-alert div{
+    margin-bottom: 5px;
+}
+#mercy-alert input{
+    margin: 0 5px;
 }
