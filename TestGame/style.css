@@ -10,6 +10,16 @@ body{
 input{
     font-family: undertale;
 }
+input[type='button'], button{
+    border: 5px solid white;
+    background-color: black;
+    color: white;
+}
+input[type='button']:hover, button:hover{
+    border: 5px solid black;
+    background-color: white;
+    color: black;
+}
 #sprite > img{
     height: 25px;
     width: 27.5px;
@@ -18,7 +28,7 @@ input{
     height: 25px;
     width: 27.5px;
 }
-#HomePage h1{
+h1{
     font-weight: normal;
 }
 #HomePage{
@@ -33,9 +43,6 @@ input{
     border-radius: 100px;
     width: fit-content;
     height: 100px;
-    border: 5px solid white;
-    background-color: black;
-    color: white;
     font-weight: normal;
     font-weight: 700;
     font-size: 25px;
@@ -45,12 +52,6 @@ input{
     background-color: white;
     color: black;
     border: 5px solid black;
-}
-#pause-btn{
-    background-color: orange;
-}
-#pause-btn:hover{
-    background-color: rgb(200, 130, 0);
 }
 #pause-page .center{
     margin: 0;
@@ -66,15 +67,8 @@ input{
 }
 #pause-page input{
     border-radius: 100px;
-    border: 2px solid black;
-    background-color: orange;
-    color: white;
     height: 50px;
     font-size: 20px;
-}
-#pause-page input:hover{
-    background-color: #c88200;
-    color: grey;
 }
 #pause-page h1{
     color: white;
@@ -102,4 +96,9 @@ input{
     background-color: black;
     width: 100vw;
     height: 100vh;
+}
+#fightarea{
+    border: 5px solid white;
+    width: 100px;
+    height: 100px;
 }

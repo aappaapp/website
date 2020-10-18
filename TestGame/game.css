@@ -14,7 +14,6 @@ body{
     right: 10px;
     top: 10px;
     border-radius: 5px;
-    border: 2.5px solid black;
     padding: 0;
     z-index: 1;
 }
