@@ -30,6 +30,7 @@ input[type='button']:hover, button:hover{
 }
 h1{
     font-weight: normal;
+    font-size: 3em;
 }
 #HomePage{
     color: white;
