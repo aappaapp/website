@@ -20,6 +20,12 @@ input[type='button']:hover, button:hover{
     background-color: white;
     color: black;
 }
+input[type='button']:active, button:active{
+    border: 5px solid white;
+    background-color: black;
+    color: white;
+    cursor: default;
+}
 #sprite > img{
     height: 25px;
     width: 27.5px;
@@ -48,11 +54,6 @@ h1{
     font-weight: 700;
     font-size: 25px;
     padding: 20px;
-}
-#HomePage input:hover{
-    background-color: white;
-    color: black;
-    border: 5px solid black;
 }
 #pause-page .center{
     margin: 0;
@@ -93,6 +94,11 @@ h1{
     border: 5px solid yellow;
     color: yellow;
 }
+.fight-page > #btn > input[type='button']:active{
+    border: 5px solid white;
+    color: white;
+    cursor: default;
+}
 .fight-page{
     background-color: black;
     width: 100vw;
@@ -107,6 +113,6 @@ h1{
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    transition: 0.25s;
+    transform: translate(-50%, -25%);
+    transition: 1s;
 }

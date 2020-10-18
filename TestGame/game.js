@@ -81,7 +81,7 @@ $.fn.overlap = function(firstitem, seconditem){
 };
 $.fn.intoFight = function(enemyname){
     $('.' + enemyname + 'fighpage').css('display', 'block')
-    $( '.control' ).css('z-index', '100');
+    $( '.control' ).css('z-index', '1');
     $( '.control' ).teleport('', 500, 500);
 }
 $.fn.generate = function(){
@@ -109,7 +109,6 @@ $.fn.getCookie = function(cname){
     return '';
 }
 $.fn.checkCookie = function(){
-    console.log('d')
     var xcoordinate = $().getCookie('xcoordinate');
     var ycoordinate = $().getCookie('ycoordinate');
     if (xcoordinate != '' && ycoordinate != ''){
@@ -126,8 +125,10 @@ $(document).ready(function(){
         $('.hompage').css('display', 'none');
         $('.gamarea').css('display', 'block');
         $('.pausbtn').css('display', 'block');
+        
     });
     $('.pausbtn').click(function(){
+        window.start = false;
         $('.pauspage').css('display', 'block');
         $('.pausbtn').css('display', 'none');
     });
@@ -138,6 +139,7 @@ $(document).ready(function(){
         }
     });
     $('.continubtn').click(function(){
+        window.start = true;
         $('.pauspage').css('display', 'none');
         $('.pausbtn').css('display', 'block');
     });
