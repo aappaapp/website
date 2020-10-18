@@ -46,6 +46,9 @@ h1{
     height: 100vh;
     flex-direction: column;
 }
+#HomePage{
+    letter-spacing: -5px;
+}
 #HomePage input{
     border-radius: 100px;
     width: fit-content;
