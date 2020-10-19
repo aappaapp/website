@@ -13,3 +13,6 @@ function page_choose(){
 function github_page(){
     window.top.location.href = 'https://github.com/adenpun/adenpun.github.io';
 }
+function game_page(){
+    window.top.location.href = 'ADENTALE/index.html';
+}
