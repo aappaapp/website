@@ -150,6 +150,9 @@ $(document).ready(function(){
     $('#mercy-btn').click(function(){
         $('#mercy-alert').css('display', 'block');
     });
+    $('#mercy-alert #cancel-btn').click(function(){
+        $('#mercy-alert').css('display', 'none');
+    });
     $(window).keydown(function(){
         if(window.start){
             var xspeed = Number(window.xspeed);
