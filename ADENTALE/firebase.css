@@ -11,6 +11,9 @@ body{
     text-align: center;
     background-color: black;
 }
+input.firebaseui-input, input.firebaseui-input-invalid{
+    text-align: center;
+}
 h1{
     font-weight: 100;
     margin: 50px 0;
@@ -34,4 +37,7 @@ h1{
 .mdl-button--raised.mdl-button--colored:hover{
     background: white;
     color: black;
+}
+.firebaseui-form-links{
+    display: none;
 }
