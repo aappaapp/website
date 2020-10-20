@@ -1,0 +1,37 @@
+@font-face {
+    font-family: undertale;
+    src: url(undertale-comic-sans-battle.ttf);
+}
+*{
+    font-family: undertale;
+    user-select: none;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: black;
+}
+h1{
+    font-weight: 100;
+    margin: 50px 0;
+    color: white;
+}
+.firebaseui-title{
+    text-align: center;
+}
+.firebaseui-container{
+    background: white;
+}
+.mdl-button--raised.mdl-button--colored{
+    background:black;
+}
+.firebaseui-form-actions{
+    text-align: center;
+}
+.mdl-textfield--floating-label .mdl-textfield__label{
+    text-align: center;
+}
+.mdl-button--raised.mdl-button--colored:hover{
+    background: white;
+    color: black;
+}

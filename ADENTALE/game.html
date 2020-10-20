@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>My Test Game - AdenSite</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+        <link rel='stylesheet' href='game.css'>
+        <link rel='stylesheet' href='style.css'>
+
+        <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+        <script src='game.js'></script>
+    </head>
+    <body>
+        <div id='HomePage'>
+            <h1>Adentale</h1>
+            <input type='button' value='Press Play!' id='start-btn'>
+        </div>
+        <div id='gamearea'>
+            <div id='sprite'><img src='sprite.png'></div>
+            <div id='santa' class='enemy'><img src='sprite.png'></div>
+            <div id='santa-fight' class='fight-page'>
+                <div id='fightarea'>
+
+                </div>
+                <img src=''>
+                <div id='btn'>
+                    <input type='button' value='Fight' id='fight-btn'>
+                    <input type='button' value='Act'>
+                    <input type='button' value='Mercy' id='mercy-btn'>
+                </div>
+            </div>
+        </div>
+        <button id='pause-btn'><div class='material-icons'>pause</div></button>
+        <div id='pause-page'>
+            <div class='center content'>
+                <h1>Pause</h1>
+                <input type='button' value='Continue' id='continue-btn'>
+                <input type='button' value='Save' id='save-btn'>
+            </div>
+        </div>
+        <div id='mercy-alert'>
+            <div>Mercy(unfinish)</div>
+            <input type='button' value="Flee"><input type='button' value='Spare'><input type='button' value="Cancel" id='cancel-btn'>
+        </div>
+    </body>
+    <script src='script.js'></script>
+</html>
