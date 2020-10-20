@@ -111,8 +111,11 @@ $.fn.getCookie = function(cname){
 $.fn.checkCookie = function(){
     var xcoordinate = $().getCookie('xcoordinate');
     var ycoordinate = $().getCookie('ycoordinate');
+    var login = $().getCookie('login')
     if (xcoordinate != '' && ycoordinate != ''){
         console.log('coordinate x is ' + xcoordinate + ', y is ' + ycoordinate)
+    } else if(login == '' || login == null || login == 'false'){
+        window.top.location.href = 'index.html';
     }
 }
 $(document).ready(function(){
