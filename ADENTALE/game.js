@@ -134,6 +134,7 @@ $(document).ready(function(){
     });
     $('.pauspage').click(function(event){
         if($(event.target).hasClass('pauspage')){
+            window.start = true;
             $('.pauspage').css('display', 'none');
             $('.pausbtn').css('display', 'block');
         }
@@ -146,12 +147,6 @@ $(document).ready(function(){
     $('.savbtn').click(function(){
         $().setCookie('xcoordinate', $('.control').css('left'), 365);
         $().setCookie('ycoordinate', $('.control').css('top'), 365);
-    });
-    $('#mercy-btn').click(function(){
-        $('#mercy-alert').css('display', 'block');
-    });
-    $('#mercy-alert #cancel-btn').click(function(){
-        $('#mercy-alert').css('display', 'none');
     });
     $(window).keydown(function(){
         if(window.start){
