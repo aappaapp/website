@@ -41,3 +41,9 @@ h1{
 .firebaseui-form-links{
     display: none;
 }
+.firebaseui-card-content{
+    padding: 1px;
+}
+.firebaseui-idp-button{
+    text-align: center;
+}
