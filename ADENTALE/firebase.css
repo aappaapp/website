@@ -43,7 +43,14 @@ h1{
 }
 .firebaseui-card-content{
     padding: 1px;
+    text-align: center;
 }
 .firebaseui-idp-button{
+    text-align: center;
+}
+.firebaseui-textfield{
+    width: 80%;
+}
+.firebaseui-relative-wrapper{
     text-align: center;
 }
