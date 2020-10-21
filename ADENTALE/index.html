@@ -2,14 +2,15 @@
     <head>
         <title>ADENTALE - AdenSite</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
-        <link rel="stylesheet" href="firebase.css" />
-        <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+        <link rel="stylesheet" href="firebase.css">
     </head>
     <body>
         <h1>Login to AdenTale</h1>
-        <div id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
+        <input style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
+            <br>
+            <input style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
+            <br>
+            <button disabled id="login" name="login">Sign In</button>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 

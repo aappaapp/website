@@ -1,21 +1,26 @@
 <html>
     <head>
-        <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
         <link rel="stylesheet" href="firebase.css" />
     </head>
     <body>
-        <h1>Login to <span>AdenTale</span></h1>
-        <div id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <div>
+            <input style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
+            <br>
+            <input style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
+            <br>
+            <button disabled id="login" name="login">Sign In</button>
+        </div>
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
         <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
 
+        <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
 
         <script src='firebase.js'></script>
     </body>
