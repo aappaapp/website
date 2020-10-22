@@ -95,3 +95,13 @@ function initApp() {
 window.onload = function() {
   initApp();
 };
+document.getElementById('email').addEventListener('keydown', function(event){
+  if(event.keyCode == 13){
+    toggleSignIn()
+  }
+});
+document.getElementById('password').addEventListener('keydown', function(event){
+  if(event.keyCode == 13){
+    toggleSignIn()
+  }
+});

@@ -121,9 +121,11 @@ $.fn.checkCookie = function(){
 }
 $.fn.render = function(){
     var i;
-    var readData = JSON.parse($().getCookie('data'));
-    $('.control').css('left', readData.xcoordinate)
-    $('.control').css('top', readData.ycoordinate)
+    if($().getCookie('data') != ''){
+        var readData = JSON.parse($().getCookie('data'));
+        $('.control').css('left', readData.xcoordinate)
+        $('.control').css('top', readData.ycoordinate)
+    }
 }
 $(document).ready(function(){
     $().checkCookie();
@@ -179,8 +181,6 @@ $(document).ready(function(){
                 $('.control').teleport('move', 0, Number('-' + yspeed));
             } else if(event.which == 40){
                 $('.control').teleport('move', 0, yspeed);
-            } else if(event.which == 116){
-                event.preventDefault();
             } else if(event.which == 32){
                 if($('.control').hasClass('flip')){
                     $('.control').teleport('move', Number('-' + xspeed * 10), 0);
