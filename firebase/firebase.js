@@ -13,75 +13,38 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-function toggleSignIn() {
-  if (firebase.auth().currentUser) {
-    // [START signout]
-    firebase.auth().signOut();
-    document.getElementById('login').textContent = 'Sign In';
-    // [END signout]
-  } else {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    if (email.length < 4) {
-      alert('Please enter an email address.');
-      return;
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+var uiConfig = {
+  callbacks: {
+    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+      // User successfully signed in.
+      // Return type determines whether we continue the redirect automatically
+      // or whether we leave that to developer to handle.
+      return true;
+    },
+    uiShown: function() {
+      // The widget is rendered.
+      // Hide the loader.
+      document.getElementById('loader').style.display = 'none';
     }
-    if (password.length < 4) {
-      alert('Please enter a password.');
-      return;
-    }
-    // Sign in with email and pass.
-    // [START authwithemail]
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // [START_EXCLUDE]
-      if (errorCode === 'auth/wrong-password') {
-        alert('Wrong password.');
-      } else {
-        alert(errorMessage);
-      }
-      console.log(error);
-      document.getElementById('login').disabled = false;
-      // [END_EXCLUDE]
-    });
-    // [END authwithemail]
-  }
-  document.getElementById('login').disabled = true;
-}
-function initApp() {
-  // Listening for auth state changes.
-  // [START authstatelistener]
-  firebase.auth().onAuthStateChanged(function(user) {
-    // [START_EXCLUDE silent]
-    // [END_EXCLUDE]
-    if (user) {
-      // User is signed in.
-      var displayName = user.displayName;
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
-      var providerData = user.providerData;
-      // [START_EXCLUDE]
-      document.getElementById('login').textContent = 'Sign out';
-      // [END_EXCLUDE]
-    } else {
-      // User is signed out.
-      // [START_EXCLUDE]
-      // [END_EXCLUDE]
-    }
-    // [START_EXCLUDE silent]
-    document.getElementById('login').disabled = false;
-    // [END_EXCLUDE]
-  });
-  // [END authstatelistener]
-
-  document.getElementById('login').addEventListener('click', toggleSignIn, false);
-}
-
-window.onload = function() {
-  initApp();
+  },
+  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+  signInFlow: 'popup',
+  signInSuccessUrl: '<url-to-redirect-to-on-success>',
+  signInOptions: [
+    // Leave the lines as is for the providers you want to offer your users.
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    firebase.auth.PhoneAuthProvider.PROVIDER_ID
+  ],
+  // Terms of service url.
+  tosUrl: '<your-tos-url>',
+  // Privacy policy url.
+  privacyPolicyUrl: '<your-privacy-policy-url>'
 };
+// The start method will wait until the DOM is loaded.
+ui.start('#firebaseui-auth-container', uiConfig);

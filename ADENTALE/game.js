@@ -83,6 +83,7 @@ $.fn.intoFight = function(enemyname){
     $('.' + enemyname + 'fighpage').css('display', 'block')
     $( '.control' ).css('z-index', '1');
     $( '.control' ).teleport('', 500, 500);
+    $( '.pausbtn' ).css('display', 'none');
 }
 $.fn.generate = function(){
 
