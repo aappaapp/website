@@ -20,6 +20,14 @@ $.fn.set = function(ref, data1){
         data: data1
     });
 }
+$.fn.read = function(){
+    return firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
+        var data = (snapshot.val() && snapshot.val().data) || 'Anonymous';
+        window.readData = data;
+        $().setCookie('data', JSON.stringify(data), 0.5)
+        // ...
+    });
+}
 $('#mercy-btn').click(function(){
     $('#mercy-alert').css('display', 'block');
 });

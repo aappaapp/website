@@ -119,8 +119,16 @@ $.fn.checkCookie = function(){
         window.top.location.href = 'index.html';
     }
 }
+$.fn.render = function(){
+    var i;
+    var readData = JSON.parse($().getCookie('data'));
+    $('.control').css('left', readData.xcoordinate)
+    $('.control').css('top', readData.ycoordinate)
+}
 $(document).ready(function(){
     $().checkCookie();
+    $().render();
+    $().read();
     $(window).contextmenu(function(event){
         event.preventDefault();
     });
