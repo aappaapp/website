@@ -113,13 +113,10 @@ $.fn.checkCookie = function(){
     var xcoordinate = $().getCookie('xcoordinate');
     var ycoordinate = $().getCookie('ycoordinate');
     var login = $().getCookie('login');
-    var uid = $().getCookie('uid');
     if (xcoordinate != '' && ycoordinate != ''){
         console.log('coordinate x is ' + xcoordinate + ', y is ' + ycoordinate)
-    } else if(login == '' || login == null || login == 'false'){
-        //window.top.location.href = 'index.html';
-    } else if(uid != ''){
-        window.uid = uid;
+    } else if(login != 'true'){
+        window.top.location.href = 'index.html';
     }
 }
 $(document).ready(function(){
@@ -152,9 +149,13 @@ $(document).ready(function(){
         $('.pausbtn').css('display', 'block');
     });
     $('.savbtn').click(function(){
-        $().setCookie('xcoordinate', $('.control').css('left'), 365);
-        $().setCookie('ycoordinate', $('.control').css('top'), 365);
-        set('', 'fdfd')
+        var xcoordinate1 = $('.control').css('left');
+        var ycoordinate1 = $('.control').css('top');
+        var a = {
+            xcoordinate: xcoordinate1,
+            ycoordinate: ycoordinate1
+        }
+        set('', a)
     });
     $(window).keydown(function(){
         if(window.start){

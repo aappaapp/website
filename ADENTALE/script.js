@@ -14,8 +14,9 @@ $('#santa').toSprite('enemy', 'santa');
 $('#santa').teleport('', 200, 200);
 
 //my custom script with jquery
+var uid = $().getCookie('uid');
 $.fn.set = function(ref, data1){
-    firebase.database().ref('/users/' + userId).set({
+    firebase.database().ref('/users/' + uid).set({
         data: data1
     });
 }
@@ -43,25 +44,25 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 // Get a reference to the database service
-var userId = window.uid;
 var database = firebase.database();
+var userId = window.uid;
 function writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email: email,
+    firebase.database().ref('users/' + userId).set({
+        username: name,
+        email: email,
     profile_picture : imageUrl
-  });
+});
 }
 function set(ref, data1){
-  firebase.database().ref('/users/' + userId).set({
-    data: data1
-  });
+    firebase.database().ref('/users/' + userId).set({
+        data: data1
+    });
 }
 function read(){
-  return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-  var data = (snapshot.val() && snapshot.val().data) || 'Anonymous';
-    // ...
-  });
+    return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+        var data = (snapshot.val() && snapshot.val().data) || 'Anonymous';
+        // ...
+    });
 }
 window.onload = function(){
     read()
