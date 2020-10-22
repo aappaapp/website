@@ -76,6 +76,7 @@ function initApp() {
         document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
       }
       setCookie('login', 'true', 0.5);
+      setCookie('uid', firebase.auth().currentUser.uid, 0.5);
       // [END_EXCLUDE]
     } else {
       // User is signed out.
