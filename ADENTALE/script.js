@@ -57,14 +57,14 @@ $('#fight-btn').click(function(){
 if($().overlap($('#sprite'), $('#santa-fight #btn input#fight-btn'))){
 }
 var firebaseConfig = {
-    apiKey: "AIzaSyD5fJ5gyslVtyuMJuF4RPWQdFFClstUY-s",
-    authDomain: "webdb-20101.firebaseapp.com",
-    databaseURL: "https://webdb-20101.firebaseio.com",
-    projectId: "webdb-20101",
-    storageBucket: "webdb-20101.appspot.com",
-    messagingSenderId: "558365281749",
-    appId: "1:558365281749:web:8146da88b5a34121a4c15c",
-    measurementId: "G-Y20RYC3NYS"
+    apiKey: "AIzaSyDkSOCf6OlKlQK7dpJytnsZECWczfYApCo",
+    authDomain: "webdb200101.firebaseapp.com",
+    databaseURL: "https://webdb200101.firebaseio.com",
+    projectId: "webdb200101",
+    storageBucket: "webdb200101.appspot.com",
+    messagingSenderId: "485833164369",
+    appId: "1:485833164369:web:66144cf75de59218461a70",
+    measurementId: "G-DXYPZLMPD7"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
