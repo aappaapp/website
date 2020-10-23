@@ -12,6 +12,7 @@ $( '#sprite' ).toSprite('control', '10,10');
 $( '#sprite' ).teleport('', 100, 200);
 $('#santa').toSprite('enemy', 'santa');
 $('#santa').teleport('', 200, 200);
+$('#fight-line').toSprite('sprite');
 
 //my custom script with jquery
 var uid = $().getCookie('uid');
@@ -33,6 +34,23 @@ $('#mercy-btn').click(function(){
 });
 $('#mercy-alert #cancel-btn').click(function(){
     $('#mercy-alert').css('display', 'none');
+});
+$('#fight-btn').click(function(){
+    $('#fightarea').css('width', '500px');
+    $('#sprite').css('display', 'none');
+    $('#fight-line').css('display', 'block');
+    move();
+    function move(){
+        setTimeout(function(){
+             move2();
+        }, 0.1);
+    }
+    function move2(){
+        $('#fight-line').teleport('move', 5, 0);
+        setTimeout(function(){
+            move();
+        }, 0.1);
+    }
 });
 
 //my custom script with function

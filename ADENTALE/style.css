@@ -90,7 +90,6 @@ h1{
 }
 .fight-page > #btn{
     bottom: 50px;
-    margin: 0px 30px;
     position: absolute;
     width: 100vw;
 }
@@ -135,4 +134,12 @@ h1{
 }
 #mercy-alert input{
     margin: 0 5px;
+}
+#fight-line{
+    width: 3px;
+    height: 200px;
+    position: absolute;
+    background-color: white;
+    display: none;
+    left: 0;
 }
