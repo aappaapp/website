@@ -181,13 +181,13 @@ $(document).ready(function(){
                 $('.control').teleport('move', 0, Number('-' + yspeed));
             } else if(event.which == 40){
                 $('.control').teleport('move', 0, yspeed);
-            } else if(event.which == 32){
-                if($('.control').hasClass('flip')){
-                    $('.control').teleport('move', Number('-' + xspeed * 10), 0);
-                } else {
-                    $('.control').teleport('move', xspeed * 10, 0);
-                }
-            }
+            }// else if(event.which == 32){
+                //if($('.control').hasClass('flip')){
+                  //  $('.control').teleport('move', Number('-' + xspeed * 10), 0);
+                //} else {
+                  //  $('.control').teleport('move', xspeed * 10, 0);
+                //}
+            //}
             if($().overlap($('.control'), $('.enemy'))){
                 var overlap = window.overlap;
                 if(overlap.includes('santa')){

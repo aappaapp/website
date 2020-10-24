@@ -39,6 +39,8 @@ $('#fight-btn').click(function(){
     $('#fightarea').css('width', '500px');
     $('#sprite').css('display', 'none');
     $('#fight-line').css('display', 'block');
+    $('#fightbar').css('display', 'flex');
+    $('#fight-btn').blur();
     move();
     function move(){
         setTimeout(function(){
@@ -46,16 +48,22 @@ $('#fight-btn').click(function(){
         }, 0.1);
     }
     function move2(){
-        $('#fight-line').teleport('move', 5, 0);
+        $('#fight-line').teleport('move', 1, 0);
         setTimeout(function(){
             move();
         }, 0.1);
     }
 });
+$(window).keydown(function(){
+    if(event.which == 32){
+        console.log($().overlap($('#sprite'), $('#green-bar')))
+        if($().overlap($('#sprite'), $('#green-bar'))){
+            //alert('you torch green!');
+        }
+    }
+});
 
 //my custom script with function
-if($().overlap($('#sprite'), $('#santa-fight #btn input#fight-btn'))){
-}
 var firebaseConfig = {
     apiKey: "AIzaSyDkSOCf6OlKlQK7dpJytnsZECWczfYApCo",
     authDomain: "webdb200101.firebaseapp.com",

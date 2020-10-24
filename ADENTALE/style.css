@@ -142,4 +142,29 @@ h1{
     background-color: white;
     display: none;
     left: 0;
+    z-index: 2;
+}
+#green-bar{
+    background-color: greenyellow;
+    width: 100px;
+    height: 200px;
+}
+#yellow-bar{
+    background-color: yellow;
+    width: 100px;
+    height: 190px;
+}
+#red-bar{
+    background-color: red;
+    width: 100px;
+    height: 180px;
+}
+#fightbar{
+    width: 100%;
+    align-items: center;
+    z-index: 1;
+    display: none;
+}
+#blur{
+    display: none;
 }
