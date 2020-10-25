@@ -1,16 +1,18 @@
 :root{
     --cursor-default: url(cursor.cur), auto;
-    --cursor-pointer: url(cursor.cur), auto;
+    --cursor-pointer: url(pointer.cur), auto;
 }
 @font-face {
     font-family: undertale;
     src: url(undertale-comic-sans-battle.ttf);
 }
+html{
+    cursor: var(--cursor-default);
+}
 body{
     font-family: undertale;
     text-align: center;
     background-color: black;
-    cursor: var(--cursor-default);
 }
 input{
     font-family: undertale;
@@ -172,4 +174,8 @@ h1{
 }
 #blur{
     display: none;
+}
+.fight-page #enemy{
+    max-width: 70px;
+    transform: translate(0, 200%);
 }

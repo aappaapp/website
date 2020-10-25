@@ -1,3 +1,10 @@
+:root{
+    --cursor-default: url(cursor.cur), auto;
+    --cursor-pointer: url(pointer.cur), auto;
+}
+html{
+    cursor: var(--cursor-default);
+}
 @font-face {
     font-family: undertale;
     src: url(undertale-comic-sans-battle.ttf);
@@ -33,6 +40,7 @@ button{
     border: 2.5px solid white;
     outline: none;
     font-size: 20px;
+    cursor: var(--cursor-pointer);
 }
 button:hover{
     background-color: white;
