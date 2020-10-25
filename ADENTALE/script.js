@@ -36,34 +36,38 @@ $('#mercy-alert #cancel-btn').click(function(){
     $('#mercy-alert').css('display', 'none');
 });
 $('#fight-btn').click(function(){
+    window.startfight = true;
+    $('#fight-line').css('left', '0');
     $('#fightarea').css('width', '500px');
     $('#sprite').css('display', 'none');
-    $('#fight-line').css('display', 'block');
     $('#fightbar').css('display', 'flex');
+    $('#btn').css('display', 'none');
     $('#fight-btn').blur();
-    move();
-    function move(){
-        setTimeout(function(){
-             move2();
-        }, 0.1);
-    }
-    function move2(){
-        $('#fight-line').teleport('move', 1, 0);
-        setTimeout(function(){
-            move();
-        }, 0.1);
-    }
+    setTimeout(function(){
+        $('#fight-line').css('display', 'block');
+        window.repeatofightline = setInterval(function(){$('#fight-line').teleport('move', 2.5, 0);}, 0.1);
+    }, 1000)
 });
 $(window).keydown(function(){
     if(event.which == 32){
-        console.log($().overlap($('#sprite'), $('#green-bar')))
-        if($().overlap($('#sprite'), $('#green-bar'))){
-            //alert('you torch green!');
+        clearInterval(window.repeatofightline)
+        if(window.startfight == true){
+            if($().overlap($('#fight-line'), $('#green-bar'))){
+                alert('you torch green!');
+            } else {
+                alert('you dont torch green');
+            }
         }
+        $('#fightarea').css('width', '200px');
+        $('#fightbar').css('display', 'none');
+        $('#btn').css('display', 'block');
+        $('#fight-line').css('display', 'none');
+        window.startfight = false;
     }
 });
 
 //my custom script with function
+window.startfight = false;
 var firebaseConfig = {
     apiKey: "AIzaSyDkSOCf6OlKlQK7dpJytnsZECWczfYApCo",
     authDomain: "webdb200101.firebaseapp.com",

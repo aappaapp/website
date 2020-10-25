@@ -146,17 +146,17 @@ h1{
 }
 #green-bar{
     background-color: greenyellow;
-    width: 100px;
+    width: 50%;
     height: 200px;
 }
 #yellow-bar{
     background-color: yellow;
-    width: 100px;
+    width: 100%;
     height: 190px;
 }
 #red-bar{
     background-color: red;
-    width: 100px;
+    width: 150%;
     height: 180px;
 }
 #fightbar{
