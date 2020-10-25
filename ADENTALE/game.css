@@ -37,7 +37,7 @@ body{
     width: 100vw;
 }
 input[type='button'], button{
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
     outline: none;
 }
 .fighpage{

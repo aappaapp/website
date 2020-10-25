@@ -42,6 +42,6 @@ button:hover{
 button:active{
     background-color: black;
     color: white;
-    cursor: default;
+    cursor: var(--cursor-default);
     border: 2.5px solid white;
 }
