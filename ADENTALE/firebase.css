@@ -23,6 +23,7 @@ h1{
 #email, #password{
     margin: 10px;
     height: 40px;
+    outline: none;
 }
 button{
     background-color: black;
