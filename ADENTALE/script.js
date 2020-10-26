@@ -29,6 +29,10 @@ $.fn.read = function(){
         // ...
     });
 }
+if($().getDeviceType() == 'mobile'){
+    console.log($().getDeviceType())
+    $('#HomePage h1').text('You can\'t play Adentale in mobile now')
+}
 $('#mercy-btn').click(function(){
     $('#mercy-alert').css('display', 'block');
 });
@@ -88,8 +92,8 @@ function writeUserData(userId, name, email, imageUrl) {
     firebase.database().ref('users/' + userId).set({
         username: name,
         email: email,
-    profile_picture : imageUrl
-});
+        profile_picture : imageUrl
+    });
 }
 function set(ref, data1){
     firebase.database().ref('/users/' + userId).set({

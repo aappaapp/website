@@ -1,5 +1,15 @@
 var vh = $(window).height();
 var vw = $(window).width();
+$.fn.getDeviceType = function(){
+    var ua = navigator.userAgent;
+    if(/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)){
+        return "tablet";
+    }
+    if(/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)){
+        return "mobile";
+    }
+    return "desktop";
+}
 $.fn.toUI = function(type, config){
     if(type == 'startbtn'){
         this.addClass('starbtn');
@@ -60,24 +70,24 @@ $.fn.teleport = function(type, x, y){
     }
 };
 $.fn.overlap = function(firstitem, seconditem){
-	var d1_offset             = firstitem.offset();
-	var d1_height             = firstitem.outerHeight( true );
-	var d1_width              = firstitem.outerWidth( true );
-	var d1_distance_from_top  = d1_offset.top + d1_height;
+    var d1_offset             = firstitem.offset();
+    var d1_height             = firstitem.outerHeight( true );
+    var d1_width              = firstitem.outerWidth( true );
+    var d1_distance_from_top  = d1_offset.top + d1_height;
     var d1_distance_from_left = d1_offset.left + d1_width;
     
-	// Div 2 data
-	var d2_offset             = seconditem.offset();
-	var d2_height             = seconditem.outerHeight( true );
-	var d2_width              = seconditem.outerWidth( true );
-	var d2_distance_from_top  = d2_offset.top + d2_height;
-	var d2_distance_from_left = d2_offset.left + d2_width;
+    // Div 2 data
+    var d2_offset             = seconditem.offset();
+    var d2_height             = seconditem.outerHeight( true );
+    var d2_width              = seconditem.outerWidth( true );
+    var d2_distance_from_top  = d2_offset.top + d2_height;
+    var d2_distance_from_left = d2_offset.left + d2_width;
     window.overlap = seconditem.attr('class');
-
-	var not_colliding = ( d1_distance_from_top < d2_offset.top || d1_offset.top > d2_distance_from_top || d1_distance_from_left < d2_offset.left || d1_offset.left > d2_distance_from_left );
-
-	// Return whether it IS colliding
-	return ! not_colliding;
+    
+    var not_colliding = ( d1_distance_from_top < d2_offset.top || d1_offset.top > d2_distance_from_top || d1_distance_from_left < d2_offset.left || d1_offset.left > d2_distance_from_left );
+    
+    // Return whether it IS colliding
+    return ! not_colliding;
 };
 $.fn.intoFight = function(enemyname){
     $('.' + enemyname + 'fighpage').css('display', 'block')
@@ -86,7 +96,7 @@ $.fn.intoFight = function(enemyname){
     $( '.pausbtn' ).css('display', 'none');
 }
 $.fn.generate = function(){
-
+    
 }
 $.fn.setCookie = function(cname, cvalue, exdays){
     var d = new Date();
@@ -101,10 +111,10 @@ $.fn.getCookie = function(cname){
     for(var i = 0; i <ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
-        c = c.substring(1);
+            c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
+            return c.substring(name.length, c.length);
         }
     }
     return '';
@@ -182,11 +192,11 @@ $(document).ready(function(){
             } else if(event.which == 40){
                 $('.control').teleport('move', 0, yspeed);
             }// else if(event.which == 32){
-                //if($('.control').hasClass('flip')){
-                  //  $('.control').teleport('move', Number('-' + xspeed * 10), 0);
-                //} else {
-                  //  $('.control').teleport('move', xspeed * 10, 0);
-                //}
+            //if($('.control').hasClass('flip')){
+            //  $('.control').teleport('move', Number('-' + xspeed * 10), 0);
+            //} else {
+            //  $('.control').teleport('move', xspeed * 10, 0);
+            //}
             //}
             if($().overlap($('.control'), $('.enemy'))){
                 var overlap = window.overlap;
