@@ -32,6 +32,7 @@ $.fn.read = function(){
 if($().getDeviceType() == 'mobile'){
     console.log($().getDeviceType())
     $('#HomePage h1').text('You can\'t play Adentale in mobile now')
+    $('#HomePage input').css('display', 'none')
 }
 $('#mercy-btn').click(function(){
     $('#mercy-alert').css('display', 'block');
