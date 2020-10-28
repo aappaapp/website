@@ -177,6 +177,9 @@ h1{
     max-width: 70px;
     transform: translate(0, 200%);
 }
+.trap{
+    color: white;
+}
 .trap img{
     max-width: 20px;
 }

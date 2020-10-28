@@ -98,7 +98,7 @@ $.fn.overlap = function(firstitem, seconditem){
 $.fn.intoFight = function(enemyname){
     $('.' + enemyname + 'fighpage').css('display', 'block')
     $( '.control' ).css('z-index', '1');
-    $( '.control' ).teleport('', 500, 500);
+    $( '.control' ).css({'top': '50%', 'left': '50%'});
     $( '.pausbtn' ).css('display', 'none');
 }
 $.fn.generate = function(){
