@@ -34,13 +34,11 @@ input[type='button']:active, button:active{
     color: white;
     cursor: var(--cursor-default);
 }
-#sprite > img{
-    height: 25px;
-    width: 27.5px;
+.sprite > img{
+    max-width: 30px;
 }
 .enemy > img{
-    height: 25px;
-    width: 27.5px;
+    max-width: 30px;
 }
 h1{
     font-weight: normal;
@@ -178,4 +176,7 @@ h1{
 .fight-page #enemy{
     max-width: 70px;
     transform: translate(0, 200%);
+}
+.trap img{
+    max-width: 20px;
 }

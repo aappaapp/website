@@ -42,21 +42,27 @@ $.fn.toSprite = function(type, config){
     } else if(type == 'control'){
         this.addClass('sprte');
         this.addClass('control');
-        window.xspeed = config.split(',')[0];
-        window.yspeed = config.split(',')[1];
+        window.xspeed = config.xspeed;
+        window.yspeed = config.yspeed;
     } else if(type == 'enemy'){
         this.addClass('sprte');
         this.addClass('enemy');
         this.addClass(config);
+    } else if(type == 'trap'){
+        this.addClass('sprte');
+        this.addClass('trap');
     } else {
         console.error('...rite(\'' + type + '\') is wrong');
     }
 };
+$.fn.vari = function(data){
+    $().setCookie('data1', JSON.stringify(data), 0.5)
+}
 $.fn.teleport = function(type, x, y){
     if(this.hasClass('sprte') == true){
         if(type == ''){
-            this.css('left', x/10 + 'vw');
-            this.css('top', y/10 + 'vh');
+            this.css('left', x + 'px');
+            this.css('top', y + 'px');
         } else if(type == 'move'){
             var thcstopstr = Number(this.css('top').substr(0, this.css('top').length - 2));
             var thcsleftstr = Number(this.css('left').substr(0, this.css('left').length - 2));
@@ -191,18 +197,23 @@ $(document).ready(function(){
                 $('.control').teleport('move', 0, Number('-' + yspeed));
             } else if(event.which == 40){
                 $('.control').teleport('move', 0, yspeed);
-            }// else if(event.which == 32){
-            //if($('.control').hasClass('flip')){
-            //  $('.control').teleport('move', Number('-' + xspeed * 10), 0);
-            //} else {
-            //  $('.control').teleport('move', xspeed * 10, 0);
-            //}
-            //}
+            } else if(event.which == 27){
+                $('.pauspage').css('display', 'block')
+            }
             if($().overlap($('.control'), $('.enemy'))){
                 var overlap = window.overlap;
                 if(overlap.includes('santa')){
                     $().intoFight('santa');
                 }
+            } else if($().overlap($('.control'), $('.trap'))){
+                var a = $().getCookie('data1');
+                var b = JSON.parse(a);
+                $('.trap').css('display', 'none');
+                $('.gamarea').append('<div class=damage>-' + b.trap.damage + '</div>')
+                setTimeout(function(){
+                    $('.damage').css({'top': '-50px', 'opacity': '0'})
+                }, 1000)
+                console.log(b)
             }
         }
     });

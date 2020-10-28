@@ -44,3 +44,12 @@ input[type='button'], button{
     display: none;
     z-index: 0;
 }
+.damage{
+    color: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 50px;
+    z-index: 100;
+    transition: all 1s;
+}

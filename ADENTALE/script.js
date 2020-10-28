@@ -1,4 +1,13 @@
 //game.js function
+$().vari({
+    santa: {
+        hp: 100,
+        damage: 1
+    },
+    trap: {
+        damage: 10
+    }
+});
 $('#HomePage').toUI('homepage');
 $('#start-btn').toUI('startbtn');
 $('#gamearea').toUI('gamearea');
@@ -7,11 +16,16 @@ $('#pause-page').toUI('pausepage');
 $('#continue-btn').toUI('continuebtn');
 $('#santa-fight').toUI('fightpage', 'santa');
 $('#save-btn').toUI('savebtn');
-$( '#sprite' ).toSprite('sprite');
-$( '#sprite' ).toSprite('control', '10,10');
-$( '#sprite' ).teleport('', 100, 200);
+$('#sprite').toSprite('sprite');
+$('#sprite').toSprite('control', {
+    xspeed: 10,
+    yspeed: 10
+});
+$('#sprite').teleport('', 100, 200);
 $('#santa').toSprite('enemy', 'santa');
 $('#santa').teleport('', 200, 200);
+$('#trap').toSprite('trap', '10');
+$('#trap').teleport('', 100, 300);
 $('#fight-line').toSprite('sprite');
 
 //my custom script with jquery
