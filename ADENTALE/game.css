@@ -53,3 +53,11 @@ input[type='button'], button{
     z-index: 100;
     transition: all 1s;
 }
+#fullscreen{
+    z-index: 1000;
+    position: absolute;
+    color: white;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+}

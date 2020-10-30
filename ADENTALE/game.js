@@ -3,12 +3,12 @@ var vw = $(window).width();
 $.fn.getDeviceType = function(){
     var ua = navigator.userAgent;
     if(/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)){
-        return "tablet";
+        return 'tablet';
     }
     if(/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)){
-        return "mobile";
+        return 'mobile';
     }
-    return "desktop";
+    return 'desktop';
 }
 $.fn.toUI = function(type, config){
     if(type == 'startbtn'){
@@ -28,6 +28,8 @@ $.fn.toUI = function(type, config){
     } else if(type == 'fightpage'){
         this.addClass(config + 'fighpage');
         this.addClass('fighpage');
+    } else if(type == 'exitbtn'){
+        this.addClass('exibtn');
     } else {
         console.error('...toUI(\'' + type + '\') is wrong');
     }
@@ -136,14 +138,28 @@ $.fn.checkCookie = function(){
     }
 }
 $.fn.render = function(){
-    var i;
     if($().getCookie('data') != ''){
         var readData = JSON.parse($().getCookie('data'));
-        $('.control').css('left', readData.xcoordinate)
-        $('.control').css('top', readData.ycoordinate)
+        $('.control').css('left', readData.xcoordinate);
+        $('.control').css('top', readData.ycoordinate);
     }
 }
+$.fn.save = function(){
+    var xcoordinate1 = $('.control').css('left');
+    var ycoordinate1 = $('.control').css('top');
+    var hp1 = window.hp;
+    var a = {
+        xcoordinate: xcoordinate1,
+        ycoordinate: ycoordinate1, 
+        hp: hp1
+    }
+    $().set('', a);
+}
 $(document).ready(function(){
+    $('body').attr('id','body');
+    $(document).click(function(){
+        $('#body').fullscreen();
+    });
     $().checkCookie();
     $().render();
     $().read();
@@ -175,15 +191,13 @@ $(document).ready(function(){
         $('.pausbtn').css('display', 'block');
     });
     $('.savbtn').click(function(){
-        var xcoordinate1 = $('.control').css('left');
-        var ycoordinate1 = $('.control').css('top');
-        var a = {
-            xcoordinate: xcoordinate1,
-            ycoordinate: ycoordinate1
-        }
-        set('', a)
+        $().save();
     });
-    $(window).keydown(function(){
+    $('.exibtn').click(function(){
+        $().setCookie('login', 'false', 0.5);
+        location.reload();
+    });
+    $(window).keydown(function(event){
         if(window.start){
             var xspeed = Number(window.xspeed);
             var yspeed = Number(window.yspeed);
@@ -197,24 +211,34 @@ $(document).ready(function(){
                 $('.control').teleport('move', 0, Number('-' + yspeed));
             } else if(event.which == 40){
                 $('.control').teleport('move', 0, yspeed);
-            } else if(event.which == 27){
-                $('.pauspage').css('display', 'block')
+            } else if(event.which == 80){
+                $('.pauspage').css('display', 'block');
             }
             if($().overlap($('.control'), $('.enemy'))){
                 var overlap = window.overlap;
+                window.fighting = true;
                 if(overlap.includes('santa')){
                     $().intoFight('santa');
                 }
-            } else if($().overlap($('.control'), $('.trap'))){
-                var a = $().getCookie('data1');
-                var b = JSON.parse(a);
+            } else if($().overlap($('.control'), $('.trap')) && window.fighting != true){
+                var readData = JSON.parse($().getCookie('data1'));
                 $('.trap').css('display', 'none');
-                $('.gamarea').append('<div class=damage>-' + b.trap.damage + '</div>')
+                $('.gamarea').append('<div class=damage>-' + readData.trap.damage + '</div>')
                 setTimeout(function(){
                     $('.damage').css({'top': '-50px', 'opacity': '0'})
+                    window.hp = window.hp - b.trap.damage;
                 }, 1000)
                 console.log(b)
             }
         }
     });
+    $(document).bind('fscreenchange', function(e, state, elem) {
+		// if we currently in fullscreen mode
+		if ($.fullscreen.isFullScreen()) {
+			$('#fullscreen').css('display', 'none');
+		} else {
+			$('#fullscreen').css('display', 'block');
+		}
+		$('#state').text($.fullscreen.isFullScreen() ? '' : 'not');
+	});
 });

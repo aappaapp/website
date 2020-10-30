@@ -6,6 +6,9 @@ $().vari({
     },
     trap: {
         damage: 10
+    },
+    maincharator: {
+        hp: 100
     }
 });
 $('#HomePage').toUI('homepage');
@@ -14,6 +17,7 @@ $('#gamearea').toUI('gamearea');
 $('#pause-btn').toUI('pausebtn');
 $('#pause-page').toUI('pausepage');
 $('#continue-btn').toUI('continuebtn');
+$('#exit-btn').toUI('exitbtn');
 $('#santa-fight').toUI('fightpage', 'santa');
 $('#save-btn').toUI('savebtn');
 $('#sprite').toSprite('sprite');
@@ -72,9 +76,9 @@ $(window).keydown(function(){
         clearInterval(window.repeatofightline)
         if(window.startfight == true){
             if($().overlap($('#fight-line'), $('#green-bar'))){
-                alert('you torch green!');
+                
             } else {
-                alert('you dont torch green');
+                
             }
         }
         $('#fightarea').css('width', '200px');
@@ -109,18 +113,4 @@ function writeUserData(userId, name, email, imageUrl) {
         email: email,
         profile_picture : imageUrl
     });
-}
-function set(ref, data1){
-    firebase.database().ref('/users/' + userId).set({
-        data: data1
-    });
-}
-function read(){
-    return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-        var data = (snapshot.val() && snapshot.val().data) || 'Anonymous';
-        // ...
-    });
-}
-window.onload = function(){
-    read()
 }
