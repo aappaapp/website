@@ -1,31 +1,38 @@
 <html>
 
 <head>
-    <title>ADENTALE - AdenSite</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
-    <link rel="stylesheet" href="firebase.css">
+	<title>ADENTALE - AdenSite</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+	<link rel="stylesheet" href="firebase.css">
+	<script type="application/ld+json">
+		{
+			"@context": "https://adenpun.github.io",
+			"@type": "WebSite",
+			"url": "https://adenpun.github.io"
+		}
+	</script>
 </head>
 
 <body>
-    <h1>Login to AdenTale</h1>
-    <input type="text" id="email" name="email" placeholder="Email">
-    <br>
-    <input type="password" id="password" name="password" placeholder="Password">
-    <br>
-    <button disabled id="login" name="login">Sign In</button>
+	<h1>Login to AdenTale</h1>
+	<input type="text" id="email" name="email" placeholder="Email">
+	<br>
+	<input type="password" id="password" name="password" placeholder="Password">
+	<br>
+	<button disabled id="login" name="login">Sign In</button>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-			https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+		https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
 
-    <script src='firebase.js'></script>
+	<script src='firebase.js'></script>
 </body>
 
 </html>
