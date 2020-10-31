@@ -26,7 +26,6 @@ $.fn.toUI = function(type, config){
     } else if(type == 'savebtn'){
         this.addClass('savbtn');
     } else if(type == 'fightpage'){
-        this.addClass(config + 'fighpage');
         this.addClass('fighpage');
     } else if(type == 'exitbtn'){
         this.addClass('exibtn');
@@ -70,6 +69,9 @@ $.fn.teleport = function(type, x, y){
             var thcsleftstr = Number(this.css('left').substr(0, this.css('left').length - 2));
             this.css('left', thcsleftstr + x + 'px');
             this.css('top', thcstopstr + y + 'px');
+        } else if(type == '%'){
+            this.css('left', x + '%');
+            this.css('top', y + '%');
         } else {
             console.error('...port(\'' + type + '\'...is wrong');
         }
@@ -97,12 +99,6 @@ $.fn.overlap = function(firstitem, seconditem){
     // Return whether it IS colliding
     return ! not_colliding;
 };
-$.fn.intoFight = function(enemyname){
-    $('.' + enemyname + 'fighpage').css('display', 'block')
-    $( '.control' ).css('z-index', '1');
-    $( '.control' ).css({'top': '50%', 'left': '50%'});
-    $( '.pausbtn' ).css('display', 'none');
-}
 $.fn.generate = function(){
     
 }
@@ -142,6 +138,8 @@ $.fn.render = function(){
         var readData = JSON.parse($().getCookie('data'));
         $('.control').css('left', readData.xcoordinate);
         $('.control').css('top', readData.ycoordinate);
+    } else {
+        alert('sd')
     }
 }
 $.fn.save = function(){
@@ -156,6 +154,11 @@ $.fn.save = function(){
     $().set('', a);
 }
 $(document).ready(function(){
+    $.get('plot.json', function(data){
+        data = JSON.parse(data);
+        $().setCookie('plot', JSON.stringify(data), 0.5);
+        console.log(data);
+    }, 'text');
     $('body').attr('id','body');
     $(document).click(function(){
         $('#body').fullscreen();
@@ -214,13 +217,7 @@ $(document).ready(function(){
             } else if(event.which == 80){
                 $('.pauspage').css('display', 'block');
             }
-            if($().overlap($('.control'), $('.enemy'))){
-                var overlap = window.overlap;
-                window.fighting = true;
-                if(overlap.includes('santa')){
-                    $().intoFight('santa');
-                }
-            } else if($().overlap($('.control'), $('.trap')) && window.fighting != true){
+            if($().overlap($('.control'), $('.trap')) && window.fighting != true){
                 var readData = JSON.parse($().getCookie('data1'));
                 $('.trap').css('display', 'none');
                 $('.gamarea').append('<div class=damage>-' + readData.trap.damage + '</div>')
@@ -233,12 +230,12 @@ $(document).ready(function(){
         }
     });
     $(document).bind('fscreenchange', function(e, state, elem) {
-		// if we currently in fullscreen mode
-		if ($.fullscreen.isFullScreen()) {
-			$('#fullscreen').css('display', 'none');
-		} else {
-			$('#fullscreen').css('display', 'block');
-		}
-		$('#state').text($.fullscreen.isFullScreen() ? '' : 'not');
-	});
+        // if we currently in fullscreen mode
+        if ($.fullscreen.isFullScreen()) {
+            $('#fullscreen').css('display', 'none');
+        } else {
+            $('#fullscreen').css('display', 'block');
+        }
+        $('#state').text($.fullscreen.isFullScreen() ? '' : 'not');
+    });
 });

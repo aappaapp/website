@@ -18,22 +18,21 @@ $('#pause-btn').toUI('pausebtn');
 $('#pause-page').toUI('pausepage');
 $('#continue-btn').toUI('continuebtn');
 $('#exit-btn').toUI('exitbtn');
-$('#santa-fight').toUI('fightpage', 'santa');
+$('.fight-page').toUI('fightpage');
 $('#save-btn').toUI('savebtn');
 $('#sprite').toSprite('sprite');
 $('#sprite').toSprite('control', {
     xspeed: 10,
     yspeed: 10
 });
-$('#sprite').teleport('', 100, 200);
+$('#sprite').teleport('%', 50, 50);
 $('#santa').toSprite('enemy', 'santa');
-$('#santa').teleport('', 200, 200);
-$('#trap').toSprite('trap', '10');
-$('#trap').teleport('', 100, 300);
+$('#santa').teleport('%', 50, 30);
 $('#fight-line').toSprite('sprite');
 
 //my custom script with jquery
 var uid = $().getCookie('uid');
+var plot = JSON.parse($().getCookie('plot'));
 $.fn.set = function(ref, data1){
     firebase.database().ref('/users/' + uid).set({
         data: data1
@@ -46,6 +45,23 @@ $.fn.read = function(){
         $().setCookie('data', JSON.stringify(data), 0.5)
         // ...
     });
+}
+$.fn.intoFight = function(config){
+    $('.fighpage').css('display', 'block')
+    $('.enemy').css('display', 'none');
+    $( '.control' ).css('z-index', '1');
+    $( '.control' ).css({'top': '50%', 'left': '50%'});
+    $( '.pausbtn' ).css('display', 'none');
+    console.log('asd');
+    if(config.name == 'santa'){
+        if(config.other.seeTime == 'first'){
+            $('#fightarea').css('width', '500px');
+            $('#sprite').css('display', 'none')
+            $('#btn').css('display', 'none')
+            $('#fightarea').append('<div class=dialog>' + plot.dialog.santa.hello.text + '</div>');
+        }
+    }
+
 }
 if($().getDeviceType() == 'mobile'){
     console.log($().getDeviceType())
@@ -87,6 +103,20 @@ $(window).keydown(function(){
         $('#fight-line').css('display', 'none');
         window.startfight = false;
     }
+    if(window.start && window.fighting != true){
+        if($().overlap($('.control'), $('.enemy'))){
+            var overlap = window.overlap;
+            window.fighting = true;
+            if(overlap.includes('santa')){
+                $().intoFight({
+                    name: 'santa',
+                    other: {
+                        seeTime: 'first'
+                    }
+                });
+            }
+        }
+    }
 });
 
 //my custom script with function
@@ -103,7 +133,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+//firebase.analytics();
 // Get a reference to the database service
 var database = firebase.database();
 var userId = window.uid;
