@@ -1,63 +1,63 @@
 body{
-    margin: 0;
-    overflow: hidden;
-    user-select: none;
-    z-index: -1;
+	margin: 0;
+	overflow: hidden;
+	user-select: none;
+	z-index: -1;
 }
 .sprte{
-    position: absolute;
-    z-index: -1;
+	position: absolute;
+	z-index: -1;
 }
 .pausbtn{
-    display: none;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    border-radius: 5px;
-    padding: 0;
-    z-index: 1;
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	border-radius: 5px;
+	padding: 0;
+	z-index: 1;
 }
 .flip{
-    transform: scaleX(-1);
-    z-index: -2;
+	transform: scaleX(-1);
+	z-index: -2;
 }
 .pauspage{
-    display: none;
-    z-index: 2;
-    background-color: #00000050;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
+	display: none;
+	z-index: 2;
+	background-color: #00000050;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
 }
 #gamearea{
-    display: none;
-    z-index: -2;
-    height: 100vh;
-    width: 100vw;
+	display: none;
+	z-index: -2;
+	height: 100vh;
+	width: 100vw;
 }
 input[type='button'], button{
-    cursor: var(--cursor-pointer);
-    outline: none;
+	cursor: var(--cursor-pointer);
+	outline: none;
 }
 .fighpage{
-    display: none;
-    z-index: 0;
+	display: none;
+	z-index: 0;
 }
 .damage{
-    color: white;
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 50px;
-    z-index: 100;
-    transition: all 1s;
+	color: white;
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-size: 50px;
+	z-index: 100;
+	transition: all 1s;
 }
 #fullscreen{
-    z-index: 1000;
-    position: absolute;
-    color: white;
-    background-color: black;
-    width: 100vw;
-    height: 100vh;
+	z-index: 1000;
+	position: absolute;
+	color: white;
+	background-color: black;
+	width: 100vw;
+	height: 100vh;
 }

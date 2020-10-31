@@ -1,18 +1,18 @@
 {
-    "dialog": {
-        "santa": {
-            "hello": {
-                "text": "Hello, I am Santa. (Press Z or Enter to goto the next page)"
-            },
-            "hello2": {
-                "text": "Are you alone?"
-            },
-            "hello3": {
-                "text": "Come!"
-            },
-            "hello4": {
-                "text": "I will give you warm."
-            }
-        }
-    }
+	"dialog": {
+		"santa": {
+			"hello": {
+				"text": "Hello, I am Santa. (Press Z or Enter to goto the next page)"
+			},
+			"hello2": {
+				"text": "Are you alone?"
+			},
+			"hello3": {
+				"text": "Come!"
+			},
+			"hello4": {
+				"text": "I will give you warm."
+			}
+		}
+	}
 }
