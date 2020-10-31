@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
+#homepage{
+    background-color: #000000;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+#startremind{
+    font-size: 20px;
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translate(-50%, 0%);
+    padding: 10px;
+    color: white;
+    animation: twinkling 2.5s infinite;
+}
+#gamearea{
+    display: none;
+}
+#warning{
+    display: none;
+    background-color: #000000;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+}
+@keyframes twinkling{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
