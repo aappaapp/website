@@ -10,15 +10,31 @@ function getDeviceType() {
     }
     return "desktop";
 };
+function play_beta() {
+    $('#warning').css('display', 'none');
+    $('div:not(#warning)').css('display', 'block');
+}
 $(document).ready(function () {
     var deviceType = getDeviceType();
     if (deviceType == 'desktop') {
         $('div:not(#warning)').css('display', 'none');
         $('#warning').css('display', 'block');
-        $('#warning h1').html('This is a Mobile Game.<br>But the app is not finish.<br>if the app finish, this page will change to download page.');
+        $('#warning h1').html('This is a Mobile Game.<br>If you want to play in desktop, you can press this <a href=javascript:play_beta()>Link</a> to play beta!');
     }
     $(document).click(function () {
         $('#homepage').css('display', 'none');
         $('#gamearea').css('display', 'block');
+    });
+    $('#warrior').click(function () {
+        $('#spriteselect > div').css('display', 'none');
+        $('#spriteinfo').css('display', 'block');
+        $('#spriteinfo > *:not(#warrior)').css('display', 'none');
+        $('#spriteinfo #warrior').css('display', 'block');
+    });
+    $('#warrior #choosebtn').click(function () {
+        window.chosehero = 'warrior';
+        $('#spriteinfo').css('display', 'none');
+        $('#spriteselect > *:not(#spriteinfo)').css('display', 'block');
+        alert(window.chosehero);
     });
 });
