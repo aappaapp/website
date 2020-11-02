@@ -17,6 +17,6 @@ function game_page(config) {
     if (config == 1) {
         window.top.location.href = 'ADENTALE/index.html';
     } else if (config == 2) {
-        window.top.location.href = 'SoulKnight/index.html';
+        window.top.location.href = 'SolerFight/index.html';
     }
 }
