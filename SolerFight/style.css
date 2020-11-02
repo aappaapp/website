@@ -32,6 +32,13 @@ input{
     padding: 10px;
     color: white;
 }
+#startbtn{
+    color: white;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    transform: translate(-50%, -50%);
+}
 #spriteselect{
     background-color: #000000;
     height: 100vh;
@@ -42,6 +49,9 @@ input{
 }
 #spriteselect .sprite img{
     max-width: 55px;
+}
+#sprite, .sprite{
+    display: inline-block;
 }
 #spriteinfo{
     display: none;
@@ -82,7 +92,13 @@ input{
     border-radius: 10px;
     transform: translate(-50%, -50%);
 }
+#shop{
+    display: none;
+}
 #gamearea{
+    display: none;
+}
+#fightarea{
     display: none;
 }
 #warning{

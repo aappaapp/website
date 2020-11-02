@@ -12,29 +12,33 @@ function getDeviceType() {
 };
 function play_beta() {
     $('#warning').css('display', 'none');
-    $('div:not(#warning)').css('display', 'block');
+    $('div:not(#warning)').css('display', 'inline-block');
 }
 $(document).ready(function () {
     var deviceType = getDeviceType();
     if (deviceType == 'deskatop') {
         $('div:not(#warning)').css('display', 'none');
-        $('#warning').css('display', 'block');
+        $('#warning').css('display', 'inline-block');
         $('#warning h1').html('This is a Mobile Game.<br>If you want to play in desktop, you can press this <a href=javascript:play_beta()>Link</a> to play beta!');
     }
-    $(document).click(function () {
+    $('#homepage').click(function () {
         $('#homepage').css('display', 'none');
-        $('#gamearea').css('display', 'block');
+        $('#gamearea').css('display', 'inline-block');
     });
     $('#warrior').click(function () {
         $('#spriteselect > div').css('display', 'none');
-        $('#spriteinfo').css('display', 'block');
+        $('#spriteinfo').css('display', 'inline-block');
         $('#spriteinfo > *:not(#warrior)').css('display', 'none');
-        $('#spriteinfo #warrior').css('display', 'block');
+        $('#spriteinfo #warrior').css('display', 'inline-block');
     });
     $('#warrior #choosebtn').click(function () {
         window.chosehero = 'warrior';
         $('#spriteinfo').css('display', 'none');
-        $('#spriteselect > *:not(#spriteinfo)').css('display', 'block');
-        alert(window.chosehero);
+        $('#spriteselect > *:not(#spriteinfo, #shop)').css('display', 'inline-block');
+        $('#fightarea').css('display', 'inline-block');
+        if (window.chosehero == 'warrior') {
+            $('#fightarea > #sprite').html('<img src=\'' + window.chosehero + '.png\'>')
+        }
     });
+    $('#gamearea #startbtn').click(function () { });
 });
