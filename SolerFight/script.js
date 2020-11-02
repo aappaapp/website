@@ -16,7 +16,7 @@ function play_beta() {
 }
 $(document).ready(function () {
     var deviceType = getDeviceType();
-    if (deviceType == 'desktop') {
+    if (deviceType == 'deskatop') {
         $('div:not(#warning)').css('display', 'none');
         $('#warning').css('display', 'block');
         $('#warning h1').html('This is a Mobile Game.<br>If you want to play in desktop, you can press this <a href=javascript:play_beta()>Link</a> to play beta!');
