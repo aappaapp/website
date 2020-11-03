@@ -3,6 +3,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
     user-select: none;
+    background-color: #000000;
 }
 input{
     outline: none;
@@ -50,7 +51,7 @@ input{
 #spriteselect .sprite img{
     max-width: 55px;
 }
-#sprite, .sprite{
+#sprite, .sprite,  #sprite img, .sprite img{
     display: inline-block;
 }
 #spriteinfo{
