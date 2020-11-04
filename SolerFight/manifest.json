@@ -1,0 +1,17 @@
+{
+    "name": "Soler Fight",
+    "short_name": "Soler Fight",
+    "description": "A web game make by Aden Pun",
+    "start_url": "index.html",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512"
+        }
+    ]
+}
