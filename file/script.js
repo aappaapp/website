@@ -1,5 +1,6 @@
 var fileReader = new FileReader();
 $('input').change(function (event) {
+    console.log('sds');
     if (this.files.length > 0) {
         //有選取file時，使用fileReader讀取file資料
         //readAsDataURL可以將讀取到的file資料轉成
@@ -14,5 +15,5 @@ $('input').change(function (event) {
 });
 $('img').addEventListener("load", function (event) {
     //讀取後設定<img>的src
-    imageView.src = this.result;
+    this.src = this.result;
 }, false);
