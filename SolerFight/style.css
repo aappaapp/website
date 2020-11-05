@@ -4,12 +4,12 @@ body{
     overflow: hidden;
     user-select: none;
     background-color: #000000;
+    color: white;
 }
 input{
     outline: none;
 }
 #homepage{
-    color: white;
     background-color: #000000;
     width: 100vw;
     height: 100vh;
@@ -22,7 +22,6 @@ input{
     bottom: 5%;
     transform: translate(-50%, 0%);
     padding: 10px;
-    color: white;
     animation: twinkling 2s infinite;
 }
 #homepage h1{
@@ -30,11 +29,9 @@ input{
     left: 50%;
     top: 10%;
     transform: translate(-50%, 0%);
-    padding: 10px;
-    color: white;
+    padding: 10px
 }
 #startbtn{
-    color: white;
     position: absolute;
     right: 5%;
     top: 5%;
@@ -45,18 +42,23 @@ input{
     height: 100vh;
     width: 100vw;
 }
-#spriteselect .sprite{
+#sprite, .sprite{
     display: inline-block;
 }
-#spriteselect .sprite img{
+.sprite, #sprite{
+    display: inline-block;
+    position: absolute;
+}
+.sprite img, #sprite img{
     max-width: 55px;
 }
-#sprite, .sprite,  #sprite img, .sprite img{
-    display: inline-block;
+#warrior.sprite{
+    left: 50%;
+    top: 50px;
+    transform: translate(-50%, 0%);
 }
 #spriteinfo{
     display: none;
-    color: white;
     height: 100vh;
     width: 100vw;
 }
@@ -107,7 +109,6 @@ input{
     background-color: #000000;
     height: 100vh;
     width: 100vw;
-    color: white;
 }
 @keyframes twinkling{
     0%{
@@ -120,6 +121,6 @@ input{
         opacity: 1;
     }
 }
-a{
-    color: white;
+.block{
+    color: grey;
 }

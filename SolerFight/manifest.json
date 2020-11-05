@@ -1,5 +1,5 @@
 {
-    "name": "Soler Fight",
+    "name": "Download Soler Fight",
     "short_name": "Soler Fight",
     "description": "A web game make by Aden Pun",
     "icons": [
@@ -16,6 +16,7 @@
     ],
     "start_url": "index.html",
     "display": "fullscreen",
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff"
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "scope": "/"
 }
