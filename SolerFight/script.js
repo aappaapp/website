@@ -50,11 +50,16 @@ $.fn.move = function (x, y) {
     this.css('top', y1 + y + 'px');
 }
 function generatescene() {
-    Math.floor(Math.random() * 101) + 1;
+    var randomnum = (Math.floor(Math.random() * 999999999999) + 100000000000).toString();
+    console.log(randomnum);
     for (i = 1; i < 101; i++) {
-        $('#fightarea').append('<div class=\'block\'>block' + i + '</div>');
+        $('#fightarea').append('<div class=\'block block' + i + '\'><img src=block.png></div>');
+        var x = randomnum.charAt(i * i - 1);
+        var y = randomnum.charAt(i * i);
+        var block = randomnum.charAt(i * i + 1);
+        console.log(x + y + block);
     }
-    $('.block').wrapAll('<div class=\'scene\'></div>');
+    $('.block').wrapAll('<div class=\'blockgroup\'></div>');
 }
 $(document).ready(function () {
     webapp();

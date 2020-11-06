@@ -15,6 +15,23 @@ input{
     height: 100vh;
     position: relative;
 }
+#homepage h1{
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, 0%);
+    padding: 10px;
+}
+#homepage div{
+    position: absolute;
+    right: 30%;
+    top: 22%;
+    transform: translate(-50%, 0%);
+    transform: rotateZ(25deg);
+    padding: 10px;
+    animation: twinkling 3s infinite;
+    color: yellow;
+}
 #startremind{
     font-size: 20px;
     position: absolute;
@@ -23,13 +40,6 @@ input{
     transform: translate(-50%, 0%);
     padding: 10px;
     animation: twinkling 2s infinite;
-}
-#homepage h1{
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    transform: translate(-50%, 0%);
-    padding: 10px
 }
 #startbtn{
     position: absolute;
@@ -121,6 +131,18 @@ input{
         opacity: 1;
     }
 }
+.scene{
+    width: 100vw;
+    height: 100vh;
+}
+.blockgroup{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+}
 .block{
-    color: grey;
+    display: inline-block;
+}
+.block img{
+    max-width: 25px;
 }
