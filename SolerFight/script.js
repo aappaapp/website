@@ -49,21 +49,25 @@ $.fn.move = function (x, y) {
     this.css('left', x1 + x + 'px');
     this.css('top', y1 + y + 'px');
 }
-function generatescene() {
-    var randomnum = (Math.floor(Math.random() * 999999999999) + 100000000000).toString();
-    console.log(randomnum);
-    for (i = 1; i < 101; i++) {
+function generatescene(blockvalue) {
+    window.blockgroup = '';
+    $('.blockgroup').remove();
+    for (i = 1; i < blockvalue * blockvalue + 1; i++) {
         $('#fightarea').append('<div class=\'block block' + i + '\'><img src=block.png></div>');
-        var x = randomnum.charAt(i * i - 1);
-        var y = randomnum.charAt(i * i);
-        var block = randomnum.charAt(i * i + 1);
-        console.log(x + y + block);
+        var value = Math.floor(Math.random() * i) + 1;
+        $('.block' + value).children().attr('src', 'icon-192.png');
+        console.log('.block' + value);
     }
     $('.block').wrapAll('<div class=\'blockgroup\'></div>');
+    for (i = 1; i < blockvalue + 1; i++) {
+        window.blockgroup = window.blockgroup + ' auto';
+    }
+    $('.blockgroup').css('grid-template-columns', window.blockgroup);
+    window.blockgroup = undefined;
 }
 $(document).ready(function () {
     webapp();
-    generatescene();
+    generatescene(18);
     window.deviceType = getDeviceType();
     if (window.deviceType == 'deskatop') {
         $('div:not(#warning)').css('display', 'none');
