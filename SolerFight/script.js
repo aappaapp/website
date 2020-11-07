@@ -44,8 +44,6 @@ function webapp() {
 $.fn.move = function (x, y) {
     var x1 = Number(this.css('left').substr(0, this.css('left').length - 2));
     var y1 = Number(this.css('top').substr(0, this.css('top').length - 2));
-    console.log(x1 + 'px');
-    console.log(x1 + x + 'px');
     this.css('left', x1 + x + 'px');
     this.css('top', y1 + y + 'px');
 }
@@ -53,14 +51,27 @@ function generatescene(blockvalue) {
     window.blockgroup = '';
     $('.blockgroup').remove();
     for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-        $('#fightarea').append('<div class=\'block block' + i + '\'><img src=block.png></div>');
+        $('#fightarea').append('<div class=\'block block' + i + '\'><img></div>');
         var value = Math.floor(Math.random() * i) + 1;
-        $('.block' + value).children().attr('src', 'icon-192.png');
-        console.log('.block' + value);
+        $('.block' + value).children().attr('src', 'chest.png');
     }
     $('.block').wrapAll('<div class=\'blockgroup\'></div>');
     for (i = 1; i < blockvalue + 1; i++) {
         window.blockgroup = window.blockgroup + ' auto';
+    }
+    for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+        if (i <= blockvalue) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
+        if (i % blockvalue == 1) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
+        if (i % blockvalue == 0) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
+        if (i >= blockvalue * blockvalue - blockvalue) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
     }
     $('.blockgroup').css('grid-template-columns', window.blockgroup);
     window.blockgroup = undefined;
