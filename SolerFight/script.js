@@ -44,20 +44,22 @@ function webapp() {
 $.fn.move = function (x, y) {
     var x1 = Number(this.css('left').substr(0, this.css('left').length - 2));
     var y1 = Number(this.css('top').substr(0, this.css('top').length - 2));
+    this.css('position', 'absolute');
     this.css('left', x1 + x + 'px');
     this.css('top', y1 + y + 'px');
 }
 function generatescene(blockvalue) {
+    window.randomscene = 1;
     window.blockgroup = '';
-    $('.blockgroup').remove();
-    for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-        $('#fightarea').append('<div class=\'block block' + i + '\'><img></div>');
-        var value = Math.floor(Math.random() * i) + 1;
-        $('.block' + value).children().attr('src', 'chest.png');
-    }
-    $('.block').wrapAll('<div class=\'blockgroup\'></div>');
     for (i = 1; i < blockvalue + 1; i++) {
         window.blockgroup = window.blockgroup + ' auto';
+    }
+    generaterandomscene(blockvalue);
+    generatestartscene(blockvalue);
+}
+function generatestartscene(blockvalue) {
+    for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+        $('#fightarea').append('<div class=\'block startblock block' + i + '\'><img></div>');
     }
     for (i = 1; i < blockvalue * blockvalue + 1; i++) {
         if (i <= blockvalue) {
@@ -73,12 +75,36 @@ function generatescene(blockvalue) {
             $('.block' + i).children().attr('src', 'block.png');
         }
     }
-    $('.blockgroup').css('grid-template-columns', window.blockgroup);
-    window.blockgroup = undefined;
+    $('.startblock').wrapAll('<div class=\'blockgroup startblockgroup\'></div>');
+    $('.startblockgroup').css('grid-template-columns', window.blockgroup);
+}
+function generaterandomscene(blockvalue) {
+    for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+        $('#fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
+        var value = Math.floor(Math.random() * i) + 1;
+        $('.block' + value + '.block').children().attr('src', 'chest.png');
+    }
+    $('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
+    for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+        if (i <= blockvalue) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
+        if (i % blockvalue == 1) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
+        if (i % blockvalue == 0) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
+        if (i >= blockvalue * blockvalue - blockvalue) {
+            $('.block' + i).children().attr('src', 'block.png');
+        }
+    }
+    console.log('.randomblockgroup' + window.randomscene);
+    $('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
+    window.randomscene = window.randomscene + 1;
 }
 $(document).ready(function () {
     webapp();
-    generatescene(18);
     window.deviceType = getDeviceType();
     if (window.deviceType == 'deskatop') {
         $('div:not(#warning)').css('display', 'none');
@@ -111,6 +137,7 @@ $(document).ready(function () {
     $('#gamearea #startbtn').click(function () {
         $('#spriteselect').css('display', 'none');
         $('#fightarea').css('display', 'inline-block');
+        generatescene(18);
     });
     $(document).keydown(function () {
         if (event.which == 39) {
