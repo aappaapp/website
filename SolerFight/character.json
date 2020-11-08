@@ -9,7 +9,7 @@
     },
     "magician": {
         "name": "Magician",
-        "introduction": "Is a great magician.",
+        "introduction": "Is a very great magician.",
         "id": "magician",
         "skin": {
             "normal": {}
