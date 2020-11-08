@@ -18,11 +18,11 @@ function webapp() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js', { scope: './' })
             .then(function (registration) {
-                console.log('Service Worker Registered');
+
             });
 
         navigator.serviceWorker.ready.then(function (registration) {
-            console.log('Service Worker Ready');
+
         });
         caches.keys().then(function (cacheNames) {
             cacheNames.forEach(function (cacheName) {
@@ -54,6 +54,7 @@ function generatescene(blockvalue) {
     for (i = 1; i < blockvalue + 1; i++) {
         window.blockgroup = window.blockgroup + ' auto';
     }
+    generaterandomscene(blockvalue);
     generaterandomscene(blockvalue);
     generatestartscene(blockvalue);
 }
@@ -99,7 +100,6 @@ function generaterandomscene(blockvalue) {
             $('.block' + i).children().attr('src', 'block.png');
         }
     }
-    console.log('.randomblockgroup' + window.randomscene);
     $('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
     window.randomscene = window.randomscene + 1;
 }
@@ -136,9 +136,16 @@ $(document).ready(function () {
     });
     $('#gamearea #startbtn').click(function () {
         $('#spriteselect').css('display', 'none');
-        $('#fightarea').css('display', 'inline-block');
-        generatescene(18);
+        $('#generateoption').css('display', 'inline-block');
     });
+    $('#generate').click(function () {
+        $('#generateoption').css('display', 'none');
+        $('#fightarea').css('display', 'inline-block');
+        generatescene(Number($('#generaterange').val()));
+    });
+    $('#generaterange').on('input', function () {
+        $('#rangevalue').text($('#generaterange').val());
+    })
     $(document).keydown(function () {
         if (event.which == 39) {
             $('#fightarea #sprite').move(10, 0);

@@ -136,7 +136,7 @@ input{
     height: 100vh;
 }
 .blockgroup{
-    display: grid;
+    display: inline-grid;
 }
 .block{
     display: inline-block;
