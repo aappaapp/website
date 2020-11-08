@@ -3,14 +3,14 @@
 <head>
 	<title>Soler Fight</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
-	<meta name="keywords" content="Soler Fight, Web Game">
-	<meta name="description" content="A web game">
-	<meta name="author" content="Aden Pun">
+	<meta name='keywords' content='Soler Fight, Web Game'>
+	<meta name='description' content='A web game'>
+	<meta name='author' content='Aden Pun'>
 
 	<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
 
-	<link rel='manifest' href="manifest.json">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel='manifest' href='manifest.json'>
+	<link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
 	<link rel='stylesheet' href='style.css'>
 </head>
 
@@ -21,22 +21,19 @@
 	<div id='homepage'>
 		<h1>Soler Fight Pre-Alpha 0.2b</h1>
 		<div>Generate Update!</div>
-		<span id="startremind">Press to start</span>
+		<span id='startremind'>Press to start</span>
 	</div>
 	<div id='gamearea'>
 		<div id='spriteselect'>
 			<div id='warrior' class='sprite'>
 				<img src='warriorsit.png' id='warriorsit'>
 			</div>
-			<div id='spriteinfo'>
-				<span class="material-icons">arrow_back_ios</span>
-				<div id='warrior'>
-					<h1>warrior</h1>
-					<div id='info'>
-						This is only a ordinary warrior.
-					</div>
-					<input type="button" value="Choose" id='choosebtn'>
-				</div>
+			<div id='magician' class='sprite'>magician</div>
+			<div class='spriteinfo'>
+				<span class='material-icons'>arrow_back_ios</span>
+				<h1>Sorry, We can't find your character.</h1>
+				<div id='info'></div>
+				<input type='button' value='Choose' id='choosebtn'>
 			</div>
 			<div id='startbtn'>Start</div>
 		</div>
@@ -45,26 +42,26 @@
 			<h1>Test Option</h1>
 			Number of sides:
 			<br>
-			<input id='generaterange' type="range" min="4" max="20" value="18">
+			<input id='generaterange' type='range' min='4' max='20' value='18'>
 			<br>
 			Value: <span id='rangevalue'>18</span>
 			<br>
-			<input type="button" value="generate!" id='generate'>
+			<input type='button' value='generate!' id='generate'>
 		</div>
 		<div id='fightarea'>
 			<div id='sprite'></div>
 		</div>
 
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
-		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+		<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js'></script>
 
 		<!-- TODO: Add SDKs for Firebase products that you want to use
 		https://firebase.google.com/docs/web/setup#available-libraries -->
-		<script src="https//www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+		<script src='https//www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js'></script>
 
-		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+		<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js'></script>
 
-		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+		<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js'></script>
 
 		<script src='script.js'></script>
 </body>

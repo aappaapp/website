@@ -1,0 +1,18 @@
+{
+    "warrior": {
+        "name": "Warrior",
+        "introduction": "Is an ordinary warrior.",
+        "id": "warrior",
+        "skin": {
+            "normal": {}
+        }
+    },
+    "magician": {
+        "name": "Magician",
+        "introduction": "Is a great magician.",
+        "id": "magician",
+        "skin": {
+            "normal": {}
+        }
+    }
+}

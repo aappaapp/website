@@ -1,14 +1,14 @@
 function getDeviceType() {
     var ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-        return "tablet";
+        return 'tablet';
     }
     if (
         /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)
     ) {
-        return "mobile";
+        return 'mobile';
     }
-    return "desktop";
+    return 'desktop';
 };
 function play_beta() {
     $('#warning').css('display', 'none');
@@ -82,8 +82,10 @@ function generatestartscene(blockvalue) {
 function generaterandomscene(blockvalue) {
     for (i = 1; i < blockvalue * blockvalue + 1; i++) {
         $('#fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
-        var value = Math.floor(Math.random() * i) + 1;
-        $('.block' + value + '.block').children().attr('src', 'chest.png');
+        if (i % 5 == 0) {
+            var value = Math.floor(Math.random() * i) + 1;
+            $('.block' + value + '.block').children().attr('src', 'chest.png');
+        }
     }
     $('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
     for (i = 1; i < blockvalue * blockvalue + 1; i++) {
@@ -103,9 +105,16 @@ function generaterandomscene(blockvalue) {
     $('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
     window.randomscene = window.randomscene + 1;
 }
+function readcharacterjson() {
+    $.get('character.json', function (data) {
+        window.character = data;
+    });
+}
 $(document).ready(function () {
+    readcharacterjson();
     webapp();
     window.deviceType = getDeviceType();
+    var character = window.character;
     if (window.deviceType == 'deskatop') {
         $('div:not(#warning)').css('display', 'none');
         $('#warning').css('display', 'inline-block');
@@ -122,16 +131,30 @@ $(document).ready(function () {
         $('#homepage').css('display', 'none');
         $('#gamearea').css('display', 'inline-block');
     });
-    $('#warrior').click(function () {
+    $('#warrior.sprite').click(function () {
         $('#spriteselect > div').css('display', 'none');
-        $('#spriteinfo').css('display', 'inline-block');
-        $('#spriteinfo > *:not(#warrior)').css('display', 'none');
-        $('#spriteinfo #warrior').css('display', 'inline-block');
+        $('.spriteinfo').css('display', 'inline-block');
+        $('.spriteinfo h1').text(window.character.warrior.name);
+        $('.spriteinfo div').text(window.character.warrior.introduction);
+        $('.spriteinfo input').addClass(window.character.warrior.id);
     });
-    $('#warrior #choosebtn').click(function () {
+    $('#magician.sprite').click(function () {
+        $('#spriteselect > div').css('display', 'none');
+        $('.spriteinfo').css('display', 'inline-block');
+        $('.spriteinfo h1').text(window.character.magician.name);
+        $('.spriteinfo div').text(window.character.magician.introduction);
+        $('.spriteinfo input').addClass(window.character.magician.id);
+    });
+    $('.spriteinfo').on('click', '.warrior', function () {
         window.chosehero = 'warrior';
-        $('#spriteinfo').css('display', 'none');
-        $('#spriteselect > *:not(#spriteinfo, #shop)').css('display', 'inline-block');
+        $('.spriteinfo').css('display', 'none');
+        $('#spriteselect > *:not(.spriteinfo, #shop)').css('display', 'inline-block');
+        $('#fightarea').css('display', 'inline-block');
+    });
+    $('.spriteinfo').on('click', '.magician', function () {
+        window.chosehero = 'magician';
+        $('.spriteinfo').css('display', 'none');
+        $('#spriteselect > *:not(.spriteinfo, #shop)').css('display', 'inline-block');
         $('#fightarea').css('display', 'inline-block');
     });
     $('#gamearea #startbtn').click(function () {

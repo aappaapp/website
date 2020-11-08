@@ -67,33 +67,34 @@ input{
     top: 50px;
     transform: translate(-50%, 0%);
 }
-#spriteinfo{
+#magician.sprite{
+    left: 30%;
+    top: 50px;
+    transform: translate(-50%, 0%);
+}
+.spriteinfo{
     display: none;
     height: 100vh;
     width: 100vw;
-}
-#spriteinfo > div{
     position: relative;
-    height: 100vh;
-    width: 100vw;
 }
-#spriteinfo > div > h1{
+.spriteinfo > h1{
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
     top: 10%;
 }
-#spriteinfo > div > div{
+.spriteinfo > div{
     position: absolute;
     top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-#spriteinfo > div > img{
+.spriteinfo > img{
     max-width: 50px;
 }
-#spriteinfo > div > input{
+.spriteinfo > input{
     position: absolute;
     bottom: 1%;
     left: 50%;
@@ -104,6 +105,10 @@ input{
     padding: 10px 20px;
     border-radius: 10px;
     transform: translate(-50%, -50%);
+}
+#generateoption{
+    width: 100vw;
+    height: 100vh;
 }
 #shop{
     display: none;
