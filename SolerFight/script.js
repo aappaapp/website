@@ -87,6 +87,7 @@ function generaterandomscene(blockvalue) {
             $('.block' + i + '.block').children().attr('src', 'chest.png');
         } else if (value > 10 && value < 12) {
             $('.block' + i + '.block').children().attr('src', 'trap.png');
+            $('.block' + i + '.block').children().attr('title', 'A trap');
             $('.block' + i + '.block').children().addClass('trap');
         }
     }

@@ -59,8 +59,11 @@ input{
     display: inline-block;
     position: absolute;
 }
-.sprite img, #sprite img{
+.sprite img{
     max-width: 55px;
+}
+#sprite img{
+    max-width: 25px;
 }
 #warrior.sprite{
     left: 50%;
