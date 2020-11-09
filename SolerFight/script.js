@@ -82,9 +82,12 @@ function generatestartscene(blockvalue) {
 function generaterandomscene(blockvalue) {
     for (i = 1; i < blockvalue * blockvalue + 1; i++) {
         $('#fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
-        if (i % 5 == 0) {
-            var value = Math.floor(Math.random() * i) + 1;
-            $('.block' + value + '.block').children().attr('src', 'chest.png');
+        var value = Math.floor(Math.random() * 100) + 1;
+        if (value > 0 && value < 11) {
+            $('.block' + i + '.block').children().attr('src', 'chest.png');
+        } else if (value > 10 && value < 12) {
+            $('.block' + i + '.block').children().attr('src', 'trap.png');
+            $('.block' + i + '.block').children().addClass('trap');
         }
     }
     $('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
@@ -105,16 +108,17 @@ function generaterandomscene(blockvalue) {
     $('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
     window.randomscene = window.randomscene + 1;
 }
-function readcharacterjson() {
-    $.get('character.json', function (data) {
-        window.character = data;
-    });
+function readjson(config) {
+    if (config == 'character') {
+        $.get('character.json', function (data) {
+            window.character = data;
+        });
+    }
 }
 $(document).ready(function () {
-    readcharacterjson();
+    readjson('character');
     webapp();
     window.deviceType = getDeviceType();
-    var character = window.character;
     if (window.deviceType == 'deskatop') {
         $('div:not(#warning)').css('display', 'none');
         $('#warning').css('display', 'inline-block');
