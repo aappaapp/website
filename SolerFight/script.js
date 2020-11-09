@@ -87,27 +87,29 @@ function generaterandomscene(blockvalue) {
             $('.block' + i + '.block').children().attr('src', 'chest.png');
         } else if (value > 10 && value < 12) {
             $('.block' + i + '.block').children().attr('src', 'trap.png');
-            $('.block' + i + '.block').children().attr('title', 'A trap');
             $('.block' + i + '.block').children().addClass('trap');
         }
+        trap();
     }
     $('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
     for (i = 1; i < blockvalue * blockvalue + 1; i++) {
         if (i <= blockvalue) {
             $('.block' + i).children().attr('src', 'block.png');
-        }
-        if (i % blockvalue == 1) {
+            $('.block' + i).children().removeClass('trap');
+        } else if (i % blockvalue == 1) {
             $('.block' + i).children().attr('src', 'block.png');
-        }
-        if (i % blockvalue == 0) {
+            $('.block' + i).children().removeClass('trap');
+        } else if (i % blockvalue == 0) {
             $('.block' + i).children().attr('src', 'block.png');
-        }
-        if (i >= blockvalue * blockvalue - blockvalue) {
+            $('.block' + i).children().removeClass('trap');
+        } else if (i >= blockvalue * blockvalue - blockvalue) {
             $('.block' + i).children().attr('src', 'block.png');
+            $('.block' + i).children().removeClass('trap');
         }
     }
     $('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
     window.randomscene = window.randomscene + 1;
+    trap();
 }
 function readjson(config) {
     if (config == 'character') {
@@ -115,6 +117,44 @@ function readjson(config) {
             window.character = data;
         });
     }
+}
+function trap() {
+    var a = 0;
+    setInterval(function () {
+        if (a == 0) {
+            $('.trap').addClass('trapopen');
+            $('.trap').attr('src', 'trapopen.png');
+        } else if (a == 1) {
+            $('.trap').attr('src', 'trap.png');
+            $('.trap').removeClass('trapopen');
+            a = -1;
+        }
+        a++;
+    }, 2000);
+}
+function isOverlap(idOne, idTwo) {
+    var objOne = $(idOne),
+        objTwo = $(idTwo),
+        offsetOne = objOne.offset(),
+        offsetTwo = objTwo.offset(),
+        topOne = offsetOne.top,
+        topTwo = offsetTwo.top,
+        leftOne = offsetOne.left,
+        leftTwo = offsetTwo.left,
+        widthOne = objOne.width(),
+        widthTwo = objTwo.width(),
+        heightOne = objOne.height(),
+        heightTwo = objTwo.height();
+    var leftTop = leftTwo > leftOne && leftTwo < leftOne + widthOne && topTwo > topOne && topTwo < topOne + heightOne, rightTop = leftTwo + widthTwo > leftOne && leftTwo + widthTwo < leftOne + widthOne && topTwo > topOne && topTwo < topOne + heightOne, leftBottom = leftTwo > leftOne && leftTwo < leftOne + widthOne && topTwo + heightTwo > topOne && topTwo + heightTwo < topOne + heightOne, rightBottom = leftTwo + widthTwo > leftOne && leftTwo + widthTwo < leftOne + widthOne && topTwo + heightTwo > topOne && topTwo + heightTwo < topOne + heightOne;
+    return leftTop || rightTop || leftBottom || rightBottom;
+}
+function detecthurt() {
+    setInterval(function () {
+        console.log((isOverlap($('#sprite'), $('.trapopen'))));
+        if (isOverlap($('#sprite'), $('.trapopen')) == true) {
+            alert('you are hurt!');
+        }
+    });
 }
 $(document).ready(function () {
     readjson('character');
