@@ -58,6 +58,7 @@ function generatescene(blockvalue) {
 	generaterandomscene(blockvalue);
 	generatestartscene(blockvalue);
 	$('.blockgroup').wrapAll('<div class=scene></div>');
+	trap();
 }
 function generatestartscene(blockvalue) {
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
@@ -90,7 +91,6 @@ function generaterandomscene(blockvalue) {
 			$('.block' + i + '.block').children().attr('src', 'trap.png');
 			$('.block' + i + '.block').children().addClass('trap');
 		}
-		trap();
 	}
 	$('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
@@ -122,18 +122,23 @@ function readjson() {
 }
 function trap() {
 	var a = 0;
+	window.trapi = 0;
 	setInterval(function () {
 		if (a == 0) {
 			$('.trap').addClass('trapopen');
 			$('.trap').attr('src', 'trapopen.png');
-			console.log()
+			if ($('.trapopen').overlaps('#sprite')[0] != undefined && window.trapi == 0) {
+				window.spritehp = window.spritehp - window.block.trap.damage;
+				window.trapi++;
+			}
 		} else if (a == 1) {
 			$('.trap').attr('src', 'trap.png');
 			$('.trap').removeClass('trapopen');
 			a = -1;
+			window.trapi = 0;
 		}
 		a++;
-	}, 2000);
+	}, 1000);
 }
 
 (function (factory) {
@@ -204,32 +209,37 @@ function trap() {
 
 function detecthurt() {
 	setInterval(function () {
-		if ($('.trapopen').overlaps('#sprite')[0] != undefined) {
-			alert('you are hurt!');
-		}
+		$('.hpprogress .bar').html(window.spritehp + '/' + window.chosehero.hp);
+		$('.hpprogress .bar').css('width', ((window.spritehp - 0) / (window.chosehero.hp - 0)) * 100 + '%');
 	});
 }
 function setskin() {
 	$('#warriorsit').attr('src', window.character.warrior.skin.normal.action.sit.src);
 }
+function setvariable() {
+	window.deviceType = getDeviceType();
+	window.chosehero = window.character.warrior;
+	window.spritehp = window.chosehero.hp;
+	$('#fightarea #sprite img').attr('src', window.chosehero.skin.normal.action.normal.src);
+}
+function interval() {
+	setInterval(function () {
+	});
+}
 $(document).ready(function () {
 	readjson();
-	webapp();
-	detecthurt();
-	//setskin();
-	window.deviceType = getDeviceType();
-	if (window.deviceType == 'deskatop') {
+	setTimeout(function () {
+		setvariable();
+		webapp();
+		detecthurt();
+		setskin();
+		interval();
+	}, 1000)
+	if (window.deviceType == 'mobile') {
 		$('div:not(#warning)').css('display', 'none');
 		$('#warning').css('display', 'inline-block');
-		$('#warning h1').html('This is a Mobile Game.<br>If you want to play in desktop, you can press this <a href=javascript:play_beta()>Link</a> to play beta!');
+		$('#warning h1').html('You can\'t play in mobile!');
 	}
-	setInterval(function () {
-		if (window.chosehero == 'warrior') {
-			$('#fightarea > #sprite').html('<img src=\'warrior.png\'>');
-		} else if (window.chosehero == undefined) {
-			window.chosehero = 'warrior';
-		}
-	}, 10);
 	$('#homepage').click(function () {
 		$('#homepage').css('display', 'none');
 		$('#gamearea').css('display', 'inline-block');
@@ -249,24 +259,27 @@ $(document).ready(function () {
 		$('.spriteinfo input').addClass(window.character.magician.id);
 	});
 	$('.spriteinfo').on('click', '.warrior', function () {
-		window.chosehero = 'warrior';
+		window.chosehero = window.character.warrior;
 		$('.spriteinfo').css('display', 'none');
 		$('#spriteselect > *:not(.spriteinfo, #shop)').css('display', 'inline-block');
-		$('#fightarea').css('display', 'inline-block');
 	});
 	$('.spriteinfo').on('click', '.magician', function () {
-		window.chosehero = 'magician';
+		window.chosehero = window.character.magician;
 		$('.spriteinfo').css('display', 'none');
 		$('#spriteselect > *:not(.spriteinfo, #shop)').css('display', 'inline-block');
-		$('#fightarea').css('display', 'inline-block');
 	});
 	$('#gamearea #startbtn').click(function () {
 		$('#spriteselect').css('display', 'none');
 		$('#generateoption').css('display', 'inline-block');
+		if (window.chosehero == undefined) {
+			window.chosehero = window.character.warrior;
+		}
+		window.spritehp = window.chosehero.hp;
 	});
 	$('#generate').click(function () {
 		$('#generateoption').css('display', 'none');
 		$('#fightarea').css('display', 'inline-block');
+		$('#spriteinfight').css('display', 'inline-block');
 		generatescene(Number($('#generaterange').val()));
 	});
 	$('#generaterange').on('input', function () {

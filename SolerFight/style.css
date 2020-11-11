@@ -6,6 +6,9 @@ body{
     background-color: #000000;
     color: white;
 }
+div{
+    display: inline-block;
+}
 input{
     outline: none;
 }
@@ -156,4 +159,35 @@ input{
 }
 .block img{
     max-width: 25px;
+}
+#spriteinfight{
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 1;
+    display: none;
+    background-color: orange;
+    padding: 10px;
+}
+.hpprogress{
+    border: 1px dashed white;
+    width: 100px;
+    background-color: grey;
+}
+.hpprogress .bar{
+    width: 100%;
+    background-color: red;
+    text-align: center;
+    transition: width 0.5s;
+}
+.mpprogress{
+    border: 1px dashed white;
+    width: 100px;
+    background-color: grey;
+}
+.mpprogress .bar{
+    width: 100%;
+    background-color: blue;
+    text-align: center;
+    transition: width 0.5s;
 }
