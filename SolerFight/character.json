@@ -3,7 +3,7 @@
         "name": "Warrior",
         "introduction": "Is an ordinary warrior.",
         "id": "warrior",
-        "hp": 5,
+        "hp": 10,
         "skin": {
             "normal": {
                 "action": {
@@ -21,11 +21,29 @@
         "name": "Magician",
         "introduction": "Is a very great magician.",
         "id": "magician",
-        "hp": 15,
+        "hp": 6,
         "skin": {
             "normal": {
-                "normal": {
-                    "action": {
+                "action": {
+                    "normal": {
+                        "sit": {
+                            "src": "magiciansit.png"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "enemy": {
+        "name": "Enemy",
+        "introduction": "Is a very bad enemy.",
+        "id": "enemy",
+        "hp": 5,
+        "damage": 2,
+        "skin": {
+            "normal": {
+                "action": {
+                    "normal": {
                         "sit": {
                             "src": "magiciansit.png"
                         }

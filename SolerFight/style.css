@@ -72,6 +72,10 @@ input{
 }
 #sprite img{
     max-width: 25px;
+    position: absolute;
+}
+#sprite div#weapon{
+    translate: 18px 10px;
 }
 #warrior.sprite{
     left: 50%;
@@ -190,4 +194,7 @@ input{
     background-color: blue;
     text-align: center;
     transition: width 0.5s;
+}
+.weapon{
+    position: absolute;
 }
