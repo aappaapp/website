@@ -57,15 +57,30 @@ function generatescene(blockvalue) {
 	generaterandomscene(blockvalue);
 	generaterandomscene(blockvalue);
 	generatestartscene(blockvalue);
-	window.choseweapon = 'gun';
 	$('.blockgroup').wrapAll('<div class=scene></div>');
 	trap();
 	$('#sprite').append('<div id=weapon><img src=gun.png></div>');
+	weaponsetup();
+}
+function weaponsetup() {
+	window.choseweapon = 'gun';
 	pointer = document.getElementById("weapon");
 	pointerBox = pointer.getBoundingClientRect();
 	centerPoint = window.getComputedStyle(pointer).transformOrigin;
 	centers = centerPoint.split(" ");
-	$('body').mousemove(weapon);
+	$(document).mousemove(weapon);
+	$(document).click(weaponuse);
+}
+function weaponuse(event) {
+	console.log('weapon is used');
+	if (window.choseweapon == 'gun') {
+		console.log('gun is shoot');
+		$('.scene').append('<div id=bullet><img src=chest.png></div>');
+		$('#bullet').css({
+			'top': $('#weapon').css('top').substr(0, $('#weapon').css('top').length - 2) + 'px',
+			'left': $('#weapon').css('left').substr(0, $('#weapon').css('left').length - 2) + 'px'
+		});
+	}
 }
 function weapon(event) {
 	var pointerEvent = event;

@@ -198,3 +198,9 @@ input{
 .weapon{
     position: absolute;
 }
+#bullet{
+    position: absolute;
+}
+#bullet img{
+    max-width: 25px;
+}
