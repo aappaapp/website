@@ -4,6 +4,9 @@
         "introduction": "Is an ordinary warrior.",
         "id": "warrior",
         "hp": 10,
+        "mp": 10,
+        "mprestorespeed": 5000,
+        "mprestorevalue": 1,
         "skin": {
             "normal": {
                 "action": {
@@ -22,6 +25,9 @@
         "introduction": "Is a very great magician.",
         "id": "magician",
         "hp": 6,
+        "mp": 1e500,
+        "mprestorespeed": 1000,
+        "mprestorevalue": 2,
         "skin": {
             "normal": {
                 "action": {

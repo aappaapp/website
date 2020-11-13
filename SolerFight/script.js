@@ -42,8 +42,8 @@ function webapp() {
 	ga('send', 'pageview');
 }
 $.fn.move = function (x, y) {
-	var x1 = Number(this.css('left').substr(0, this.css('left').length - 2));
-	var y1 = Number(this.css('top').substr(0, this.css('top').length - 2));
+	var x1 = this.offset().left;
+	var y1 = this.offset().top;
 	this.css('position', 'absolute');
 	this.css('left', x1 + x + 'px');
 	this.css('top', y1 + y + 'px');
@@ -61,28 +61,33 @@ function generatescene(blockvalue) {
 	trap();
 	$('#sprite').append('<div id=weapon><img src=gun.png></div>');
 	weaponsetup();
+	setInterval(restoremp, window.chosehero.mprestorespeed);
 }
 function weaponsetup() {
 	window.choseweapon = 'gun';
-	pointer = document.getElementById("weapon");
+	pointer = document.getElementById('weapon');
 	pointerBox = pointer.getBoundingClientRect();
 	centerPoint = window.getComputedStyle(pointer).transformOrigin;
-	centers = centerPoint.split(" ");
-	$(document).mousemove(weapon);
+	centers = centerPoint.split(' ');
+	$(document).mousemove(weaponfacing);
+	setTimeout(weaponsettime, 1000);
+}
+function weaponsettime() {
 	$(document).click(weaponuse);
 }
 function weaponuse(event) {
-	console.log('weapon is used');
 	if (window.choseweapon == 'gun') {
-		console.log('gun is shoot');
-		$('.scene').append('<div id=bullet><img src=chest.png></div>');
-		$('#bullet').css({
-			'top': $('#weapon').css('top').substr(0, $('#weapon').css('top').length - 2) + 'px',
-			'left': $('#weapon').css('left').substr(0, $('#weapon').css('left').length - 2) + 'px'
+		window.spritemp = window.spritemp - window.item.gun.mp;
+		cornertips({
+			'text': 'You use the gun and your mp is ' + window.spritemp + '!'
 		});
+		//alert('You use the gun.');
+		//alert('But not thing happen.');
+		//$('.scene').append('<div class=\'gunbullet bullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
+		window.gunbulleti++;
 	}
 }
-function weapon(event) {
+function weaponfacing(event) {
 	var pointerEvent = event;
 	if (event.targetTouches && event.targetTouches[0]) {
 		event.preventDefault();
@@ -158,6 +163,9 @@ function readjson() {
 	});
 	$.get('block.json', function (data) {
 		window.block = data;
+	});
+	$.get('item.json', function (data) {
+		window.item = data;
 	});
 }
 function trap() {
@@ -250,10 +258,15 @@ function trap() {
 function detecthurt() {
 	$('.hpprogress .bar').html(window.spritehp + '/' + window.chosehero.hp);
 	$('.hpprogress .bar').css('width', ((window.spritehp - 0) / (window.chosehero.hp - 0)) * 100 + '%');
+	$('.mpprogress .bar').html(window.spritemp + '/' + window.chosehero.mp);
+	$('.mpprogress .bar').css('width', ((window.spritemp - 0) / (window.chosehero.mp - 0)) * 100 + '%');
 	if (window.spritehp <= 0) {
 		alert('You Die!');
 		window.spritehp = 100;
 		window.location.reload();
+	}
+	if (window.chosehero.mp == Infinity) {
+		$('.mpprogress .bar').css('width', '100%');
 	}
 }
 function setskin() {
@@ -263,12 +276,39 @@ function setvariable() {
 	window.deviceType = getDeviceType();
 	window.chosehero = window.character.warrior;
 	window.spritehp = window.chosehero.hp;
+	window.spritemp = window.chosehero.mp;
+	window.gunbulleti = 0;
+	window.cornertipsi = 0;
 	$('#fightarea #sprite img').attr('src', window.chosehero.skin.normal.action.normal.src);
 }
 function interval() {
 	setInterval(function () {
 		detecthurt();
 	});
+}
+function cornertips(config) {
+	window.cornertipsi++;
+	$('body').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + config.text + '</div>');
+	$('.cornertips').css({
+		'z-index': '100',
+		'position': 'absolute',
+		'bottom': '0px',
+		'right': '0',
+		'padding': '20px',
+		'background-color': 'white',
+		'color': 'black'
+	});
+	setTimeout(function () {
+		$('.cornertips').remove();
+	}, 2000);
+}
+function restoremp() {
+	if (window.spritemp < window.chosehero.mp) {
+		window.spritemp = window.spritemp + window.chosehero.mprestorevalue;
+	}
+	if (window.spritemp > window.chosehero.mp) {
+		window.spritemp = window.chosehero.mp;
+	}
 }
 $(document).ready(function () {
 	readjson();
@@ -318,25 +358,30 @@ $(document).ready(function () {
 			window.chosehero = window.character.warrior;
 		}
 		window.spritehp = window.chosehero.hp;
+		window.spritemp = window.chosehero.mp;
 	});
 	$('#generate').click(function () {
 		$('#generateoption').css('display', 'none');
 		$('#fightarea').css('display', 'inline-block');
 		$('#spriteinfight').css('display', 'inline-block');
 		generatescene(Number($('#generaterange').val()));
+		cornertips({
+			'text': 'Tips: You can press f11 to fullscreen'
+		});
 	});
 	$('#generaterange').on('input', function () {
 		$('#rangevalue').text($('#generaterange').val());
 	})
 	$(document).keydown(function () {
+		var move = '#fightarea > *:not(#sprite, #spriteinfight)';
 		if (event.which == 39) {
-			$('.scene').move(-10, 0);
+			$(move).move(-10, 0);
 		} else if (event.which == 37) {
-			$('.scene').move(10, 0);
+			$(move).move(10, 0);
 		} else if (event.which == 38) {
-			$('.scene').move(0, 10);
+			$(move).move(0, 10);
 		} else if (event.which == 40) {
-			$('.scene').move(0, -10);
+			$(move).move(0, -10);
 		}
 	});
 });
