@@ -334,7 +334,7 @@ $(document).ready(function () {
 		$('#warning').css('display', 'inline-block');
 		$('#warning h1').html('You can\'t play in mobile!');
 	}
-	$('#homepage').click(function () {
+	$('#homepage > *:not(label)').click(function () {
 		$('#homepage').css('display', 'none');
 		$('#gamearea').css('display', 'inline-block');
 	});
@@ -383,6 +383,49 @@ $(document).ready(function () {
 	$('#generaterange').on('input', function () {
 		$('#rangevalue').text($('#generaterange').val());
 	})
+	$('.upload').change(function () {
+		var filereader = new FileReader;
+		var uploadfile = $(this).get(0);
+		if (uploadfile.files.length) {
+			var files = uploadfile.files[0];
+			var filename = files.name.split('.')[0];
+			var filetype = files.name.split('.')[1];
+			console.log(filename);
+			console.log(filetype);
+			filereader.readAsText(files);
+			$(filereader).on('load', processFile);
+		}
+		function processFile(event) {
+			var file = event.target.result;
+			var results;
+			if (file && file.length) {
+				results = file;
+				console.log(results);
+				if (filename == 'item') {
+					alert('item plugin is load sucessfully');
+				} else if (filename == 'character') {
+					alert('character plugin is load sucessfully');
+				}
+				if (filetype == 'zip') {
+					readzip(file)
+				}
+			}
+		}
+	});
+	function readzip(files) {
+		var jszip = new JSZip();
+		handleFile(files[0]);
+		function handleFile(f) {
+			jszip.loadAsync(f)                                   // 1) read the Blob
+				.then(function (zip) {
+					zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
+						console.log(zipEntry.name);
+					});
+				}, function (e) {
+					//console.log(f.name + ": " + e.message);
+				});
+		}
+	}
 	$(document).keydown(function () {
 		var move = '#fightarea > *:not(#sprite, #spriteinfight)';
 		if (event.which == 39) {

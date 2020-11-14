@@ -25,7 +25,7 @@ input{
     transform: translate(-50%, 0%);
     padding: 10px;
 }
-#homepage div{
+#homepage #update{
     position: absolute;
     right: 30%;
     top: 22%;
@@ -34,6 +34,11 @@ input{
     padding: 10px;
     animation: twinkling 3s infinite;
     color: yellow;
+}
+#homepage label{
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 #startremind{
     font-size: 20px;
@@ -203,4 +208,11 @@ input{
 }
 .bullet img{
     max-width: 25px;
+}
+input[type='file']{
+    display: none;
+}
+#homepage .push{
+    width: 100vw;
+    height: 100vh;
 }
