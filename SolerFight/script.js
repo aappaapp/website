@@ -151,7 +151,18 @@ function generaterandomscene(blockvalue) {
 		} else if (i >= blockvalue * blockvalue - blockvalue) {
 			$('.block' + i).children().attr('src', 'block.png');
 			$('.block' + i).children().removeClass(removeClass);
+		} else if (i == blockvalue / 2) {
+			$('.block' + i).children().removeAttr('src');
+			$('.block' + i).children().removeClass(removeClass);
 		}
+	}
+	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+		if (i == blockvalue / 2) {
+			console.log('sds');
+			$('.block' + i).children().attr('src', '');
+			$('.block' + i).children().removeClass(removeClass);
+		}
+		console.log(i + ' ' + blockvalue / 2);
 	}
 	$('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
 	window.randomscene = window.randomscene + 1;
