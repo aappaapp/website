@@ -2,6 +2,6 @@
     "gun": {
         "name": "normal gun",
         "mp": 1,
-        "cd": 10
+        "cd": 250
     }
 }

@@ -223,11 +223,17 @@ input[type='file']{
 }
 #homepage input{
     position: absolute;
-    top: 0;
     background-color: #00000000;
     border: none;
     color: white;
+}
+#homepage #settingpagebtn{
+    left: 0;
+    top: 0;
+}
+#homepage #uploadpagebtn{
     right: 0;
+    top: 0;
 }
 #uploadpage{
     display: none;
@@ -236,4 +242,14 @@ input[type='file']{
     background-color: #00000000;
     color: white;
     border: none;
+}
+#settingpage{
+    display: none;
+}
+#block, #character, #item{
+    border: 2px solid white;
+}
+#delete{
+    color: red;
+    cursor: pointer;
 }

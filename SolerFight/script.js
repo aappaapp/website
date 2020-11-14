@@ -64,7 +64,7 @@ function generatescene(blockvalue) {
 	setInterval(restore, window.chosehero.mprestorespeed);
 }
 function weaponsetup() {
-	window.choseweapon = 'gun';
+	window.cdtime = true;
 	pointer = document.getElementById('weapon');
 	pointerBox = pointer.getBoundingClientRect();
 	centerPoint = window.getComputedStyle(pointer).transformOrigin;
@@ -73,11 +73,15 @@ function weaponsetup() {
 	setTimeout(weaponsettime, 1000);
 }
 function weaponsettime() {
-	$(document).click(weaponuse);
+	$(document).mousedown(function () {
+		weaponuseitv = setInterval(weaponuse);
+	}).mouseup(function () {
+		clearInterval(weaponuseitv);
+	});
 }
 function weaponuse(event) {
 	if (window.spritemp > 0) {
-		if (window.choseweapon == 'gun') {
+		if (window.choseweapon.name == 'normal gun' && window.cdtime) {
 			window.spritemp = window.spritemp - window.item.gun.mp;
 			cornertips({
 				'text': 'You use the gun and your mp is ' + window.spritemp + '!'
@@ -86,10 +90,19 @@ function weaponuse(event) {
 			//alert('But not thing happen.');
 			//$('.scene').append('<div class=\'gunbullet bullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
 			window.gunbulleti++;
+			cd(window.choseweapon.cd);
 		}
 	} else {
-		alert('not enough MP');
+		cornertips({
+			'text': 'not enough MP'
+		});
 	}
+}
+function cd(time) {
+	window.cdtime = false;
+	setTimeout(function () {
+		window.cdtime = true;
+	}, time);
 }
 function weaponfacing(event) {
 	var pointerEvent = event;
@@ -166,7 +179,6 @@ function generaterandomscene(blockvalue) {
 			$('.block' + i).children().attr('src', '');
 			$('.block' + i).children().removeClass(removeClass);
 		}
-		console.log(i + ' ' + blockvalue / 2);
 	}
 	$('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
 	window.randomscene = window.randomscene + 1;
@@ -297,12 +309,20 @@ function setvariable() {
 	window.img = {};
 	window.img.name = [];
 	window.img.src = [];
+	$.cookie.json = true;
+	window.choseweapon = window.item.gun;
+	if ($.cookie('character') != null) {
+		window.character = JSON.parse($.cookie('character'));
+	} else if ($.cookie('item') != null) {
+		window.item = JSON.parse($.cookie('item'));
+	} else if ($.cookie('block') != null) {
+		window.item = JSON.parse($.cookie('block'));
+	}
 }
 function interval() {
 	setInterval(function () {
 		detecthurt();
-		//$('#fightarea #sprite').children('img').attr('src', window.img.src[0]);
-		$('#fightarea #sprite').children('img').attr('src', window.chosehero.skin.normal.action.normal.src);
+		$('#fightarea #sprite > img').attr('src', window.chosehero.skin.normal.action.normal.src);
 	});
 }
 function cornertips(config) {
@@ -333,6 +353,11 @@ function restore() {
 		window.spritehp = window.chosehero.hp;
 	}
 }
+function inner() {
+	$('#block').text($.cookie('block'));
+	$('#character').text($.cookie('character'));
+	$('#item').text($.cookie('item'));
+}
 $(document).ready(function () {
 	readjson();
 	setTimeout(function () {
@@ -340,6 +365,7 @@ $(document).ready(function () {
 		webapp();
 		setskin();
 		interval();
+		inner();
 	}, 1000)
 	if (window.deviceType == 'mobile') {
 		$('div:not(#warning)').css('display', 'none');
@@ -399,9 +425,21 @@ $(document).ready(function () {
 		$('#homepage').css('display', 'none');
 		$('#uploadpage').css('display', 'block');
 	});
-	$('#backtohomepage').click(function () {
-		$('#homepage').css('display', 'block');
-		$('#uploadpage').css('display', 'none');
+	$('#settingpagebtn').click(function () {
+		$('#homepage').css('display', 'none');
+		$('#settingpage').css('display', 'block');
+	});
+	$('.deletecharacter').click(function () {
+		$.removeCookie('character');
+		window.location.reload();
+	});
+	$('.deleteblock').click(function () {
+		$.removeCookie('block');
+		window.location.reload();
+	});
+	$('.deleteitem').click(function () {
+		$.removeCookie('item');
+		window.location.reload();
 	});
 	$('.upload').change(function () {
 		var filereader = new FileReader;
@@ -420,13 +458,13 @@ $(document).ready(function () {
 				results = file;
 				if (filename == 'item') {
 					window.item = JSON.parse(results);
-					alert('item plugin is load sucessfully');
+					$.cookie('item', results);
 				} else if (filename == 'character') {
 					window.character = JSON.parse(results);
-					alert('character plugin is load sucessfully');
+					$.cookie('character', results);
 				} else if (filename == 'block') {
 					window.block = JSON.parse(results);
-					alert('block plugin is load sucessfully');
+					$.cookie('block', results);
 				}
 				if (filetype == 'png') {
 					filereader.readAsDataURL(files);
