@@ -35,10 +35,9 @@
         "skin": {
             "normal": {
                 "action": {
-                    "normal": {
-                        "sit": {
-                            "src": "magiciansit.png"
-                        }
+                    "normal": {},
+                    "sit": {
+                        "src": "magiciansit.png"
                     }
                 }
             }
@@ -53,10 +52,9 @@
         "skin": {
             "normal": {
                 "action": {
-                    "normal": {
-                        "sit": {
-                            "src": "magiciansit.png"
-                        }
+                    "normal": {},
+                    "sit": {
+                        "src": "magiciansit.png"
                     }
                 }
             }

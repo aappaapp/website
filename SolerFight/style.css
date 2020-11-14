@@ -12,6 +12,9 @@ div{
 input{
     outline: none;
 }
+input[type='button'], label{
+    cursor: pointer;
+}
 #homepage{
     background-color: #000000;
     width: 100vw;
@@ -54,6 +57,7 @@ input{
     right: 5%;
     top: 5%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 #spriteselect{
     background-color: #000000;
@@ -62,6 +66,7 @@ input{
 }
 .sprite{
     display: inline-block;
+    cursor: pointer;
     position: absolute;
 }
 #sprite{
@@ -215,4 +220,20 @@ input[type='file']{
 #homepage .push{
     width: 100vw;
     height: 100vh;
+}
+#homepage input{
+    position: absolute;
+    top: 0;
+    background-color: #00000000;
+    border: none;
+    color: white;
+    right: 0;
+}
+#uploadpage{
+    display: none;
+}
+#backtohomepage{
+    background-color: #00000000;
+    color: white;
+    border: none;
 }

@@ -294,11 +294,15 @@ function setvariable() {
 	window.spritemp = window.chosehero.mp;
 	window.gunbulleti = 0;
 	window.cornertipsi = 0;
-	$('#fightarea #sprite img').attr('src', window.chosehero.skin.normal.action.normal.src);
+	window.img = {};
+	window.img.name = [];
+	window.img.src = [];
 }
 function interval() {
 	setInterval(function () {
 		detecthurt();
+		//$('#fightarea #sprite').children('img').attr('src', window.img.src[0]);
+		$('#fightarea #sprite').children('img').attr('src', window.chosehero.skin.normal.action.normal.src);
 	});
 }
 function cornertips(config) {
@@ -342,7 +346,7 @@ $(document).ready(function () {
 		$('#warning').css('display', 'inline-block');
 		$('#warning h1').html('You can\'t play in mobile!');
 	}
-	$('#homepage > *:not(label)').click(function () {
+	$('#homepage > .push').click(function () {
 		$('#homepage').css('display', 'none');
 		$('#gamearea').css('display', 'inline-block');
 	});
@@ -391,6 +395,14 @@ $(document).ready(function () {
 	$('#generaterange').on('input', function () {
 		$('#rangevalue').text($('#generaterange').val());
 	})
+	$('#uploadpagebtn').click(function () {
+		$('#homepage').css('display', 'none');
+		$('#uploadpage').css('display', 'block');
+	});
+	$('#backtohomepage').click(function () {
+		$('#homepage').css('display', 'block');
+		$('#uploadpage').css('display', 'none');
+	});
 	$('.upload').change(function () {
 		var filereader = new FileReader;
 		var uploadfile = $(this).get(0);
@@ -398,8 +410,6 @@ $(document).ready(function () {
 			var files = uploadfile.files[0];
 			var filename = files.name.split('.')[0];
 			var filetype = files.name.split('.')[1];
-			console.log(filename);
-			console.log(filetype);
 			filereader.readAsText(files);
 			$(filereader).on('load', processFile);
 		}
@@ -408,32 +418,31 @@ $(document).ready(function () {
 			var results;
 			if (file && file.length) {
 				results = file;
-				console.log(results);
 				if (filename == 'item') {
+					window.item = JSON.parse(results);
 					alert('item plugin is load sucessfully');
 				} else if (filename == 'character') {
+					window.character = JSON.parse(results);
 					alert('character plugin is load sucessfully');
+				} else if (filename == 'block') {
+					window.block = JSON.parse(results);
+					alert('block plugin is load sucessfully');
 				}
-				if (filetype == 'zip') {
-					readzip(file)
+				if (filetype == 'png') {
+					filereader.readAsDataURL(files);
+					$(filereader).on('load', processImageFile);
+					function processImageFile() {
+						var file = event.target.result;
+						var results;
+						if (file && file.length) {
+							window.img.name.push(filename);
+							window.img.src.push(results);
+						}
+					}
 				}
 			}
 		}
 	});
-	function readzip(files) {
-		var jszip = new JSZip();
-		handleFile(files[0]);
-		function handleFile(f) {
-			jszip.loadAsync(f)                                   // 1) read the Blob
-				.then(function (zip) {
-					zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
-						console.log(zipEntry.name);
-					});
-				}, function (e) {
-					//console.log(f.name + ": " + e.message);
-				});
-		}
-	}
 	$(document).keydown(function () {
 		var move = '#fightarea > *:not(#sprite, #spriteinfight)';
 		if (event.which == 39) {
