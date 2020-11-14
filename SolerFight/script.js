@@ -61,7 +61,7 @@ function generatescene(blockvalue) {
 	trap();
 	$('#sprite').append('<div id=weapon><img src=gun.png></div>');
 	weaponsetup();
-	setInterval(restoremp, window.chosehero.mprestorespeed);
+	setInterval(restore, window.chosehero.mprestorespeed);
 }
 function weaponsetup() {
 	window.choseweapon = 'gun';
@@ -76,15 +76,19 @@ function weaponsettime() {
 	$(document).click(weaponuse);
 }
 function weaponuse(event) {
-	if (window.choseweapon == 'gun') {
-		window.spritemp = window.spritemp - window.item.gun.mp;
-		cornertips({
-			'text': 'You use the gun and your mp is ' + window.spritemp + '!'
-		});
-		//alert('You use the gun.');
-		//alert('But not thing happen.');
-		//$('.scene').append('<div class=\'gunbullet bullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
-		window.gunbulleti++;
+	if (window.spritemp > 0) {
+		if (window.choseweapon == 'gun') {
+			window.spritemp = window.spritemp - window.item.gun.mp;
+			cornertips({
+				'text': 'You use the gun and your mp is ' + window.spritemp + '!'
+			});
+			//alert('You use the gun.');
+			//alert('But not thing happen.');
+			//$('.scene').append('<div class=\'gunbullet bullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
+			window.gunbulleti++;
+		}
+	} else {
+		alert('not enough MP');
 	}
 }
 function weaponfacing(event) {
@@ -313,12 +317,16 @@ function cornertips(config) {
 		$('.cornertips').remove();
 	}, 2000);
 }
-function restoremp() {
+function restore() {
 	if (window.spritemp < window.chosehero.mp) {
 		window.spritemp = window.spritemp + window.chosehero.mprestorevalue;
+	} else if (window.spritehp < window.chosehero.hp) {
+		window.spritehp = window.spritehp + window.chosehero.hprestorevalue;
 	}
 	if (window.spritemp > window.chosehero.mp) {
 		window.spritemp = window.chosehero.mp;
+	} else if (window.spritehp > window.chosehero.hp) {
+		window.spritehp = window.chosehero.hp;
 	}
 }
 $(document).ready(function () {
