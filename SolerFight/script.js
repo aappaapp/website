@@ -62,6 +62,9 @@ function generatescene(blockvalue) {
 	$('#sprite').append('<div id=weapon><img src=gun.png></div>');
 	weaponsetup();
 	setInterval(restore, window.chosehero.mprestorespeed);
+	if (window.deviceType == 'mobile') {
+		$('#mobilecontrol').css('display', 'block');
+	}
 }
 function weaponsetup() {
 	window.cdtime = true;
@@ -367,11 +370,6 @@ $(document).ready(function () {
 		interval();
 		inner();
 	}, 1000)
-	if (window.deviceType == 'mobile') {
-		$('div:not(#warning)').css('display', 'none');
-		$('#warning').css('display', 'inline-block');
-		$('#warning h1').html('You can\'t play in mobile!');
-	}
 	$('#homepage > .push').click(function () {
 		$('#homepage').css('display', 'none');
 		$('#gamearea').css('display', 'inline-block');

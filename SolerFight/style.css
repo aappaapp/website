@@ -253,3 +253,10 @@ input[type='file']{
     color: red;
     cursor: pointer;
 }
+#mobilecontrol{
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    display: none;
+    z-index: 100;
+}
