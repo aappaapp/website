@@ -313,6 +313,10 @@ function setvariable() {
 	window.img.name = [];
 	window.img.src = [];
 	$.cookie.json = true;
+	jSQL.load(function () {
+		var sql = "create table if not exists users (name varchar(25), age int)";
+		jSQL.query(sql).execute();
+	});
 	window.choseweapon = window.item.gun;
 	if ($.cookie('character') != null) {
 		window.character = JSON.parse($.cookie('character'));
@@ -325,7 +329,7 @@ function setvariable() {
 function interval() {
 	setInterval(function () {
 		detecthurt();
-		$('#fightarea #sprite > img').attr('src', window.chosehero.skin.normal.action.normal.src);
+		$('#fightarea #sprite > img').attr('src', 'data:image/png;base64,' + window.chosehero.skin.normal.action.normal.src);
 	});
 }
 function cornertips(config) {
@@ -360,6 +364,13 @@ function inner() {
 	$('#block').text($.cookie('block'));
 	$('#character').text($.cookie('character'));
 	$('#item').text($.cookie('item'));
+}
+function setspritevalue(type, config) {
+	if (type == 'mp') {
+		window.spritemp = config;
+	} else if (type == 'hp') {
+		window.spritehp = config;
+	}
 }
 $(document).ready(function () {
 	readjson();
@@ -456,25 +467,15 @@ $(document).ready(function () {
 				results = file;
 				if (filename == 'item') {
 					window.item = JSON.parse(results);
-					$.cookie('item', results);
+					$.cookie('item', window.item);
 				} else if (filename == 'character') {
 					window.character = JSON.parse(results);
-					$.cookie('character', results);
+					console.log('sd');
+					jSQL.query("insert into users (bob, 34)").execute();
+					$.cookie('character', window.character);
 				} else if (filename == 'block') {
 					window.block = JSON.parse(results);
-					$.cookie('block', results);
-				}
-				if (filetype == 'png') {
-					filereader.readAsDataURL(files);
-					$(filereader).on('load', processImageFile);
-					function processImageFile() {
-						var file = event.target.result;
-						var results;
-						if (file && file.length) {
-							window.img.name.push(filename);
-							window.img.src.push(results);
-						}
-					}
+					$.cookie('block', window.block);
 				}
 			}
 		}
