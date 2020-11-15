@@ -260,3 +260,10 @@ input[type='file']{
     display: none;
     z-index: 100;
 }
+.homepagesecret{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+}

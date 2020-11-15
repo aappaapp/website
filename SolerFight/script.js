@@ -51,15 +51,24 @@ $.fn.move = function (x, y) {
 function generatescene(blockvalue) {
 	window.randomscene = 1;
 	window.blockgroup = '';
+	var scenevalue = 3;
 	for (i = 1; i < blockvalue + 1; i++) {
 		window.blockgroup = window.blockgroup + ' auto';
 	}
-	generaterandomscene(blockvalue);
-	generaterandomscene(blockvalue);
-	generatestartscene(blockvalue);
+	window.generatescenestr = '';
+	for (i = 1; i < scenevalue + 1; i++) {
+		Math.floor(Math.random(101)) + 1;
+		if (i == 1) {
+			window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
+		}
+		window.generatescenestr = window.generatescenestr + 'generaterandomscene(blockvalue);';
+		if (i == scenevalue) {
+			eval(window.generatescenestr);
+		}
+	}
 	$('.blockgroup').wrapAll('<div class=scene></div>');
-	trap();
 	$('#sprite').append('<div id=weapon><img src=gun.png></div>');
+	trap();
 	weaponsetup();
 	setInterval(restore, window.chosehero.mprestorespeed);
 	if (window.deviceType == 'mobile') {
@@ -130,16 +139,16 @@ function generatestartscene(blockvalue) {
 	}
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		if (i <= blockvalue) {
-			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.startblock').children().attr('src', 'block.png');
 		}
 		if (i % blockvalue == 1) {
-			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.startblock').children().attr('src', 'block.png');
 		}
 		if (i % blockvalue == 0) {
-			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.startblock').children().attr('src', 'block.png');
 		}
 		if (i >= blockvalue * blockvalue - blockvalue) {
-			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.startblock').children().attr('src', 'block.png');
 		}
 	}
 	$('.startblock').wrapAll('<div class=\'blockgroup startblockgroup\'></div>');
@@ -160,27 +169,26 @@ function generaterandomscene(blockvalue) {
 	var removeClass = 'trap enemy';
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		if (i <= blockvalue) {
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
+			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
 		} else if (i % blockvalue == 1) {
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
+			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
 		} else if (i % blockvalue == 0) {
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
+			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
 		} else if (i >= blockvalue * blockvalue - blockvalue) {
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
+			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
+			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
 		} else if (i == blockvalue / 2) {
-			$('.block' + i).children().removeAttr('src');
-			$('.block' + i).children().removeClass(removeClass);
+			$('.block' + i + '.blockvalue' + i).children().removeAttr('src');
+			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
 		}
 	}
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		if (i == blockvalue / 2) {
-			console.log('sds');
-			$('.block' + i).children().attr('src', '');
-			$('.block' + i).children().removeClass(removeClass);
+			$('.block' + i + '.blockvalue' + i).children().attr('src', '');
+			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
 		}
 	}
 	$('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
@@ -491,5 +499,13 @@ $(document).ready(function () {
 		} else if (event.which == 40) {
 			$(move).move(0, -10);
 		}
+		if (event.which == 80) {
+			$('.homepagesecret').css('display', 'inline-block');
+		}
+	});
+	$(document).keyup(function () {
+		setTimeout(function () {
+			$('.homepagesecret').css('display', 'none');
+		}, 1000);
 	});
 });
