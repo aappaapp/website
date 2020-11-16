@@ -49,6 +49,7 @@ function score() {
     $('.output').text(Math.round10((($('.value').val() - $('.min').val()) / ($('.max').val() - $('.min').val())) * 100), -1);
 }
 $(document).ready(function () {
+    window.screen.lockOrientation('portrait');
     $('input').change(score);
     $('input[type=\'button\']').click(score);
     $(document).keypress(function () {
