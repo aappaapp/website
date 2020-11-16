@@ -50,6 +50,7 @@ function score() {
 }
 $(document).ready(function () {
     window.screen.lockOrientation('portrait');
+    window.screen.orientation.lock();
     $('input').change(score);
     $('input[type=\'button\']').click(score);
     $(document).keypress(function () {
