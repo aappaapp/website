@@ -59,17 +59,17 @@ input[type='button'], label{
     transform: translate(-50%, -50%);
     cursor: pointer;
 }
-#spriteselect{
+#entityselect{
     background-color: #000000;
     height: 100vh;
     width: 100vw;
 }
-.sprite{
+.entity{
     display: inline-block;
     cursor: pointer;
     position: absolute;
 }
-#sprite{
+#entity{
     display: inline-block;
     position: absolute;
     left: 50%;
@@ -77,49 +77,49 @@ input[type='button'], label{
     transform: translate(-50%, -50%);
     z-index: 1;
 }
-.sprite img{
+.entity img{
     max-width: 55px;
 }
-#sprite img{
+#entity img{
     max-width: 25px;
     position: absolute;
 }
-#sprite div#weapon{
+#entity div#weapon{
     translate: 18px 10px;
 }
-#warrior.sprite{
+#warrior.entity{
     left: 50%;
     top: 50px;
     transform: translate(-50%, 0%);
 }
-#magician.sprite{
+#magician.entity{
     left: 30%;
     top: 50px;
     transform: translate(-50%, 0%);
 }
-.spriteinfo{
+.entityinfo{
     display: none;
     height: 100vh;
     width: 100vw;
     position: relative;
 }
-.spriteinfo > h1{
+.entityinfo > h1{
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
     top: 10%;
 }
-.spriteinfo > div{
+.entityinfo > div{
     position: absolute;
     top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.spriteinfo > img{
+.entityinfo > img{
     max-width: 50px;
 }
-.spriteinfo > input{
+.entityinfo > input{
     position: absolute;
     bottom: 1%;
     left: 50%;
@@ -174,7 +174,7 @@ input[type='button'], label{
 .block img{
     max-width: 25px;
 }
-#spriteinfight{
+#entityinfight{
     left: 0;
     top: 0;
     position: absolute;
@@ -245,9 +245,6 @@ input[type='file']{
 }
 #settingpage{
     display: none;
-}
-#block, #character, #item{
-    border: 2px solid white;
 }
 #delete{
     color: red;

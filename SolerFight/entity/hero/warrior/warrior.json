@@ -1,0 +1,23 @@
+{
+    "name": "Warrior",
+    "introduction": "Is an ordinary warrior.",
+    "id": "warrior",
+    "hp": 10,
+    "hprestorespeed": 5000,
+    "hprestorevalue": 1,
+    "mp": 10,
+    "mprestorespeed": 5000,
+    "mprestorevalue": 1,
+    "skin": {
+        "normal": {
+            "action": {
+                "normal": {
+                    "src": "warrior.png"
+                },
+                "lobby": {
+                    "src": "warriorsit.png"
+                }
+            }
+        }
+    }
+}

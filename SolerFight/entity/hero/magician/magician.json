@@ -1,0 +1,24 @@
+{
+    "name": "Magician",
+    "introduction": "Is an great magician.",
+    "type": "entity",
+    "id": "magician",
+    "hp": 6,
+    "hprestorespeed": 7000,
+    "hprestorevalue": 1,
+    "mp": 1e500,
+    "mprestorespeed": 1000,
+    "mprestorevalue": 2,
+    "skin": {
+        "normal": {
+            "action": {
+                "normal": {
+                    "src": "magician.png"
+                },
+                "lobby": {
+                    "src": "warriorsit.png"
+                }
+            }
+        }
+    }
+}

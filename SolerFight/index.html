@@ -27,7 +27,7 @@
 	</div>
 	<div id='homepage'>
 		<div class='push'>
-			<h1>Soler Fight Pre-Alpha 0.2c</h1>
+			<h1>Soler Fight Pre-Alpha 0.2d</h1>
 			<div id='update'>Generate Update!</div>
 			<span id='startremind'>Press to start</span>
 		</div>
@@ -50,19 +50,17 @@
 		<h2>Plugin</h2>
 		block: <div id='delete' class='deleteblock'>&lt;delete&gt;</div>
 		<br><br>
-		character: <div id='delete' class='deletecharacter'>&lt;delete&gt;</div>
+		entity: <div id='delete' class='deleteentity'>&lt;delete&gt;</div>
 		<br><br>
 		item: <div id='delete' class='deleteitem'>&lt;delete&gt;</div>
 	</div>
 	<div id='gamearea'>
-		<div id='spriteselect'>
-			<div id='warrior' class='sprite'>
-				<img src='warriorsit.png' id='warriorsit'>
-			</div>
-			<div id='magician' class='sprite'>magician</div>
-			<div class='spriteinfo'>
+		<div id='entityselect'>
+			<div id='warrior' class='entity'></div>
+			<div id='magician' class='entity'>magician(unfinished)</div>
+			<div class='entityinfo'>
 				<span class='material-icons'>arrow_back_ios</span>
-				<h1>Sorry, We can't find your character.</h1>
+				<h1>Sorry, We can't find your entity.</h1>
 				<div id='info'></div>
 				<input type='button' value='Choose' id='choosebtn'>
 			</div>
@@ -80,10 +78,10 @@
 			<input type='button' value='generate!' id='generate'>
 		</div>
 		<div id='fightarea'>
-			<div id='sprite'>
+			<div id='entity'>
 				<img>
 			</div>
-			<div id='spriteinfight'>
+			<div id='entityinfight'>
 				<div id='hp'>HP: <div class='hpprogress'>
 						<div class='bar'>HP/MAXHP</div>
 					</div>

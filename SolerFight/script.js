@@ -56,21 +56,40 @@ function generatescene(blockvalue) {
 		window.blockgroup = window.blockgroup + ' auto';
 	}
 	window.generatescenestr = '';
-	for (i = 1; i < scenevalue + 1; i++) {
-		Math.floor(Math.random(101)) + 1;
-		if (i == 1) {
-			window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
-		}
-		window.generatescenestr = window.generatescenestr + 'generaterandomscene(blockvalue);';
-		if (i == scenevalue) {
-			eval(window.generatescenestr);
+	generatestartscene(blockvalue);
+	generaterandomscene(blockvalue);
+	//for (i = 1; i < scenevalue + 1; i++) {
+	//	Math.floor(Math.random(101)) + 1;
+	//	if (i == 1) {
+	//		window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
+	//	}
+	//	window.generatescenestr = window.generatescenestr + 'generaterandomscene(blockvalue);';
+	//	if (i == scenevalue) {
+	//		eval(window.generatescenestr);
+	//	}
+	//}
+	var removeClass = 'trap enemy';
+	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+		if (i <= blockvalue) {
+			console.log(i);
+			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i).children().removeClass(removeClass);
+		} else if (i % blockvalue == 1) {
+			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i).children().removeClass(removeClass);
+		} else if (i % blockvalue == 0) {
+			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i).children().removeClass(removeClass);
+		} else if (i >= blockvalue * blockvalue - blockvalue) {
+			$('.block' + i).children().attr('src', 'block.png');
+			$('.block' + i).children().removeClass(removeClass);
 		}
 	}
 	$('.blockgroup').wrapAll('<div class=scene></div>');
-	$('#sprite').append('<div id=weapon><img src=gun.png></div>');
+	$('#entity').append('<div id=weapon><img src=gun.png></div>');
 	trap();
 	weaponsetup();
-	setInterval(restore, window.chosehero.mprestorespeed);
+	setInterval(restore, window.choseentity.mprestorespeed);
 	if (window.deviceType == 'mobile') {
 		$('#mobilecontrol').css('display', 'block');
 	}
@@ -92,11 +111,11 @@ function weaponsettime() {
 	});
 }
 function weaponuse(event) {
-	if (window.spritemp > 0) {
+	if (window.entitymp > 0) {
 		if (window.choseweapon.name == 'normal gun' && window.cdtime) {
-			window.spritemp = window.spritemp - window.item.gun.mp;
+			window.entitymp = window.entitymp - window.item.gun.mp;
 			cornertips({
-				'text': 'You use the gun and your mp is ' + window.spritemp + '!'
+				'text': 'You use the gun and your mp is ' + window.entitymp + '!'
 			});
 			//alert('You use the gun.');
 			//alert('But not thing happen.');
@@ -137,20 +156,6 @@ function generatestartscene(blockvalue) {
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		$('#fightarea').append('<div class=\'block startblock block' + i + '\'><img></div>');
 	}
-	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-		if (i <= blockvalue) {
-			$('.block' + i + '.startblock').children().attr('src', 'block.png');
-		}
-		if (i % blockvalue == 1) {
-			$('.block' + i + '.startblock').children().attr('src', 'block.png');
-		}
-		if (i % blockvalue == 0) {
-			$('.block' + i + '.startblock').children().attr('src', 'block.png');
-		}
-		if (i >= blockvalue * blockvalue - blockvalue) {
-			$('.block' + i + '.startblock').children().attr('src', 'block.png');
-		}
-	}
 	$('.startblock').wrapAll('<div class=\'blockgroup startblockgroup\'></div>');
 	$('.startblockgroup').css('grid-template-columns', window.blockgroup);
 }
@@ -159,45 +164,33 @@ function generaterandomscene(blockvalue) {
 		$('#fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
 		var value = Math.floor(Math.random() * 100) + 1;
 		if (value > 0 && value < 11) {
-			$('.block' + i + '.block').children().attr('src', 'chest.png');
+			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'chest.png');
 		} else if (value > 10 && value < 12) {
-			$('.block' + i + '.block').children().attr('src', 'trap.png');
-			$('.block' + i + '.block').children().addClass('trap');
+			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'trap.png');
+			$('.block' + i + '.blockvalue' + window.randomscene).children().addClass('trap');
 		}
 	}
 	$('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
-	var removeClass = 'trap enemy';
-	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-		if (i <= blockvalue) {
-			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
-			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
-		} else if (i % blockvalue == 1) {
-			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
-			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
-		} else if (i % blockvalue == 0) {
-			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
-			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
-		} else if (i >= blockvalue * blockvalue - blockvalue) {
-			$('.block' + i + '.blockvalue' + i).children().attr('src', 'block.png');
-			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
-		} else if (i == blockvalue / 2) {
-			$('.block' + i + '.blockvalue' + i).children().removeAttr('src');
-			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
-		}
-	}
-	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-		if (i == blockvalue / 2) {
-			$('.block' + i + '.blockvalue' + i).children().attr('src', '');
-			$('.block' + i + '.blockvalue' + i).children().removeClass(removeClass);
-		}
-	}
+	//for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+	//	if (i == blockvalue / 2) {
+	//		$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', '');
+	//		$('.block' + i + '.blockvalue' + window.randomscene).children().removeClass(removeClass);
+	//	}
+	//}
 	$('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
-	window.randomscene = window.randomscene + 1;
+	window.randomscene++;
 	trap();
 }
-function readjson() {
-	$.get('character.json', function (data) {
-		window.character = data;
+function readfile() {
+	$.get('entity.json', function (data) {
+		var entity = data.all_entity;
+		window.entity = [];
+		for (i = 0; i < entity.length + 1; i++) {
+			$.get('./entity/hero/' + entity[i] + '/' + entity[i] + '.json', function (data) {
+				console.log(data);
+				window.entity.push(data);
+			});
+		}
 	});
 	$.get('block.json', function (data) {
 		window.block = data;
@@ -214,7 +207,7 @@ function trap() {
 			$('.trap').addClass('trapopen');
 			$('.trap').attr('src', 'trapopen.png');
 			if ($('.trapopen').overlaps('img[src$=\'warrior.png\']')[0] != undefined && window.trapi == 0) {
-				window.spritehp = window.spritehp - window.block.trap.damage;
+				window.entityhp = window.entityhp - window.block.trap.damage;
 				window.trapi++;
 			}
 		} else if (a == 1) {
@@ -294,27 +287,27 @@ function trap() {
 }));
 
 function detecthurt() {
-	$('.hpprogress .bar').html(window.spritehp + '/' + window.chosehero.hp);
-	$('.hpprogress .bar').css('width', ((window.spritehp - 0) / (window.chosehero.hp - 0)) * 100 + '%');
-	$('.mpprogress .bar').html(window.spritemp + '/' + window.chosehero.mp);
-	$('.mpprogress .bar').css('width', ((window.spritemp - 0) / (window.chosehero.mp - 0)) * 100 + '%');
-	if (window.spritehp <= 0) {
+	$('.hpprogress .bar').html(window.entityhp + '/' + window.choseentity.hp);
+	$('.hpprogress .bar').css('width', ((window.entityhp - 0) / (window.choseentity.hp - 0)) * 100 + '%');
+	$('.mpprogress .bar').html(window.entitymp + '/' + window.choseentity.mp);
+	$('.mpprogress .bar').css('width', ((window.entitymp - 0) / (window.choseentity.mp - 0)) * 100 + '%');
+	if (window.entityhp <= 0) {
 		alert('You Die!');
-		window.spritehp = 100;
+		window.entityhp = 100;
 		window.location.reload();
 	}
-	if (window.chosehero.mp == Infinity) {
+	if (window.choseentity.mp == Infinity) {
 		$('.mpprogress .bar').css('width', '100%');
 	}
 }
 function setskin() {
-	$('#warriorsit').attr('src', window.character.warrior.skin.normal.action.sit.src);
+	$('#warrior.entity').append('<img src=\'' + window.choseentity.skin.normal.action.lobby.src + '\'>');
 }
 function setvariable() {
 	window.deviceType = getDeviceType();
-	window.chosehero = window.character.warrior;
-	window.spritehp = window.chosehero.hp;
-	window.spritemp = window.chosehero.mp;
+	window.choseentity = window.entity[0];
+	window.entityhp = window.choseentity.hp;
+	window.entitymp = window.choseentity.mp;
 	window.gunbulleti = 0;
 	window.cornertipsi = 0;
 	window.img = {};
@@ -326,8 +319,8 @@ function setvariable() {
 		jSQL.query(sql).execute();
 	});
 	window.choseweapon = window.item.gun;
-	if ($.cookie('character') != null) {
-		window.character = JSON.parse($.cookie('character'));
+	if ($.cookie('entity') != null) {
+		window.entity = JSON.parse($.cookie('entity'));
 	} else if ($.cookie('item') != null) {
 		window.item = JSON.parse($.cookie('item'));
 	} else if ($.cookie('block') != null) {
@@ -337,7 +330,7 @@ function setvariable() {
 function interval() {
 	setInterval(function () {
 		detecthurt();
-		$('#fightarea #sprite > img').attr('src', 'data:image/png;base64,' + window.chosehero.skin.normal.action.normal.src);
+		$('#fightarea #entity > img').attr('src', window.choseentity.skin.normal.action.normal.src);
 	});
 }
 function cornertips(config) {
@@ -357,31 +350,31 @@ function cornertips(config) {
 	}, 2000);
 }
 function restore() {
-	if (window.spritemp < window.chosehero.mp) {
-		window.spritemp = window.spritemp + window.chosehero.mprestorevalue;
-	} else if (window.spritehp < window.chosehero.hp) {
-		window.spritehp = window.spritehp + window.chosehero.hprestorevalue;
+	if (window.entitymp < window.choseentity.mp) {
+		window.entitymp = window.entitymp + window.choseentity.mprestorevalue;
+	} else if (window.entityhp < window.choseentity.hp) {
+		window.entityhp = window.entityhp + window.choseentity.hprestorevalue;
 	}
-	if (window.spritemp > window.chosehero.mp) {
-		window.spritemp = window.chosehero.mp;
-	} else if (window.spritehp > window.chosehero.hp) {
-		window.spritehp = window.chosehero.hp;
+	if (window.entitymp > window.choseentity.mp) {
+		window.entitymp = window.choseentity.mp;
+	} else if (window.entityhp > window.choseentity.hp) {
+		window.entityhp = window.choseentity.hp;
 	}
 }
 function inner() {
 	$('#block').text($.cookie('block'));
-	$('#character').text($.cookie('character'));
+	$('#entity').text($.cookie('entity'));
 	$('#item').text($.cookie('item'));
 }
-function setspritevalue(type, config) {
+function setentityvalue(type, config) {
 	if (type == 'mp') {
-		window.spritemp = config;
+		window.entitymp = config;
 	} else if (type == 'hp') {
-		window.spritehp = config;
+		window.entityhp = config;
 	}
 }
 $(document).ready(function () {
-	readjson();
+	readfile();
 	setTimeout(function () {
 		setvariable();
 		webapp();
@@ -393,43 +386,43 @@ $(document).ready(function () {
 		$('#homepage').css('display', 'none');
 		$('#gamearea').css('display', 'inline-block');
 	});
-	$('#warrior.sprite').click(function () {
-		$('#spriteselect > div').css('display', 'none');
-		$('.spriteinfo').css('display', 'inline-block');
-		$('.spriteinfo h1').text(window.character.warrior.name);
-		$('.spriteinfo div').text(window.character.warrior.introduction);
-		$('.spriteinfo input').addClass(window.character.warrior.id);
+	$('#warrior.entity').click(function () {
+		$('#entityselect > div').css('display', 'none');
+		$('.entityinfo').css('display', 'inline-block');
+		$('.entityinfo h1').text(window.entity[0].name);
+		$('.entityinfo div').text(window.entity[0].introduction);
+		$('.entityinfo input').addClass(window.entity[0].id);
 	});
-	$('#magician.sprite').click(function () {
-		$('#spriteselect > div').css('display', 'none');
-		$('.spriteinfo').css('display', 'inline-block');
-		$('.spriteinfo h1').text(window.character.magician.name);
-		$('.spriteinfo div').text(window.character.magician.introduction);
-		$('.spriteinfo input').addClass(window.character.magician.id);
+	$('#magician.entity').click(function () {
+		$('#entityselect > div').css('display', 'none');
+		$('.entityinfo').css('display', 'inline-block');
+		$('.entityinfo h1').text(window.entity[1].name);
+		$('.entityinfo div').text(window.entity[1].introduction);
+		$('.entityinfo input').addClass(window.entity[1].id);
 	});
-	$('.spriteinfo').on('click', '.warrior', function () {
-		window.chosehero = window.character.warrior;
-		$('.spriteinfo').css('display', 'none');
-		$('#spriteselect > *:not(.spriteinfo, #shop)').css('display', 'inline-block');
+	$('.entityinfo').on('click', '.warrior', function () {
+		window.choseentity = window.entity[0];
+		$('.entityinfo').css('display', 'none');
+		$('#entityselect > *:not(.entityinfo, #shop)').css('display', 'inline-block');
 	});
-	$('.spriteinfo').on('click', '.magician', function () {
-		window.chosehero = window.character.magician;
-		$('.spriteinfo').css('display', 'none');
-		$('#spriteselect > *:not(.spriteinfo, #shop)').css('display', 'inline-block');
+	$('.entityinfo').on('click', '.magician', function () {
+		window.choseentity = window.entity[1];
+		$('.entityinfo').css('display', 'none');
+		$('#entityselect > *:not(.entityinfo, #shop)').css('display', 'inline-block');
 	});
 	$('#gamearea #startbtn').click(function () {
-		$('#spriteselect').css('display', 'none');
+		$('#entityselect').css('display', 'none');
 		$('#generateoption').css('display', 'inline-block');
-		if (window.chosehero == undefined) {
-			window.chosehero = window.character.warrior;
+		if (window.choseentity == undefined) {
+			window.choseentity = window.entity.warrior;
 		}
-		window.spritehp = window.chosehero.hp;
-		window.spritemp = window.chosehero.mp;
+		window.entityhp = window.choseentity.hp;
+		window.entitymp = window.choseentity.mp;
 	});
 	$('#generate').click(function () {
 		$('#generateoption').css('display', 'none');
 		$('#fightarea').css('display', 'inline-block');
-		$('#spriteinfight').css('display', 'inline-block');
+		$('#entityinfight').css('display', 'inline-block');
 		generatescene(Number($('#generaterange').val()));
 		cornertips({
 			'text': 'Tips: You can press f11 to fullscreen'
@@ -446,8 +439,8 @@ $(document).ready(function () {
 		$('#homepage').css('display', 'none');
 		$('#settingpage').css('display', 'block');
 	});
-	$('.deletecharacter').click(function () {
-		$.removeCookie('character');
+	$('.deleteentity').click(function () {
+		$.removeCookie('entity');
 		window.location.reload();
 	});
 	$('.deleteblock').click(function () {
@@ -476,11 +469,11 @@ $(document).ready(function () {
 				if (filename == 'item') {
 					window.item = JSON.parse(results);
 					$.cookie('item', window.item);
-				} else if (filename == 'character') {
-					window.character = JSON.parse(results);
+				} else if (filename == 'entity') {
+					window.entity = JSON.parse(results);
 					console.log('sd');
 					jSQL.query("insert into users (bob, 34)").execute();
-					$.cookie('character', window.character);
+					$.cookie('entity', window.entity);
 				} else if (filename == 'block') {
 					window.block = JSON.parse(results);
 					$.cookie('block', window.block);
@@ -489,14 +482,14 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
-		var move = '#fightarea > *:not(#sprite, #spriteinfight)';
-		if (event.which == 39) {
+		var move = '#fightarea > *:not(#entity, #entityinfight)';
+		if (event.which == 39 || event.which == 68) {
 			$(move).move(-10, 0);
-		} else if (event.which == 37) {
+		} else if (event.which == 37 || event.which == 65) {
 			$(move).move(10, 0);
-		} else if (event.which == 38) {
+		} else if (event.which == 38 || event.which == 87) {
 			$(move).move(0, 10);
-		} else if (event.which == 40) {
+		} else if (event.which == 40 || event.which == 83) {
 			$(move).move(0, -10);
 		}
 		if (event.which == 80) {
@@ -507,5 +500,8 @@ $(document).ready(function () {
 		setTimeout(function () {
 			$('.homepagesecret').css('display', 'none');
 		}, 1000);
+	});
+	$(window).blur(function () {
+		alert('Don\'t leave the page!');
 	});
 });
