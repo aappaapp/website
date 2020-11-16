@@ -48,9 +48,22 @@
 function score() {
     $('.output').text(Math.round10((($('.value').val() - $('.min').val()) / ($('.max').val() - $('.min').val())) * 100), -1);
 }
+function orientationfuc() {
+    var orientation = (screen.orientation || {}).type || screen.mozOrientation || screen.msOrientation;
+
+    if (orientation === "landscape-primary") {
+        console.log("That looks good.");
+    } else if (orientation === "landscape-secondary") {
+        console.log("Mmmh... the screen is upside down!");
+    } else if (orientation === "portrait-secondary" || orientation === "portrait-primary") {
+        console.log("Mmmh... you should rotate your device to landscape");
+    } else if (orientation === undefined) {
+        console.log("The orientation API isn't supported in this browser :(");
+    }
+}
 $(document).ready(function () {
     window.screen.lockOrientation('portrait');
-    window.screen.orientation.lock();
+    orientationfuc();
     $('input').change(score);
     $('input[type=\'button\']').click(score);
     $(document).keypress(function () {
