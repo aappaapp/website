@@ -495,6 +495,20 @@ $(document).ready(function () {
 		if (event.which == 80) {
 			$('.homepagesecret').css('display', 'inline-block');
 		}
+		if (event.which == 192) {
+			if (window.dev != true) {
+				var ans = prompt('Open dev mode password:');
+				if (ans == 'dev123') {
+					window.dev = true;
+					alert('dev mode is open!');
+				} else {
+					alert('password is wrong');
+				}
+			} else {
+				window.dev = false;
+				alert('dev mode is close.');
+			}
+		}
 	});
 	$(document).keyup(function () {
 		setTimeout(function () {
@@ -502,6 +516,8 @@ $(document).ready(function () {
 		}, 1000);
 	});
 	$(window).blur(function () {
-		alert('Don\'t leave the page!');
+		if (window.dev != true) {
+			alert('Don\'t focus to another thing!');
+		}
 	});
 });
