@@ -56,35 +56,32 @@ function generatescene(blockvalue) {
 		window.blockgroup = window.blockgroup + ' auto';
 	}
 	window.generatescenestr = '';
-	generatestartscene(blockvalue);
-	generaterandomscene(blockvalue);
-	//for (i = 1; i < scenevalue + 1; i++) {
-	//	Math.floor(Math.random(101)) + 1;
-	//	if (i == 1) {
-	//		window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
-	//	}
-	//	window.generatescenestr = window.generatescenestr + 'generaterandomscene(blockvalue);';
-	//	if (i == scenevalue) {
-	//		eval(window.generatescenestr);
-	//	}
-	//}
-	var removeClass = 'trap enemy';
-	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-		if (i <= blockvalue) {
-			console.log(i);
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
-		} else if (i % blockvalue == 1) {
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
-		} else if (i % blockvalue == 0) {
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
-		} else if (i >= blockvalue * blockvalue - blockvalue) {
-			$('.block' + i).children().attr('src', 'block.png');
-			$('.block' + i).children().removeClass(removeClass);
+	window.removeClass = 'trap enemy';
+	var except = 'blockreplaceexcept';
+	for (i = 1; i < scenevalue + 1; i++) {
+		Math.floor(Math.random(101)) + 1;
+		if (i == 1) {
+			window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
+		}
+		window.generatescenestr = window.generatescenestr + 'generaterandomscene(blockvalue);';
+		if (i == scenevalue) {
+			eval(window.generatescenestr);
 		}
 	}
+	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
+		if (i <= blockvalue) {
+			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+		} else if (i % blockvalue == 1) {
+			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+		} else if (i % blockvalue == 0) {
+			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+		} else if (i >= blockvalue * blockvalue - blockvalue) {
+			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+		}
+	}
+	door('top', blockvalue);
+	door('left', blockvalue);
+	door('right', blockvalue);
 	$('.blockgroup').wrapAll('<div class=scene></div>');
 	$('#entity').append('<div id=weapon><img src=gun.png></div>');
 	trap();
@@ -92,6 +89,31 @@ function generatescene(blockvalue) {
 	setInterval(restore, window.choseentity.mprestorespeed);
 	if (window.deviceType == 'mobile') {
 		$('#mobilecontrol').css('display', 'block');
+	}
+}
+function door(config, blockvalue) {
+	var replaceBlock = 'chest.png';
+	if (config == 'top') {
+		var centerPoint = blockvalue / 2;
+		$('.block' + (centerPoint - 2)).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint - 1)).children().attr('src', replaceBlock);
+		$('.block' + centerPoint).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint + 1)).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint + 2)).children().attr('src', replaceBlock);
+	} else if (config == 'left') {
+		var centerPoint = blockvalue / 2 - 1;
+		$('.block' + (1 + (centerPoint - 2) * blockvalue)).children().attr('src', replaceBlock);
+		$('.block' + (1 + (centerPoint - 1) * blockvalue)).children().attr('src', replaceBlock);
+		$('.block' + (1 + centerPoint * blockvalue)).children().attr('src', replaceBlock);
+		$('.block' + (1 + (centerPoint + 1) * blockvalue)).children().attr('src', replaceBlock);
+		$('.block' + (1 + (centerPoint + 2) * blockvalue)).children().attr('src', replaceBlock);
+	} else if (config == 'right') {
+		var centerPoint = blockvalue;
+		$('.block' + ((centerPoint - 4) * blockvalue / 2)).children().attr('src', replaceBlock);
+		$('.block' + ((centerPoint - 2) * blockvalue / 2)).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint * blockvalue / 2)).children().attr('src', replaceBlock);
+		$('.block' + ((centerPoint + 2) * blockvalue / 2)).children().attr('src', replaceBlock);
+		$('.block' + ((centerPoint + 4) * blockvalue / 2)).children().attr('src', replaceBlock);
 	}
 }
 function weaponsetup() {
@@ -166,17 +188,10 @@ function generaterandomscene(blockvalue) {
 		if (value > 0 && value < 11) {
 			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'chest.png');
 		} else if (value > 10 && value < 12) {
-			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'trap.png');
-			$('.block' + i + '.blockvalue' + window.randomscene).children().addClass('trap');
+			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'trap.png').addClass('trap');
 		}
 	}
 	$('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
-	//for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-	//	if (i == blockvalue / 2) {
-	//		$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', '');
-	//		$('.block' + i + '.blockvalue' + window.randomscene).children().removeClass(removeClass);
-	//	}
-	//}
 	$('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
 	window.randomscene++;
 	trap();
@@ -496,17 +511,21 @@ $(document).ready(function () {
 			$('.homepagesecret').css('display', 'inline-block');
 		}
 		if (event.which == 192) {
-			if (window.dev != true) {
-				var ans = prompt('Open dev mode password:');
-				if (ans == 'dev123') {
+			var ans = prompt('Please enter secret code:');
+			if (ans == 'dev123') {
+				if (window.dev != true) {
 					window.dev = true;
 					alert('dev mode is open!');
 				} else {
-					alert('password is wrong');
+					window.dev = false;
+					alert('dev mode is close.');
 				}
+			} else if (ans == 'hide-cursor') {
+				$('html').css('cursor', 'none');
+			} else if (ans == 'show-cursor') {
+				$('html').css('cursor', 'default');
 			} else {
-				window.dev = false;
-				alert('dev mode is close.');
+				alert('Secret code is error');
 			}
 		}
 	});
