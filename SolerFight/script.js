@@ -51,20 +51,29 @@ $.fn.move = function (x, y) {
 function generatescene(blockvalue) {
 	window.randomscene = 1;
 	window.blockgroup = '';
-	var scenevalue = 3;
+	var scenevalue = 5;
 	for (i = 1; i < blockvalue + 1; i++) {
 		window.blockgroup = window.blockgroup + ' auto';
 	}
 	window.generatescenestr = '';
 	window.removeClass = 'trap enemy';
 	var except = 'blockreplaceexcept';
-	for (i = 1; i < scenevalue + 1; i++) {
-		Math.floor(Math.random(101)) + 1;
+	for (i = 1; i < scenevalue; i++) {
+		console.log(i);
 		if (i == 1) {
 			window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
+			for (a = 0; a < 100; a++) {
+				var random = Math.floor(Math.random() * 5) + 1;
+				console.log(random);
+				console.log(random == 1);
+				if (random == 1) {
+					console.log('sd');
+					window.generatescenestr = window.generatescenestr + '$(\'.startblockgroup\').after(\'<br>\');';
+				}
+			}
 		}
 		window.generatescenestr = window.generatescenestr + 'generaterandomscene(blockvalue);';
-		if (i == scenevalue) {
+		if (i == scenevalue - 1) {
 			eval(window.generatescenestr);
 		}
 	}
@@ -82,6 +91,7 @@ function generatescene(blockvalue) {
 	door('top', blockvalue);
 	door('left', blockvalue);
 	door('right', blockvalue);
+	door('bottom', blockvalue);
 	$('.blockgroup').wrapAll('<div class=scene></div>');
 	$('#entity').append('<div id=weapon><img src=gun.png></div>');
 	trap();
@@ -92,7 +102,7 @@ function generatescene(blockvalue) {
 	}
 }
 function door(config, blockvalue) {
-	var replaceBlock = 'chest.png';
+	var replaceBlock = 'disableblock.png';
 	if (config == 'top') {
 		var centerPoint = blockvalue / 2;
 		$('.block' + (centerPoint - 2)).children().attr('src', replaceBlock);
@@ -114,6 +124,14 @@ function door(config, blockvalue) {
 		$('.block' + (centerPoint * blockvalue / 2)).children().attr('src', replaceBlock);
 		$('.block' + ((centerPoint + 2) * blockvalue / 2)).children().attr('src', replaceBlock);
 		$('.block' + ((centerPoint + 4) * blockvalue / 2)).children().attr('src', replaceBlock);
+	} else if (config == 'bottom') {
+		var centerPoint = blockvalue * blockvalue - blockvalue / 2;
+		console.log(centerPoint);
+		$('.block' + ((centerPoint - 2))).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint - 1)).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint)).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint + 1)).children().attr('src', replaceBlock);
+		$('.block' + (centerPoint + 2)).children().attr('src', replaceBlock);
 	}
 }
 function weaponsetup() {
@@ -510,8 +528,8 @@ $(document).ready(function () {
 		if (event.which == 80) {
 			$('.homepagesecret').css('display', 'inline-block');
 		}
-		if (event.which == 192) {
-			var ans = prompt('Please enter secret code:');
+		if (event.which == 191) {
+			var ans = prompt('Please enter command:');
 			if (ans == 'dev123') {
 				if (window.dev != true) {
 					window.dev = true;
@@ -525,7 +543,7 @@ $(document).ready(function () {
 			} else if (ans == 'show-cursor') {
 				$('html').css('cursor', 'default');
 			} else {
-				alert('Secret code is error');
+				alert('Command is error');
 			}
 		}
 	});
