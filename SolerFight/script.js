@@ -347,10 +347,6 @@ function setvariable() {
 	window.img.name = [];
 	window.img.src = [];
 	$.cookie.json = true;
-	jSQL.load(function () {
-		var sql = "create table if not exists users (name varchar(25), age int)";
-		jSQL.query(sql).execute();
-	});
 	window.choseweapon = window.item.gun;
 	if ($.cookie('entity') != null) {
 		window.entity = JSON.parse($.cookie('entity'));
@@ -505,7 +501,6 @@ $(document).ready(function () {
 				} else if (filename == 'entity') {
 					window.entity = JSON.parse(results);
 					console.log('sd');
-					jSQL.query("insert into users (bob, 34)").execute();
 					$.cookie('entity', window.entity);
 				} else if (filename == 'block') {
 					window.block = JSON.parse(results);
