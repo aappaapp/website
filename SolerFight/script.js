@@ -68,7 +68,6 @@ function generatescene(blockvalue) {
 				console.log(random == 1);
 				if (random == 1) {
 					console.log('sd');
-					window.generatescenestr = window.generatescenestr + '$(\'.startblockgroup\').after(\'<br>\');';
 				}
 			}
 		}
