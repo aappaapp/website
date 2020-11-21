@@ -243,6 +243,7 @@ input[type='file']{
 	width: 100vw;
 	transition: all 1s;
 	text-align: center;
+	display: none;
 }
 .homepage .mode .container input{
 	background-color: #00000000;

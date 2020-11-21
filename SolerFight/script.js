@@ -464,7 +464,10 @@ $(document).ready(function () {
 	$(document).tooltip();
 	$('.homepage .push').click(function () {
 		if ($('.homepage .mode .container').css('bottom') == '-100px') {
-			$('.homepage .mode .container').css('bottom', '100px');
+			$('.homepage .mode .container').css('display', 'block');
+			setTimeout(function () {
+				$('.homepage .mode .container').css('bottom', '100px');
+			}, 1);
 			$('.startremind').css({
 				'animation': '0',
 				'opacity': '0'
@@ -472,6 +475,12 @@ $(document).ready(function () {
 		} else if ($('.homepage .mode .container').css('bottom') == '100px') {
 			$('.homepage .mode .container').css('bottom', '-100px');
 			$('.startremind').css('animation', 'twinkling 2s infinite');
+			window.modecontainerinterval = setInterval(function () {
+				if ($('.homepage .mode .container').css('bottom') == '-100px') {
+					$('.homepage .mode .container').css('display', 'none');
+					clearInterval(window.modecontainerinterval)
+				}
+			});
 		}
 	});
 	$('.homepage .mode .container .fightmodebtn').click(function () {
