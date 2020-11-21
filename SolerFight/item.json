@@ -2,6 +2,21 @@
     "gun": {
         "name": "normal gun",
         "mp": 1,
-        "cd": 250
+        "cd": 350,
+        "skin": {
+            "normal": {
+                "src": "gun.png"
+            }
+        }
+    },
+    "shotgun": {
+        "name": "normal shotgun",
+        "mp": 5,
+        "cd": 500,
+        "skin": {
+            "normal": {
+                "src": "trap.png"
+            }
+        }
     }
 }

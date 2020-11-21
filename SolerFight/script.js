@@ -11,8 +11,8 @@ function getDeviceType() {
 	return 'desktop';
 };
 function play_beta() {
-	$('#warning').css('display', 'none');
-	$('div:not(#warning)').css('display', 'inline-block');
+	$('.warning').css('display', 'none');
+	$('div:not(.warning)').css('display', 'inline-block');
 }
 function webapp() {
 	if ('serviceWorker' in navigator) {
@@ -57,18 +57,11 @@ function generatescene(blockvalue) {
 	}
 	window.generatescenestr = '';
 	window.removeClass = 'trap enemy';
-	var except = 'blockreplaceexcept';
 	for (i = 1; i < scenevalue; i++) {
-		console.log(i);
 		if (i == 1) {
 			window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
 			for (a = 0; a < 100; a++) {
 				var random = Math.floor(Math.random() * 5) + 1;
-				console.log(random);
-				console.log(random == 1);
-				if (random == 1) {
-					console.log('sd');
-				}
 			}
 		}
 		window.generatescenestr = window.generatescenestr + 'generaterandomscene(blockvalue);';
@@ -76,66 +69,95 @@ function generatescene(blockvalue) {
 			eval(window.generatescenestr);
 		}
 	}
+	var except = 'blockreplaceexcept';
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		if (i <= blockvalue) {
-			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i % blockvalue == 1) {
-			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i % blockvalue == 0) {
-			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i >= blockvalue * blockvalue - blockvalue) {
-			$('.block' + i + ':not(.' + except + ')').children().attr('src', 'block.png').removeClass(window.removeClass);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i + ' > *').removeClass(window.removeClass);
 		}
 	}
-	door('top', blockvalue);
-	door('left', blockvalue);
-	door('right', blockvalue);
-	door('bottom', blockvalue);
-	$('.blockgroup').wrapAll('<div class=scene></div>');
-	$('#entity').append('<div id=weapon><img src=gun.png></div>');
+	$('.startblockgroup').door('bottom', blockvalue, 'disableblock.png');
+	$('.blockgroup').after('<br>');
+	$('.blockgroup, .fightarea br').wrapAll('<div class=scene></div>');
+	$('.scene').wrapAll('<div class=scenecontainer></div>');
+	$('.fightarea .entity').append('<div class=weapon><img></div>');
 	trap();
 	weaponsetup();
 	setInterval(restore, window.choseentity.mprestorespeed);
 	if (window.deviceType == 'mobile') {
-		$('#mobilecontrol').css('display', 'block');
+		$('.mobilecontrol').css('display', 'block');
 	}
 }
-function door(config, blockvalue) {
-	var replaceBlock = 'disableblock.png';
+$.fn.door = function (config, blockvalue, blocksrc) {
+	var replaceBlock = blocksrc;
+	var a = '.' + $(this[0]).attr('class').replace(' ', '.');
 	if (config == 'top') {
 		var centerPoint = blockvalue / 2;
-		$('.block' + (centerPoint - 2)).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint - 1)).children().attr('src', replaceBlock);
-		$('.block' + centerPoint).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint + 1)).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint + 2)).children().attr('src', replaceBlock);
+		$(a + ' .block' + (centerPoint - 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint - 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + centerPoint).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
 	} else if (config == 'left') {
 		var centerPoint = blockvalue / 2 - 1;
-		$('.block' + (1 + (centerPoint - 2) * blockvalue)).children().attr('src', replaceBlock);
-		$('.block' + (1 + (centerPoint - 1) * blockvalue)).children().attr('src', replaceBlock);
-		$('.block' + (1 + centerPoint * blockvalue)).children().attr('src', replaceBlock);
-		$('.block' + (1 + (centerPoint + 1) * blockvalue)).children().attr('src', replaceBlock);
-		$('.block' + (1 + (centerPoint + 2) * blockvalue)).children().attr('src', replaceBlock);
+		$(a + ' .block' + (1 + (centerPoint - 2) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + (centerPoint - 1) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + centerPoint * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + (centerPoint + 1) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + (centerPoint + 2) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
 	} else if (config == 'right') {
 		var centerPoint = blockvalue;
-		$('.block' + ((centerPoint - 4) * blockvalue / 2)).children().attr('src', replaceBlock);
-		$('.block' + ((centerPoint - 2) * blockvalue / 2)).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint * blockvalue / 2)).children().attr('src', replaceBlock);
-		$('.block' + ((centerPoint + 2) * blockvalue / 2)).children().attr('src', replaceBlock);
-		$('.block' + ((centerPoint + 4) * blockvalue / 2)).children().attr('src', replaceBlock);
+		$(a + ' .block' + ((centerPoint - 4) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + ((centerPoint - 2) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + ((centerPoint + 2) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + ((centerPoint + 4) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
 	} else if (config == 'bottom') {
 		var centerPoint = blockvalue * blockvalue - blockvalue / 2;
-		console.log(centerPoint);
-		$('.block' + ((centerPoint - 2))).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint - 1)).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint)).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint + 1)).children().attr('src', replaceBlock);
-		$('.block' + (centerPoint + 2)).children().attr('src', replaceBlock);
+		$(a + ' .block' + ((centerPoint - 2))).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint - 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+	} else if (config == 'all') {
+		var centerPoint = blockvalue / 2;
+		$(a + ' .block' + (centerPoint - 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint - 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + centerPoint).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		var centerPoint = blockvalue / 2 - 1;
+		$(a + ' .block' + (1 + (centerPoint - 2) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + (centerPoint - 1) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + centerPoint * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + (centerPoint + 1) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (1 + (centerPoint + 2) * blockvalue)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		var centerPoint = blockvalue;
+		$(a + ' .block' + ((centerPoint - 4) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + ((centerPoint - 2) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + ((centerPoint + 2) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + ((centerPoint + 4) * blockvalue / 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		var centerPoint = blockvalue * blockvalue - blockvalue / 2;
+		$(a + ' .block' + ((centerPoint - 2))).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint - 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 1)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
+		$(a + ' .block' + (centerPoint + 2)).children().attr('src', replaceBlock).addClass('blockreplaceexcept');
 	}
 }
 function weaponsetup() {
 	window.cdtime = true;
-	pointer = document.getElementById('weapon');
+	pointer = document.querySelector('.weapon');
 	pointerBox = pointer.getBoundingClientRect();
 	centerPoint = window.getComputedStyle(pointer).transformOrigin;
 	centers = centerPoint.split(' ');
@@ -144,18 +166,23 @@ function weaponsetup() {
 }
 function weaponsettime() {
 	$(document).mousedown(function () {
-		weaponuseitv = setInterval(weaponuse);
+		window.weaponuseitv = setInterval(weaponuse);
 	}).mouseup(function () {
-		clearInterval(weaponuseitv);
+		clearInterval(window.weaponuseitv);
 	});
 }
 function weaponuse(event) {
 	if (window.entitymp > 0) {
 		if (window.choseweapon.name == 'normal gun' && window.cdtime) {
 			window.entitymp = window.entitymp - window.item.gun.mp;
-			cornertips({
-				'text': 'You use the gun and your mp is ' + window.entitymp + '!'
+			$('.fightarea .entity').tooltip({
+				items: ".fightarea .entity",
+				content: 'You use the gun and your mp is ' + window.entitymp + '!'
 			});
+			$('.fightarea .entity').tooltip("open");
+			setTimeout(function () {
+				$('.fightarea .entity').tooltip("disable");
+			}, 1000);
 			//alert('You use the gun.');
 			//alert('But not thing happen.');
 			//$('.scene').append('<div class=\'gunbullet bullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
@@ -163,9 +190,14 @@ function weaponuse(event) {
 			cd(window.choseweapon.cd);
 		}
 	} else {
-		cornertips({
-			'text': 'not enough MP'
+		$('.fightarea .entity').tooltip({
+			items: ".fightarea .entity",
+			content: 'Not enough MP!'
 		});
+		$('.fightarea .entity').tooltip("open");
+		setTimeout(function () {
+			$('.fightarea .entity').tooltip("disable");
+		}, 1000);
 	}
 }
 function cd(time) {
@@ -193,14 +225,14 @@ function weaponfacing(event) {
 }
 function generatestartscene(blockvalue) {
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-		$('#fightarea').append('<div class=\'block startblock block' + i + '\'><img></div>');
+		$('.fightarea').append('<div class=\'block startblock block' + i + '\'><img></div>');
 	}
 	$('.startblock').wrapAll('<div class=\'blockgroup startblockgroup\'></div>');
 	$('.startblockgroup').css('grid-template-columns', window.blockgroup);
 }
 function generaterandomscene(blockvalue) {
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
-		$('#fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
+		$('.fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
 		var value = Math.floor(Math.random() * 100) + 1;
 		if (value > 0 && value < 11) {
 			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'chest.png');
@@ -210,6 +242,10 @@ function generaterandomscene(blockvalue) {
 	}
 	$('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
 	$('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
+	console.log(window.randomscene);
+	$('.randomblockgroup' + window.randomscene).door('top', blockvalue, 'disableblock.png');
+	$('.randomblockgroup' + window.randomscene).door('bottom', blockvalue, 'disableblock.png');
+	console.log(window.randomscene);
 	window.randomscene++;
 	trap();
 }
@@ -333,7 +369,7 @@ function detecthurt() {
 	}
 }
 function setskin() {
-	$('#warrior.entity').append('<img src=\'' + window.choseentity.skin.normal.action.lobby.src + '\'>');
+	$('.warrior.entity').append('<img src=\'' + window.choseentity.skin.normal.action.lobby.src + '\'>');
 }
 function setvariable() {
 	window.deviceType = getDeviceType();
@@ -345,8 +381,11 @@ function setvariable() {
 	window.img = {};
 	window.img.name = [];
 	window.img.src = [];
+	window.dev = eval($.cookie('dev'));
 	$.cookie.json = true;
-	window.choseweapon = window.item.gun;
+	window.choseweapon1 = window.item.gun;
+	window.choseweapon2 = window.item.shotgun;
+	window.choseweapon = window.choseweapon1;
 	if ($.cookie('entity') != null) {
 		window.entity = JSON.parse($.cookie('entity'));
 	} else if ($.cookie('item') != null) {
@@ -355,10 +394,19 @@ function setvariable() {
 		window.item = JSON.parse($.cookie('block'));
 	}
 }
+function detectroom() {
+	if ($('.blockgroup').overlaps('.fightarea .entity')[0] != undefined) {
+		var str = $($('.blockgroup').overlaps('.fightarea .entity')[0]).attr('class');
+		var gclass = str.split(' ')[1];
+		$('.' + gclass).door('all', 18, 'block.png');
+	}
+}
 function interval() {
 	setInterval(function () {
 		detecthurt();
-		$('#fightarea #entity > img').attr('src', window.choseentity.skin.normal.action.normal.src);
+		detectroom();
+		$('.fightarea .entity > img').attr('src', window.choseentity.skin.normal.action.normal.src);
+		$('.weapon img').attr('src', window.choseweapon.skin.normal.src);
 	});
 }
 function cornertips(config) {
@@ -390,9 +438,9 @@ function restore() {
 	}
 }
 function inner() {
-	$('#block').text($.cookie('block'));
-	$('#entity').text($.cookie('entity'));
-	$('#item').text($.cookie('item'));
+	$('.block').text($.cookie('block'));
+	$('.entity').text($.cookie('entity'));
+	$('.item').text($.cookie('item'));
 }
 function setentityvalue(type, config) {
 	if (type == 'mp') {
@@ -400,6 +448,9 @@ function setentityvalue(type, config) {
 	} else if (type == 'hp') {
 		window.entityhp = config;
 	}
+}
+window.ondragstart = function () {
+	return false;
 }
 $(document).ready(function () {
 	readfile();
@@ -410,19 +461,32 @@ $(document).ready(function () {
 		interval();
 		inner();
 	}, 1000)
-	$('#homepage > .push').click(function () {
-		$('#homepage').css('display', 'none');
-		$('#gamearea').css('display', 'inline-block');
+	$(document).tooltip();
+	$('.homepage .push').click(function () {
+		if ($('.homepage .mode .container').css('bottom') == '-100px') {
+			$('.homepage .mode .container').css('bottom', '100px');
+			$('.startremind').css({
+				'animation': '0',
+				'opacity': '0'
+			});
+		} else if ($('.homepage .mode .container').css('bottom') == '100px') {
+			$('.homepage .mode .container').css('bottom', '-100px');
+			$('.startremind').css('animation', 'twinkling 2s infinite');
+		}
 	});
-	$('#warrior.entity').click(function () {
-		$('#entityselect > div').css('display', 'none');
+	$('.homepage .mode .container .fightmodebtn').click(function () {
+		$('.homepage').css('display', 'none');
+		$('.gamearea').css('display', 'inline-block');
+	});
+	$('.warrior.entity').click(function () {
+		$('.entityselect > div').css('display', 'none');
 		$('.entityinfo').css('display', 'inline-block');
 		$('.entityinfo h1').text(window.entity[0].name);
 		$('.entityinfo div').text(window.entity[0].introduction);
 		$('.entityinfo input').addClass(window.entity[0].id);
 	});
-	$('#magician.entity').click(function () {
-		$('#entityselect > div').css('display', 'none');
+	$('.magician.entity').click(function () {
+		$('.entityselect > div').css('display', 'none');
 		$('.entityinfo').css('display', 'inline-block');
 		$('.entityinfo h1').text(window.entity[1].name);
 		$('.entityinfo div').text(window.entity[1].introduction);
@@ -431,41 +495,46 @@ $(document).ready(function () {
 	$('.entityinfo').on('click', '.warrior', function () {
 		window.choseentity = window.entity[0];
 		$('.entityinfo').css('display', 'none');
-		$('#entityselect > *:not(.entityinfo, #shop)').css('display', 'inline-block');
+		$('.entityselect > *:not(.entityinfo, .shop)').css('display', 'inline-block');
 	});
 	$('.entityinfo').on('click', '.magician', function () {
 		window.choseentity = window.entity[1];
 		$('.entityinfo').css('display', 'none');
-		$('#entityselect > *:not(.entityinfo, #shop)').css('display', 'inline-block');
+		$('.entityselect > *:not(.entityinfo, .shop)').css('display', 'inline-block');
 	});
-	$('#gamearea #startbtn').click(function () {
-		$('#entityselect').css('display', 'none');
-		$('#generateoption').css('display', 'inline-block');
+	$('.gamearea .startbtn').click(function () {
+		$('.entityselect').css('display', 'none');
+		$('.generateoption').css('display', 'inline-block');
 		if (window.choseentity == undefined) {
 			window.choseentity = window.entity.warrior;
 		}
 		window.entityhp = window.choseentity.hp;
 		window.entitymp = window.choseentity.mp;
 	});
-	$('#generate').click(function () {
-		$('#generateoption').css('display', 'none');
-		$('#fightarea').css('display', 'inline-block');
-		$('#entityinfight').css('display', 'inline-block');
-		generatescene(Number($('#generaterange').val()));
-		cornertips({
-			'text': 'Tips: You can press f11 to fullscreen'
+	$('.generate').click(function () {
+		$('.generateoption').css('display', 'none');
+		$('.fightarea').css('display', 'inline-block');
+		$('.entityinfoinfight').css('display', 'inline-block');
+		generatescene(Number($('.generaterange').val()));
+		$('.fightarea .entity').tooltip({
+			items: ".fightarea .entity",
+			content: 'Tips: You can press f11 to fullscreen; You can press Q/E to change weapon, W/A/S/D or arrow key to move'
 		});
+		$('.fightarea .entity').tooltip("open");
+		setTimeout(function () {
+			$('.fightarea .entity').tooltip("disable");
+		}, 10000);
 	});
-	$('#generaterange').on('input', function () {
-		$('#rangevalue').text($('#generaterange').val());
+	$('.generaterange').on('input', function () {
+		$('.rangevalue').text($('.generaterange').val());
 	})
-	$('#uploadpagebtn').click(function () {
-		$('#homepage').css('display', 'none');
-		$('#uploadpage').css('display', 'block');
+	$('.uploadpagebtn').click(function () {
+		$('.homepage').css('display', 'none');
+		$('.uploadpage').css('display', 'block');
 	});
-	$('#settingpagebtn').click(function () {
-		$('#homepage').css('display', 'none');
-		$('#settingpage').css('display', 'block');
+	$('.settingpagebtn').click(function () {
+		$('.homepage').css('display', 'none');
+		$('.settingpage').css('display', 'block');
 	});
 	$('.deleteentity').click(function () {
 		$.removeCookie('entity');
@@ -509,7 +578,7 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
-		var move = '#fightarea > *:not(#entity, #entityinfight)';
+		var move = '.fightarea > *:not(.entity, .entityinfoinfight)';
 		if (event.which == 39 || event.which == 68) {
 			$(move).move(-10, 0);
 		} else if (event.which == 37 || event.which == 65) {
@@ -518,6 +587,20 @@ $(document).ready(function () {
 			$(move).move(0, 10);
 		} else if (event.which == 40 || event.which == 83) {
 			$(move).move(0, -10);
+		} else if (event.which == 81) {
+			if (window.choseweapon == window.choseweapon1) {
+				window.choseweapon = window.choseweapon2;
+			} else if (window.choseweapon == window.choseweapon2) {
+				window.choseweapon = window.choseweapon1;
+			}
+			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
+		} else if (event.which == 69) {
+			if (window.choseweapon == window.choseweapon1) {
+				window.choseweapon = window.choseweapon2;
+			} else if (window.choseweapon == window.choseweapon2) {
+				window.choseweapon = window.choseweapon1;
+			}
+			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
 		}
 		if (event.which == 80) {
 			$('.homepagesecret').css('display', 'inline-block');
@@ -527,17 +610,26 @@ $(document).ready(function () {
 			if (ans == 'dev123') {
 				if (window.dev != true) {
 					window.dev = true;
+					$.cookie('dev', true);
 					alert('dev mode is open!');
 				} else {
 					window.dev = false;
+					$.cookie('dev', false);
 					alert('dev mode is close.');
 				}
 			} else if (ans == 'hide-cursor') {
 				$('html').css('cursor', 'none');
 			} else if (ans == 'show-cursor') {
 				$('html').css('cursor', 'default');
-			} else {
-				alert('Command is error');
+			} else if (ans == 'soler') {
+				alert('This is a secret.');
+				alert('But what you can do?');
+			} else if (ans == 'fighttest') { } else {
+				try {
+					alert(eval(ans));
+				} catch (err) {
+					alert(err.message);
+				}
 			}
 		}
 	});
@@ -547,8 +639,7 @@ $(document).ready(function () {
 		}, 1000);
 	});
 	$(window).blur(function () {
-		if (window.dev != true) {
-			alert('Don\'t focus to another thing!');
-		}
+		//alert('Don\'t focus to another thing!');
+		$('.homepage .mode .container').css('bottom', '-100px');
 	});
 });
