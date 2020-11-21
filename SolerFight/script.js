@@ -467,7 +467,7 @@ $(document).ready(function () {
 			$('.homepage .mode .container').css('display', 'block');
 			setTimeout(function () {
 				$('.homepage .mode .container').css('bottom', '100px');
-			}, 1);
+			}, 100);
 			$('.startremind').css({
 				'animation': '0',
 				'opacity': '0'
