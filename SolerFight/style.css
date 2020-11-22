@@ -294,6 +294,36 @@ input[type='file']{
 	left: 0;
 	width: 100vw;
 }
+.bottombar{
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	text-align: center;
+	z-index: 1;
+}
+.bottombar .tips{
+	vertical-align: super;
+}
+.bottombar .weapon{
+	bottom: 0;
+	position: absolute;
+	text-align: center;
+	vertical-align: text-bottom;
+	transform-origin: center center;
+	transform: translate(-50%, 0%);
+}
+.bottombar .weapon .box{
+	border: 2.5px solid white;
+	margin: 0px 10px;
+}
+.bottombar .weapon .box:nth-of-type(2){
+	border: 5px solid white;
+	margin: 0px 10px;
+}
+.bottombar .weapon .box img{
+	min-height: 25px;
+	max-height: 25px;
+}
 @media screen and (orientation: portrait) {
 	html {
 		/* Rotate the content container */

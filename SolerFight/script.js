@@ -428,6 +428,8 @@ function interval() {
 		detectroom();
 		$('.fightarea .entity > img').attr('src', window.choseentity.skin.normal.action.normal.src);
 		$('.weapon img').attr('src', window.choseweapon.skin.normal.src);
+		$($('.bottombar .box img')[0]).attr('src', window.choseweapon1.skin.normal.src);
+		$($('.bottombar .box img')[1]).attr('src', window.choseweapon2.skin.normal.src);
 	});
 }
 function cornertips(config) {
@@ -553,12 +555,12 @@ $(document).ready(function () {
 		generatescene(Number($('.generaterange').val()));
 		$('.fightarea .entity').tooltip({
 			items: ".fightarea .entity",
-			content: 'Tips: You can press f11 to fullscreen; You can press Q/E to change weapon, W/A/S/D or arrow key to move'
+			content: 'Tips: You can press f11 to fullscreen; You can press arrow key to move'
 		});
 		$('.fightarea .entity').tooltip("open");
 		setTimeout(function () {
 			$('.fightarea .entity').tooltip("disable");
-		}, 10000);
+		}, 5000);
 	});
 	$('.generaterange').on('input', function () {
 		$('.rangevalue').text($('.generaterange').val());
@@ -613,7 +615,7 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
-		var move = '.fightarea > *:not(.entity, .entityinfoinfight, .gunbullet)';
+		var move = '.fightarea > *:not(.entity, .entityinfoinfight, .gunbullet, .bottombar)';
 		if (event.which == 39 || event.which == 68) {
 			$(move).move(-10, 0);
 		} else if (event.which == 37 || event.which == 65) {
@@ -625,15 +627,23 @@ $(document).ready(function () {
 		} else if (event.which == 81) {
 			if (window.choseweapon == window.choseweapon1) {
 				window.choseweapon = window.choseweapon2;
+				$($('.bottombar .weapon .box')[0]).css('border', '2.5px solid white');
+				$($('.bottombar .weapon .box')[1]).css('border', '5px solid white');
 			} else if (window.choseweapon == window.choseweapon2) {
 				window.choseweapon = window.choseweapon1;
+				$($('.bottombar .weapon .box')[0]).css('border', '5px solid white');
+				$($('.bottombar .weapon .box')[1]).css('border', '2.5px solid white');
 			}
 			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
 		} else if (event.which == 69) {
 			if (window.choseweapon == window.choseweapon1) {
 				window.choseweapon = window.choseweapon2;
+				$($('.bottombar .weapon .box')[0]).css('border', '2.5px solid white');
+				$($('.bottombar .weapon .box')[1]).css('border', '5px solid white');
 			} else if (window.choseweapon == window.choseweapon2) {
 				window.choseweapon = window.choseweapon1;
+				$($('.bottombar .weapon .box')[0]).css('border', '5px solid white');
+				$($('.bottombar .weapon .box')[1]).css('border', '2.5px solid white');
 			}
 			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
 		}
