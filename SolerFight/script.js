@@ -171,23 +171,36 @@ function weaponsettime() {
 		clearInterval(window.weaponuseitv);
 	});
 }
+function mpfull() {
+	window.entitymp = window.choseentity.mp;
+}
 function weaponuse(event) {
 	if (window.entitymp > 0) {
-		if (window.choseweapon.name == 'normal gun' && window.cdtime) {
-			window.entitymp = window.entitymp - window.item.gun.mp;
-			$('.fightarea .entity').tooltip({
-				items: ".fightarea .entity",
-				content: 'You use the gun and your mp is ' + window.entitymp + '!'
-			});
-			$('.fightarea .entity').tooltip("open");
-			setTimeout(function () {
-				$('.fightarea .entity').tooltip("disable");
-			}, 1000);
-			//alert('You use the gun.');
-			//alert('But not thing happen.');
-			//$('.scene').append('<div class=\'gunbullet bullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
-			window.gunbulleti++;
-			cd(window.choseweapon.cd);
+		if (window.cdtime && window.entitymp - window.choseweapon.mp >= 0) {
+			if (window.choseweapon.type == 'gun') {
+				window.entitymp = window.entitymp - window.choseweapon.mp;
+				$('.fightarea .entity').tooltip({
+					items: ".fightarea .entity",
+					content: 'You use the gun and your mp is ' + window.entitymp + '!'
+				});
+				$('.fightarea .entity').tooltip("open");
+				setTimeout(function () {
+					$('.fightarea .entity').tooltip("disable");
+				}, 1000);
+				bullet();
+				cd(window.choseweapon.cd);
+			} else if (window.choseweapon.type == 'sword') {
+				window.entitymp = window.entitymp - window.choseweapon.mp;
+				$('.fightarea .entity').tooltip({
+					items: ".fightarea .entity",
+					content: 'You use the sword and sword is not using mp so your mp is ' + window.entitymp + '!'
+				});
+				$('.fightarea .entity').tooltip("open");
+				setTimeout(function () {
+					$('.fightarea .entity').tooltip("disable");
+				}, 1000);
+				cd(window.choseweapon.cd);
+			}
 		}
 	} else {
 		$('.fightarea .entity').tooltip({
@@ -199,6 +212,14 @@ function weaponuse(event) {
 			$('.fightarea .entity').tooltip("disable");
 		}, 1000);
 	}
+}
+function bullet() {
+	$('.fightarea').append('<div class=\'gunbullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
+	$('.bullet' + window.gunbulleti).css({
+		'top': $('.fightarea .entity').position().top,
+		'left': $('.fightarea .entity').position().left
+	});
+	window.gunbulleti++;
 }
 function cd(time) {
 	window.cdtime = false;
@@ -436,6 +457,11 @@ function restore() {
 	} else if (window.entityhp > window.choseentity.hp) {
 		window.entityhp = window.choseentity.hp;
 	}
+	if (window.entitymp < 0) {
+		window.entitymp = 0;
+	} else if (window.entityhp < 0) {
+		window.entityhp = 0;
+	}
 }
 function inner() {
 	$('.block').text($.cookie('block'));
@@ -587,7 +613,7 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
-		var move = '.fightarea > *:not(.entity, .entityinfoinfight)';
+		var move = '.fightarea > *:not(.entity, .entityinfoinfight, .gunbullet)';
 		if (event.which == 39 || event.which == 68) {
 			$(move).move(-10, 0);
 		} else if (event.which == 37 || event.which == 65) {

@@ -217,10 +217,10 @@ input[type='button'], label{
 .weapon{
 	position: absolute;
 }
-.bullet{
+.gunbullet{
 	position: absolute;
 }
-.bullet img{
+.gunbullet img{
 	max-width: 25px;
 }
 input[type='file']{

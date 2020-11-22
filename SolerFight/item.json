@@ -3,19 +3,38 @@
         "name": "normal gun",
         "mp": 1,
         "cd": 350,
+        "type": "gun",
         "skin": {
             "normal": {
                 "src": "gun.png"
+            },
+            "bullet": {
+                "src": "chest.png"
             }
         }
     },
     "shotgun": {
         "name": "normal shotgun",
         "mp": 5,
-        "cd": 500,
+        "cd": 1000,
+        "type": "gun",
         "skin": {
             "normal": {
                 "src": "trap.png"
+            },
+            "bullet": {
+                "src": "chest.png"
+            }
+        }
+    },
+    "sword": {
+        "name": "normal sword",
+        "mp": 0,
+        "cd": 500,
+        "type": "sword",
+        "skin": {
+            "normal": {
+                "src": "trapopen.png"
             }
         }
     }
