@@ -13,7 +13,7 @@
         "normal": {
             "action": {
                 "normal": {
-                    "src": "magician.png"
+                    "src": "warrior.png"
                 },
                 "lobby": {
                     "src": "warriorsit.png"

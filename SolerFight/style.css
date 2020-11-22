@@ -16,6 +16,9 @@ input{
 input[type='button'], label{
 	cursor: pointer;
 }
+a{
+	color: blue;
+}
 .homepage{
 	background-color: #000000;
 	width: 100vw;
@@ -28,16 +31,23 @@ input[type='button'], label{
 	top: 10%;
 	transform: translate(-50%, 0%);
 	padding: 10px;
+	text-align: center;
+	width: 100vw;
 }
 .homepage .update{
+	/*
 	position: absolute;
-	right: 30%;
-	top: 22%;
+	right: 25%;
+	top: 25%;
 	transform: translate(-50%, 0%);
 	transform: rotateZ(25deg);
+	*/
 	padding: 10px;
 	animation: twinkling 3s infinite;
 	color: yellow;
+	font-size: 20px;
+	font-weight: 100;
+	display: block;
 }
 .homepage label{
 	position: absolute;
@@ -82,7 +92,8 @@ input[type='button'], label{
 	position: absolute;
 }
 .entity div.weapon{
-	translate: 18px 10px;
+	translate: 15px 5px;
+	transform-origin: left center;
 }
 .warrior.entity{
 	left: 50%;
@@ -310,7 +321,7 @@ input[type='file']{
 	text-align: center;
 	vertical-align: text-bottom;
 	transform-origin: center center;
-	transform: translate(-50%, 0%);
+	transform: translate(-50%, -50%);
 }
 .bottombar .weapon .box{
 	border: 2.5px solid white;

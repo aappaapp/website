@@ -15,15 +15,15 @@
     },
     "shotgun": {
         "name": "normal shotgun",
-        "mp": 5,
+        "mp": 2,
         "cd": 1000,
         "type": "gun",
         "skin": {
             "normal": {
-                "src": "trap.png"
+                "src": "shotgun.png"
             },
             "bullet": {
-                "src": "chest.png"
+                "src": "trap.png"
             }
         }
     },

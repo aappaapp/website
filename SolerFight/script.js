@@ -48,6 +48,21 @@ $.fn.move = function (x, y) {
 	this.css('left', x1 + x + 'px');
 	this.css('top', y1 + y + 'px');
 }
+function moveitv(x, y, element) {
+	var i = 0;
+	var itv = setInterval(function () {
+		var ths = element;
+		var x1 = $(ths).offset().left;
+		var y1 = $(ths).offset().top;
+		$(ths).css('position', 'absolute');
+		$(ths).css('left', x1 + x + 'px');
+		$(ths).css('top', y1 + y + 'px');
+		if (i == 500) {
+			$(ths).remove();
+		}
+		i++;
+	});
+}
 function generatescene(blockvalue) {
 	window.randomscene = 1;
 	window.blockgroup = '';
@@ -175,49 +190,41 @@ function mpfull() {
 	window.entitymp = window.choseentity.mp;
 }
 function weaponuse(event) {
-	if (window.entitymp > 0) {
-		if (window.cdtime && window.entitymp - window.choseweapon.mp >= 0) {
-			if (window.choseweapon.type == 'gun') {
-				window.entitymp = window.entitymp - window.choseweapon.mp;
-				$('.fightarea .entity').tooltip({
-					items: ".fightarea .entity",
-					content: 'You use the gun and your mp is ' + window.entitymp + '!'
-				});
-				$('.fightarea .entity').tooltip("open");
-				setTimeout(function () {
-					$('.fightarea .entity').tooltip("disable");
-				}, 1000);
-				bullet();
-				cd(window.choseweapon.cd);
-			} else if (window.choseweapon.type == 'sword') {
-				window.entitymp = window.entitymp - window.choseweapon.mp;
-				$('.fightarea .entity').tooltip({
-					items: ".fightarea .entity",
-					content: 'You use the sword and sword is not using mp so your mp is ' + window.entitymp + '!'
-				});
-				$('.fightarea .entity').tooltip("open");
-				setTimeout(function () {
-					$('.fightarea .entity').tooltip("disable");
-				}, 1000);
-				cd(window.choseweapon.cd);
-			}
+	if (window.cdtime && window.entitymp - window.choseweapon.mp >= 0) {
+		if (window.choseweapon.type == 'gun') {
+			window.entitymp = window.entitymp - window.choseweapon.mp;
+			$('.fightarea .entity').tooltip({
+				items: ".fightarea .entity",
+				content: 'You use the gun and your mp is ' + window.entitymp + '!'
+			});
+			$('.fightarea .entity').tooltip("open");
+			setTimeout(function () {
+				$('.fightarea .entity').tooltip("disable");
+			}, 1000);
+			bullet();
+			cd(window.choseweapon.cd);
+		} else if (window.choseweapon.type == 'sword') {
+			window.entitymp = window.entitymp - window.choseweapon.mp;
+			$('.fightarea .entity').tooltip({
+				items: ".fightarea .entity",
+				content: 'You use the sword and sword is not using mp so your mp is ' + window.entitymp + '!'
+			});
+			$('.fightarea .entity').tooltip("open");
+			setTimeout(function () {
+				$('.fightarea .entity').tooltip("disable");
+			}, 1000);
+			cd(window.choseweapon.cd);
 		}
-	} else {
-		$('.fightarea .entity').tooltip({
-			items: ".fightarea .entity",
-			content: 'Not enough MP!'
-		});
-		$('.fightarea .entity').tooltip("open");
-		setTimeout(function () {
-			$('.fightarea .entity').tooltip("disable");
-		}, 1000);
 	}
 }
 function bullet() {
-	$('.fightarea').append('<div class=\'gunbullet bullet' + window.gunbulleti + '\'><img src=chest.png></div>');
+	$('.fightarea').append('<div class=\'gunbullet bullet' + window.gunbulleti + '\'><img src=' + window.choseweapon.skin.bullet.src + '></div>');
 	$('.bullet' + window.gunbulleti).css({
 		'top': $('.fightarea .entity').position().top,
 		'left': $('.fightarea .entity').position().left
+	});
+	$('.bullet' + window.gunbulleti).each(function () {
+		moveitv(5, 0, this);
 	});
 	window.gunbulleti++;
 }
@@ -415,8 +422,16 @@ function setvariable() {
 		window.item = JSON.parse($.cookie('block'));
 	}
 }
+function contains(target, pattern) {
+	var value = 0;
+	pattern.forEach(function (word) {
+		value = value + target.includes(word);
+	});
+	return (value === 1)
+}
 function detectroom() {
-	if ($('.blockgroup').overlaps('.fightarea .entity')[0] != undefined) {
+	var exceptclass = ['startblockgroup', 'finishroom'];
+	if ($('.blockgroup').overlaps('.fightarea .entity')[0] != undefined && !contains($($('.blockgroup').overlaps('.fightarea .entity')[0]).attr('class'), exceptclass)) {
 		var str = $($('.blockgroup').overlaps('.fightarea .entity')[0]).attr('class');
 		var gclass = str.split(' ')[1];
 		$('.' + gclass).door('all', 18, 'block.png');
@@ -615,15 +630,23 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
-		var move = '.fightarea > *:not(.entity, .entityinfoinfight, .gunbullet, .bottombar)';
+		var moveele = '.fightarea > *:not(.entity, .entityinfoinfight, .gunbullet, .bottombar)';
 		if (event.which == 39 || event.which == 68) {
-			$(move).move(-10, 0);
+			$(moveele).each(function () {
+				$(this).move(-10, 0);
+			});
 		} else if (event.which == 37 || event.which == 65) {
-			$(move).move(10, 0);
+			$(moveele).each(function () {
+				$(this).move(10, 0);
+			});
 		} else if (event.which == 38 || event.which == 87) {
-			$(move).move(0, 10);
+			$(moveele).each(function () {
+				$(this).move(0, 10);
+			});
 		} else if (event.which == 40 || event.which == 83) {
-			$(move).move(0, -10);
+			$(moveele).each(function () {
+				$(this).move(0, -10);
+			});
 		} else if (event.which == 81) {
 			if (window.choseweapon == window.choseweapon1) {
 				window.choseweapon = window.choseweapon2;
@@ -646,6 +669,8 @@ $(document).ready(function () {
 				$($('.bottombar .weapon .box')[1]).css('border', '2.5px solid white');
 			}
 			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
+		} else if (event.which == 71) {
+			window.open('https://github.com/adenpun/adenpun.github.io/issues/new', '', 'width=750, height=750');
 		}
 		if (event.which == 80) {
 			$('.homepagesecret').css('display', 'inline-block');
