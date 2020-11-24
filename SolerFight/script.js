@@ -71,7 +71,8 @@ function generatescene(blockvalue) {
 		window.blockgroup = window.blockgroup + ' auto';
 	}
 	window.generatescenestr = '';
-	window.removeClass = 'trap enemy';
+	window.addClass = 'cantdestroy';
+	window.removeClass = 'trap enemy candestroy';
 	for (i = 1; i < scenevalue; i++) {
 		if (i == 1) {
 			window.generatescenestr = window.generatescenestr + 'generatestartscene(blockvalue);';
@@ -88,15 +89,23 @@ function generatescene(blockvalue) {
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		if (i <= blockvalue) {
 			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i).addClass(window.addClass);
+			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i % blockvalue == 1) {
 			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i).addClass(window.addClass);
+			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i % blockvalue == 0) {
 			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i).addClass(window.addClass);
+			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i >= blockvalue * blockvalue - blockvalue) {
 			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', 'block.png');
+			$('.block' + i).addClass(window.addClass);
+			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
 		}
 	}
@@ -107,7 +116,7 @@ function generatescene(blockvalue) {
 	$('.fightarea .entity').append('<div class=weapon><img></div>');
 	trap();
 	weaponsetup();
-	setInterval(restore, window.choseentity.mprestorespeed);
+	setInterval(restore);
 	if (window.deviceType == 'mobile') {
 		$('.mobilecontrol').css('display', 'block');
 	}
@@ -193,14 +202,14 @@ function weaponuse(event) {
 	if (window.cdtime && window.entitymp - window.choseweapon.mp >= 0) {
 		if (window.choseweapon.type == 'gun') {
 			window.entitymp = window.entitymp - window.choseweapon.mp;
-			$('.fightarea .entity').tooltip({
-				items: ".fightarea .entity",
-				content: 'You use the gun and your mp is ' + window.entitymp + '!'
-			});
-			$('.fightarea .entity').tooltip("open");
-			setTimeout(function () {
-				$('.fightarea .entity').tooltip("disable");
-			}, 1000);
+			//$('.fightarea .entity').tooltip({
+			//	items: ".fightarea .entity",
+			//	content: 'You use the gun and your mp is ' + window.entitymp + '!'
+			//});
+			//$('.fightarea .entity').tooltip("open");
+			//setTimeout(function () {
+			//	$('.fightarea .entity').tooltip("disable");
+			//}, 1000);
 			bullet();
 			cd(window.choseweapon.cd);
 		} else if (window.choseweapon.type == 'sword') {
@@ -224,9 +233,30 @@ function bullet() {
 		'left': $('.fightarea .entity').position().left
 	});
 	$('.bullet' + window.gunbulleti).each(function () {
+		weapondestroy(this, window.gunbulleti);
 		moveitv(5, 0, this);
 	});
 	window.gunbulleti++;
+}
+function weapondestroy(ths, value) {
+	var a = setInterval(function () {
+		var candestroy = ['.candestroy'];
+		var cantdestroy = ['.cantdestroy'];
+		for (i = 0; i < candestroy.length; i++) {
+			if ($(ths).overlaps(candestroy[i])[0] != undefined) {
+				$($(ths).overlaps(candestroy[i])[0]).children().removeAttr('src').parent().removeClass('candestroy');
+				$(ths).remove();
+			}
+		}
+		for (i = 0; i < cantdestroy.length; i++) {
+			if ($(ths).overlaps(cantdestroy[i])[0] != undefined) {
+				$(ths).remove();
+			}
+		}
+		if ($('.bullet' + value).length == 0) {
+			clearInterval(a);
+		}
+	});
 }
 function cd(time) {
 	window.cdtime = false;
@@ -263,17 +293,15 @@ function generaterandomscene(blockvalue) {
 		$('.fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
 		var value = Math.floor(Math.random() * 100) + 1;
 		if (value > 0 && value < 11) {
-			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'chest.png');
+			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'chest.png').parent().addClass('candestroy');
 		} else if (value > 10 && value < 12) {
-			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'trap.png').addClass('trap');
+			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', 'trap.png').addClass('trap').parent().addClass('cantdestroy');
 		}
 	}
 	$('.blockvalue' + window.randomscene).wrapAll('<div class=\'blockgroup randomblockgroup' + window.randomscene + '\'></div>');
 	$('.randomblockgroup' + window.randomscene).css('grid-template-columns', window.blockgroup);
-	console.log(window.randomscene);
 	$('.randomblockgroup' + window.randomscene).door('top', blockvalue, 'disableblock.png');
 	$('.randomblockgroup' + window.randomscene).door('bottom', blockvalue, 'disableblock.png');
-	console.log(window.randomscene);
 	window.randomscene++;
 	trap();
 }
@@ -292,7 +320,18 @@ function readfile() {
 		window.block = data;
 	});
 	$.get('item.json', function (data) {
-		window.item = data;
+		var item = data.all_item;
+		console.log(item);
+		window.item = [];
+		for (i = 0; i < item.length + 1; i++) {
+			$.get('./item/weapon/' + item[i] + '/' + item[i] + '.json', function (data) {
+				console.log(data);
+				window.item.push(data);
+			});
+		}
+	});
+	$.get('thanks.txt', function (data) {
+		window.thankstext = data.split('\n');
 	});
 }
 function trap() {
@@ -397,7 +436,9 @@ function detecthurt() {
 	}
 }
 function setskin() {
-	$('.warrior.entity').append('<img src=\'' + window.choseentity.skin.normal.action.lobby.src + '\'>');
+	for (i = 0; i < window.entity.length; i++) {
+		$('.' + window.entity[i].id).append('<img src=\'' + window.entity[i].skin.normal.action.lobby.src + '\'>');
+	}
 }
 function setvariable() {
 	window.deviceType = getDeviceType();
@@ -411,8 +452,8 @@ function setvariable() {
 	window.img.src = [];
 	window.dev = eval($.cookie('dev'));
 	$.cookie.json = true;
-	window.choseweapon1 = window.item.gun;
-	window.choseweapon2 = window.item.shotgun;
+	window.choseweapon1 = window.item[0];
+	window.choseweapon2 = window.item[1];
 	window.choseweapon = window.choseweapon1;
 	if ($.cookie('entity') != null) {
 		window.entity = JSON.parse($.cookie('entity'));
@@ -444,7 +485,9 @@ function interval() {
 		$('.fightarea .entity > img').attr('src', window.choseentity.skin.normal.action.normal.src);
 		$('.weapon img').attr('src', window.choseweapon.skin.normal.src);
 		$($('.bottombar .box img')[0]).attr('src', window.choseweapon1.skin.normal.src);
+		$($('.bottombar .box .after')[0]).text(window.choseweapon1.mp);
 		$($('.bottombar .box img')[1]).attr('src', window.choseweapon2.skin.normal.src);
+		$($('.bottombar .box .after')[1]).text(window.choseweapon2.mp);
 	});
 }
 function cornertips(config) {
@@ -464,11 +507,16 @@ function cornertips(config) {
 	}, 2000);
 }
 function restore() {
-	if (window.entitymp < window.choseentity.mp) {
-		window.entitymp = window.entitymp + window.choseentity.mprestorevalue;
-	} else if (window.entityhp < window.choseentity.hp) {
-		window.entityhp = window.entityhp + window.choseentity.hprestorevalue;
-	}
+	setInterval(function () {
+		if (window.entityhp < window.choseentity.hp) {
+			window.entityhp = window.entityhp + window.choseentity.hprestorevalue;
+		}
+	}, window.choseentity.hprestorespeed);
+	setInterval(function () {
+		if (window.entitymp < window.choseentity.mp) {
+			window.entitymp = window.entitymp + window.choseentity.mprestorevalue;
+		}
+	}, window.choseentity.mprestorespeed);
 	if (window.entitymp > window.choseentity.mp) {
 		window.entitymp = window.choseentity.mp;
 	} else if (window.entityhp > window.choseentity.hp) {
@@ -495,15 +543,51 @@ function setentityvalue(type, config) {
 window.ondragstart = function () {
 	return false;
 }
+function entityselectclick() {
+	$('.' + window.entity[0].id).click(function () {
+		displayselect(0);
+	});
+	$('.' + window.entity[1].id).click(function () {
+		displayselect(1);
+	});
+}
+function displayselect(value) {
+	$('.entityselect > div').css('display', 'none');
+	$('.entityinfo').css('display', 'inline-block');
+	$('.entityinfo h1').text(window.entity[value].name);
+	$('.entityinfo .info').text(window.entity[value].introduction);
+	$('.entityinfo input').addClass(window.entity[value].id);
+	$('.entityinfo .powerinfohp').text(window.entity[value].hp);
+	$('.entityinfo .powerinfomp').text(window.entity[value].mp);
+}
+function thanks() {
+	for (i = 0; i < window.thankstext.length; i++) {
+		var a = window.thankstext[i].split('\\');
+		console.log(a);
+		console.log(a[2]);
+		console.log(a[2] == 'slideup');
+		if (a[2] == 'slideup') {
+			console.log(i);
+			$('.thanksname' + i).css({
+				'bottom': '-100'
+			});
+		}
+		$('.thankspage').append('<div class=\'thanksname' + i + '\'>' + a[0] + '</div>  ');
+	}
+	$('body > *:not(.thankspage)').css('display', 'none');
+}
 $(document).ready(function () {
 	readfile();
 	setTimeout(function () {
 		setvariable();
-		webapp();
-		setskin();
-		interval();
-		inner();
-	}, 1000)
+		setTimeout(function () {
+			webapp();
+			setskin();
+			interval();
+			inner();
+			entityselectclick();
+		}, 500);
+	}, 500)
 	$(document).tooltip();
 	$('.homepage .push').click(function () {
 		if ($('.homepage .mode .container').css('bottom') == '-100px') {
@@ -529,20 +613,6 @@ $(document).ready(function () {
 	$('.homepage .mode .container .fightmodebtn').click(function () {
 		$('.homepage').css('display', 'none');
 		$('.gamearea').css('display', 'inline-block');
-	});
-	$('.warrior.entity').click(function () {
-		$('.entityselect > div').css('display', 'none');
-		$('.entityinfo').css('display', 'inline-block');
-		$('.entityinfo h1').text(window.entity[0].name);
-		$('.entityinfo div').text(window.entity[0].introduction);
-		$('.entityinfo input').addClass(window.entity[0].id);
-	});
-	$('.magician.entity').click(function () {
-		$('.entityselect > div').css('display', 'none');
-		$('.entityinfo').css('display', 'inline-block');
-		$('.entityinfo h1').text(window.entity[1].name);
-		$('.entityinfo div').text(window.entity[1].introduction);
-		$('.entityinfo input').addClass(window.entity[1].id);
 	});
 	$('.entityinfo').on('click', '.warrior', function () {
 		window.choseentity = window.entity[0];
@@ -599,6 +669,9 @@ $(document).ready(function () {
 	$('.deleteitem').click(function () {
 		$.removeCookie('item');
 		window.location.reload();
+	});
+	$('.thanksbtn').click(function () {
+		thanks();
 	});
 	$('.upload').change(function () {
 		var filereader = new FileReader;

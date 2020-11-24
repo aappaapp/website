@@ -12,10 +12,10 @@
         "normal": {
             "action": {
                 "normal": {
-                    "src": "warrior.png"
+                    "src": "./entity/hero/warrior/warrior.png"
                 },
                 "lobby": {
-                    "src": "warriorsit.png"
+                    "src": "./entity/hero/warrior/warriorsit.png"
                 }
             }
         }

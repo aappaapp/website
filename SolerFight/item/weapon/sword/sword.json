@@ -1,0 +1,11 @@
+{
+    "name": "normal sword",
+    "mp": 0,
+    "cd": 500,
+    "type": "sword",
+    "skin": {
+        "normal": {
+            "src": "trapopen.png"
+        }
+    }
+}

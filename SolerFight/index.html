@@ -29,18 +29,19 @@
 	<div class='homepage'>
 		<div class='push'>
 			<h1>
-				Soler Fight Pre-Alpha 0.3b
+				Soler Fight Pre-Alpha 0.3c
 				<br>
 				(Press g to report bug)
 				<div class='update'>Weapon Update!</div>
 			</h1>
-			<span class='startremind'>Press tos start</span>
+			<span class='startremind'>Press to start</span>
 			<div class='mode'>
 				<div class='container'>
 					<input type='button' value='Fighting Mode(unfinished)' class='fightmodebtn'>
 					<input type='button' value='Story Mode(unmade)'>
 				</div>
 			</div>
+			<input type='button' value='Thanks' class='thanksbtn'>
 		</div>
 		<div class='homepagesecret'>
 			<input type='button' value='Setting' class='settingpagebtn'>
@@ -68,11 +69,15 @@
 	<div class='gamearea'>
 		<div class='entityselect'>
 			<div class='warrior entity'></div>
-			<div class='magician entity'>magician(unfinished)</div>
+			<div class='magician entity'></div>
 			<div class='entityinfo'>
 				<span class='material-icons'>arrow_back_ios</span>
 				<h1>Sorry, We can't find your entity.</h1>
 				<div class='info'></div>
+				<div class='power'>
+					HP: <div class='powerinfohp'></div>
+					MP: <div class='powerinfomp'></div>
+				</div>
 				<input type='button' value='Choose' class='choosebtn'>
 			</div>
 			<div class='startbtn'>Start</div>
@@ -95,8 +100,14 @@
 			<div class='bottombar'>
 				<div class='weapon'>
 					<div class='tips'>Q</div>
-					<div class='box'><img></div>
-					<div class='box'><img></div>
+					<div class='box'>
+						<img>
+						<div class='after'>MP</div>
+					</div>
+					<div class='box'>
+						<img>
+						<div class='after'>MP</div>
+					</div>
 					<div class='tips'>E</div>
 				</div>
 			</div>
@@ -118,6 +129,7 @@
 		<div class='left'>LEFT</div>
 		<div class='right'>RIGHT</div>
 	</div>
+	<div class="thankspage"></div>
 
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js'></script>

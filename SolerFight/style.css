@@ -118,9 +118,15 @@ a{
 	margin: 0;
 	top: 10%;
 }
-.entityinfo > div{
+.entityinfo .info{
 	position: absolute;
 	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.entityinfo .power{
+	position: absolute;
+	top: 25%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -327,6 +333,13 @@ input[type='file']{
 	border: 2.5px solid white;
 	margin: 0px 10px;
 }
+.bottombar .weapon .box .after{
+	background-color: blue;
+	position: absolute;
+	top: -10px;
+	border-radius: 100px;
+	padding: 4px;
+}
 .bottombar .weapon .box:nth-of-type(2){
 	border: 5px solid white;
 	margin: 0px 10px;
@@ -334,6 +347,14 @@ input[type='file']{
 .bottombar .weapon .box img{
 	min-height: 25px;
 	max-height: 25px;
+}
+.thanksbtn{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.thanksname{
+	position: absolute;
 }
 @media screen and (orientation: portrait) {
 	html {

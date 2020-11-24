@@ -1,0 +1,14 @@
+{
+    "name": "normal gun",
+    "mp": 1,
+    "cd": 350,
+    "type": "gun",
+    "skin": {
+        "normal": {
+            "src": "./item/weapon/gun/gun.png"
+        },
+        "bullet": {
+            "src": "./chest.png"
+        }
+    }
+}

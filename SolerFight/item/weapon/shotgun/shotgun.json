@@ -1,0 +1,14 @@
+{
+    "name": "normal shotgun",
+    "mp": 2,
+    "cd": 1000,
+    "type": "gun",
+    "skin": {
+        "normal": {
+            "src": "./item/weapon/shotgun/shotgun.png"
+        },
+        "bullet": {
+            "src": "./trap.png"
+        }
+    }
+}

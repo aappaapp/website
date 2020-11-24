@@ -1,5 +1,5 @@
 {
-    "name": "Magician",
+    "name": "Magician(unfinished)",
     "introduction": "Is an great magician.",
     "type": "entity",
     "id": "magician",
@@ -13,10 +13,10 @@
         "normal": {
             "action": {
                 "normal": {
-                    "src": "warrior.png"
+                    "src": "./entity/hero/magician/magician.png"
                 },
                 "lobby": {
-                    "src": "warriorsit.png"
+                    "src": "./entity/hero/magician/magician.png"
                 }
             }
         }
