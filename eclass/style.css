@@ -1,0 +1,53 @@
+body{
+    background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+div{
+    display: inline-block;
+}
+.bot{
+    top: 50%;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    background-color: lightblue;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.photo{
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    margin-bottom: 10px;
+}
+.grid1{
+    padding: 15px;
+    border-right: 5px solid black;
+    height: 100%;
+    text-align: center;
+}
+.photo .center{
+    top: 50%;
+    position: relative;
+    transform: translate(0%, -50%);
+}
+.info{
+    background-color: white;
+    width: 80%;
+    line-height: 2em;
+}
+.grid2{
+
+}
+.cardreader{
+    height: 80%;
+    background-color: white;
+    width: 80%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
