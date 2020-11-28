@@ -13,6 +13,9 @@ function page_choose() {
 function github_page() {
     window.top.location.href = 'https://github.com/adenpun/adenpun.github.io';
 }
+function tools_page() {
+    window.top.location.href = 'tools.html';
+}
 function game_page(config) {
     if (config == 1) {
         window.top.location.href = 'ADENTALE/index.html';
@@ -20,3 +23,15 @@ function game_page(config) {
         window.top.location.href = 'SolerFight/index.html';
     }
 }
+console.log(window.location.host);
+$(document).ready(function () {
+    $.get('http://' + window.location.host + '/header.html', function (data) {
+        $('#content').before(data);
+    });
+    $.get('http://' + window.location.host + '/footer.html', function (data) {
+        $('#content').after(data);
+    });
+    $.get('http://' + window.location.host + '/bottom-nav.html', function (data) {
+        $('#content').after(data);
+    });
+});
