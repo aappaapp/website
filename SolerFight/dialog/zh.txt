@@ -1,6 +1,6 @@
 warning.computerperformance = 如果您的計算機性能不佳，我們建議您不要玩此遊戲。
 #
-ui.title = 靈魂者戰爭 Pre-Alpha 0.3c<br>（按G報告錯誤）
+ui.title = 靈魂者戰爭 Pre-Alpha 0.4a<br>（按G報告錯誤）
 #
 ui.twinkingtext = 語言更新！
 #
