@@ -5,7 +5,7 @@
     "type": "sword",
     "skin": {
         "normal": {
-            "src": "trapopen.png"
+            "src": "./textures/block/trap/trapopen.png"
         }
     }
 }

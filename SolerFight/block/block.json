@@ -1,0 +1,13 @@
+{
+    "name": "block",
+    "introduction": "Only a normal block",
+    "id": "block",
+    "skin": {
+        "normal": {
+            "src": "./textures/block/block/block.png"
+        },
+        "disable": {
+            "src": "./textures/block/block/disableblock.png"
+        }
+    }
+}

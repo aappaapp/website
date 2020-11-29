@@ -1,6 +1,6 @@
 {
-    "name": "Warrior",
-    "introduction": "Is an ordinary warrior.",
+    "name": "entity.warrior.name",
+    "introduction": "entity.warrior.intro",
     "id": "warrior",
     "hp": 10,
     "hprestorespeed": 5000,
@@ -12,10 +12,10 @@
         "normal": {
             "action": {
                 "normal": {
-                    "src": "./entity/hero/warrior/warrior.png"
+                    "src": "./textures/entity/hero/warrior/warrior.png"
                 },
                 "lobby": {
-                    "src": "./entity/hero/warrior/warriorsit.png"
+                    "src": "./textures/entity/hero/warrior/warriorsit.png"
                 }
             }
         }

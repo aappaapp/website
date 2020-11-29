@@ -25,13 +25,13 @@ function game_page(config) {
 }
 console.log(window.location.host);
 $(document).ready(function () {
-    $.get('http://' + window.location.host + '/header.html', function (data) {
+    $.get('header.html', function (data) {
         $('#content').before(data);
     });
-    $.get('http://' + window.location.host + '/footer.html', function (data) {
+    $.get('footer.html', function (data) {
         $('#content').after(data);
     });
-    $.get('http://' + window.location.host + '/bottom-nav.html', function (data) {
+    $.get('bottom-nav.html', function (data) {
         $('#content').after(data);
     });
 });

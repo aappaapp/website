@@ -15,6 +15,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.19.2/URI.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
 
 	<link rel='manifest' href='manifest.json'>
 	<link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
@@ -23,113 +24,128 @@
 </head>
 
 <body>
-	<div class='warning'>
-		<h1></h1>
-	</div>
-	<div class='homepage'>
-		<div class='push'>
-			<h1>
-				Soler Fight Pre-Alpha 0.3c
-				<br>
-				(Press g to report bug)
-				<div class='update'>Weapon Update!</div>
-			</h1>
-			<span class='startremind'>Press to start</span>
-			<div class='mode'>
-				<div class='container'>
-					<input type='button' value='Fighting Mode(unfinished)' class='fightmodebtn'>
-					<input type='button' value='Story Mode(unmade)'>
-				</div>
+	<div class='ap43'>
+		<div class='ap43co'>
+			<div class='warning'>
+				<h1></h1>
 			</div>
-			<input type='button' value='Thanks' class='thanksbtn'>
-		</div>
-		<div class='homepagesecret'>
-			<input type='button' value='Setting' class='settingpagebtn'>
-			<input type='button' value='Upload' class='uploadpagebtn'>
-		</div>
-		<!--
+			<div class='homepage'>
+				<div class='push'>
+					<h1>
+						<div class='title'></div>
+						<div class='update'></div>
+					</h1>
+					<span class='startremind'></span>
+					<div class='mode'>
+						<div class='container'>
+							<input type='button' class='fightmodebtn'>
+							<input type='button' class='tutorialmodebtn'>
+							<input type='button' class='storymodebtn'>
+						</div>
+					</div>
+					<input type='button' value='Soler Fight Command Generator' class='cmdgenbtn'>
+					<input type='button' value='Thanks' class='thanksbtn'>
+				</div>
+				<div class='homepagesecret'>
+					<input type='button' value='Setting' class='settingpagebtn'>
+					<input type='button' value='Upload' class='uploadpagebtn'>
+				</div>
+				<!--
 			<input type='button' value='中'>
 		-->
-	</div>
-	<div class='uploadpage'>
-		<h1>Plugin</h1>
-		<label>
-			<input type='file' accept='.sol' class='upload'>UPLOAD .SOL FILE
-		</label>
-	</div>
-	<div class='settingpage'>
-		<h1>Setting</h1>
-		<h2>Plugin</h2>
-		block: <div class='delete' class='deleteblock'>&lt;delete&gt;</div>
-		<br><br>
-		entity: <div class='delete' class='deleteentity'>&lt;delete&gt;</div>
-		<br><br>
-		item: <div class='delete' class='deleteitem'>&lt;delete&gt;</div>
-	</div>
-	<div class='gamearea'>
-		<div class='entityselect'>
-			<div class='warrior entity'></div>
-			<div class='magician entity'></div>
-			<div class='entityinfo'>
-				<span class='material-icons'>arrow_back_ios</span>
-				<h1>Sorry, We can't find your entity.</h1>
-				<div class='info'></div>
-				<div class='power'>
-					HP: <div class='powerinfohp'></div>
-					MP: <div class='powerinfomp'></div>
+			</div>
+			<div class='uploadpage'>
+				<h1>Plugin</h1>
+				<label>
+					<input type='file' accept='.sol' class='upload'>UPLOAD .SOL FILE
+				</label>
+			</div>
+			<div class='settingpage'>
+				<h1>Setting</h1>
+				<h2>Plugin</h2>
+				block: <div class='delete' class='deleteblock'>&lt;delete&gt;</div>
+				<br><br>
+				entity: <div class='delete' class='deleteentity'>&lt;delete&gt;</div>
+				<br><br>
+				item: <div class='delete' class='deleteitem'>&lt;delete&gt;</div>
+			</div>
+			<div class='gamearea'>
+				<div class='entityselect'>
+					<div class='warrior entity'></div>
+					<div class='magician entity'></div>
+					<div class='entityinfo'>
+						<span class='material-icons'>arrow_back_ios</span>
+						<h1 class='entityinfotitle'></h1>
+						<div class='info'></div>
+						<div class='power'>
+							HP:
+							<div class='powerinfohp'></div>
+							MP:
+							<div class='powerinfomp'></div>
+						</div>
+						<input type='button' value='Choose' class='choosebtn'>
+					</div>
+					<input type='button' class='startbtn'>
+					<input type='button' class='shopbtn' value='Shop'>
 				</div>
-				<input type='button' value='Choose' class='choosebtn'>
-			</div>
-			<div class='startbtn'>Start</div>
-		</div>
-		<div class='shop'></div>
-		<div class='generateoption'>
-			<h1>Test Option</h1>
-			Number of sides:
-			<br>
-			<input class='generaterange' type='range' min='4' max='20' value='18'>
-			<br>
-			Value: <span class='rangevalue'>18</span>
-			<br>
-			<input type='button' value='generate!' class='generate'>
-		</div>
-		<div class='fightarea'>
-			<div class='entity'>
-				<img>
-			</div>
-			<div class='bottombar'>
-				<div class='weapon'>
-					<div class='tips'>Q</div>
-					<div class='box'>
+				<div class='shop'></div>
+				<div class='generateoption'>
+					<h1>Test Option</h1>
+					Number of sides:
+					<br>
+					<input class='generaterange' type='range' min='4' max='20' value='18'>
+					<br>
+					Value: <span class='rangevalue'>18</span>
+					<br>
+					<input type='button' value='generate!' class='generate'>
+				</div>
+				<div class='fightarea'>
+					<div class='entity'>
 						<img>
-						<div class='after'>MP</div>
 					</div>
-					<div class='box'>
-						<img>
-						<div class='after'>MP</div>
+					<div class='bottombar'>
+						<div class='weapon'>
+							<div class='tips'>Q</div>
+							<div class='box'>
+								<img>
+								<div class='after'>MP</div>
+							</div>
+							<div class='box'>
+								<img>
+								<div class='after'>MP</div>
+							</div>
+							<div class='tips'>E</div>
+						</div>
 					</div>
-					<div class='tips'>E</div>
+					<div class='entityinfoinfight'>
+						<div class='hp'>
+							<div class='powerbarhp'></div>
+							<div class='hpprogress'>
+								<div class='bar'>HP/MAXHP</div>
+							</div>
+						</div>
+						<div class='mp'>
+							<div class='powerbarmp'></div>
+							<div class='mpprogress'>
+								<div class='bar'>MP/MAXMP</div>
+							</div>
+						</div>
+					</div>
+					<div class='diedpage'>
+						<h1>You Died</h1>
+						<input type='button' value='Reload'>
+					</div>
 				</div>
 			</div>
-			<div class='entityinfoinfight'>
-				<div class='hp'>HP: <div class='hpprogress'>
-						<div class='bar'>HP/MAXHP</div>
-					</div>
-				</div>
-				<div class='mp'>MP: <div class='mpprogress'>
-						<div class='bar'>MP/MAXMP</div>
-					</div>
-				</div>
+			<div class="mobilecontrol">
+				<div class="up">UP</div>
+				<div class='down'>DOWN</div>
+				<div class='left'>LEFT</div>
+				<div class='right'>RIGHT</div>
 			</div>
+			<div class="thankspage"></div>
 		</div>
 	</div>
-	<div class="mobilecontrol">
-		<div class="up">UP</div>
-		<div class='down'>DOWN</div>
-		<div class='left'>LEFT</div>
-		<div class='right'>RIGHT</div>
-	</div>
-	<div class="thankspage"></div>
 
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js'></script>

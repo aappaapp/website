@@ -1,0 +1,10 @@
+{
+    "name": "box",
+    "introduction": "Only a normal box",
+    "id": "chest",
+    "skin": {
+        "normal": {
+            "src": "./textures/block/chest.png"
+        }
+    }
+}

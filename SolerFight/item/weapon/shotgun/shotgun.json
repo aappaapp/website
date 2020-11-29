@@ -5,10 +5,10 @@
     "type": "gun",
     "skin": {
         "normal": {
-            "src": "./item/weapon/shotgun/shotgun.png"
+            "src": "./textures/item/weapon/shotgun.png"
         },
         "bullet": {
-            "src": "./trap.png"
+            "src": "./textures/block/trap/trap.png"
         }
     }
 }

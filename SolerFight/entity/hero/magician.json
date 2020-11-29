@@ -1,6 +1,6 @@
 {
-    "name": "Magician(unfinished)",
-    "introduction": "Is an great magician.",
+    "name": "entity.magician.name",
+    "introduction": "entity.magician.intro",
     "type": "entity",
     "id": "magician",
     "hp": 6,
@@ -13,10 +13,10 @@
         "normal": {
             "action": {
                 "normal": {
-                    "src": "./entity/hero/magician/magician.png"
+                    "src": "./textures/entity/hero/magician/magician.png"
                 },
                 "lobby": {
-                    "src": "./entity/hero/magician/magician.png"
+                    "src": "./textures/entity/hero/magician/magician.png"
                 }
             }
         }

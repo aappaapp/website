@@ -1,0 +1,59 @@
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #FFFDDF;
+    overflow: hidden;
+}
+body{
+    margin: 0;
+}
+::selection{
+    background-color: #FFCE00;
+}
+.menu{
+    text-align: center;
+    top: 0%;
+    position: relative;
+    transform: translate(0%, 0%);
+    height: 100vh;
+    width: 100vw;
+}
+.menu input{
+    top: 40%;
+    position: relative;
+    transform: translate(0%, -50%);
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: 100;
+}
+.menu h1{
+    transform: translate(0%, -50%);
+    position: relative;
+    top: 30%;
+}
+input[type='button']{
+    background-color: #FFCE00;
+    color: black;
+    border: 2px solid #909286;
+    height: 50px;
+    width: 100px;
+    font-size: large;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+}
+.genarea{
+    height: 100vh;
+    width: 100vw;
+    display: none;
+}
+.copyarea{
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+}
+.copyarea input[type='text']{
+    height: 50px;
+}
+label{
+    display: block;
+}

@@ -1,11 +1,12 @@
-body{
-	margin: 0;
+html{
 	font-family: Arial, Helvetica, sans-serif;
 	overflow: hidden;
 	user-select: none;
-	background-color: #000000;
 	color: white;
-	background-color: black;
+	background-color: #000000;
+}
+body{
+	margin: 0;
 }
 div{
 	display: inline-block;
@@ -66,14 +67,17 @@ a{
 .startbtn{
 	position: absolute;
 	right: 5%;
+	border: none;
 	top: 5%;
 	transform: translate(-50%, -50%);
-	cursor: pointer;
+	background-color: #00000000;
+	color: white;
 }
 .entityselect{
 	background-color: #000000;
 	height: 100vh;
 	width: 100vw;
+	display: none;
 }
 .entity{
 	display: inline-block;
@@ -110,6 +114,7 @@ a{
 	height: 100vh;
 	width: 100vw;
 	position: relative;
+	background-color: black;
 }
 .entityinfo > h1{
 	position: absolute;
@@ -148,6 +153,7 @@ a{
 .generateoption{
 	width: 100vw;
 	height: 100vh;
+	display: none;
 }
 .shop{
 	display: none;
@@ -317,6 +323,7 @@ input[type='file']{
 	position: relative;
 	text-align: center;
 	z-index: 1;
+	display: none;
 }
 .bottombar .tips{
 	vertical-align: super;
@@ -356,6 +363,12 @@ input[type='file']{
 .thanksname{
 	position: absolute;
 }
+.diedpage{
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
 @media screen and (orientation: portrait) {
 	html {
 		/* Rotate the content container */
@@ -370,4 +383,12 @@ input[type='file']{
 		top: 100%;
 		left: 0;
 	}
+}
+.cmdgenbtn{
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: black;
+	color: white;
+	border: none;
 }

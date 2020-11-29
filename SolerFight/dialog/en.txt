@@ -1,0 +1,34 @@
+warning.computerperformance = If your computer performance is poor, we recommend that you do not play this game.
+#
+ui.title = Soler Fight Pre-Alpha 0.3c<br>(Press G to report bug)
+#
+ui.twinkingtext = Language Update!
+#
+ui.startremind = Press screen to start
+#
+ui.fightmodebtn = Fighting Mode(unfinished)
+#
+ui.tutorialmodebtn = Toriel Mode(unfinished)
+#
+ui.storymodebtn = Story Mode(unmade)
+#
+entity.warrior.intro = Is an ordinary warrior.
+#
+entity.warrior.name = Warrior
+#
+entity.magician.intro = Is an great magician.
+#
+entity.magician.name = Magician(unfinished)
+#
+ui.startbtn = Start!
+#
+error.select.title = Sorry, We can't find your entity.
+#
+ui.hpbar = HP:
+#
+ui.mpbar = MP:
+#
+warning.forgherochose = Please choose a hero to start!
+#
+error.mustreload = Have an error, We need to reload the page now.
+#

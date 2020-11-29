@@ -1,27 +1,7 @@
 {
-    "block": {
-        "name": "block",
-        "introduction": "Only a normal block",
-        "id": "block",
-        "skin": {
-            "normal": {}
-        }
-    },
-    "chest": {
-        "name": "box",
-        "introduction": "Only a normal box",
-        "id": "chest",
-        "skin": {
-            "normal": {}
-        }
-    },
-    "trap": {
-        "name": "trap",
-        "introduction": "Only a normal trap",
-        "id": "trap",
-        "damage": 1,
-        "skin": {
-            "normal": {}
-        }
-    }
+    "all_block": [
+        "block",
+        "chest",
+        "trap"
+    ]
 }

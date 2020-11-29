@@ -1,0 +1,3 @@
+unmade = 'fit loser gh.';
+gh = 'ghost';
+//like undertale and deltarune
