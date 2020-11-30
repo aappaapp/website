@@ -1,8 +1,8 @@
 warning.computerperformance = If your computer performance is poor, we recommend that you do not play this game.
 #
-ui.title = Soler Fight Pre-Alpha 0.4a<br>(Press G to report bug)
+ui.title = Soler Fight Pre-Alpha 0.5a<br>(Press G to report bug)
 #
-ui.twinkingtext = Language Update!
+ui.twinkingtext = Inside Code Update!
 #
 ui.startremind = Press screen to start
 #
