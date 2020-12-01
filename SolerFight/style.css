@@ -392,3 +392,11 @@ input[type='file']{
 	color: white;
 	border: none;
 }
+.signoutbtn{
+	position: absolute;
+	right: 0;
+	top: 0;
+	background-color: black;
+	color: white;
+	border: none;
+}

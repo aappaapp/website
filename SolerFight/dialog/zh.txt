@@ -1,8 +1,8 @@
 warning.computerperformance = 如果您的計算機性能不佳，我們建議您不要玩此遊戲。
 #
-ui.title = 靈魂者戰爭 Pre-Alpha 0.5a<br>（按G報告錯誤）
+ui.title = 靈魂者戰爭 Pre-Alpha 0.6a<br>（按G報告錯誤）
 #
-ui.twinkingtext = 內部代碼更新！
+ui.twinkingtext = 登錄系統更新！
 #
 ui.startremind = 按下螢幕開始
 #
@@ -32,3 +32,4 @@ warning.forgherochose = 請選擇英雄開始！
 #
 error.mustreload = 發生錯誤，我們需要立即重新加載頁面。
 #
+error.unlogin = 請登錄！

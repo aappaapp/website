@@ -1,5 +1,6 @@
 {
     "name": "normal sword",
+    "id": "sword",
     "mp": 0,
     "cd": 500,
     "type": "sword",

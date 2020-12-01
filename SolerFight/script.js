@@ -324,15 +324,10 @@ function readfile() {
 	});
 	$.get('./block.json', function (data) {
 		var block = data.all_block;
-		console.log(block);
 		window.block = [];
 		window.block1 = {};
 		for (i = 0; i < block.length; i++) {
-			console.log(i);
-			console.log(block[i]);
 			$.get('./block/' + block[i] + '.json', function (data) {
-				console.log(block[i]);
-				console.log(data);
 				window.block.push(data);
 				window.block1[data.id] = data;
 			});
@@ -341,11 +336,11 @@ function readfile() {
 	$.get('./item.json', function (data) {
 		var item = data.all_item;
 		window.item = [];
-		window.filewait = item.length * 500;
+		window.item1 = {};
 		for (i = 0; i < item.length; i++) {
 			$.get('./item/weapon/' + item[i] + '/' + item[i] + '.json', function (data) {
-				console.log(data);
 				window.item.push(data);
+				window.item1[data.id] = data;
 			});
 		}
 	});
@@ -356,6 +351,7 @@ function readfile() {
 			for (i = 0; i < dialog.length; i++) {
 				window.dialog[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
 			}
+			console.log(window.dialog);
 		});
 	} else {
 		$.get('./dialog/en.txt', function (data) {
@@ -492,9 +488,13 @@ function setvariable() {
 	window.img.src = [];
 	window.dev = eval($.cookie('dev'));
 	$.cookie.json = true;
-	window.choseweapon1 = window.item[0];
-	window.choseweapon2 = window.item[1];
+	window.choseweapon1 = window.item1['gun'];
+	window.choseweapon2 = window.item1['shotgun'];
 	window.choseweapon = window.choseweapon1;
+	if ($.cookie('login') != true) {
+		alert(window.dialog['error.unlogin']);
+		window.location.href = 'index.html';
+	}
 	if ($.cookie('entity') != null) {
 		window.entity = JSON.parse($.cookie('entity'));
 	} else if ($.cookie('item') != null) {
@@ -717,6 +717,10 @@ $(document).ready(function () {
 	$('.cmdgenbtn').click(function () {
 		console.log('sd');
 		window.location.href = './cmdgen';
+	});
+	$('.signoutbtn').click(function () {
+		$.removeCookie('login');
+		window.location.href = './index.html';
 	});
 	$('.homepage .push').click(function () {
 		if ($('.homepage .mode .container').css('bottom') == '-100px') {

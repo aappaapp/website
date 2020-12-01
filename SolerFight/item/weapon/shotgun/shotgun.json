@@ -1,5 +1,6 @@
 {
     "name": "normal shotgun",
+    "id": "shotgun",
     "mp": 2,
     "cd": 1000,
     "type": "gun",

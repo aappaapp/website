@@ -1,164 +1,45 @@
 <html>
 
 <head>
-	<title>Soler Fight</title>
-	<meta name='viewport' content='wclassth=device-wclassth, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
-	<meta name='keywords' content='Soler Fight, Web Game'>
-	<meta name='description'
-		content='A web game call Soler Fight. You can play but this only a beta. Maybe have some bugs. You can email adenpun@gmail.com to report bugs.'>
-	<meta name='author' content='Aden Pun'>
-	<meta name='robots' content='noodp,noydir'>
+    <title>Soler Fight</title>
+    <meta name='viewport' content='wclassth=device-wclassth, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+    <meta name='keywords' content='Soler Fight, Web Game'>
+    <meta name='description'
+        content='A web game call Soler Fight. You can play but this only a beta. Maybe have some bugs. You can email adenpun@gmail.com to report bugs.'>
+    <meta name='author' content='Aden Pun'>
+    <meta name='robots' content='noodp,noydir'>
 
-	<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-overlaps/1.2.3/jquery.overlaps.min.js'></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.19.2/URI.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+    <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-overlaps/1.2.3/jquery.overlaps.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css">
 
-	<link rel='manifest' href='manifest.json'>
-	<link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
-	<link href='https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' rel='stylesheet'>
-	<link rel='stylesheet' href='style.css'>
+    <link rel='manifest' href='manifest.json'>
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+    <link href='https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' rel='stylesheet'>
+    <link rel='stylesheet' href='firebase.css'>
 </head>
 
 <body>
-	<div class='ap43'>
-		<div class='ap43co'>
-			<div class='warning'>
-				<h1></h1>
-			</div>
-			<div class='homepage'>
-				<div class='push'>
-					<h1>
-						<div class='title'></div>
-						<div class='update'></div>
-					</h1>
-					<span class='startremind'></span>
-					<div class='mode'>
-						<div class='container'>
-							<input type='button' class='fightmodebtn'>
-							<input type='button' class='tutorialmodebtn'>
-							<input type='button' class='storymodebtn'>
-						</div>
-					</div>
-					<input type='button' value='Soler Fight Command Generator' class='cmdgenbtn'>
-					<input type='button' value='Thanks' class='thanksbtn'>
-				</div>
-				<div class='homepagesecret'>
-					<input type='button' value='Setting' class='settingpagebtn'>
-					<input type='button' value='Upload' class='uploadpagebtn'>
-				</div>
-				<!--
-			<input type='button' value='中'>
-		-->
-			</div>
-			<div class='uploadpage'>
-				<h1>Plugin</h1>
-				<label>
-					<input type='file' accept='.sol' class='upload'>UPLOAD .SOL FILE
-				</label>
-			</div>
-			<div class='settingpage'>
-				<h1>Setting</h1>
-				<h2>Plugin</h2>
-				block: <div class='delete' class='deleteblock'>&lt;delete&gt;</div>
-				<br><br>
-				entity: <div class='delete' class='deleteentity'>&lt;delete&gt;</div>
-				<br><br>
-				item: <div class='delete' class='deleteitem'>&lt;delete&gt;</div>
-			</div>
-			<div class='gamearea'>
-				<div class='entityselect'>
-					<div class='warrior entity'></div>
-					<div class='magician entity'></div>
-					<div class='entityinfo'>
-						<span class='material-icons'>arrow_back_ios</span>
-						<h1 class='entityinfotitle'></h1>
-						<div class='info'></div>
-						<div class='power'>
-							HP:
-							<div class='powerinfohp'></div>
-							MP:
-							<div class='powerinfomp'></div>
-						</div>
-						<input type='button' value='Choose' class='choosebtn'>
-					</div>
-					<input type='button' class='startbtn'>
-					<input type='button' class='shopbtn' value='Shop'>
-				</div>
-				<div class='shop'></div>
-				<div class='generateoption'>
-					<h1>Test Option</h1>
-					Number of sides:
-					<br>
-					<input class='generaterange' type='range' min='4' max='20' value='18'>
-					<br>
-					Value: <span class='rangevalue'>18</span>
-					<br>
-					<input type='button' value='generate!' class='generate'>
-				</div>
-				<div class='fightarea'>
-					<div class='entity'>
-						<img>
-					</div>
-					<div class='bottombar'>
-						<div class='weapon'>
-							<div class='tips'>Q</div>
-							<div class='box'>
-								<img>
-								<div class='after'>MP</div>
-							</div>
-							<div class='box'>
-								<img>
-								<div class='after'>MP</div>
-							</div>
-							<div class='tips'>E</div>
-						</div>
-					</div>
-					<div class='entityinfoinfight'>
-						<div class='hp'>
-							<div class='powerbarhp'></div>
-							<div class='hpprogress'>
-								<div class='bar'>HP/MAXHP</div>
-							</div>
-						</div>
-						<div class='mp'>
-							<div class='powerbarmp'></div>
-							<div class='mpprogress'>
-								<div class='bar'>MP/MAXMP</div>
-							</div>
-						</div>
-					</div>
-					<div class='diedpage'>
-						<h1>You Died</h1>
-						<input type='button' value='Reload'>
-					</div>
-				</div>
-			</div>
-			<div class="mobilecontrol">
-				<div class="up">UP</div>
-				<div class='down'>DOWN</div>
-				<div class='left'>LEFT</div>
-				<div class='right'>RIGHT</div>
-			</div>
-			<div class="thankspage"></div>
-		</div>
-	</div>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+     Your app may use that space for branding, controls and other customizations.-->
+    <h1>Welcome to Soler Fight Login Page</h1>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js'></script>
 
-	<!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js'></script>
-
-	<!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- TODO: Add SDKs for Firebase products that you want to use
 		https://firebase.google.com/docs/web/setup#available-libraries -->
-	<script src='https//www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js'></script>
+    <script src='https//www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js'></script>
 
-	<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js'></script>
+    <script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js'></script>
 
-	<script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js'></script>
+    <script src='https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js'></script>
 
-	<script src='script.js'></script>
+    <script src='firebase.js'></script>
 </body>
 
 </html>
