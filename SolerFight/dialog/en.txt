@@ -1,6 +1,6 @@
 warning.computerperformance = If your computer performance is poor, we recommend that you do not play this game.
 #
-ui.title = Soler Fight Pre-Alpha 0.6a<br>(Press G to report bug)
+ui.title = Soler Fight Pre-Alpha 0.6b<br>(Press G to report bug)
 #
 ui.twinkingtext = Login System Update!
 #
@@ -33,3 +33,5 @@ warning.forgherochose = Please choose a hero to start!
 error.mustreload = Have an error, We need to reload the page now.
 #
 error.unlogin = Please Login!
+#
+tips.fullscreen = Tips: You Can Press F11 to fullscreen!

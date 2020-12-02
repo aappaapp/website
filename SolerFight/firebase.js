@@ -22,6 +22,7 @@ var uiConfig = {
             // Return type determines whether we continue the redirect automatically
             // or whether we leave that to developer to handle.
             $.cookie('login', 'true');
+            $.cookie('uid', firebase.auth().currentUser.uid);
             return true;
         },
         uiShown: function () {

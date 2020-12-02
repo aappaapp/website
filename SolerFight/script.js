@@ -1,3 +1,46 @@
+// TODO: Replace the following with your app's Firebase project configuration
+// For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+var firebaseConfig = {
+	apiKey: "AIzaSyDkSOCf6OlKlQK7dpJytnsZECWczfYApCo",
+	authDomain: "webdb200101.firebaseapp.com",
+	databaseURL: "https://webdb200101.firebaseio.com",
+	projectId: "webdb200101",
+	storageBucket: "webdb200101.appspot.com",
+	messagingSenderId: "485833164369",
+	appId: "1:485833164369:web:66144cf75de59218461a70",
+	measurementId: "G-DXYPZLMPD7"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+var uid = $.cookie('uid');
+
+function writeUserData(data, ref) {
+	firebase.database().ref('users/' + uid + '/' + ref).set({
+		data: data
+	});
+}
+function readUserData(value) {
+	firebase.database().ref('/users/' + uid).once('value').then(function (snapshot) {
+		eval('window.data[\'' + value + '\'] = (snapshot.val() && snapshot.val().' + value + ') || undefined;');
+		// ...
+	});
+}
+function moveFbRecord(oldRef, newRef) {
+	oldRef.once('value', function (snap) {
+		newRef.set(snap.value(), function (error) {
+			if (!error) { oldRef.remove(); }
+			else if (typeof (console) !== 'undefined' && console.error) { console.error(error); }
+		});
+	});
+}
+function copyFbRecord(oldRef, newRef) {
+	oldRef.once('value', function (snap) {
+		newRef.set(snap.value(), function (error) {
+			if (error && typeof (console) !== 'undefined' && console.error) { console.error(error); }
+		});
+	});
+}
 function getDeviceType() {
 	var ua = navigator.userAgent;
 	if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -88,22 +131,22 @@ function generatescene(blockvalue) {
 	var except = 'blockreplaceexcept';
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		if (i <= blockvalue) {
-			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block[0].skin.normal.src);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block1['block'].skin.normal.src);
 			$('.block' + i).addClass(window.addClass);
 			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i % blockvalue == 1) {
-			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block[0].skin.normal.src);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block1['block'].skin.normal.src);
 			$('.block' + i).addClass(window.addClass);
 			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i % blockvalue == 0) {
-			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block[0].skin.normal.src);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block1['block'].skin.normal.src);
 			$('.block' + i).addClass(window.addClass);
 			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
 		} else if (i >= blockvalue * blockvalue - blockvalue) {
-			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block[0].skin.normal.src);
+			$('.block' + i + ' > *:not(.blockreplaceexcept)').attr('src', window.block1['block'].skin.normal.src);
 			$('.block' + i).addClass(window.addClass);
 			$('.block' + i).removeClass(window.removeClass);
 			$('.block' + i + ' > *').removeClass(window.removeClass);
@@ -199,9 +242,9 @@ function mpfull() {
 	window.entitymp = window.choseentity.mp;
 }
 function weaponuse(event) {
-	if (window.cdtime && window.entitymp - window.choseweapon.mp >= 0) {
-		if (window.choseweapon.type == 'gun') {
-			window.entitymp = window.entitymp - window.choseweapon.mp;
+	if (window.cdtime && window.entitymp - window.weapon['chose'].mp >= 0) {
+		if (window.weapon['chose'].type == 'gun') {
+			window.entitymp = window.entitymp - window.weapon['chose'].mp;
 			//$('.fightarea .entity').tooltip({
 			//	items: ".fightarea .entity",
 			//	content: 'You use the gun and your mp is ' + window.entitymp + '!'
@@ -211,9 +254,9 @@ function weaponuse(event) {
 			//	$('.fightarea .entity').tooltip("disable");
 			//}, 1000);
 			bullet();
-			cd(window.choseweapon.cd);
-		} else if (window.choseweapon.type == 'sword') {
-			window.entitymp = window.entitymp - window.choseweapon.mp;
+			cd(window.weapon['chose'].cd);
+		} else if (window.weapon['chose'].type == 'sword') {
+			window.entitymp = window.entitymp - window.weapon['chose'].mp;
 			$('.fightarea .entity').tooltip({
 				items: ".fightarea .entity",
 				content: 'You use the sword and sword is not using mp so your mp is ' + window.entitymp + '!'
@@ -222,12 +265,12 @@ function weaponuse(event) {
 			setTimeout(function () {
 				$('.fightarea .entity').tooltip("disable");
 			}, 1000);
-			cd(window.choseweapon.cd);
+			cd(window.weapon['chose'].cd);
 		}
 	}
 }
 function bullet() {
-	$('.fightarea').append('<div class=\'gunbullet bullet' + window.gunbulleti + '\'><img src=' + window.choseweapon.skin.bullet.src + '></div>');
+	$('.fightarea').append('<div class=\'gunbullet bullet' + window.gunbulleti + '\'><img src=' + window.weapon['chose'].skin.bullet.src + '></div>');
 	$('.bullet' + window.gunbulleti).css({
 		'top': $('.fightarea .entity').position().top,
 		'left': $('.fightarea .entity').position().left
@@ -305,7 +348,6 @@ function generaterandomscene(blockvalue) {
 	$('.randomblockgroup' + window.randomscene).door('top', blockvalue, window.block1['block'].skin.disable.src);
 	$('.randomblockgroup' + window.randomscene).door('bottom', blockvalue, window.block1['block'].skin.disable.src);
 	window.randomscene++;
-	trap();
 }
 $.fn.enemygen = function () {
 	$(this).append('<div class=\'enemy\'><img src=\'trapopen\'></div>');
@@ -374,11 +416,11 @@ function trap() {
 			$('.trap').addClass('trapopen');
 			$('.trap').attr('src', window.block1['trap'].skin.open.src);
 			if ($('.trapopen').overlaps($('.fightarea .entity img'))[0] != undefined && window.trapi == 0) {
-				window.entityhp = window.entityhp - window.block[2].damage;
+				window.entityhp = window.entityhp - window.block1['trap'].damage;
 				window.trapi++;
 			}
 		} else if (a == 1) {
-			$('.trap').attr('src', window.block[2].skin.normal.src);
+			$('.trap').attr('src', window.block1['trap'].skin.normal.src);
 			$('.trap').removeClass('trapopen');
 			a = -1;
 			window.trapi = 0;
@@ -480,6 +522,8 @@ function died() {
 	$('.diedpage').css('display', 'inline-block');
 }
 function setvariable() {
+	window.data = {};
+	window.weapon = {};
 	window.deviceType = getDeviceType();
 	window.gunbulleti = 0;
 	window.cornertipsi = 0;
@@ -488,9 +532,7 @@ function setvariable() {
 	window.img.src = [];
 	window.dev = eval($.cookie('dev'));
 	$.cookie.json = true;
-	window.choseweapon1 = window.item1['gun'];
-	window.choseweapon2 = window.item1['shotgun'];
-	window.choseweapon = window.choseweapon1;
+	readUserData('fight');
 	if ($.cookie('login') != true) {
 		alert(window.dialog['error.unlogin']);
 		window.location.href = 'index.html';
@@ -502,6 +544,49 @@ function setvariable() {
 	} else if ($.cookie('block') != null) {
 		window.item = JSON.parse($.cookie('block'));
 	}
+}
+function start() {
+	if (window.mode == 'fight') {
+		if (window.data == undefined) {
+
+		} else {
+			if (window.data.hasOwnProperty('fight')) {
+				window.weapon['chose'] = window.weapon['wea1'];
+				window.weapon['wea1'] = window.item1['gun'];
+				window.weapon['wea2'] = window.item1['shotgun'];
+			} else {
+				if (window.data.fight.data.hasOwnProperty('weapon')) {
+					window.weapon['chose'] = window.weapon['wea1'];
+					window.weapon['wea1'] = window.item1['gun'];
+					window.weapon['wea2'] = window.item1['shotgun'];
+				} else {
+					if (window.data.fight.data.hasOwnProperty('data')) {
+						window.weapon['chose'] = window.weapon['wea1'];
+						window.weapon['wea1'] = window.item1['gun'];
+						window.weapon['wea2'] = window.item1['shotgun'];
+					} else {
+						if (window.data.fight.data.weapon.hasOwnProperty('chose')) {
+							window.weapon['chose'] = window.data.fight.data.weapon.chose;
+						} else {
+							window.weapon['chose'] = window.weapon['wea1'];
+						}
+						if (window.data.fight.data.weapon.hasOwnProperty('wea1')) {
+							window.weapon['chose1'] = window.data.fight.data.weapon.wea1;
+						} else {
+							window.weapon['chose1'] = window.item1['gun'];
+						}
+						if (window.data.fight.data.weapon.hasOwnProperty('wea2')) {
+							window.weapon['chose2'] = window.data.fight.data.weapon.wea2;
+						} else {
+							window.weapon['chose2'] = window.item1['shotgun'];
+						}
+					}
+				}
+			}
+		}
+	}
+	window.weapon['wea1'] = window.item1['gun'];
+	window.weapon['wea2'] = window.item1['shotgun'];
 }
 function contains(target, pattern) {
 	var value = 0;
@@ -515,7 +600,7 @@ function detectroom() {
 	if ($('.blockgroup').overlaps('.fightarea .entity')[0] != undefined && !contains($($('.blockgroup').overlaps('.fightarea .entity')[0]).attr('class'), exceptclass)) {
 		var str = $($('.blockgroup').overlaps('.fightarea .entity')[0]).attr('class');
 		var gclass = str.split(' ')[1];
-		$('.' + gclass).door('all', 18, window.block[0].skin.normal.src);
+		$('.' + gclass).door('all', 18, window.block1['block'].skin.normal.src);
 	}
 }
 function interval() {
@@ -526,12 +611,12 @@ function interval() {
 		detectroom();
 		try {
 			$('.fightarea .entity > img').attr('src', window.choseentity.skin.normal.action.normal.src);
+			$('.weapon img').attr('src', window.weapon['chose'].skin.normal.src);
+			$($('.bottombar .box img')[0]).attr('src', window.weapon['wea1'].skin.normal.src);
+			$($('.bottombar .box .after')[0]).text(window.weapon['wea1'].mp);
+			$($('.bottombar .box img')[1]).attr('src', window.weapon['wea2'].skin.normal.src);
+			$($('.bottombar .box .after')[1]).text(window.weapon['wea2'].mp);
 		} catch { }
-		$('.weapon img').attr('src', window.choseweapon.skin.normal.src);
-		$($('.bottombar .box img')[0]).attr('src', window.choseweapon1.skin.normal.src);
-		$($('.bottombar .box .after')[0]).text(window.choseweapon1.mp);
-		$($('.bottombar .box img')[1]).attr('src', window.choseweapon2.skin.normal.src);
-		$($('.bottombar .box .after')[1]).text(window.choseweapon2.mp);
 		/*if (window.block[0].name != 'block' && onetime) {
 			onetime = false;
 			alert(window.dialog['error.mustreload']);
@@ -542,7 +627,21 @@ function interval() {
 			window.location.reload();
 		}*/
 		entityselectclick();
+		start();
 	});
+	setInterval(function () {
+		if (window.mode == 'story') {
+			writeUserData({
+				'name': window.name
+			}, 'story');
+		} else if (window.mode == 'fight') {
+			writeUserData({
+				'chose': window.weapon['chose'],
+				'wea1': window.weapon['wea1'],
+				'wea2': window.weapon['wea2'],
+			}, 'fight/weapon');
+		}
+	}, 5000);
 }
 function cornertips(config) {
 	window.cornertipsi++;
@@ -663,38 +762,31 @@ function conclear() {
 function tutorial() {
 	$('.fightarea .entity').tooltip({
 		items: ".fightarea .entity",
-		content: 'Tips: You can press f11 to fullscreen; You can press arrow key to move'
+		content: 'Howdy, To day I will teach you how to \"play\" this game!'
 	});
-	$('.fightarea .entity').tooltip("open");
 	setTimeout(function () {
 		$('.fightarea .entity').tooltip({
 			items: ".fightarea .entity",
 			content: 'Howdy, To day I will teach you how to \"play\" this game!'
 		});
-		setTimeout(function () {
-			$('.fightarea .entity').tooltip({
-				items: ".fightarea .entity",
-				content: 'Howdy, To day I will teach you how to \"play\" this game!'
-			});
-		}, 5000);
 	}, 5000);
 }
 function changeweaponto(value) {
-	if (window.choseweapon == window.choseweapon1) {
-		window.choseweapon = window.choseweapon2;
+	if (window.weapon['chose'] == window.weapon['wea1']) {
+		window.weapon['chose'] = window.weapon['wea2'];
 		$($('.bottombar .weapon .box')[0]).css('border', '2.5px solid white');
 		$($('.bottombar .weapon .box')[1]).css('border', '5px solid white');
-	} else if (window.choseweapon == window.choseweapon2) {
-		window.choseweapon = window.choseweapon1;
+	} else if (window.weapon['chose'] == window.weapon['wea2']) {
+		window.weapon['chose'] = window.weapon['wea1'];
 		$($('.bottombar .weapon .box')[0]).css('border', '5px solid white');
 		$($('.bottombar .weapon .box')[1]).css('border', '2.5px solid white');
 	}
 }
 $(document).ready(function () {
 	readfile();
-	console.log(window.filewait);
 	setTimeout(function () {
 		alert(window.dialog['warning.computerperformance']);
+		alert(window.dialog['tips.fullscreen']);
 		setvariable();
 		setTimeout(function () {
 			webapp();
@@ -720,6 +812,7 @@ $(document).ready(function () {
 	});
 	$('.signoutbtn').click(function () {
 		$.removeCookie('login');
+		$.removeCookie('uid');
 		window.location.href = './index.html';
 	});
 	$('.homepage .push').click(function () {
@@ -747,6 +840,7 @@ $(document).ready(function () {
 		$('.homepage').css('display', 'none');
 		$('.gamearea').css('display', 'inline-block');
 		$('.entityselect').css('display', 'inline-block');
+		window.mode = 'fight';
 	});
 	$('.homepage .mode .container .tutorialmodebtn').click(function () {
 		$('.homepage').css('display', 'none');
@@ -770,14 +864,6 @@ $(document).ready(function () {
 		$('.entityinfoinfight').css('display', 'inline-block');
 		$('.bottombar').css('display', 'inline-block');
 		generatescene(Number($('.generaterange').val()));
-		$('.fightarea .entity').tooltip({
-			items: ".fightarea .entity",
-			content: 'Tips: You can press f11 to fullscreen; You can press arrow key to move'
-		});
-		$('.fightarea .entity').tooltip("open");
-		setTimeout(function () {
-			$('.fightarea .entity').tooltip("disable");
-		}, 5000);
 	});
 	$('.generaterange').on('input', function () {
 		$('.rangevalue').text($('.generaterange').val());
