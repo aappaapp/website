@@ -1,14 +1,14 @@
 warning.computerperformance = If your computer performance is poor, we recommend that you do not play this game.
 #
-ui.title = Soler Fight Pre-Alpha 0.6b<br>(Press G to report bug)
+ui.title = Soler Fight Pre-Alpha 0.7a(unfinished)<br>(Press G to report bug)(unfinished)
 #
-ui.twinkingtext = Login System Update!
+ui.twinkingtext = Shop Update! (unfinished)
 #
 ui.startremind = Press screen to start
 #
 ui.fightmodebtn = Fighting Mode(unfinished)
 #
-ui.tutorialmodebtn = Toriel Mode(unfinished)
+ui.tutorialmodebtn = Toriel Mode(unmade)
 #
 ui.storymodebtn = Story Mode(unmade)
 #
@@ -35,3 +35,9 @@ error.mustreload = Have an error, We need to reload the page now.
 error.unlogin = Please Login!
 #
 tips.fullscreen = Tips: You Can Press F11 to fullscreen!
+#
+ui.shopbtn = Shop!(unfinished)
+#
+ui.signoutbtn = Sign Out!
+#
+ui.cmdgenbtn = Soler Fight Command Generator!

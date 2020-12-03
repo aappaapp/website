@@ -7,6 +7,19 @@ html{
 }
 body{
 	margin: 0;
+	text-align: center;
+}
+.ap43{
+	position: relative;
+	height: 100%;
+	padding-left: 75%;
+}
+.ap43co{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
 div{
 	display: inline-block;
@@ -22,8 +35,8 @@ a{
 }
 .homepage{
 	background-color: #000000;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	position: relative;
 }
 .homepage h1{
@@ -33,7 +46,7 @@ a{
 	transform: translate(-50%, 0%);
 	padding: 10px;
 	text-align: center;
-	width: 100vw;
+	width: 100%;
 }
 .homepage .update{
 	/*
@@ -75,8 +88,8 @@ a{
 }
 .entityselect{
 	background-color: #000000;
-	height: 100vh;
-	width: 100vw;
+	height: 100%;
+	width: 100%;
 	display: none;
 }
 .entity{
@@ -111,8 +124,8 @@ a{
 }
 .entityinfo{
 	display: none;
-	height: 100vh;
-	width: 100vw;
+	height: 100%;
+	width: 100%;
 	position: relative;
 	background-color: black;
 }
@@ -151,15 +164,14 @@ a{
 	transform: translate(-50%, -50%);
 }
 .generateoption{
-	width: 100vw;
-	height: 100vh;
-	display: none;
-}
-.shop{
+	width: 100%;
+	height: 100%;
 	display: none;
 }
 .gamearea{
 	display: none;
+	width: 100%;
+	height: 100%;
 }
 .fightarea{
 	display: none;
@@ -167,23 +179,12 @@ a{
 .warning{
 	display: none;
 	background-color: #000000;
-	height: 100vh;
-	width: 100vw;
-}
-@keyframes twinkling{
-	0%{
-		opacity: 1;
-	}
-	50%{
-		opacity: 0;
-	}
-	100%{
-		opacity: 1;
-	}
+	height: 100%;
+	width: 100%;
 }
 .scenecontainer{
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	position: relative;
 }
 .scene{
@@ -250,20 +251,20 @@ input[type='file']{
 	display: none;
 }
 .homepage .push{
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 }
 .homepage .mode{
 	position: absolute;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	vertical-align: bottom;
 	position: relative;
 }
 .homepage .mode .container{
 	bottom: -100px;
 	position: absolute;
-	width: 100vw;
+	width: 100%;
 	transition: all 1s;
 	text-align: center;
 	display: none;
@@ -306,7 +307,7 @@ input[type='file']{
 .mobilecontrol{
 	position: absolute;
 	bottom: 0;
-	width: 100vw;
+	width: 100%;
 	display: none;
 	z-index: 100;
 }
@@ -315,11 +316,11 @@ input[type='file']{
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100vw;
+	width: 100%;
 }
 .bottombar{
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	position: relative;
 	text-align: center;
 	z-index: 1;
@@ -369,21 +370,6 @@ input[type='file']{
 	left: 0;
 	top: 0;
 }
-@media screen and (orientation: portrait) {
-	html {
-		/* Rotate the content container */
-		transform: rotate(-90deg);
-		transform-origin: left top;
-		/* Set content width to viewport height */
-		width: 100vh;
-		/* Set content height to viewport width */
-		height: 100vw;
-		overflow-x: hidden;
-		position: absolute;
-		top: 100%;
-		left: 0;
-	}
-}
 .cmdgenbtn{
 	position: absolute;
 	left: 0;
@@ -400,3 +386,89 @@ input[type='file']{
 	color: white;
 	border: none;
 }
+.cornertips{
+	background-color: white;
+	color: black;
+	padding: 20px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+}
+.shop{
+	display: none;
+	width: 100%;
+	height: 100%;
+}
+.shop .item-list{
+	width: 50%;
+    height: 90%;
+    position: relative;
+    top: 50%;
+    right: -60%;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll;
+    background-color: wheat;
+}
+.shop .item-list .item{
+	width: 90%;
+	padding: 10px;
+	background-color: white;
+	color: #2998cf;
+    margin: 10px 0px;
+}
+.shop .item-list .item div{
+	font-weight: bold;
+	display: block;
+}
+.shop .item-list .item input{
+    background-color: #F2B024;
+	border: 5px solid #FCDA00;
+	border-radius: 10px;
+	color: white;
+	display: block;
+}
+.item-list::-webkit-scrollbar{
+	width: 10px;
+}
+.item-list::-webkit-scrollbar-track{
+	background: #f1f1f1;
+}
+.item-list::-webkit-scrollbar-thumb{
+	background: #888;
+}
+.item-list::-webkit-scrollbar-thumb:hover{
+	background: #555;
+}
+.shopbtn{
+	position: absolute;
+	left: 5%;
+	border: none;
+	top: 5%;
+	transform: translate(-50%, -50%);
+	background-color: #00000000;
+	color: white;
+}
+@keyframes twinkling{
+	0%{
+		opacity: 1;
+	}
+	50%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+/*
+@media screen and (orientation: portrait) {
+	body {
+		transform: rotate(-90deg) translate(-50%, -50%);
+		height: 100vw;
+		width: 100vh;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+}
+*/

@@ -1,14 +1,14 @@
 warning.computerperformance = 如果您的計算機性能不佳，我們建議您不要玩此遊戲。
 #
-ui.title = 靈魂者戰爭 Pre-Alpha 0.6b<br>（按G報告錯誤）
+ui.title = 靈魂者戰爭 Pre-Alpha 0.7a（未完成）<br>（按G報告錯誤）（未完成）
 #
-ui.twinkingtext = 登錄系統更新！
+ui.twinkingtext = 店鋪更新！（未完成）
 #
 ui.startremind = 按下螢幕開始
 #
 ui.fightmodebtn = 格鬥模式（未完成）
 #
-ui.tutorialmodebtn = 教程模式（未完成）
+ui.tutorialmodebtn = 教程模式（未製作）
 #
 ui.storymodebtn = 故事模式（未製作）
 #
@@ -35,3 +35,9 @@ error.mustreload = 發生錯誤，我們需要立即重新加載頁面。
 error.unlogin = 請登錄！
 #
 tips.fullscreen = 提示：您可以按F11進入全屏！
+#
+ui.shopbtn = 商店！（未完成）
+#
+ui.signoutbtn = 登出！
+#
+ui.cmdgenbtn = Soler Fight命令產生器！

@@ -522,11 +522,11 @@ function died() {
 	$('.diedpage').css('display', 'inline-block');
 }
 function setvariable() {
+	window.cornertipsi = 0;
 	window.data = {};
 	window.weapon = {};
 	window.deviceType = getDeviceType();
 	window.gunbulleti = 0;
-	window.cornertipsi = 0;
 	window.img = {};
 	window.img.name = [];
 	window.img.src = [];
@@ -545,7 +545,7 @@ function setvariable() {
 		window.item = JSON.parse($.cookie('block'));
 	}
 }
-function start() {
+function loaddetect() {
 	if (window.mode == 'fight') {
 		if (window.data == undefined) {
 
@@ -627,7 +627,7 @@ function interval() {
 			window.location.reload();
 		}*/
 		entityselectclick();
-		start();
+		loaddetect();
 	});
 	setInterval(function () {
 		if (window.mode == 'story') {
@@ -643,21 +643,21 @@ function interval() {
 		}
 	}, 5000);
 }
-function cornertips(config) {
-	window.cornertipsi++;
-	$('body').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + config.text + '</div>');
-	$('.cornertips').css({
-		'z-index': '100',
-		'position': 'absolute',
-		'bottom': '0px',
-		'right': '0',
-		'padding': '20px',
-		'background-color': 'white',
-		'color': 'black'
+function cornertips(text, time) {
+	$('body').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + text + '</div>');
+	$('.cornertips' + window.cornertipsi).each(function () {
+		cornertipseach(this, time);
 	});
+	window.cornertipsi++;
+}
+function enemy() {
+	$().move();
+}
+function cornertipseach(element, time) {
+	var ths = element;
 	setTimeout(function () {
-		$('.cornertips').remove();
-	}, 2000);
+		$(ths).remove();
+	}, time);
 }
 function restore() {
 	setInterval(function () {
@@ -688,7 +688,7 @@ function inner() {
 		window.entity[i].name = window.dialog["entity." + window.entity[i].id + ".name"];
 		window.entity[i].introduction = window.dialog["entity." + window.entity[i].id + ".intro"];
 	}
-	$('.title').html(window.dialog["ui.title"]);
+	$('.homepage .title').html(window.dialog["ui.title"]);
 	$('.update').html(window.dialog["ui.twinkingtext"]);
 	$('.startremind').html(window.dialog["ui.startremind"]);
 	$('.entityinfotitle').html(window.dialog["error.select.title"]);
@@ -698,6 +698,9 @@ function inner() {
 	$('.tutorialmodebtn').attr('value', window.dialog["ui.tutorialmodebtn"]);
 	$('.storymodebtn').attr('value', window.dialog["ui.storymodebtn"]);
 	$('.startbtn').attr('value', window.dialog["ui.startbtn"]);
+	$('.shopbtn').attr('value', window.dialog["ui.shopbtn"]);
+	$('.signoutbtn').attr('value', window.dialog["ui.signoutbtn"]);
+	$('.cmdgenbtn').attr('value', window.dialog["ui.cmdgenbtn"]);
 }
 function setentityvalue(type, config) {
 	if (type == 'mp') {
@@ -785,10 +788,12 @@ function changeweaponto(value) {
 $(document).ready(function () {
 	readfile();
 	setTimeout(function () {
-		alert(window.dialog['warning.computerperformance']);
-		alert(window.dialog['tips.fullscreen']);
 		setvariable();
 		setTimeout(function () {
+			cornertips(window.dialog['warning.computerperformance'], 5000);
+			setTimeout(function () {
+				cornertips(window.dialog['tips.fullscreen'], 5000);
+			}, 5000);
 			webapp();
 			setskin();
 			interval();
@@ -806,8 +811,11 @@ $(document).ready(function () {
 	$(document).contextmenu(function (event) {
 		event.preventDefault();
 	});
+	$('.shopbtn').click(function () {
+		$('.entityselect').css('display', 'none');
+		$('.shop').css('display', 'inline-block');
+	});
 	$('.cmdgenbtn').click(function () {
-		console.log('sd');
 		window.location.href = './cmdgen';
 	});
 	$('.signoutbtn').click(function () {
@@ -855,7 +863,7 @@ $(document).ready(function () {
 			window.entityhp = window.choseentity.hp;
 			window.entitymp = window.choseentity.mp;
 		} else {
-			alert(window.dialog['warning.forgherochose']);
+			cornertips(window.dialog['warning.forgherochose'], 3000);
 		}
 	});
 	$('.generate').click(function () {
@@ -864,6 +872,7 @@ $(document).ready(function () {
 		$('.entityinfoinfight').css('display', 'inline-block');
 		$('.bottombar').css('display', 'inline-block');
 		generatescene(Number($('.generaterange').val()));
+		window.istart = true;
 	});
 	$('.generaterange').on('input', function () {
 		$('.rangevalue').text($('.generaterange').val());
@@ -934,29 +943,29 @@ $(document).ready(function () {
 			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
 		} else if (event.which == 71) {
 			window.open('https://github.com/adenpun/adenpun.github.io/issues/new', '', 'width=750, height=750');
-		}
-		if (event.which == 80) {
+		} else if (event.which == 67) {
+			if (window.istart) { }
+		} else if (event.which == 80) {
 			$('.homepagesecret').css('display', 'inline-block');
-		}
-		if (event.which == 191) {
+		} else if (event.which == 191) {
 			var ans = prompt('Please enter command:');
 			if (ans == 'dev123') {
 				if (window.dev != true) {
 					window.dev = true;
 					$.cookie('dev', true);
-					alert('dev mode is open!');
+					cornertips('dev mode is open!', 2000);
 				} else {
 					window.dev = false;
 					$.cookie('dev', false);
-					alert('dev mode is close.');
+					cornertips('dev mode is close.', 2000);
 				}
 			} else if (ans == 'hide-cursor') {
 				$('html').css('cursor', 'none');
 			} else if (ans == 'show-cursor') {
 				$('html').css('cursor', 'default');
 			} else if (ans == 'soler') {
-				alert('This is a secret.');
-				alert('But what you can do?');
+				cornertips('This is a secret.', 5000);
+				cornertips('But what you can do?', 5000);
 			} else if (ans == 'fighttest') { } else {
 				try {
 					eval(ans);
