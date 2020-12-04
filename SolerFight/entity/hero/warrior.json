@@ -15,7 +15,7 @@
                     "src": "./textures/entity/hero/warrior/warrior.png"
                 },
                 "lobby": {
-                    "src": "./textures/entity/hero/warrior/warriorsit.png"
+                    "src": "./textures/entity/hero/warrior/warrior.png"
                 }
             }
         }

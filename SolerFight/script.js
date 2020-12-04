@@ -395,6 +395,14 @@ function readfile() {
 			}
 			console.log(window.dialog);
 		});
+	} else if (navigator.language.includes('en')) {
+		$.get('./dialog/en.txt', function (data) {
+			var dialog = data.split('\n#');
+			window.dialog = {};
+			for (i = 0; i < dialog.length; i++) {
+				window.dialog[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
+			}
+		});
 	} else {
 		$.get('./dialog/en.txt', function (data) {
 			var dialog = data.split('\n#');
@@ -403,9 +411,13 @@ function readfile() {
 				window.dialog[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
 			}
 		});
+		alert('We don\'t have language: ' + navigator.language + '(ISO 639-1) in Soler Fight!');
 	}
 	$.get('./thanks.txt', function (data) {
 		window.thankstext = data.split('\n');
+	});
+	$.get('./plugin.js', function (data) {
+		window.plugin = data;
 	});
 }
 function trap() {
@@ -545,6 +557,7 @@ function setvariable() {
 		window.item = JSON.parse($.cookie('block'));
 	}
 }
+/*
 function loaddetect() {
 	if (window.mode == 'fight') {
 		if (window.data == undefined) {
@@ -587,7 +600,7 @@ function loaddetect() {
 	}
 	window.weapon['wea1'] = window.item1['gun'];
 	window.weapon['wea2'] = window.item1['shotgun'];
-}
+}*/
 function contains(target, pattern) {
 	var value = 0;
 	pattern.forEach(function (word) {
@@ -627,7 +640,7 @@ function interval() {
 			window.location.reload();
 		}*/
 		entityselectclick();
-		loaddetect();
+		//loaddetect();
 	});
 	setInterval(function () {
 		if (window.mode == 'story') {
@@ -635,11 +648,11 @@ function interval() {
 				'name': window.name
 			}, 'story');
 		} else if (window.mode == 'fight') {
-			writeUserData({
+			/*writeUserData({
 				'chose': window.weapon['chose'],
 				'wea1': window.weapon['wea1'],
 				'wea2': window.weapon['wea2'],
-			}, 'fight/weapon');
+			}, 'fight/weapon');*/
 		}
 	}, 5000);
 }
@@ -713,18 +726,32 @@ window.ondragstart = function () {
 	return false;
 }
 function entityselectclick() {
-	$('.' + window.entity[0].id).click(function () {
-		displayselect(0);
-	});
-	$('.' + window.entity[1].id).click(function () {
-		displayselect(1);
-	});
-	$('.choosebtn.' + window.entity[0].id).click(function () {
-		displayselectchose(0);
-	});
-	$('.choosebtn.' + window.entity[1].id).click(function () {
-		displayselectchose(1);
-	});
+	try {
+		$('.' + window.entity[0].id).click(function () {
+			displayselect(0);
+		});
+		$('.' + window.entity[1].id).click(function () {
+			displayselect(1);
+		});
+		$('.' + window.entity[2].id).click(function () {
+			displayselect(2);
+		});
+		$('.' + window.entity[3].id).click(function () {
+			displayselect(3);
+		});
+		$('.choosebtn.' + window.entity[0].id).click(function () {
+			displayselectchose(0);
+		});
+		$('.choosebtn.' + window.entity[1].id).click(function () {
+			displayselectchose(1);
+		});
+		$('.choosebtn.' + window.entity[2].id).click(function () {
+			displayselectchose(2);
+		});
+		$('.choosebtn.' + window.entity[3].id).click(function () {
+			displayselectchose(3);
+		});
+	} catch { }
 }
 function displayselect(value) {
 	$('.entityselect > *').css('display', 'none');
@@ -794,10 +821,13 @@ $(document).ready(function () {
 			setTimeout(function () {
 				cornertips(window.dialog['tips.fullscreen'], 5000);
 			}, 5000);
-			webapp();
-			setskin();
-			interval();
-			inner();
+			eval(window.plugin);
+			setTimeout(function () {
+				webapp();
+				setskin();
+				interval();
+				inner();
+			}, 500);
 		}, 500);
 	}, 500)
 	$(document).tooltip();
