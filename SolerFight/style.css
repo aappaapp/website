@@ -405,7 +405,7 @@ input[type='file']{
     height: 90%;
     position: relative;
     top: 50%;
-    right: -60%;
+    right: -45%;
     transform: translate(-50%, -50%);
     overflow-y: scroll;
     background-color: wheat;
