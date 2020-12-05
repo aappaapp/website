@@ -335,11 +335,11 @@ function generaterandomscene(blockvalue) {
 	for (i = 1; i < blockvalue * blockvalue + 1; i++) {
 		$('.fightarea').append('<div class=\'block blockvalue' + window.randomscene + ' block' + i + '\'><img></div>');
 		var value = Math.floor(Math.random() * 100) + 1;
-		if (value > 0 && value < 11) {
+		if (value >= 1 && value <= 10) {
 			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', window.block1['chest'].skin.normal.src).parent().addClass('candestroy');
 		} else if (value == 11) {
 			$('.block' + i + '.blockvalue' + window.randomscene).children().attr('src', window.block1['trap'].skin.normal.src).addClass('trap').parent().addClass('cantdestroy');
-		} else if (value > 11 && value < 21) {
+		} else if (value >= 12 && value <= 20) {
 			$('.randomblockgroup' + window.randomscene).enemygen();
 		}
 	}

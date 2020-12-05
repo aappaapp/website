@@ -1,0 +1,6 @@
+# Group 1
+User-agent: *
+Disallow: /firebase/
+Disallow: /authsetting/
+
+Sitemap: https://adenpun.github.io/sitemap.xml

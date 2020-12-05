@@ -47,3 +47,7 @@ var uiConfig = {
 };
 // The start method will wait until the DOM is loaded.
 ui.start('#firebaseui-auth-container', uiConfig);
+
+if (navigator.onLine == false) {
+    alert('YOur connectIon Is WronG!');
+}

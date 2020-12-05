@@ -1,5 +1,6 @@
-wantmadenewgame = 'fit loser gh.';
-gh = 'ghost';
+wantmadenewgame = 'G-list F-hero';
+F = 'Fantastic';
+G = 'Grim';
 //like undertale and deltarune
 charactor = {
     'new': {
