@@ -1,6 +1,6 @@
 warning.computerperformance = 如果您的計算機性能不佳，我們建議您不要玩此遊戲。
 #
-ui.title = 靈魂者戰爭 Pre-Alpha 0.7a（未完成）<br>（按G報告錯誤）（未完成）
+ui.title = 靈魂者戰爭 初期測試前版 0.7a（未完成）<br>（按G報告錯誤）（未完成）
 #
 ui.twinkingtext = 店鋪更新！（未完成）
 #
@@ -40,4 +40,6 @@ ui.shopbtn = 商店！（未完成）
 #
 ui.signoutbtn = 登出！
 #
-ui.cmdgenbtn = Soler Fight命令產生器！
+ui.cmdgenbtn = 靈魂者戰爭命令產生器！
+#
+ui.namedisplace = 您的姓名將顯示在這裡...

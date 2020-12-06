@@ -41,3 +41,5 @@ ui.shopbtn = Shop!(unfinished)
 ui.signoutbtn = Sign Out!
 #
 ui.cmdgenbtn = Soler Fight Command Generator!
+#
+ui.namedisplace = Your Name Will display Here...

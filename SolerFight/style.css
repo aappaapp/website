@@ -1,5 +1,13 @@
+@font-face{
+	font-family: 'english';
+	src: url(font/english.ttf);
+}
+@font-face{
+	font-family: 'chinesefont';
+	src: url(font/chinese.ttf);
+}
 html{
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'english', 'chinesefont';
 	overflow: hidden;
 	user-select: none;
 	color: white;
@@ -8,6 +16,13 @@ html{
 body{
 	margin: 0;
 	text-align: center;
+}
+input{
+	font-family: 'english', 'chinesefont';
+	outline: none;
+}
+input[type='button'], label{
+	cursor: pointer;
 }
 .ap43{
 	position: relative;
@@ -23,12 +38,6 @@ body{
 }
 div{
 	display: inline-block;
-}
-input{
-	outline: none;
-}
-input[type='button'], label{
-	cursor: pointer;
 }
 a{
 	color: blue;
@@ -402,27 +411,27 @@ input[type='file']{
 }
 .shop .item-list{
 	width: 50%;
-    height: 90%;
-    position: relative;
-    top: 50%;
-    right: -45%;
-    transform: translate(-50%, -50%);
-    overflow-y: scroll;
-    background-color: wheat;
+	height: 90%;
+	position: relative;
+	top: 50%;
+	right: -45%;
+	transform: translate(-50%, -50%);
+	overflow-y: scroll;
+	background-color: wheat;
 }
 .shop .item-list .item{
 	width: 90%;
 	padding: 10px;
 	background-color: white;
 	color: #2998cf;
-    margin: 10px 0px;
+	margin: 10px 0px;
 }
 .shop .item-list .item div{
 	font-weight: bold;
 	display: block;
 }
 .shop .item-list .item input{
-    background-color: #F2B024;
+	background-color: #F2B024;
 	border: 5px solid #FCDA00;
 	border-radius: 10px;
 	color: white;
@@ -448,6 +457,72 @@ input[type='file']{
 	transform: translate(-50%, -50%);
 	background-color: #00000000;
 	color: white;
+}
+.storymode{
+	display: none;
+	width: 100%;
+	height: 100%;
+}
+.nameselect{
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	width: 100%;
+}
+.lettgroup{
+	margin: 40px;
+}
+.lett{
+	cursor: pointer;
+	font-size: 35px;
+	margin: 0px 10px;
+	/*animation: shake 300ms infinite;*/
+}
+.lett:hover, .confirm:hover, .notconfirm:hover{
+	color: yellow;
+}
+.namedisplay{
+	color: white;
+	background-color: #00000000;
+	cursor: default;
+	border: none;
+	width: 100%;
+	text-align: center;
+	font-size: 30px;
+}
+.namedisplay::placeholder{
+	color: grey;
+}
+.lettsel{
+	color: yellow;
+}
+.nameconfirm{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.nameconfirm h1{
+	font-weight: 100;
+}
+.confirm, .notconfirm{
+	cursor: pointer;
+	margin: 0px 10px;
+	font-size: 35px;
+}
+@keyframes shake{
+	25%{
+		transform: translate(1px, 1px);
+	}
+	50%{
+		transform: translate(1px, -1px);
+	}
+	70%{
+		transform: translate(-1px, -1px);
+	}
+	100%{
+		transform: translate(-1px, 1px);
+	}
 }
 @keyframes twinkling{
 	0%{

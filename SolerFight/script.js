@@ -411,7 +411,7 @@ function readfile() {
 				window.dialog[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
 			}
 		});
-		alert('We don\'t have language: ' + navigator.language + '(ISO 639-1) in Soler Fight!');
+		alert('We don\'t have language: ' + navigator.language + '(ISO 639-1) in Soler Fight! We hope anybody can help us to translate other');
 	}
 	$.get('./thanks.txt', function (data) {
 		window.thankstext = data.split('\n');
@@ -534,6 +534,7 @@ function died() {
 	$('.diedpage').css('display', 'inline-block');
 }
 function setvariable() {
+	window.keys = {};
 	window.cornertipsi = 0;
 	window.data = {};
 	window.weapon = {};
@@ -620,6 +621,7 @@ function interval() {
 	onetime = true;
 	onetime2 = true;
 	setInterval(function () {
+		//console.log(window.keys);
 		detecthurt();
 		detectroom();
 		try {
@@ -707,6 +709,7 @@ function inner() {
 	$('.entityinfotitle').html(window.dialog["error.select.title"]);
 	$('.powerbarhp').html(window.dialog["ui.hpbar"]);
 	$('.powerbarmp').html(window.dialog["ui.mpbar"]);
+	$('.namedisplay').attr('placeholder', window.dialog["ui.namedisplace"]);
 	$('.fightmodebtn').attr('value', window.dialog["ui.fightmodebtn"]);
 	$('.tutorialmodebtn').attr('value', window.dialog["ui.tutorialmodebtn"]);
 	$('.storymodebtn').attr('value', window.dialog["ui.storymodebtn"]);
@@ -812,6 +815,74 @@ function changeweaponto(value) {
 		$($('.bottombar .weapon .box')[1]).css('border', '2.5px solid white');
 	}
 }
+function story() {
+	ue = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+	le = 'abcdefghijklmnopqrstuvwxyz'.split('');
+	for (i = 0; i < ue.length; i++) {
+		$('.nameselect').append('<div class=\'lett ue ue' + ue[i] + '\'>' + ue[i] + '</div>');
+		console.log(ue[i]);
+		if ((i + 1) % 10 == 0) {
+			$('.ue' + ue[i]).after('<br class=\'uebr\'>');
+		}
+		if (i == ue.length - 1) {
+			$('.ue, .uebr').wrapAll('<div class=\'uegroup lettgroup\'></div>');
+		}
+	}
+	for (i = 0; i < le.length; i++) {
+		$('.nameselect').append('<div class=\'lett le le' + le[i] + '\'>' + le[i] + '</div>');
+		if ((i + 1) % 10 == 0) {
+			$('.le' + le[i]).after('<br class=\'lebr\'>');
+		}
+		if (i == le.length - 1) {
+			$('.le, .lebr').wrapAll('<div class=\'legroup lettgroup\'></div>');
+		}
+		$('.legroup').after('<div class=\'nametools\'><div class=\'backlett lett\'>Backspace</div> <div class=\'finish lett\'>Finish</div></div>');
+	}
+	$('.lettgroup').after('<br>');
+	$('.lett').click(function () {
+		if ($(this).hasClass('backlett')) {
+			$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1));
+		} else if ($(this).hasClass('finish')) {
+			if ($('.namedisplay').val() != '') {
+				window.name = $('.namedisplay').val();
+				chosenamefuc();
+			}
+		} else {
+			if ($('.namedisplay').val().length >= 6) {
+				$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1) + $(this).attr('class').split(' ')[2].substr($(this).attr('class').split(' ')[2].length - 1, 1));
+			} else {
+				$('.namedisplay').val($('.namedisplay').val() + $(this).attr('class').split(' ')[2].substr($(this).attr('class').split(' ')[2].length - 1, 1));
+			}
+		}
+	});
+	$(document).keydown(function () {
+		if (event.which >= 65 && event.which <= 90) {
+			if ($('.namedisplay').val().length >= 6) {
+				$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1) + event.key);
+			} else {
+				$('.namedisplay').val($('.namedisplay').val() + event.key);
+			}
+		}
+		if (event.which == 8) {
+			$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1));
+		} else if (event.which == 13) {
+			if ($('.namedisplay').val() != '') {
+				window.name = $('.namedisplay').val();
+				chosenamefuc();
+			}
+		}
+	});
+}
+function chosenamefuc() {
+	$('.nameselect').css('display', 'none');
+	$('.nameconfirm').css('display', 'inline-block');
+	$('.nameconfirm h1').html('Your name is ' + window.name + ',<br>do you confirm?');
+	$('.notconfirm').click(function () {
+		$('.nameconfirm').css('display', 'none');
+		$('.nameselect').css('display', 'block');
+		$('.namedisplay').val('');
+	});
+}
 $(document).ready(function () {
 	readfile();
 	setTimeout(function () {
@@ -885,6 +956,13 @@ $(document).ready(function () {
 		$('.gamearea').css('display', 'inline-block');
 		$('.fightarea').css('display', 'inline-block');
 		tutorial();
+	});
+	$('.homepage .mode .container .storymodebtn').click(function () {
+		$('.homepage').css('display', 'none');
+		$('.gamearea').css('display', 'inline-block');
+		$('.storymode').css('display', 'inline-block');
+		window.mode = 'story';
+		story();
 	});
 	$('.gamearea .startbtn').click(function () {
 		if (window.choseentity != undefined) {
@@ -972,7 +1050,9 @@ $(document).ready(function () {
 			changeweaponto();
 			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
 		} else if (event.which == 71) {
-			window.open('https://github.com/adenpun/adenpun.github.io/issues/new', '', 'width=750, height=750');
+			if (window.mode == undefined) {
+				window.open('https://github.com/adenpun/adenpun.github.io/issues/new', '', 'width=750, height=750');
+			}
 		} else if (event.which == 67) {
 			if (window.istart) { }
 		} else if (event.which == 80) {
@@ -1003,12 +1083,16 @@ $(document).ready(function () {
 					alert(err.message);
 				}
 			}
+		} else if (event.which == 18) {
+			event.preventDefault();
 		}
+		window.keys[event.which] = true;
 	});
 	$(document).keyup(function () {
 		setTimeout(function () {
 			$('.homepagesecret').css('display', 'none');
 		}, 1000);
+		delete window.keys[event.which];
 	});
 	$(window).blur(function () {
 		//alert('Don\'t focus to another thing!');
