@@ -13,41 +13,66 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-// Initialize the FirebaseUI Widget using Firebase.
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
-var uiConfig = {
-    callbacks: {
-        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-            // User successfully signed in.
-            // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
-            $.cookie('login', 'true');
-            $.cookie('uid', firebase.auth().currentUser.uid);
-            return true;
-        },
-        uiShown: function () {
-            // The widget is rendered.
-            // Hide the loader.
-            document.getElementById('loader').style.display = 'none';
-        }
-    },
-    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    signInFlow: 'popup',
-    signInSuccessUrl: './game.html',
-    signInOptions: [
-        // Leave the lines as is for the providers you want to offer your users.
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-    ],
-    /*
-    // Terms of service url.
-    tosUrl: '<your-tos-url>',
-    // Privacy policy url.
-    privacyPolicyUrl: '<your-privacy-policy-url>'
-    */
-};
-// The start method will wait until the DOM is loaded.
-ui.start('#firebaseui-auth-container', uiConfig);
 
-if (navigator.onLine == false) {
-    alert('YOur connectIon Is WronG!');
+window.alerti = 0;
+window.keys = {};
+$('.signinbtn').click(login);
+$('.signupbtn').click(signup);
+$(document).contextmenu(function () {
+    event.preventDefault();
+});
+$(document).keydown(function () {
+    if (event.which == 13) {
+        login();
+    }
+});
+function signup() {
+    email = $('input.email').val();
+    password = $('input.password').val();
+    $('.signupbtn').addClass('disable');
+    console.log('sd');
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+            // Signed in 
+            // ...
+            $('.signupbtn').removeClass('disable');
+            login();
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            $('.signupbtn').removeClass('disable');
+            console.log(errorMessage);
+            alert(errorMessage, 2500);
+            // ..
+        });
+}
+function login() {
+    email = $('input.email').val();
+    password = $('input.password').val();
+    $('.signinbtn').addClass('disable');
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((user) => {
+            // Signed in 
+            // ...
+            $('.signinbtn').removeClass('disable');
+            $.cookie('login', true);
+            $.cookie('uid', firebase.auth().currentUser.uid);
+            window.location.replace('./game.html');
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            $('.signinbtn').removeClass('disable');
+            console.log(errorMessage);
+            console.log(errorCode);
+            alert(errorMessage, 2500);
+            if (errorCode == 'auth/user-not-found') {
+                ask = confirm('Can\'t find your account, do you want to sign up?');
+                if (ask == true) {
+                    signup();
+                }
+            }
+            // ..
+        });
 }

@@ -23,10 +23,8 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-overlaps/1.2.3/jquery.overlaps.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
 
 	<link rel="icon" href="favicon.ico">
-	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css">
 	<link rel="manifest" href="manifest.json">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
@@ -34,11 +32,27 @@
 </head>
 
 <body>
-	<!-- The surrounding HTML is left untouched by FirebaseUI.
-     Your app may use that space for branding, controls and other customizations.-->
-	<h1>Welcome to Soler Fight Login Page</h1>
-	<div id="firebaseui-auth-container"></div>
-	<div id="loader">Loading...</div>
+	<h1>Welcome to Soler Fight</h1>
+	<div class='form'>
+		<h2>Sign In / Sign Up Form</h2>
+		<div class='email'>
+			Email: <input type='text' class='email'>
+		</div>
+		<br>
+		<div class='password'>
+			Password: <input type='text' class='password'>
+		</div>
+		<br>
+		<div class='signcontainer'>
+			<div class='signinbtn btn'>
+				SignIn
+			</div>
+			<div class='signupbtn btn'>
+				SignUp
+			</div>
+		</div>
+	</div>
+
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 
