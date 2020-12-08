@@ -709,6 +709,7 @@ function inner() {
 		window.entity[i].name = window.dialog1["entity." + window.entity[i].id + ".name"];
 		window.entity[i].introduction = window.dialog1["entity." + window.entity[i].id + ".intro"];
 	}
+	$('title').html(window.dialog1["ui.pagetitle"]);
 	$('.homepage .title').html(window.dialog1["ui.title"]);
 	$('.update').html(window.dialog1["ui.twinkingtext"]);
 	$('.startremind').html(window.dialog1["ui.startremind"]);
@@ -822,6 +823,7 @@ function changeweaponto(value) {
 	}
 }
 function story() {
+	$('title').text(window.dialog1['ui.storytitle']);
 	ue = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 	le = 'abcdefghijklmnopqrstuvwxyz'.split('');
 	for (i = 0; i < ue.length; i++) {
@@ -945,7 +947,9 @@ function speakeach(element, text, speed, speaki, callback) {
 	var ths = element;
 	var i = 0;
 	window.speakspeed = speed;
+	//text = text.split('\\w');
 	$(ths).parent().css('display', 'block');
+	//if (Array.isArray(text)) { } else {
 	var itv = setInterval(function () {
 		$('.body3').keydown(function () {
 			if (event.which == 16 || event.which == 88) {
@@ -969,6 +973,7 @@ function speakeach(element, text, speed, speaki, callback) {
 			});
 		}
 	}, window.speakspeed);
+	//}
 }
 $(document).ready(function () {
 	readfile();

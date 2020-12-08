@@ -1,6 +1,6 @@
 ##UI##
 #
-ui.title = Soler Fight Pre-Alpha 0.8a(unfinished)<br>(Press G to report bug)(unfinished)
+ui.title = Soler Fight Pre-Alpha 0.8b(unfinished)<br>(Press G to report bug)(unfinished)
 #
 ui.twinkingtext = Many Many Thing Update! (Story mode is the main update) (unfinished)
 #
@@ -25,6 +25,12 @@ ui.cmdgenbtn = Soler Fight Command Generator!
 ui.mpbar = MP:
 #
 ui.namedisplace = Your Name Will display Here...
+#
+ui.storytitle = Story Mode - Soler Fight
+#
+ui.snowytitle = Snowy Mode - Snowy Fight
+#
+ui.pagetitle = Soler Fight
 
 ##Entity##
 #

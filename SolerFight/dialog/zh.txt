@@ -1,6 +1,6 @@
 ##UI##
 #
-ui.title = 靈魂者戰爭 初期測試前版 0.8a（未完成）<br>（按G報告錯誤）（未完成）
+ui.title = 靈魂者戰爭 初期測試前版 0.8b（未完成）<br>（按G報告錯誤）（未完成）
 #
 ui.twinkingtext = 許多許多更新！ （故事模式是主要更新） （未完成）
 #
@@ -25,6 +25,12 @@ ui.signoutbtn = 登出！
 ui.cmdgenbtn = 靈魂者戰爭命令產生器！
 #
 ui.namedisplace = 您的姓名將顯示在這裡...
+#
+ui.storytitle = 故事模式 - 靈魂者戰爭
+#
+ui.snowytitle = Snowy 模式 - Snowy 戰爭
+#
+ui.pagetitle = 靈魂者戰爭
 
 ##Entity##
 #
