@@ -2,7 +2,7 @@
 #
 ui.title = Soler Fight Pre-Alpha 0.8a(unfinished)<br>(Press G to report bug)(unfinished)
 #
-ui.twinkingtext = Many Many Thing Update! (unfinished)
+ui.twinkingtext = Many Many Thing Update! (Story mode is the main update) (unfinished)
 #
 ui.startremind = Press screen to start
 #

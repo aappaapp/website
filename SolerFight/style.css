@@ -529,12 +529,12 @@ input[type='file']{
 	transform: translate(-50%, 0%);
 	display: none;
 }
-.snowy{
+.map > .snowy{
     top: 40%;
     position: absolute;
 	transform: translate(0px, -50%);
 }
-.snowy img{
+.map > .snowy img{
 	max-width: 40px;
 }
 .fight{
@@ -543,6 +543,14 @@ input[type='file']{
 	position: absolute;
 	left: 0;
 	top: 0;
+	background-color: black;
+	z-index: 10;
+}
+.fight .icon img{
+	max-width: 100px;
+	top: 10%;
+	position: absolute;
+	transform: translate(-50%, -50%);
 }
 @keyframes shake{
 	25%{

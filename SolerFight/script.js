@@ -923,7 +923,10 @@ function storystart() {
 	});
 }
 function gotofighttutorial() {
-	$('.story').append('<div class=\'fight\'></div>');
+	gotofight('textures/entity/monster/snowy/snowy.png');
+}
+function gotofight(icon) {
+	$('.storymode').append('<div class=\'fight\'><div class=\'icon\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div></div>');
 }
 function speak(text, icon, speed, callback) {
 	$('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
@@ -941,8 +944,15 @@ function speakeach(element, text, speed, speaki, callback) {
 	window.speakwait = true;
 	var ths = element;
 	var i = 0;
+	window.speakspeed = speed;
 	$(ths).parent().css('display', 'block');
 	var itv = setInterval(function () {
+		$('.body3').keydown(function () {
+			if (event.which == 16 || event.which == 88) {
+				i = text.length - 1;
+				$(ths).html(text.substr(0, text.length - 1));
+			}
+		});
 		$(ths).html($(ths).html() + text[i]);
 		console.log($(ths).html())
 		i++;
@@ -954,10 +964,11 @@ function speakeach(element, text, speed, speaki, callback) {
 					window.speakwait = false;
 					callback();
 					$('.body1').off('keydown');
+					$('.body3').off('keydown');
 				}
 			});
 		}
-	}, speed);
+	}, window.speakspeed);
 }
 $(document).ready(function () {
 	readfile();
