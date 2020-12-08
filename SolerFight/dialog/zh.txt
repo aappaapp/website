@@ -1,8 +1,8 @@
-warning.computerperformance = 如果您的計算機性能不佳，我們建議您不要玩此遊戲。
+##UI##
 #
-ui.title = 靈魂者戰爭 初期測試前版 0.7a（未完成）<br>（按G報告錯誤）（未完成）
+ui.title = 靈魂者戰爭 初期測試前版 0.8a（未完成）<br>（按G報告錯誤）（未完成）
 #
-ui.twinkingtext = 店鋪更新！（未完成）
+ui.twinkingtext = 許多許多更新！ （未完成）
 #
 ui.startremind = 按下螢幕開始
 #
@@ -12,29 +12,11 @@ ui.tutorialmodebtn = 教程模式（未製作）
 #
 ui.storymodebtn = 故事模式（未製作）
 #
-entity.warrior.name = 戰士
-#
-entity.warrior.intro = 是一個普通的戰士。
-#
-entity.magician.intro = 是一位偉大的魔術師。
-#
-entity.magician.name = 魔術師（未完成）
-#
-ui.startbtn = 開始！
-#
-error.select.title = 抱歉，我們找不到您的實體。
-#
 ui.hpbar = 血量值：
 #
 ui.mpbar = 魔法值：
 #
-warning.forgherochose = 請選擇英雄開始！
-#
-error.mustreload = 發生錯誤，我們需要立即重新加載頁面。
-#
-error.unlogin = 請登錄！
-#
-tips.fullscreen = 提示：您可以按F11進入全屏！
+ui.startbtn = 開始！
 #
 ui.shopbtn = 商店！（未完成）
 #
@@ -43,3 +25,35 @@ ui.signoutbtn = 登出！
 ui.cmdgenbtn = 靈魂者戰爭命令產生器！
 #
 ui.namedisplace = 您的姓名將顯示在這裡...
+
+##Entity##
+#
+entity.warrior.name = 戰士
+#
+entity.warrior.intro = 是一個普通的戰士。
+#
+entity.magician.intro = 是一位偉大的魔術師。
+#
+entity.magician.name = 魔術師（未完成）
+
+##Error##
+#
+error.select.title = 抱歉，我們找不到您的實體。
+#
+error.mustreload = 發生錯誤，我們需要立即重新加載頁面。
+#
+error.unlogin = 請登錄！
+
+##Warning##
+#
+warning.forgherochose = 請選擇英雄開始！
+#
+warning.computerperformance = 如果您的計算機性能不佳，我們建議您不要玩此遊戲。
+
+##Tips##
+#
+tips.fullscreen = 提示：您可以按F11進入全屏！
+
+##Dialog##
+#
+dialog.snowy.hi = 你好，我是Snowy！雪人Snowy！

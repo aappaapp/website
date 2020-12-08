@@ -1,4 +1,6 @@
 // TODO: Replace the following with your app's Firebase project configuration
+
+
 // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 var firebaseConfig = {
 	apiKey: "AIzaSyDkSOCf6OlKlQK7dpJytnsZECWczfYApCo",
@@ -85,11 +87,13 @@ function webapp() {
 	ga('send', 'pageview');
 }
 $.fn.move = function (x, y) {
-	var x1 = this.offset().left;
-	var y1 = this.offset().top;
+	var x1 = this.position().left;
+	var y1 = this.position().top;
+	console.log(x1 + x);
+	console.log(y1 + y);
 	this.css('position', 'absolute');
-	this.css('left', x1 + x + 'px');
-	this.css('top', y1 + y + 'px');
+	this.css('left', (x1 + x) + 'px');
+	this.css('top', (y1 + y) + 'px');
 }
 function moveitv(x, y, element) {
 	var i = 0;
@@ -388,28 +392,15 @@ function readfile() {
 	});
 	if (navigator.language.includes('zh')) {
 		$.get('./dialog/zh.txt', function (data) {
-			var dialog = data.split('\n#');
-			window.dialog = {};
-			for (i = 0; i < dialog.length; i++) {
-				window.dialog[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
-			}
-			console.log(window.dialog);
+			dialogfuc(data);
 		});
 	} else if (navigator.language.includes('en')) {
 		$.get('./dialog/en.txt', function (data) {
-			var dialog = data.split('\n#');
-			window.dialog = {};
-			for (i = 0; i < dialog.length; i++) {
-				window.dialog[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
-			}
+			dialogfuc(data);
 		});
 	} else {
 		$.get('./dialog/en.txt', function (data) {
-			var dialog = data.split('\n#');
-			window.dialog = {};
-			for (i = 0; i < dialog.length; i++) {
-				window.dialog[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
-			}
+			dialogfuc(data);
 		});
 		alert('We don\'t have language: ' + navigator.language + '(ISO 639-1) in Soler Fight! We hope anybody can help us to translate other');
 	}
@@ -419,6 +410,18 @@ function readfile() {
 	$.get('./plugin.js', function (data) {
 		window.plugin = data;
 	});
+}
+function dialogfuc(data) {
+	dialog = data.split('\n#');
+	window.dialog1 = {};
+	for (i = 0; i < dialog.length; i++) {
+		if (dialog[i].includes('##')) {
+			dialog.splice(dialog.indexOf(dialog[i]), 1);
+		}
+	}
+	for (i = 0; i < dialog.length; i++) {
+		window.dialog1[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
+	}
 }
 function trap() {
 	var a = 0;
@@ -535,7 +538,10 @@ function died() {
 }
 function setvariable() {
 	window.keys = {};
+	window.speakwaititem = {};
+	window.speakwait = false;
 	window.cornertipsi = 0;
+	window.speaki = 0;
 	window.data = {};
 	window.weapon = {};
 	window.deviceType = getDeviceType();
@@ -547,7 +553,7 @@ function setvariable() {
 	$.cookie.json = true;
 	readUserData('fight');
 	if ($.cookie('login') != true) {
-		alert(window.dialog['error.unlogin']);
+		alert(window.dialog1['error.unlogin']);
 		window.location.href = 'index.html';
 	}
 	if ($.cookie('entity') != null) {
@@ -634,7 +640,7 @@ function interval() {
 		} catch { }
 		/*if (window.block[0].name != 'block' && onetime) {
 			onetime = false;
-			alert(window.dialog['error.mustreload']);
+			alert(window.dialog1['error.mustreload']);
 			window.location.reload();
 		}
 		if (window.item[0].name != 'normal gun' && onetime) {
@@ -700,23 +706,23 @@ function restore() {
 }
 function inner() {
 	for (i = 0; i < window.entity.length; i++) {
-		window.entity[i].name = window.dialog["entity." + window.entity[i].id + ".name"];
-		window.entity[i].introduction = window.dialog["entity." + window.entity[i].id + ".intro"];
+		window.entity[i].name = window.dialog1["entity." + window.entity[i].id + ".name"];
+		window.entity[i].introduction = window.dialog1["entity." + window.entity[i].id + ".intro"];
 	}
-	$('.homepage .title').html(window.dialog["ui.title"]);
-	$('.update').html(window.dialog["ui.twinkingtext"]);
-	$('.startremind').html(window.dialog["ui.startremind"]);
-	$('.entityinfotitle').html(window.dialog["error.select.title"]);
-	$('.powerbarhp').html(window.dialog["ui.hpbar"]);
-	$('.powerbarmp').html(window.dialog["ui.mpbar"]);
-	$('.namedisplay').attr('placeholder', window.dialog["ui.namedisplace"]);
-	$('.fightmodebtn').attr('value', window.dialog["ui.fightmodebtn"]);
-	$('.tutorialmodebtn').attr('value', window.dialog["ui.tutorialmodebtn"]);
-	$('.storymodebtn').attr('value', window.dialog["ui.storymodebtn"]);
-	$('.startbtn').attr('value', window.dialog["ui.startbtn"]);
-	$('.shopbtn').attr('value', window.dialog["ui.shopbtn"]);
-	$('.signoutbtn').attr('value', window.dialog["ui.signoutbtn"]);
-	$('.cmdgenbtn').attr('value', window.dialog["ui.cmdgenbtn"]);
+	$('.homepage .title').html(window.dialog1["ui.title"]);
+	$('.update').html(window.dialog1["ui.twinkingtext"]);
+	$('.startremind').html(window.dialog1["ui.startremind"]);
+	$('.entityinfotitle').html(window.dialog1["error.select.title"]);
+	$('.powerbarhp').html(window.dialog1["ui.hpbar"]);
+	$('.powerbarmp').html(window.dialog1["ui.mpbar"]);
+	$('.namedisplay').attr('placeholder', window.dialog1["ui.namedisplace"]);
+	$('.fightmodebtn').attr('value', window.dialog1["ui.fightmodebtn"]);
+	$('.tutorialmodebtn').attr('value', window.dialog1["ui.tutorialmodebtn"]);
+	$('.storymodebtn').attr('value', window.dialog1["ui.storymodebtn"]);
+	$('.startbtn').attr('value', window.dialog1["ui.startbtn"]);
+	$('.shopbtn').attr('value', window.dialog1["ui.shopbtn"]);
+	$('.signoutbtn').attr('value', window.dialog1["ui.signoutbtn"]);
+	$('.cmdgenbtn').attr('value', window.dialog1["ui.cmdgenbtn"]);
 }
 function setentityvalue(type, config) {
 	if (type == 'mp') {
@@ -865,7 +871,7 @@ function story() {
 		}
 		if (event.which == 8) {
 			$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1));
-		} else if (event.which == 13) {
+		} else if (event.which == 13 & window.chosenamefucshow != true) {
 			if ($('.namedisplay').val() != '') {
 				window.name = $('.namedisplay').val();
 				chosenamefuc();
@@ -874,6 +880,7 @@ function story() {
 	});
 }
 function chosenamefuc() {
+	window.chosenamefucshow = true;
 	$('.nameselect').css('display', 'none');
 	$('.nameconfirm').css('display', 'inline-block');
 	$('.nameconfirm h1').html('Your name is ' + window.name + ',<br>do you confirm?');
@@ -881,16 +888,85 @@ function chosenamefuc() {
 		$('.nameconfirm').css('display', 'none');
 		$('.nameselect').css('display', 'block');
 		$('.namedisplay').val('');
+		window.chosenamefucshow = true;
 	});
+	$('.confirm').click(function () {
+		$('.nameconfirm').css('display', 'none');
+		$('.nameselect').css('display', 'none');
+		$('.map').css('display', 'block');
+		storystart();
+	});
+	$('.body2').keydown(function () {
+		if (event.which == 88) {
+			$('.nameconfirm').css('display', 'none');
+			$('.nameselect').css('display', 'block');
+			$('.namedisplay').val('');
+		} else if (event.which == 13) {
+			$('.nameconfirm').css('display', 'none');
+			$('.nameselect').css('display', 'none');
+			$('.map').css('display', 'block');
+			storystart();
+		}
+	});
+}
+function storystart() {
+	$('.body2').off('keydown');
+	$('.map').append('<div class=\'snowy entity\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div>');
+	speak(window.dialog1['dialog.snowy.hi'], '', 100, function () {
+		speak('Is this your first time here?', '', 100, function () {
+			speak('It\'s bad! Must a people tell you the rules in here!', '', 100, function () {
+				speak('But there is no one here, so let me tell you the rules!', '', 100, function () {
+					gotofighttutorial();
+				});
+			});
+		});
+	});
+}
+function gotofighttutorial() {
+	$('.story').append('<div class=\'fight\'></div>');
+}
+function speak(text, icon, speed, callback) {
+	$('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
+	$('.speak' + window.speaki).each(function () {
+		if (icon == '') {
+			$('.speakcontainer img').replaceWith('<div>*</div>');
+		}
+		if (!window.speakwait) {
+			speakeach(this, text, speed, window.speaki, callback);
+		}
+	});
+	window.speaki++;
+}
+function speakeach(element, text, speed, speaki, callback) {
+	window.speakwait = true;
+	var ths = element;
+	var i = 0;
+	$(ths).parent().css('display', 'block');
+	var itv = setInterval(function () {
+		$(ths).html($(ths).html() + text[i]);
+		console.log($(ths).html())
+		i++;
+		if (text[i] == undefined) {
+			clearInterval(itv);
+			$('.body1').keydown(function () {
+				if (event.which == 90 || event.which == 13) {
+					$(ths).parent().remove();
+					window.speakwait = false;
+					callback();
+					$('.body1').off('keydown');
+				}
+			});
+		}
+	}, speed);
 }
 $(document).ready(function () {
 	readfile();
 	setTimeout(function () {
 		setvariable();
 		setTimeout(function () {
-			cornertips(window.dialog['warning.computerperformance'], 5000);
+			cornertips(window.dialog1['warning.computerperformance'], 5000);
 			setTimeout(function () {
-				cornertips(window.dialog['tips.fullscreen'], 5000);
+				cornertips(window.dialog1['tips.fullscreen'], 5000);
 			}, 5000);
 			eval(window.plugin);
 			setTimeout(function () {
@@ -971,7 +1047,7 @@ $(document).ready(function () {
 			window.entityhp = window.choseentity.hp;
 			window.entitymp = window.choseentity.mp;
 		} else {
-			cornertips(window.dialog['warning.forgherochose'], 3000);
+			cornertips(window.dialog1['warning.forgherochose'], 3000);
 		}
 	});
 	$('.generate').click(function () {
@@ -1026,6 +1102,7 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
+		/*
 		var moveele = '.fightarea > *:not(.entity, .entityinfoinfight, .gunbullet, .bottombar)';
 		if (event.which == 39 || event.which == 68) {
 			$(moveele).each(function () {
@@ -1049,15 +1126,11 @@ $(document).ready(function () {
 		} else if (event.which == 69) {
 			changeweaponto();
 			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
-		} else if (event.which == 71) {
-			if (window.mode == undefined) {
-				window.open('https://github.com/adenpun/adenpun.github.io/issues/new', '', 'width=750, height=750');
-			}
-		} else if (event.which == 67) {
+		} if (event.which == 67) {
 			if (window.istart) { }
 		} else if (event.which == 80) {
 			$('.homepagesecret').css('display', 'inline-block');
-		} else if (event.which == 191) {
+		} else */if (event.which == 191) {
 			var ans = prompt('Please enter command:');
 			if (ans == 'dev123') {
 				if (window.dev != true) {
@@ -1085,6 +1158,10 @@ $(document).ready(function () {
 			}
 		} else if (event.which == 18) {
 			event.preventDefault();
+		} else if (event.which == 71) {
+			if (window.mode == undefined) {
+				window.open('https://github.com/adenpun/adenpun.github.io/issues/new', '', 'width=750, height=750');
+			}
 		}
 		window.keys[event.which] = true;
 	});

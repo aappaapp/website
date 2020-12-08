@@ -1,8 +1,8 @@
-warning.computerperformance = If your computer performance is poor, we recommend that you do not play this game.
+##UI##
 #
-ui.title = Soler Fight Pre-Alpha 0.7a(unfinished)<br>(Press G to report bug)(unfinished)
+ui.title = Soler Fight Pre-Alpha 0.8a(unfinished)<br>(Press G to report bug)(unfinished)
 #
-ui.twinkingtext = Shop Update! (unfinished)
+ui.twinkingtext = Many Many Thing Update! (unfinished)
 #
 ui.startremind = Press screen to start
 #
@@ -10,7 +10,23 @@ ui.fightmodebtn = Fighting Mode(unfinished)
 #
 ui.tutorialmodebtn = Toriel Mode(unmade)
 #
+ui.startbtn = Start!
+#
 ui.storymodebtn = Story Mode(unmade)
+#
+ui.hpbar = HP:
+#
+ui.shopbtn = Shop!(unfinished)
+#
+ui.signoutbtn = Sign Out!
+#
+ui.cmdgenbtn = Soler Fight Command Generator!
+#
+ui.mpbar = MP:
+#
+ui.namedisplace = Your Name Will display Here...
+
+##Entity##
 #
 entity.warrior.intro = Is an ordinary warrior.
 #
@@ -19,27 +35,24 @@ entity.warrior.name = Warrior
 entity.magician.intro = Is an great magician.
 #
 entity.magician.name = Magician(unfinished)
-#
-ui.startbtn = Start!
+
+##Error##
 #
 error.select.title = Sorry, We can't find your entity.
-#
-ui.hpbar = HP:
-#
-ui.mpbar = MP:
-#
-warning.forgherochose = Please choose a hero to start!
 #
 error.mustreload = Have an error, We need to reload the page now.
 #
 error.unlogin = Please Login!
+
+##Warning##
+#
+warning.forgherochose = Please choose a hero to start!
+#
+warning.computerperformance = If your computer performance is poor, we recommend that you do not play this game.
+
+##Tips##
 #
 tips.fullscreen = Tips: You Can Press F11 to fullscreen!
-#
-ui.shopbtn = Shop!(unfinished)
-#
-ui.signoutbtn = Sign Out!
-#
-ui.cmdgenbtn = Soler Fight Command Generator!
-#
-ui.namedisplace = Your Name Will display Here...
+
+##Dialog##
+dialog.snowy.hi = Howdy,
