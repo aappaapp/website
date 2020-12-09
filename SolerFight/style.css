@@ -1,13 +1,13 @@
-/*@font-face{
-	font-family: 'english';
-	src: url(font/english.ttf);
+@font-face{
+	font-family: 'PixelOperator';
+	src: url(font/PixelOperator.ttf);
 }
 @font-face{
-	font-family: 'chinesefont';
-	src: url(font/chinese.ttf);
-}*/
+	font-family: 'GnuUnifontFull';
+	src: url(font/GnuUnifontFull-Pm9P.ttf);
+}
 html{
-	font-family: 'english', 'chinesefont', Arial, Helvetica, sans-serif;
+	font-family: 'GnuUnifontFull', 'PixelOperator';
 	overflow: hidden;
 	user-select: none;
 	color: white;
@@ -18,7 +18,7 @@ body{
 	text-align: center;
 }
 input{
-	font-family: 'english', 'chinesefont', Arial, Helvetica, sans-serif;
+	font-family: 'GnuUnifontFull', 'PixelOperator';
 	outline: none;
 }
 input[type='button'], label{

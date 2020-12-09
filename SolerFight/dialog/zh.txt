@@ -31,6 +31,8 @@ ui.storytitle = 故事模式 - 靈魂者戰爭
 ui.snowytitle = Snowy 模式 - Snowy 戰爭
 #
 ui.pagetitle = 靈魂者戰爭
+#
+ui.attackbtn = 攻擊
 
 ##Entity##
 #
@@ -63,4 +65,5 @@ tips.fullscreen = 提示：您可以按F11進入全屏！
 ##Dialog##
 #
 dialog.snowy.hi = 你好，我是Snowy！雪人Snowy！
+#
 dialog.snowy.hi1 = 這是你第一次來嗎？

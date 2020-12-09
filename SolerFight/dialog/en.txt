@@ -31,6 +31,8 @@ ui.storytitle = Story Mode - Soler Fight
 ui.snowytitle = Snowy Mode - Snowy Fight
 #
 ui.pagetitle = Soler Fight
+#
+ui.attackbtn = Attack
 
 ##Entity##
 #

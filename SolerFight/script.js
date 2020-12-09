@@ -928,7 +928,7 @@ function gotofighttutorial() {
 	gotofight('textures/entity/monster/snowy/snowy.png');
 }
 function gotofight(icon) {
-	$('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>Attack</div></div></div>');
+	$('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
 	$('.attackbtn').click(function () {
 		$('.fightbox').css({
 			'width': '80%',
