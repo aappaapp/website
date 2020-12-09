@@ -57,7 +57,7 @@ function getDeviceType() {
 };
 function play_beta() {
 	$('.warning').css('display', 'none');
-	$('div:not(.warning)').css('display', 'inline-block');
+	$('div:not(.warning)').show();
 }
 function webapp() {
 	if ('serviceWorker' in navigator) {
@@ -534,7 +534,7 @@ function die() {
 }
 function died() {
 	$('.fightarea div:not(.diedpage)').css('display', 'none');
-	$('.diedpage').css('display', 'inline-block');
+	$('.diedpage').show();
 }
 function setvariable() {
 	window.keys = {};
@@ -765,7 +765,7 @@ function entityselectclick() {
 }
 function displayselect(value) {
 	$('.entityselect > *').css('display', 'none');
-	$('.entityinfo').css('display', 'inline-block');
+	$('.entityinfo').show();
 	$('.entityinfo h1').text(window.entity[value].name);
 	$('.entityinfo .info').text(window.entity[value].introduction);
 	$('.entityinfo input').addClass(window.entity[value].id);
@@ -884,7 +884,7 @@ function story() {
 function chosenamefuc() {
 	window.chosenamefucshow = true;
 	$('.nameselect').css('display', 'none');
-	$('.nameconfirm').css('display', 'inline-block');
+	$('.nameconfirm').show();
 	$('.nameconfirm h1').html('Your name is ' + window.name + ',<br>do you confirm?');
 	$('.notconfirm').click(function () {
 		$('.nameconfirm').css('display', 'none');
@@ -915,7 +915,7 @@ function storystart() {
 	$('.body2').off('keydown');
 	$('.map').append('<div class=\'snowy entity\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div>');
 	speak(window.dialog1['dialog.snowy.hi'], '', 100, function () {
-		speak('Is this your first time here?', '', 100, function () {
+		speak(window.dialog1['dialog.snowy.hi1'], '', 100, function () {
 			speak('It\'s bad! Must a people tell you the rules in here!', '', 100, function () {
 				speak('But there is no one here, so let me tell you the rules!', '', 100, function () {
 					gotofighttutorial();
@@ -928,7 +928,16 @@ function gotofighttutorial() {
 	gotofight('textures/entity/monster/snowy/snowy.png');
 }
 function gotofight(icon) {
-	$('.storymode').append('<div class=\'fight\'><div class=\'icon\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div></div>');
+	$('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>Attack</div></div></div>');
+	$('.attackbtn').click(function () {
+		$('.fightbox').css({
+			'width': '80%',
+			'padding': '10px'
+		}).html('<div class=\'fightopt punch\'>* Punch</div>');
+		$('.fightopt.punch').click(function () {
+			speak('You tried to punch snowy. But the attack is unfinished. So you can\'t punch snowy!', '', 100);
+		});
+	});
 }
 function speak(text, icon, speed, callback) {
 	$('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
@@ -962,13 +971,13 @@ function speakeach(element, text, speed, speaki, callback) {
 		i++;
 		if (text[i] == undefined) {
 			clearInterval(itv);
+			$('.body3').off('keydown');
 			$('.body1').keydown(function () {
 				if (event.which == 90 || event.which == 13) {
 					$(ths).parent().remove();
 					window.speakwait = false;
 					callback();
 					$('.body1').off('keydown');
-					$('.body3').off('keydown');
 				}
 			});
 		}
@@ -1006,7 +1015,7 @@ $(document).ready(function () {
 	});
 	$('.shopbtn').click(function () {
 		$('.entityselect').css('display', 'none');
-		$('.shop').css('display', 'inline-block');
+		$('.shop').show();
 	});
 	$('.cmdgenbtn').click(function () {
 		window.location.href = './cmdgen';
@@ -1037,29 +1046,31 @@ $(document).ready(function () {
 			});
 		}
 	});
+	/*
 	$('.homepage .mode .container .fightmodebtn').click(function () {
 		$('.homepage').css('display', 'none');
-		$('.gamearea').css('display', 'inline-block');
-		$('.entityselect').css('display', 'inline-block');
+		$('.gamearea').show();
+		$('.entityselect').show();
 		window.mode = 'fight';
 	});
 	$('.homepage .mode .container .tutorialmodebtn').click(function () {
 		$('.homepage').css('display', 'none');
-		$('.gamearea').css('display', 'inline-block');
-		$('.fightarea').css('display', 'inline-block');
+		$('.gamearea').show();
+		$('.fightarea').show();
 		tutorial();
 	});
+	*/
 	$('.homepage .mode .container .storymodebtn').click(function () {
 		$('.homepage').css('display', 'none');
-		$('.gamearea').css('display', 'inline-block');
-		$('.storymode').css('display', 'inline-block');
+		$('.gamearea').show();
+		$('.storymode').show();
 		window.mode = 'story';
 		story();
 	});
 	$('.gamearea .startbtn').click(function () {
 		if (window.choseentity != undefined) {
 			$('.entityselect').css('display', 'none');
-			$('.generateoption').css('display', 'inline-block');
+			$('.generateoption').show();
 			window.entityhp = window.choseentity.hp;
 			window.entitymp = window.choseentity.mp;
 		} else {
@@ -1068,9 +1079,9 @@ $(document).ready(function () {
 	});
 	$('.generate').click(function () {
 		$('.generateoption').css('display', 'none');
-		$('.fightarea').css('display', 'inline-block');
-		$('.entityinfoinfight').css('display', 'inline-block');
-		$('.bottombar').css('display', 'inline-block');
+		$('.fightarea').show();
+		$('.entityinfoinfight').show();
+		$('.bottombar').show();
 		generatescene(Number($('.generaterange').val()));
 		window.istart = true;
 	});
@@ -1145,7 +1156,7 @@ $(document).ready(function () {
 		} if (event.which == 67) {
 			if (window.istart) { }
 		} else if (event.which == 80) {
-			$('.homepagesecret').css('display', 'inline-block');
+			$('.homepagesecret').show();
 		} else */if (event.which == 191) {
 			var ans = prompt('Please enter command:');
 			if (ans == 'dev123') {

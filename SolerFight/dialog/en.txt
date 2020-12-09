@@ -1,18 +1,18 @@
 ##UI##
 #
-ui.title = Soler Fight Pre-Alpha 0.8b(unfinished)<br>(Press G to report bug)(unfinished)
+ui.title = Soler Fight Pre-Alpha 0.8b(unfinished)<br>(Press G to report bug)
 #
 ui.twinkingtext = Many Many Thing Update! (Story mode is the main update) (unfinished)
 #
 ui.startremind = Press screen to start
 #
-ui.fightmodebtn = Fighting Mode(unfinished)
+ui.fightmodebtn = Fighting Mode(unmade)
 #
 ui.tutorialmodebtn = Toriel Mode(unmade)
 #
 ui.startbtn = Start!
 #
-ui.storymodebtn = Story Mode(unmade)
+ui.storymodebtn = Story Mode(unfinished)
 #
 ui.hpbar = HP:
 #
@@ -61,4 +61,7 @@ warning.computerperformance = If your computer performance is poor, we recommend
 tips.fullscreen = Tips: You Can Press F11 to fullscreen!
 
 ##Dialog##
-dialog.snowy.hi = Howdy,
+#
+dialog.snowy.hi = Howdy, I am Snowy! Snowy the snowman!
+#
+dialog.snowy.hi1 = Is this your first time here?

@@ -1,13 +1,13 @@
-@font-face{
+/*@font-face{
 	font-family: 'english';
 	src: url(font/english.ttf);
 }
 @font-face{
 	font-family: 'chinesefont';
 	src: url(font/chinese.ttf);
-}
+}*/
 html{
-	font-family: 'english', 'chinesefont';
+	font-family: 'english', 'chinesefont', Arial, Helvetica, sans-serif;
 	overflow: hidden;
 	user-select: none;
 	color: white;
@@ -18,7 +18,7 @@ body{
 	text-align: center;
 }
 input{
-	font-family: 'english', 'chinesefont';
+	font-family: 'english', 'chinesefont', Arial, Helvetica, sans-serif;
 	outline: none;
 }
 input[type='button'], label{
@@ -184,9 +184,9 @@ a{
 	width: 100%;
 	height: 100%;
 }
-.fightarea{
+/*.fightarea{
 	display: none;
-}
+}*/
 .warning{
 	display: none;
 	background-color: #000000;
@@ -537,7 +537,7 @@ input[type='file']{
 .map > .snowy img{
 	max-width: 40px;
 }
-.fight{
+.fightarea{
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -546,11 +546,54 @@ input[type='file']{
 	background-color: black;
 	z-index: 10;
 }
-.fight .icon img{
+.fightarea .icon img{
 	max-width: 100px;
 	top: 10%;
+	left: 50%;
 	position: absolute;
 	transform: translate(-50%, -50%);
+}
+.fightarea .fightbox{
+	border: 5px solid greenyellow;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 30%;
+	height: 30%;
+	transform: translate(-50%, -50%);
+	transition: width 1s;
+	text-align: left;
+	font-size: 20px;
+}
+.fightarea .fightopt:hover{
+	cursor: pointer;
+	color: yellow;
+}
+.fightarea .fightbar{
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	padding: 20px 0px;
+}
+.fightarea .fightbarbtn{
+	border: 5px solid #ff9900;
+    width: 100px;
+    margin: 0px 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #ff9900;
+    font-size: 25px;
+    font-weight: 700;
+}
+.fightarea .fightbarbtn:hover{
+	border-color: yellow;
+	color: yellow;
+}
+.fightarea .fightbarbtn:active{
+	border-color: #ff9900;
+	color: #ff9900;
+	cursor: default;
 }
 @keyframes shake{
 	25%{
