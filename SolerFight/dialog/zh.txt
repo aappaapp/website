@@ -5,10 +5,8 @@ ui.title = 靈魂者戰爭 初期測試前版 0.8b（未完成）<br>（按G報�
 ui.twinkingtext = 許多許多更新！ （故事模式是主要更新） （未完成）
 #
 ui.startremind = 按下螢幕開始
-#
-ui.fightmodebtn = 格鬥模式（未製作）
-#
-ui.tutorialmodebtn = 教程模式（未製作）
+##ui.fightmodebtn = 格鬥模式（未製作）##
+##ui.tutorialmodebtn = 教程模式（未製作）##
 #
 ui.storymodebtn = 故事模式（未完成）
 #

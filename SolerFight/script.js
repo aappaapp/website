@@ -671,9 +671,6 @@ function cornertips(text, time) {
 	});
 	window.cornertipsi++;
 }
-function enemy() {
-	$().move();
-}
 function cornertipseach(element, time) {
 	var ths = element;
 	setTimeout(function () {
@@ -925,28 +922,82 @@ function storystart() {
 	});
 }
 function gotofighttutorial() {
-	gotofight('textures/entity/monster/snowy/snowy.png');
+	gotofight('textures/entity/monster/snowy/snowy.png', {
+		'1': {
+			hp: 100,
+			name: 'Snowy'
+		}
+	});
+	$('.fightbar').hide();
+	speak('Okay, Let\'s start!', '', 10, function () {
+		speak('Can you see the heart in the box? It\'s your soul!', '', 100, function () {
+			speak('It\'s start off weak. But you can grow strong if you gain LV!', '', 100, function () {
+				speak('What\'s LV stand for? Of course, it\'s level!', '', 100, function () {
+					speak('You want some LV, don\'t you?', '', 100, function () {
+						speak('In here, LV is shared through the bullet.', '', 100, function () {
+							speak('I did not lie to you! You fail, but you will become stronger!', '', 100, function () {
+								speak('Ready? Collect the bullet to gain LV!', '', 100, function () {
+									snowybullet();
+								}, '.icon');
+							}, '.icon');
+						}, '.icon');
+					}, '.icon');
+				}, '.icon');
+			}, '.icon');
+		}, '.icon');
+	}, '.icon');
 }
-function gotofight(icon) {
-	$('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
+function snowybullet() {
+	$('.fightarea').append('<div class=\'snowybullet bullet\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
+}
+function gotofight(icon, enemyinfo) {
+	enemy1 = {
+		hp: enemyinfo['1'].hp,
+		name: enemyinfo['1'].name
+	}
+	enemy1.hpvalue = enemy1.hp;
+	$('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'><div class=\'soul\'><img src=\'textures/entity/hero/soul.png\'></div></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
+	$('.fightarea .icon').after('<div class=\'enemyhpbar\'><div class=\'enemyhpbarline\'></div></div>');
 	$('.attackbtn').click(function () {
 		$('.fightbox').css({
 			'width': '80%',
 			'padding': '10px'
 		}).html('<div class=\'fightopt punch\'>* Punch</div>');
 		$('.fightopt.punch').click(function () {
-			speak('You tried to punch snowy. But the attack is unfinished. So you can\'t punch snowy!', '', 100);
+			//speak('You tried to punch snowy. But the attack is unfinished. So you can\'t punch snowy!', '', 100);
+			$('.fightbox').html('<div class=\'fightpunchbtn\'>Press Me!</div>');
+			oldenemyhp = enemy1.hpvalue;
+			$('.fightpunchbtn').click(function () {
+				enemy1.hpvalue -= 1;
+				console.log(enemy1);
+				$('.enemyhpbarline').css('width', (((enemy1.hpvalue - 0) / (enemy1.hp - 0)) * 100) + '%');
+			});
+			setTimeout(function () {
+				speak('You hurt ' + enemy1.name + ' ' + (oldenemyhp - enemy1.hpvalue) + 'hp.', '', 100, function () { }, '.fightbox');
+			}, 5000);
+			//((value - min) / (max - min)) * percentage
 		});
 	});
+	setInterval(function () {
+		if (enemy1.hpvalue == 0) {
+			speak('You won. You earn nothing.', '', 100, function () { }, '.fightbox');
+		}
+	});
 }
-function speak(text, icon, speed, callback) {
-	$('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
+function speak(text, icon, speed, callback, element) {
+	if (element == '' || element == undefined) {
+		$('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
+	} else if (element == '.fightbox') {
+		$(element).html('<div class=\'fightspeak speak' + window.speaki + '\'></div>');
+	} else if (element.includes('.icon')) {
+		$(element).append('<div class=\'dialogspeak speak' + window.speaki + '\'></div>');
+	}
 	$('.speak' + window.speaki).each(function () {
 		if (icon == '') {
-			$('.speakcontainer img').replaceWith('<div>*</div>');
+			//$('.speakcontainer img').replaceWith('<div>*</div>');
 		}
 		if (!window.speakwait) {
-			speakeach(this, text, speed, window.speaki, callback);
+			speakeach(this, '*' + text, speed, window.speaki, callback);
 		}
 	});
 	window.speaki++;
@@ -972,14 +1023,23 @@ function speakeach(element, text, speed, speaki, callback) {
 		if (text[i] == undefined) {
 			clearInterval(itv);
 			$('.body3').off('keydown');
-			$('.body1').keydown(function () {
-				if (event.which == 90 || event.which == 13) {
-					$(ths).parent().remove();
-					window.speakwait = false;
-					callback();
-					$('.body1').off('keydown');
-				}
-			});
+			if ($(ths).hasClass('fightspeak')) {
+				callback();
+				window.speakwait = false;
+			} else {
+				$('.body1').keydown(function () {
+					if (event.which == 90 || event.which == 13) {
+						if ($(ths).hasClass('dialogspeak')) {
+							$(ths).remove();
+						} else {
+							$(ths).parent().remove();
+						}
+						window.speakwait = false;
+						callback();
+						$('.body1').off('keydown');
+					}
+				});
+			}
 		}
 	}, window.speakspeed);
 	//}
@@ -1061,11 +1121,15 @@ $(document).ready(function () {
 	});
 	*/
 	$('.homepage .mode .container .storymodebtn').click(function () {
-		$('.homepage').css('display', 'none');
-		$('.gamearea').show();
-		$('.storymode').show();
-		window.mode = 'story';
-		story();
+		if (window.dev) {
+			$('.homepage').css('display', 'none');
+			$('.gamearea').show();
+			$('.storymode').show();
+			window.mode = 'story';
+			story();
+		} else {
+			window.location.href = 'https://github.com/adenpun/adenpun.github.io/releases/download/prev0.8b/SolerFight-win32-x64.zip';
+		}
 	});
 	$('.gamearea .startbtn').click(function () {
 		if (window.choseentity != undefined) {

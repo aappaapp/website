@@ -1,0 +1,10 @@
+html{
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    color: green;
+    cursor: default;
+}
+::selection{
+    color: black;
+    background-color: green;
+}

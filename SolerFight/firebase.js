@@ -26,6 +26,9 @@ $(document).keydown(function () {
         login();
     }
 });
+if ($.cookie('login')) {
+    window.location.replace('./game.html');
+}
 function signup() {
     email = $('input.email').val();
     password = $('input.password').val();
@@ -43,7 +46,7 @@ function signup() {
             var errorMessage = error.message;
             $('.signupbtn').removeClass('disable');
             console.log(errorMessage);
-            alert(errorMessage, 2500);
+            speak(errorMessage, '', 100, function () { });
             // ..
         });
 }
@@ -66,7 +69,7 @@ function login() {
             $('.signinbtn').removeClass('disable');
             console.log(errorMessage);
             console.log(errorCode);
-            alert(errorMessage, 2500);
+            speak(errorMessage, '', 100, function () { });
             if (errorCode == 'auth/user-not-found') {
                 ask = confirm('Can\'t find your account, do you want to sign up?');
                 if (ask == true) {
@@ -75,4 +78,57 @@ function login() {
             }
             // ..
         });
+}
+function speak(text, icon, speed, callback, element) {
+    if (element == '' || element == undefined) {
+        $('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
+    } else if (element == '.fightbox') {
+        $(element).html('<div class=\'fightspeak speak' + window.speaki + '\'></div>');
+    }
+    $('.speak' + window.speaki).each(function () {
+        if (icon == '') {
+            //$('.speakcontainer img').replaceWith('<div>*</div>');
+        }
+        if (!window.speakwait) {
+            speakeach(this, '*' + text, speed, window.speaki, callback);
+        }
+    });
+    window.speaki++;
+}
+function speakeach(element, text, speed, speaki, callback) {
+    window.speakwait = true;
+    var ths = element;
+    var i = 0;
+    window.speakspeed = speed;
+    //text = text.split('\\w');
+    $(ths).parent().css('display', 'block');
+    //if (Array.isArray(text)) { } else {
+    var itv = setInterval(function () {
+        $('.body3').keydown(function () {
+            if (event.which == 16 || event.which == 88) {
+                i = text.length - 1;
+                $(ths).html(text.substr(0, text.length - 1));
+            }
+        });
+        $(ths).html($(ths).html() + text[i]);
+        console.log($(ths).html())
+        i++;
+        if (text[i] == undefined) {
+            clearInterval(itv);
+            $('.body3').off('keydown');
+            $('.body1').keydown(function () {
+                if (event.which == 90 || event.which == 13) {
+                    if ($(ths).hasClass('fightspeak')) {
+                        $(ths).remove();
+                    } else {
+                        $(ths).parent().remove();
+                    }
+                    window.speakwait = false;
+                    callback();
+                    $('.body1').off('keydown');
+                }
+            });
+        }
+    }, window.speakspeed);
+    //}
 }

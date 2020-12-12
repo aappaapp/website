@@ -1,24 +1,21 @@
 @font-face{
-	font-family: 'PixelOperator';
-	src: url(font/PixelOperator.ttf);
-}
-@font-face{
-	font-family: 'GnuUnifontFull';
-	src: url(font/GnuUnifontFull-Pm9P.ttf);
+	font-family: 'unifont';
+	src: url(font/unifont-13.0.04.ttf);
 }
 html{
-	font-family: 'GnuUnifontFull', 'PixelOperator';
+	font-family: 'unifont';
 	overflow: hidden;
 	user-select: none;
 	color: white;
 	background-color: #000000;
+	font-weight: 600;
 }
 body{
 	margin: 0;
 	text-align: center;
 }
 input{
-	font-family: 'GnuUnifontFull', 'PixelOperator';
+	font-family: 'unifont';
 	outline: none;
 }
 input[type='button'], label{
@@ -478,7 +475,8 @@ input[type='file']{
 .lett{
 	cursor: pointer;
 	font-size: 35px;
-	margin: 0px 10px;
+	margin: 0px 4px;
+	font-weight: 900;
 	/*animation: shake 300ms infinite;*/
 }
 .lett:hover, .confirm:hover, .notconfirm:hover{
@@ -546,12 +544,14 @@ input[type='file']{
 	background-color: black;
 	z-index: 10;
 }
-.fightarea .icon img{
-	max-width: 100px;
+.fightarea .icon{
 	top: 10%;
 	left: 50%;
 	position: absolute;
 	transform: translate(-50%, -50%);
+}
+.fightarea .icon img{
+	max-width: 100px;
 }
 .fightarea .fightbox{
 	border: 5px solid greenyellow;
@@ -584,16 +584,80 @@ input[type='file']{
     cursor: pointer;
     color: #ff9900;
     font-size: 25px;
-    font-weight: 700;
+	font-weight: 700;
+	text-align: center;
 }
 .fightarea .fightbarbtn:hover{
 	border-color: yellow;
 	color: yellow;
 }
-.fightarea .fightbarbtn:active{
-	border-color: #ff9900;
-	color: #ff9900;
-	cursor: default;
+.fightarea .fightpunchbtn{
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	text-align: center;
+    color: #ff9900;
+    cursor: pointer;
+	border: 5px solid #ff9900;
+	font-weight: 700;
+	padding: 10px;
+}
+.fightarea .fightpunchbtn:hover{
+	border-color: yellow;
+	color: yellow;
+}
+.fightarea .fightpunchbtn{
+	animation: scale 500ms infinite;
+	transform-origin: left top;
+}
+.fightarea .enemyhpbar{
+	width: 100px;
+	height: 25px;
+	background-color: red;
+	text-align: left;
+}
+.fightarea .enemyhpbarline{
+	width: 100%;
+	transition: all 500ms;
+	height: 25px;
+	background-color: greenyellow;
+}
+.soul img{
+	max-width: 20px;
+}
+.dialogspeak{
+	color: black;
+    position: absolute;
+    left: 100px;
+    background-color: white;
+    padding: 10px;
+	border-radius: 5px;
+	width: 100px;
+	height: fit-content;
+}
+.snowybullet img{
+	max-width: 20px;
+	animation: rotation 500ms infinite;
+}
+@keyframes rotation{
+	0%{
+		rotate: 0deg;
+	}
+	100%{
+		rotate: 360deg;
+	}
+}
+@keyframes scale{
+	0%{
+		scale: 1;
+	}
+	50%{
+		scale: 1.5;
+	}
+	100%{
+		scale: 1;
+	}
 }
 @keyframes shake{
 	25%{

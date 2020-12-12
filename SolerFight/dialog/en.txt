@@ -5,10 +5,8 @@ ui.title = Soler Fight Pre-Alpha 0.8b(unfinished)<br>(Press G to report bug)
 ui.twinkingtext = Many Many Thing Update! (Story mode is the main update) (unfinished)
 #
 ui.startremind = Press screen to start
-#
-ui.fightmodebtn = Fighting Mode(unmade)
-#
-ui.tutorialmodebtn = Toriel Mode(unmade)
+##ui.fightmodebtn = Fighting Mode(unmade)##
+##ui.tutorialmodebtn = Toriel Mode(unmade)##
 #
 ui.startbtn = Start!
 #
