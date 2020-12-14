@@ -22,7 +22,7 @@ ui.cmdgenbtn = Soler Fight Command Generator!
 #
 ui.mpbar = MP:
 #
-ui.namedisplace = Your Name Will display Here...
+ui.namedisplay = Your Name Will display Here...
 #
 ui.storytitle = Story Mode - Soler Fight
 #
@@ -41,6 +41,8 @@ entity.warrior.name = Warrior
 entity.magician.intro = Is an great magician.
 #
 entity.magician.name = Magician(unfinished)
+#
+entity.snowy.name = Snowy
 
 ##Error##
 #
@@ -65,3 +67,15 @@ tips.fullscreen = Tips: You Can Press F11 to fullscreen!
 dialog.snowy.hi = Howdy, I am Snowy! Snowy the snowman!
 #
 dialog.snowy.hi1 = Is this your first time here?
+#
+dialog.snowy.hi2 = It's bad! Must a people tell you the rules in here!
+#
+dialog.snowy.hi3 = But there is no one here, so let me tell you the rules!
+#
+dialog.snowy.fighttur = Okay, Let's start!
+#
+dialog.snowy.fighttur1 = Can you see the heart in the box? It's your soul!
+#
+dialog.snowy.fighttur2 = It's start off weak. But you can grow strong if you gain LV!
+#
+dialog.snowy.fighttur3 = What's LV stand for? Of course, it's levels!

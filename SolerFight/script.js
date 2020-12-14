@@ -99,13 +99,14 @@ function moveitv(x, y, element) {
 	var i = 0;
 	var itv = setInterval(function () {
 		var ths = element;
-		var x1 = $(ths).offset().left;
-		var y1 = $(ths).offset().top;
+		var x1 = $(ths).position().left;
+		var y1 = $(ths).position().top;
 		$(ths).css('position', 'absolute');
 		$(ths).css('left', x1 + x + 'px');
 		$(ths).css('top', y1 + y + 'px');
 		if (i == 500) {
 			$(ths).remove();
+			clearInterval(itv);
 		}
 		i++;
 	});
@@ -274,16 +275,16 @@ function weaponuse(event) {
 	}
 }
 function bullet() {
-	$('.fightarea').append('<div class=\'gunbullet bullet' + window.gunbulleti + '\'><img src=' + window.weapon['chose'].skin.bullet.src + '></div>');
-	$('.bullet' + window.gunbulleti).css({
+	$('.fightarea').append('<div class=\'gunbullet bullet' + window.bulleti + '\'><img src=' + window.weapon['chose'].skin.bullet.src + '></div>');
+	$('.bullet' + window.bulleti).css({
 		'top': $('.fightarea .entity').position().top,
 		'left': $('.fightarea .entity').position().left
 	});
-	$('.bullet' + window.gunbulleti).each(function () {
-		weapondestroy(this, window.gunbulleti);
+	$('.bullet' + window.bulleti).each(function () {
+		weapondestroy(this, window.bulleti);
 		moveitv(5, 0, this);
 	});
-	window.gunbulleti++;
+	window.bulleti++;
 }
 function weapondestroy(ths, value) {
 	var a = setInterval(function () {
@@ -545,12 +546,13 @@ function setvariable() {
 	window.data = {};
 	window.weapon = {};
 	window.deviceType = getDeviceType();
-	window.gunbulleti = 0;
+	window.bulleti = 0;
 	window.img = {};
 	window.img.name = [];
 	window.img.src = [];
 	window.dev = eval($.cookie('dev'));
 	$.cookie.json = true;
+	console.log('dev: ' + window.dev);
 	readUserData('fight');
 	if ($.cookie('login') != true) {
 		alert(window.dialog1['error.unlogin']);
@@ -664,17 +666,20 @@ function interval() {
 		}
 	}, 5000);
 }
-function cornertips(text, time) {
+function cornertips(text, time, callback) {
 	$('body').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + text + '</div>');
 	$('.cornertips' + window.cornertipsi).each(function () {
-		cornertipseach(this, time);
+		cornertipseach(this, time, callback);
 	});
 	window.cornertipsi++;
 }
-function cornertipseach(element, time) {
+function cornertipseach(element, time, callback) {
 	var ths = element;
 	setTimeout(function () {
 		$(ths).remove();
+		if (callback != '' || callback != undefined) {
+			callback();
+		}
 	}, time);
 }
 function restore() {
@@ -713,7 +718,7 @@ function inner() {
 	$('.entityinfotitle').html(window.dialog1["error.select.title"]);
 	$('.powerbarhp').html(window.dialog1["ui.hpbar"]);
 	$('.powerbarmp').html(window.dialog1["ui.mpbar"]);
-	$('.namedisplay').attr('placeholder', window.dialog1["ui.namedisplace"]);
+	$('.namedisplay').attr('placeholder', window.dialog1["ui.namedisplay"]);
 	$('.fightmodebtn').attr('value', window.dialog1["ui.fightmodebtn"]);
 	$('.tutorialmodebtn').attr('value', window.dialog1["ui.tutorialmodebtn"]);
 	$('.storymodebtn').attr('value', window.dialog1["ui.storymodebtn"]);
@@ -913,8 +918,8 @@ function storystart() {
 	$('.map').append('<div class=\'snowy entity\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div>');
 	speak(window.dialog1['dialog.snowy.hi'], '', 100, function () {
 		speak(window.dialog1['dialog.snowy.hi1'], '', 100, function () {
-			speak('It\'s bad! Must a people tell you the rules in here!', '', 100, function () {
-				speak('But there is no one here, so let me tell you the rules!', '', 100, function () {
+			speak(window.dialog1['dialog.snowy.hi2'], '', 100, function () {
+				speak(window.dialog1['dialog.snowy.hi3'], '', 100, function () {
 					gotofighttutorial();
 				});
 			});
@@ -929,10 +934,10 @@ function gotofighttutorial() {
 		}
 	});
 	$('.fightbar').hide();
-	speak('Okay, Let\'s start!', '', 10, function () {
-		speak('Can you see the heart in the box? It\'s your soul!', '', 100, function () {
-			speak('It\'s start off weak. But you can grow strong if you gain LV!', '', 100, function () {
-				speak('What\'s LV stand for? Of course, it\'s level!', '', 100, function () {
+	speak(window.dialog1['dialog.snowy.fighttur'], '', 10, function () {
+		speak(window.dialog1['dialog.snowy.fighttur1'], '', 100, function () {
+			speak(window.dialog1['dialog.snowy.fighttur2'], '', 100, function () {
+				speak(window.dialog1['dialog.snowy.fighttur3'], '', 100, function () {
 					speak('You want some LV, don\'t you?', '', 100, function () {
 						speak('In here, LV is shared through the bullet.', '', 100, function () {
 							speak('I did not lie to you! You fail, but you will become stronger!', '', 100, function () {
@@ -948,16 +953,29 @@ function gotofighttutorial() {
 	}, '.icon');
 }
 function snowybullet() {
-	$('.fightarea').append('<div class=\'snowybullet bullet\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
+	$('.fightarea').append('<div class=\'snowybullet bullet' + window.bulleti + '\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
+	console.log('append');
+	$('.snowybullet.bullet' + window.bulleti).each(function () {
+		moveitv(0, 1, this);
+	});
+	window.bulleti++;
 }
 function gotofight(icon, enemyinfo) {
 	enemy1 = {
 		hp: enemyinfo['1'].hp,
-		name: enemyinfo['1'].name
+		name: enemyinfo['1'].name,
+		hpvalue: enemyinfo['1'].hp
 	}
-	enemy1.hpvalue = enemy1.hp;
 	$('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'><div class=\'soul\'><img src=\'textures/entity/hero/soul.png\'></div></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
 	$('.fightarea .icon').after('<div class=\'enemyhpbar\'><div class=\'enemyhpbarline\'></div></div>');
+	console.log('sa');
+	$('.body4').keydown(function () {
+		console.log('saa');
+		if (event.which == 87) {
+			$('.soul').move(0, -10);
+			console.log('saaa');
+		}
+	}); //why can't not working???? //!!delete after know!!
 	$('.attackbtn').click(function () {
 		$('.fightbox').css({
 			'width': '80%',
@@ -970,7 +988,7 @@ function gotofight(icon, enemyinfo) {
 			$('.fightpunchbtn').click(function () {
 				enemy1.hpvalue -= 1;
 				console.log(enemy1);
-				$('.enemyhpbarline').css('width', (((enemy1.hpvalue - 0) / (enemy1.hp - 0)) * 100) + '%');
+				$('.enemyhpbarline').css('width', ((enemy1.hpvalue / enemy1.hp) * 100) + '%');
 			});
 			setTimeout(function () {
 				speak('You hurt ' + enemy1.name + ' ' + (oldenemyhp - enemy1.hpvalue) + 'hp.', '', 100, function () { }, '.fightbox');
@@ -979,8 +997,15 @@ function gotofight(icon, enemyinfo) {
 		});
 	});
 	setInterval(function () {
-		if (enemy1.hpvalue == 0) {
-			speak('You won. You earn nothing.', '', 100, function () { }, '.fightbox');
+		var overlapsele = $('*').overlaps($('.soul'));
+		if (overlapsele != undefined) {
+			for (i = 0; i < overlapsele.length; i++) {
+				//console.log($(overlapsele[i]).hasClass('snowybullet'));
+				if ($(overlapsele[i]).hasClass('snowybullet')) {
+					window.snowybullettorch = true;
+					console.log(window.snowybullettorch);
+				}
+			}
 		}
 	});
 }
@@ -1049,10 +1074,9 @@ $(document).ready(function () {
 	setTimeout(function () {
 		setvariable();
 		setTimeout(function () {
-			cornertips(window.dialog1['warning.computerperformance'], 5000);
-			setTimeout(function () {
+			cornertips(window.dialog1['warning.computerperformance'], 5000, function () {
 				cornertips(window.dialog1['tips.fullscreen'], 5000);
-			}, 5000);
+			});
 			eval(window.plugin);
 			setTimeout(function () {
 				webapp();
@@ -1121,15 +1145,15 @@ $(document).ready(function () {
 	});
 	*/
 	$('.homepage .mode .container .storymodebtn').click(function () {
+		$('.homepage').css('display', 'none');
+		$('.gamearea').show();
+		$('.storymode').show();
+		window.mode = 'story';
+		story();
 		if (window.dev) {
-			$('.homepage').css('display', 'none');
-			$('.gamearea').show();
-			$('.storymode').show();
-			window.mode = 'story';
-			story();
-		} else {
+		}/* else {
 			window.location.href = 'https://github.com/adenpun/adenpun.github.io/releases/download/prev0.8b/SolerFight-win32-x64.zip';
-		}
+		}*/
 	});
 	$('.gamearea .startbtn').click(function () {
 		if (window.choseentity != undefined) {
@@ -1238,8 +1262,9 @@ $(document).ready(function () {
 			} else if (ans == 'show-cursor') {
 				$('html').css('cursor', 'default');
 			} else if (ans == 'soler') {
-				cornertips('This is a secret.', 5000);
-				cornertips('But what you can do?', 5000);
+				cornertips('This is a secret.', 5000, function () {
+					cornertips('But what you can do?', 5000);
+				});
 			} else if (ans == 'fighttest') { } else {
 				try {
 					eval(ans);
