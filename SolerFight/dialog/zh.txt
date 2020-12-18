@@ -1,8 +1,8 @@
 ##UI##
 #
-ui.title = 靈魂者戰爭 初期測試前版 0.8b（未完成）<br>（按G報告錯誤）
+ui.title = 靈魂者戰爭（暫定名稱）初期測試前版<br>（按G報告錯誤）
 #
-ui.twinkingtext = 許多許多更新！ （故事模式是主要更新） （未完成）
+ui.twinkingtext = 故事模式更新！
 #
 ui.startremind = 按下螢幕開始
 

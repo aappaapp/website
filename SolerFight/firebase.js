@@ -105,7 +105,7 @@ function speakeach(element, text, speed, speaki, callback) {
     //if (Array.isArray(text)) { } else {
     var itv = setInterval(function () {
         $('.body3').keydown(function () {
-            if (event.which == 16 || event.which == 88) {
+            if (notconfirmkeypress()) {
                 i = text.length - 1;
                 $(ths).html(text.substr(0, text.length - 1));
             }

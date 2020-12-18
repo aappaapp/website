@@ -527,6 +527,9 @@ input[type='file']{
 	transform: translate(-50%, 0%);
 	display: none;
 }
+.speakcontainer img{
+	max-width: 100px;
+}
 .map > .snowy{
     top: 40%;
     position: absolute;
@@ -636,9 +639,21 @@ input[type='file']{
 	width: 100px;
 	height: fit-content;
 }
+.snowybullet{
+	position: absolute;
+}
 .snowybullet img{
 	max-width: 20px;
 	animation: rotation 500ms infinite;
+}
+.powerfulsnowybullet{
+	position: absolute;
+}
+.powerfulsnowybullet img{
+	max-width: 500px;
+    animation: rotation 100ms infinite;
+    transform: translate(-50%, -50%);
+    transform-origin: top left;
 }
 @keyframes rotation{
 	0%{

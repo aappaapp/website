@@ -89,8 +89,6 @@ function webapp() {
 $.fn.move = function (x, y) {
 	var x1 = this.position().left;
 	var y1 = this.position().top;
-	console.log(x1 + x);
-	console.log(y1 + y);
 	this.css('position', 'absolute');
 	this.css('left', (x1 + x) + 'px');
 	this.css('top', (y1 + y) + 'px');
@@ -105,8 +103,11 @@ function moveitv(x, y, element) {
 		$(ths).css('left', x1 + x + 'px');
 		$(ths).css('top', y1 + y + 'px');
 		if (i == 500) {
-			$(ths).remove();
 			clearInterval(itv);
+			if ($(ths).hasClass('snowybullet')) {
+				window.snowybulletdis = true;
+			}
+			$(ths).remove();
 		}
 		i++;
 	});
@@ -855,6 +856,7 @@ function story() {
 		} else if ($(this).hasClass('finish')) {
 			if ($('.namedisplay').val() != '') {
 				window.name = $('.namedisplay').val();
+				$('body').off('keydown.body5');
 				chosenamefuc();
 			}
 		} else {
@@ -865,7 +867,7 @@ function story() {
 			}
 		}
 	});
-	$(document).keydown(function () {
+	$('body').on('keydown.body5', function () {
 		if (event.which >= 65 && event.which <= 90) {
 			if ($('.namedisplay').val().length >= 6) {
 				$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1) + event.key);
@@ -875,16 +877,16 @@ function story() {
 		}
 		if (event.which == 8) {
 			$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1));
-		} else if (event.which == 13 & window.chosenamefucshow != true) {
+		} else if (event.which == 13) {
 			if ($('.namedisplay').val() != '') {
 				window.name = $('.namedisplay').val();
+				$('body').off('keydown.body5');
 				chosenamefuc();
 			}
 		}
 	});
 }
 function chosenamefuc() {
-	window.chosenamefucshow = true;
 	$('.nameselect').css('display', 'none');
 	$('.nameconfirm').show();
 	$('.nameconfirm h1').html('Your name is ' + window.name + ',<br>do you confirm?');
@@ -892,29 +894,32 @@ function chosenamefuc() {
 		$('.nameconfirm').css('display', 'none');
 		$('.nameselect').css('display', 'block');
 		$('.namedisplay').val('');
-		window.chosenamefucshow = true;
+		$('body').off('keydown.body2');
 	});
 	$('.confirm').click(function () {
 		$('.nameconfirm').css('display', 'none');
 		$('.nameselect').css('display', 'none');
 		$('.map').css('display', 'block');
+		$('body').off('keydown.body2');
 		storystart();
 	});
-	$('.body2').keydown(function () {
-		if (event.which == 88) {
+	$('body').on('keydown.body2', function () {
+		if (notconfirmkeypress()) {
 			$('.nameconfirm').css('display', 'none');
 			$('.nameselect').css('display', 'block');
 			$('.namedisplay').val('');
-		} else if (event.which == 13) {
+			$('body').off('keydown.body2');
+		} else if (confirmkeypress()) {
 			$('.nameconfirm').css('display', 'none');
 			$('.nameselect').css('display', 'none');
 			$('.map').css('display', 'block');
+			$('body').off('keydown.body2');
 			storystart();
 		}
 	});
 }
 function storystart() {
-	$('.body2').off('keydown');
+	$('body').off('keydown.body2');
 	$('.map').append('<div class=\'snowy entity\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div>');
 	speak(window.dialog1['dialog.snowy.hi'], '', 100, function () {
 		speak(window.dialog1['dialog.snowy.hi1'], '', 100, function () {
@@ -934,7 +939,7 @@ function gotofighttutorial() {
 		}
 	});
 	$('.fightbar').hide();
-	speak(window.dialog1['dialog.snowy.fighttur'], '', 10, function () {
+	speak(window.dialog1['dialog.snowy.fighttur'], '', 100, function () {
 		speak(window.dialog1['dialog.snowy.fighttur1'], '', 100, function () {
 			speak(window.dialog1['dialog.snowy.fighttur2'], '', 100, function () {
 				speak(window.dialog1['dialog.snowy.fighttur3'], '', 100, function () {
@@ -942,7 +947,45 @@ function gotofighttutorial() {
 						speak('In here, LV is shared through the bullet.', '', 100, function () {
 							speak('I did not lie to you! You fail, but you will become stronger!', '', 100, function () {
 								speak('Ready? Collect the bullet to gain LV!', '', 100, function () {
-									snowybullet();
+									snowybullet('40%', '0%');
+									snowybullet('45%', '0%');
+									snowybullet('50%', '0%');
+									snowybullet('55%', '0%');
+									snowybullet('60%', '0%');
+									window.stopsnowbulitv = false;
+									window.snowybulletidiot = false;
+									window.snowybulletdis = false;
+									itv = setInterval(function () {
+										console.log(window.stopsnowbulitv, window.snowybulletidiot);
+										if (window.snowybulletidiot) {
+											console.log('You\'re Idiot');
+											window.stopsnowbulitv = true;
+											$('.snowybullet').remove();
+											speak('You idiot!', '', 500, function () {
+												speak('In this world, it\'s kill or be killed.', '', 100, function () {
+													speak('Who want to lose this lucky opportunity to kill you?', '', 100, function () {
+														speak('Die!', '', 250, function () {
+															powerfulsnowybullet();
+														}, '.icon', 'audio/eviltalk.mp3');
+													}, '.icon', 'audio/eviltalk.mp3');
+												}, '.icon', 'audio/eviltalk.mp3');
+											}, '.icon', 'audio/eviltalk.mp3');
+										}
+										if (window.snowybulletdis && !window.snowybullettouch) {
+											speak('Why you don\'t touch! Are you stupid!?', '', 250, function () {
+												speak('You want to die?', '', 250, function () {
+													speak('Okay, I will kill YOU!', '', 100, function () {
+														powerfulsnowybullet();
+													}, '.icon', 'audio/eviltalk.mp3');
+												}, '.icon', 'audio/eviltalk.mp3');
+											}, '.icon', 'audio/eviltalk.mp3');
+											window.stopsnowbulitv = true;
+										}
+										if (window.stopsnowbulitv) {
+											clearInterval(itv);
+											console.log(window.stopsnowbulitv);
+										}
+									});
 								}, '.icon');
 							}, '.icon');
 						}, '.icon');
@@ -951,123 +994,6 @@ function gotofighttutorial() {
 			}, '.icon');
 		}, '.icon');
 	}, '.icon');
-}
-function snowybullet() {
-	$('.fightarea').append('<div class=\'snowybullet bullet' + window.bulleti + '\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
-	console.log('append');
-	$('.snowybullet.bullet' + window.bulleti).each(function () {
-		moveitv(0, 1, this);
-	});
-	window.bulleti++;
-}
-function gotofight(icon, enemyinfo) {
-	enemy1 = {
-		hp: enemyinfo['1'].hp,
-		name: enemyinfo['1'].name,
-		hpvalue: enemyinfo['1'].hp
-	}
-	$('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'><div class=\'soul\'><img src=\'textures/entity/hero/soul.png\'></div></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
-	$('.fightarea .icon').after('<div class=\'enemyhpbar\'><div class=\'enemyhpbarline\'></div></div>');
-	console.log('sa');
-	$('.body4').keydown(function () {
-		console.log('saa');
-		if (event.which == 87) {
-			$('.soul').move(0, -10);
-			console.log('saaa');
-		}
-	}); //why can't not working???? //!!delete after know!!
-	$('.attackbtn').click(function () {
-		$('.fightbox').css({
-			'width': '80%',
-			'padding': '10px'
-		}).html('<div class=\'fightopt punch\'>* Punch</div>');
-		$('.fightopt.punch').click(function () {
-			//speak('You tried to punch snowy. But the attack is unfinished. So you can\'t punch snowy!', '', 100);
-			$('.fightbox').html('<div class=\'fightpunchbtn\'>Press Me!</div>');
-			oldenemyhp = enemy1.hpvalue;
-			$('.fightpunchbtn').click(function () {
-				enemy1.hpvalue -= 1;
-				console.log(enemy1);
-				$('.enemyhpbarline').css('width', ((enemy1.hpvalue / enemy1.hp) * 100) + '%');
-			});
-			setTimeout(function () {
-				speak('You hurt ' + enemy1.name + ' ' + (oldenemyhp - enemy1.hpvalue) + 'hp.', '', 100, function () { }, '.fightbox');
-			}, 5000);
-			//((value - min) / (max - min)) * percentage
-		});
-	});
-	setInterval(function () {
-		var overlapsele = $('*').overlaps($('.soul'));
-		if (overlapsele != undefined) {
-			for (i = 0; i < overlapsele.length; i++) {
-				//console.log($(overlapsele[i]).hasClass('snowybullet'));
-				if ($(overlapsele[i]).hasClass('snowybullet')) {
-					window.snowybullettorch = true;
-					console.log(window.snowybullettorch);
-				}
-			}
-		}
-	});
-}
-function speak(text, icon, speed, callback, element) {
-	if (element == '' || element == undefined) {
-		$('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
-	} else if (element == '.fightbox') {
-		$(element).html('<div class=\'fightspeak speak' + window.speaki + '\'></div>');
-	} else if (element.includes('.icon')) {
-		$(element).append('<div class=\'dialogspeak speak' + window.speaki + '\'></div>');
-	}
-	$('.speak' + window.speaki).each(function () {
-		if (icon == '') {
-			//$('.speakcontainer img').replaceWith('<div>*</div>');
-		}
-		if (!window.speakwait) {
-			speakeach(this, '*' + text, speed, window.speaki, callback);
-		}
-	});
-	window.speaki++;
-}
-function speakeach(element, text, speed, speaki, callback) {
-	window.speakwait = true;
-	var ths = element;
-	var i = 0;
-	window.speakspeed = speed;
-	//text = text.split('\\w');
-	$(ths).parent().css('display', 'block');
-	//if (Array.isArray(text)) { } else {
-	var itv = setInterval(function () {
-		$('.body3').keydown(function () {
-			if (event.which == 16 || event.which == 88) {
-				i = text.length - 1;
-				$(ths).html(text.substr(0, text.length - 1));
-			}
-		});
-		$(ths).html($(ths).html() + text[i]);
-		console.log($(ths).html())
-		i++;
-		if (text[i] == undefined) {
-			clearInterval(itv);
-			$('.body3').off('keydown');
-			if ($(ths).hasClass('fightspeak')) {
-				callback();
-				window.speakwait = false;
-			} else {
-				$('.body1').keydown(function () {
-					if (event.which == 90 || event.which == 13) {
-						if ($(ths).hasClass('dialogspeak')) {
-							$(ths).remove();
-						} else {
-							$(ths).parent().remove();
-						}
-						window.speakwait = false;
-						callback();
-						$('.body1').off('keydown');
-					}
-				});
-			}
-		}
-	}, window.speakspeed);
-	//}
 }
 $(document).ready(function () {
 	readfile();
@@ -1217,35 +1143,7 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
-		/*
-		var moveele = '.fightarea > *:not(.entity, .entityinfoinfight, .gunbullet, .bottombar)';
-		if (event.which == 39 || event.which == 68) {
-			$(moveele).each(function () {
-				$(this).move(-10, 0);
-			});
-		} else if (event.which == 37 || event.which == 65) {
-			$(moveele).each(function () {
-				$(this).move(10, 0);
-			});
-		} else if (event.which == 38 || event.which == 87) {
-			$(moveele).each(function () {
-				$(this).move(0, 10);
-			});
-		} else if (event.which == 40 || event.which == 83) {
-			$(moveele).each(function () {
-				$(this).move(0, -10);
-			});
-		} else if (event.which == 81) {
-			changeweaponto();
-			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
-		} else if (event.which == 69) {
-			changeweaponto();
-			//alert('This button use for change weapon but I did\'t make and other weapon so this button if useless, HaHaHa!');
-		} if (event.which == 67) {
-			if (window.istart) { }
-		} else if (event.which == 80) {
-			$('.homepagesecret').show();
-		} else */if (event.which == 191) {
+		if (event.which == 191) {
 			var ans = prompt('Please enter command:');
 			if (ans == 'dev123') {
 				if (window.dev != true) {
