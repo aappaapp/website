@@ -10,7 +10,7 @@ function snowybullet(x, y) {
     window.bulleti++;
 }
 function powerfulsnowybullet() {
-    speak('Maybe you will faint.', 'textures/entity/monster/snowy/snowy.png', 100, function () {
+    /*speak('Maybe you will faint.', 'textures/entity/monster/snowy/snowy.png', 100, function () {
         speak('It\'s because my skill is unfinished.', 'textures/entity/monster/snowy/snowy.png', 100, function () {
             speak('That hateful creator!', 'textures/entity/monster/snowy/snowy.png', 150, function () {
                 speak('I will kill him!', 'textures/entity/monster/snowy/snowy.png', 250, function () {
@@ -20,16 +20,10 @@ function powerfulsnowybullet() {
                 }, '', 'audio/eviltalk.mp3');
             }, '', 'audio/eviltalk.mp3');
         });
-    });
-    $('.fightarea').append('<div class=\'powerfulsnowybullet bullet' + window.bulleti + '\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
-    $('.snowybullet.bullet' + window.bulleti).css({
-        'top': '0%',
-        'left': '50%'
-    });
-    $('.snowybullet.bullet' + window.bulleti).each(function () {
-        moveitv(0, 1, this);
-    });
-    window.bulleti++;
+    });*/
+    console.log('powerfulsnowybullet');
+    $('.fightarea').append('<div class=\'powerfulsnowybullet\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
+    //moveitv(0, 0, $('.powerfulsnowybullet'));
 }
 setInterval(function () {
     var overlapsele = $('*').overlaps($('.soul'));
@@ -39,6 +33,8 @@ setInterval(function () {
             if ($(overlapsele[i]).hasClass('snowybullet')) {
                 window.snowybulletidiot = true;
                 $('body').append('<audio src=\'audio/snowypunch.mp3\' autoplay></audio>');
+            } else if ($(overlapsele[i]).parent().hasClass('powerfulsnowybullet')) {
+                $(overlapsele[i]).parent().remove();
             }
         }
     }

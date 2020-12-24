@@ -89,6 +89,7 @@ function webapp() {
 $.fn.move = function (x, y) {
 	var x1 = this.position().left;
 	var y1 = this.position().top;
+	this.css('transform', '');
 	this.css('position', 'absolute');
 	this.css('left', (x1 + x) + 'px');
 	this.css('top', (y1 + y) + 'px');
@@ -96,18 +97,13 @@ $.fn.move = function (x, y) {
 function moveitv(x, y, element) {
 	var i = 0;
 	var itv = setInterval(function () {
-		var ths = element;
-		var x1 = $(ths).position().left;
-		var y1 = $(ths).position().top;
-		$(ths).css('position', 'absolute');
-		$(ths).css('left', x1 + x + 'px');
-		$(ths).css('top', y1 + y + 'px');
+		$(element).move(x, y);
 		if (i == 500) {
 			clearInterval(itv);
-			if ($(ths).hasClass('snowybullet')) {
+			if ($(element).hasClass('snowybullet')) {
 				window.snowybulletdis = true;
 			}
-			$(ths).remove();
+			$(element).remove();
 		}
 		i++;
 	});
@@ -824,176 +820,6 @@ function changeweaponto(value) {
 		$($('.bottombar .weapon .box')[0]).css('border', '5px solid white');
 		$($('.bottombar .weapon .box')[1]).css('border', '2.5px solid white');
 	}
-}
-function story() {
-	$('title').text(window.dialog1['ui.storytitle']);
-	ue = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-	le = 'abcdefghijklmnopqrstuvwxyz'.split('');
-	for (i = 0; i < ue.length; i++) {
-		$('.nameselect').append('<div class=\'lett ue ue' + ue[i] + '\'>' + ue[i] + '</div>');
-		console.log(ue[i]);
-		if ((i + 1) % 10 == 0) {
-			$('.ue' + ue[i]).after('<br class=\'uebr\'>');
-		}
-		if (i == ue.length - 1) {
-			$('.ue, .uebr').wrapAll('<div class=\'uegroup lettgroup\'></div>');
-		}
-	}
-	for (i = 0; i < le.length; i++) {
-		$('.nameselect').append('<div class=\'lett le le' + le[i] + '\'>' + le[i] + '</div>');
-		if ((i + 1) % 10 == 0) {
-			$('.le' + le[i]).after('<br class=\'lebr\'>');
-		}
-		if (i == le.length - 1) {
-			$('.le, .lebr').wrapAll('<div class=\'legroup lettgroup\'></div>');
-		}
-		$('.legroup').after('<div class=\'nametools\'><div class=\'backlett lett\'>Backspace</div> <div class=\'finish lett\'>Finish</div></div>');
-	}
-	$('.lettgroup').after('<br>');
-	$('.lett').click(function () {
-		if ($(this).hasClass('backlett')) {
-			$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1));
-		} else if ($(this).hasClass('finish')) {
-			if ($('.namedisplay').val() != '') {
-				window.name = $('.namedisplay').val();
-				$('body').off('keydown.body5');
-				chosenamefuc();
-			}
-		} else {
-			if ($('.namedisplay').val().length >= 6) {
-				$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1) + $(this).attr('class').split(' ')[2].substr($(this).attr('class').split(' ')[2].length - 1, 1));
-			} else {
-				$('.namedisplay').val($('.namedisplay').val() + $(this).attr('class').split(' ')[2].substr($(this).attr('class').split(' ')[2].length - 1, 1));
-			}
-		}
-	});
-	$('body').on('keydown.body5', function () {
-		if (event.which >= 65 && event.which <= 90) {
-			if ($('.namedisplay').val().length >= 6) {
-				$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1) + event.key);
-			} else {
-				$('.namedisplay').val($('.namedisplay').val() + event.key);
-			}
-		}
-		if (event.which == 8) {
-			$('.namedisplay').val($('.namedisplay').val().substr(0, $('.namedisplay').val().length - 1));
-		} else if (event.which == 13) {
-			if ($('.namedisplay').val() != '') {
-				window.name = $('.namedisplay').val();
-				$('body').off('keydown.body5');
-				chosenamefuc();
-			}
-		}
-	});
-}
-function chosenamefuc() {
-	$('.nameselect').css('display', 'none');
-	$('.nameconfirm').show();
-	$('.nameconfirm h1').html('Your name is ' + window.name + ',<br>do you confirm?');
-	$('.notconfirm').click(function () {
-		$('.nameconfirm').css('display', 'none');
-		$('.nameselect').css('display', 'block');
-		$('.namedisplay').val('');
-		$('body').off('keydown.body2');
-	});
-	$('.confirm').click(function () {
-		$('.nameconfirm').css('display', 'none');
-		$('.nameselect').css('display', 'none');
-		$('.map').css('display', 'block');
-		$('body').off('keydown.body2');
-		storystart();
-	});
-	$('body').on('keydown.body2', function () {
-		if (notconfirmkeypress()) {
-			$('.nameconfirm').css('display', 'none');
-			$('.nameselect').css('display', 'block');
-			$('.namedisplay').val('');
-			$('body').off('keydown.body2');
-		} else if (confirmkeypress()) {
-			$('.nameconfirm').css('display', 'none');
-			$('.nameselect').css('display', 'none');
-			$('.map').css('display', 'block');
-			$('body').off('keydown.body2');
-			storystart();
-		}
-	});
-}
-function storystart() {
-	$('body').off('keydown.body2');
-	$('.map').append('<div class=\'snowy entity\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div>');
-	speak(window.dialog1['dialog.snowy.hi'], '', 100, function () {
-		speak(window.dialog1['dialog.snowy.hi1'], '', 100, function () {
-			speak(window.dialog1['dialog.snowy.hi2'], '', 100, function () {
-				speak(window.dialog1['dialog.snowy.hi3'], '', 100, function () {
-					gotofighttutorial();
-				});
-			});
-		});
-	});
-}
-function gotofighttutorial() {
-	gotofight('textures/entity/monster/snowy/snowy.png', {
-		'1': {
-			hp: 100,
-			name: 'Snowy'
-		}
-	});
-	$('.fightbar').hide();
-	speak(window.dialog1['dialog.snowy.fighttur'], '', 100, function () {
-		speak(window.dialog1['dialog.snowy.fighttur1'], '', 100, function () {
-			speak(window.dialog1['dialog.snowy.fighttur2'], '', 100, function () {
-				speak(window.dialog1['dialog.snowy.fighttur3'], '', 100, function () {
-					speak('You want some LV, don\'t you?', '', 100, function () {
-						speak('In here, LV is shared through the bullet.', '', 100, function () {
-							speak('I did not lie to you! You fail, but you will become stronger!', '', 100, function () {
-								speak('Ready? Collect the bullet to gain LV!', '', 100, function () {
-									snowybullet('40%', '0%');
-									snowybullet('45%', '0%');
-									snowybullet('50%', '0%');
-									snowybullet('55%', '0%');
-									snowybullet('60%', '0%');
-									window.stopsnowbulitv = false;
-									window.snowybulletidiot = false;
-									window.snowybulletdis = false;
-									itv = setInterval(function () {
-										console.log(window.stopsnowbulitv, window.snowybulletidiot);
-										if (window.snowybulletidiot) {
-											console.log('You\'re Idiot');
-											window.stopsnowbulitv = true;
-											$('.snowybullet').remove();
-											speak('You idiot!', '', 500, function () {
-												speak('In this world, it\'s kill or be killed.', '', 100, function () {
-													speak('Who want to lose this lucky opportunity to kill you?', '', 100, function () {
-														speak('Die!', '', 250, function () {
-															powerfulsnowybullet();
-														}, '.icon', 'audio/eviltalk.mp3');
-													}, '.icon', 'audio/eviltalk.mp3');
-												}, '.icon', 'audio/eviltalk.mp3');
-											}, '.icon', 'audio/eviltalk.mp3');
-										}
-										if (window.snowybulletdis && !window.snowybullettouch) {
-											speak('Why you don\'t touch! Are you stupid!?', '', 250, function () {
-												speak('You want to die?', '', 250, function () {
-													speak('Okay, I will kill YOU!', '', 100, function () {
-														powerfulsnowybullet();
-													}, '.icon', 'audio/eviltalk.mp3');
-												}, '.icon', 'audio/eviltalk.mp3');
-											}, '.icon', 'audio/eviltalk.mp3');
-											window.stopsnowbulitv = true;
-										}
-										if (window.stopsnowbulitv) {
-											clearInterval(itv);
-											console.log(window.stopsnowbulitv);
-										}
-									});
-								}, '.icon');
-							}, '.icon');
-						}, '.icon');
-					}, '.icon');
-				}, '.icon');
-			}, '.icon');
-		}, '.icon');
-	}, '.icon');
 }
 $(document).ready(function () {
 	readfile();

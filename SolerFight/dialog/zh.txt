@@ -72,7 +72,7 @@ dialog.snowy.hi1 = 這是你第一次來嗎？
 #
 dialog.snowy.hi2 = 這樣不行！必須有人告訴您這裡的規則！
 #
-dialog.snowy.hi3 = 但是這裡沒有人，所以讓我告訴您規則！
+dialog.snowy.hi3 = 但是這裡沒有人，所以讓我這個最善良的雪人來告訴你規則！
 #
 dialog.snowy.fighttur = 好，我們開始吧！
 #
@@ -81,3 +81,11 @@ dialog.snowy.fighttur1 = 你看到框裡的心嗎？那是你的靈魂！
 dialog.snowy.fighttur2 = 它現在非常弱小，但是如果您獲得LV，它就會變強！
 #
 dialog.snowy.fighttur3 = LV代表什麼？當然是等級！
+#
+dialog.snowy.idiot = 你這個白痴。
+#
+dialog.snowy.fightpayhit = 在這個世界上，只有殺或被殺。
+#
+dialog.snowy.fightpayhit1 = 誰會想失去這個機會來殺死你？
+#
+dialog.snowy.fightpayhit2 = 死！

@@ -648,12 +648,14 @@ input[type='file']{
 }
 .powerfulsnowybullet{
 	position: absolute;
+	transform: translate(-100%, -50%);
+	top: 50%;
+	left: 0%
+	/*transform-origin: top left;*/
 }
 .powerfulsnowybullet img{
 	max-width: 500px;
-    animation: rotation 100ms infinite;
-    transform: translate(-50%, -50%);
-    transform-origin: top left;
+    animation: rotation 500ms infinite;
 }
 @keyframes rotation{
 	0%{
