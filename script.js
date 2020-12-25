@@ -16,11 +16,11 @@ function github_page() {
 function tools_page() {
     window.top.location.href = 'tools.html';
 }
-function game_page(config) {
-    if (config == 1) {
+function game_page(value) {
+    if (value == 1) {
         window.top.location.href = 'ADENTALE/index.html';
-    } else if (config == 2) {
-        window.top.location.href = 'SolerFight/index.html';
+    } else if (value == 2) {
+        window.top.location.href = 'humanvsmonster/index.html';
     }
 }
 console.log(window.location.host);
