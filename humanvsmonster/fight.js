@@ -23,6 +23,10 @@ function powerfulsnowybullet() {
     });*/
     console.log('powerfulsnowybullet');
     $('.fightarea').append('<div class=\'powerfulsnowybullet\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
+    setTimeout(function () {
+        $('.powerfulsnowybullet').remove();
+        snowypowerfulbulletdisapear();
+    }, 1000);
     //moveitv(0, 0, $('.powerfulsnowybullet'));
 }
 setInterval(function () {

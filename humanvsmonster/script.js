@@ -400,7 +400,7 @@ function readfile() {
 		$.get('./dialog/en.txt', function (data) {
 			dialogfuc(data);
 		});
-		alert('We don\'t have language: ' + navigator.language + '(ISO 639-1) in Soler Fight! We hope anybody can help us to translate other');
+		alert('We don\'t have language: ' + navigator.language + '(ISO 639-1) in Human VS Monster! We hope anybody can help us to translate other');
 	}
 	$.get('./thanks.txt', function (data) {
 		window.thankstext = data.split('\n');

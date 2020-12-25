@@ -65,13 +65,16 @@ function gotofighttutorial() {
 function storystart() {
     $('body').off('keydown.body2');
     $('.map').append('<div class=\'snowy entity\'><img src=\'textures/entity/monster/snowy/snowy.png\'></div>');
-    speak(window.dialog1['dialog.snowy.hi'], '', 100, function () {
-        speak(window.dialog1['dialog.snowy.hi1'], '', 100, function () {
-            speak(window.dialog1['dialog.snowy.hi2'], '', 100, function () {
-                speak(window.dialog1['dialog.snowy.hi3'], '', 100, function () {
+    speak(window.dialog1['dialog.snowy.hi'], 'textures/entity/monster/snowy/snowy.png', 100, function () {
+        speak(window.dialog1['dialog.snowy.hi1'], 'textures/entity/monster/snowy/snowy.png', 100, function () {
+            speak(window.dialog1['dialog.snowy.hi2'], 'textures/entity/monster/snowy/snowy.png', 100, function () {
+                speak(window.dialog1['dialog.snowy.hi3'], 'textures/entity/monster/snowy/snowy.png', 100, function () {
                     gotofighttutorial();
                 });
             });
         });
     });
+}
+function snowypowerfulbulletdisapear() {
+    speak('What happen?');
 }

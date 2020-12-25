@@ -1,0 +1,8 @@
+gh = 'ghost';
+newgame = 'fit loser gh.';
+//like undertale and deltarune
+
+song = [
+"intro music, only in story mode, just intro is tell you story about Human VS Monster, so intro music is like 'Undertale OST: 001 - Once Upon A Time
+'"
+]

@@ -1,6 +1,6 @@
 ##UI##
 #
-ui.title = 靈魂者戰爭（暫定名稱）初期測試前版<br>（按G報告錯誤）
+ui.title = 人類與怪物（暫定名稱）初期測試前版<br>（按G報告錯誤）
 #
 ui.twinkingtext = 故事模式更新！
 #
@@ -22,15 +22,15 @@ ui.shopbtn = 商店！（未完成）
 #
 ui.signoutbtn = 登出！
 #
-ui.cmdgenbtn = 靈魂者戰爭命令產生器！
+ui.cmdgenbtn = 人類與怪物命令產生器！
 #
 ui.namedisplay = 您的姓名將顯示在這裡...
 #
-ui.storytitle = 故事模式 - 靈魂者戰爭
+ui.storytitle = 故事模式 - 人類與怪物
 #
-ui.snowytitle = Snowy 模式 - Snowy 戰爭
+ui.snowytitle = Snowy 模式 - Snowy 與人類
 #
-ui.pagetitle = 靈魂者戰爭
+ui.pagetitle = 人類與怪物
 #
 ui.attackbtn = 攻擊
 

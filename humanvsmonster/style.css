@@ -648,7 +648,7 @@ input[type='file']{
 }
 .powerfulsnowybullet{
 	position: absolute;
-	transform: translate(-100%, -50%);
+	transform: translate(-50%, -50%);
 	top: 50%;
 	left: 0%
 	/*transform-origin: top left;*/

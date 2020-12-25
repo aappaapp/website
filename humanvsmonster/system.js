@@ -1,4 +1,16 @@
 function speak(text, icon, speed, callback, element, sound) {
+    if (sound == undefined || sound == '') {
+        sound = 'audio/talk.mp3';
+    }
+    if (speed == undefined || speed == '') {
+        speed = 100;
+    }
+    if (icon == undefined) {
+        icon = '';
+    }
+    if (callback == undefined || callback == '') {
+        callback = function () { };
+    }
     if (element == '' || element == undefined) {
         $('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
     } else if (element == '.fightbox') {
@@ -6,13 +18,7 @@ function speak(text, icon, speed, callback, element, sound) {
     } else if (element.includes('.icon')) {
         $(element).append('<div class=\'dialogspeak speak' + window.speaki + '\'></div>');
     }
-    if (sound == undefined || sound == '') {
-        sound = 'audio/talk.mp3';
-    }
     $('.speak' + window.speaki).each(function () {
-        if (icon == '') {
-            //$('.speakcontainer img').replaceWith('<div>*</div>');
-        }
         if (!window.speakwait) {
             speakeach(this, '*' + text, speed, window.speaki, callback, sound);
         }

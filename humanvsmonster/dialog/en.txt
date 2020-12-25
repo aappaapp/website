@@ -1,6 +1,6 @@
 ##UI##
 #
-ui.title = Soler Fight(Tentative name) Pre-Alpha<br>(Press G to report bug)
+ui.title = Human VS Monster(Tentative name) Pre-Alpha<br>(Press G to report bug)
 #
 ui.twinkingtext = Story Mode Update!
 #
@@ -20,17 +20,17 @@ ui.shopbtn = Shop!(unfinished)
 #
 ui.signoutbtn = Sign Out!
 #
-ui.cmdgenbtn = Soler Fight Command Generator!
+ui.cmdgenbtn = Human VS Monster Command Generator!
 #
 ui.mpbar = MP:
 #
 ui.namedisplay = Your Name Will display Here...
 #
-ui.storytitle = Story Mode - Soler Fight
+ui.storytitle = Story Mode - Human VS Monster
 #
-ui.snowytitle = Snowy Mode - Snowy Fight
+ui.snowytitle = Snowy Mode - Snowy VS Human
 #
-ui.pagetitle = Soler Fight
+ui.pagetitle = Human VS Monster
 #
 ui.attackbtn = Attack
 
