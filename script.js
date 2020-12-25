@@ -20,7 +20,7 @@ function game_page(value) {
     if (value == 1) {
         window.top.location.href = './ADENTALE';
     } else if (value == 2) {
-        window.top.location.href = './humanvsmonster';
+        window.top.location.href = './SolerFight';
     }
 }
 console.log(window.location.host);
