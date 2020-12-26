@@ -1,3 +1,7 @@
+function ap43() {
+    $('.ap43').height($(document).height());
+    $('.ap43').width($(document).height() * 1.3);
+}
 function speak(text, icon, speed, callback, element, sound) {
     if (sound == undefined || sound == '') {
         sound = 'audio/talk.mp3';

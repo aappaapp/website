@@ -405,9 +405,6 @@ function readfile() {
 	$.get('./thanks.txt', function (data) {
 		window.thankstext = data.split('\n');
 	});
-	$.get('./plugin.js', function (data) {
-		window.plugin = data;
-	});
 }
 function dialogfuc(data) {
 	dialog = data.split('\n#');
@@ -507,7 +504,6 @@ function trap() {
 	}
 
 }));
-
 function detecthurt() {
 	try {
 		$('.hpprogress .bar').html(window.entityhp + '/' + window.choseentity.hp);
@@ -829,7 +825,6 @@ $(document).ready(function () {
 			cornertips(window.dialog1['warning.computerperformance'], 5000, function () {
 				cornertips(window.dialog1['tips.fullscreen'], 5000);
 			});
-			eval(window.plugin);
 			setTimeout(function () {
 				webapp();
 				setskin();
@@ -838,6 +833,7 @@ $(document).ready(function () {
 			}, 500);
 		}, 500);
 	}, 500)
+	ap43();
 	$(document).tooltip();
 	$(document).mousewheel(function (event) {
 		console.log(event.deltaY);

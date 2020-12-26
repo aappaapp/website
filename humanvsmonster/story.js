@@ -76,5 +76,10 @@ function storystart() {
     });
 }
 function snowypowerfulbulletdisapear() {
-    speak('What happen?');
+    speak('What happen?', '', 100, function () {
+        speak('Go away!', '', 100, function () {
+            toralsave();
+        }, '', 'none');
+    }, '.icon');
 }
+function toralsave() { }

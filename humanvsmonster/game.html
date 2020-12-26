@@ -11,6 +11,7 @@
 	<script src="URI.min.js"></script>
 	<script src="jquery.cookie.min.js"></script>
 	<script src="jquery.mousewheel.min.js"></script>
+	<script src='plugin.js'></script>
 	<script src='system.js'></script>
 	<script src='story.js'></script>
 	<script src='fight.js'></script>
@@ -25,66 +26,65 @@
 <body>
 	<!--Body class have: body1, body2, body3, body4, body5-->
 	<div class='ap43'>
-		<div class='ap43co'>
-			<div class='warning'>
-				<h1></h1>
-			</div>
-			<div class='homepage'>
-				<div class='push'>
-					<h1>
-						<div class='title'></div>
-						<div class='update'></div>
-					</h1>
-					<span class='startremind'></span>
-					<div class='mode'>
-						<div class='container'>
-							<input type='button' class='fightmodebtn'>
-							<input type='button' class='tutorialmodebtn'>
-							<input type='button' class='storymodebtn'>
-						</div>
+		<div class='warning'>
+			<h1></h1>
+		</div>
+		<div class='homepage'>
+			<div class='push'>
+				<h1>
+					<div class='title'></div>
+					<div class='update'></div>
+				</h1>
+				<span class='startremind'></span>
+				<div class='mode'>
+					<div class='container'>
+						<input type='button' class='fightmodebtn'>
+						<input type='button' class='tutorialmodebtn'>
+						<input type='button' class='storymodebtn'>
 					</div>
-					<input type='button' class='signoutbtn'>
-					<input type='button' class='cmdgenbtn'>
-					<!--<input type='button' value='Thanks' class='thanksbtn'>-->
 				</div>
-				<div class='homepagesecret'>
-					<input type='button' value='Setting' class='settingpagebtn'>
-					<input type='button' value='Upload' class='uploadpagebtn'>
-				</div>
-				<!--
+				<input type='button' class='signoutbtn'>
+				<input type='button' class='cmdgenbtn'>
+				<!--<input type='button' value='Thanks' class='thanksbtn'>-->
+			</div>
+			<div class='homepagesecret'>
+				<input type='button' value='Setting' class='settingpagebtn'>
+				<input type='button' value='Upload' class='uploadpagebtn'>
+			</div>
+			<!--
 			<input type='button' value='中'>
 		-->
-			</div>
-			<div class='uploadpage'>
-				<h1>Plugin</h1>
-				<label>
-					<input type='file' accept='.sol' class='upload'>UPLOAD .SOL FILE
-				</label>
-			</div>
-			<div class='settingpage'>
-				<h1>Setting</h1>
-				<h2>Plugin</h2>
-				block: <div class='delete' class='deleteblock'>&lt;delete&gt;</div>
-				<br><br>
-				entity: <div class='delete' class='deleteentity'>&lt;delete&gt;</div>
-				<br><br>
-				item: <div class='delete' class='deleteitem'>&lt;delete&gt;</div>
-			</div>
-			<div class='gamearea'>
-				<div class='storymode'>
-					<div class='nameselect'>
-						<input type='text' class='namedisplay' readonly>
-					</div>
-					<div class='nameconfirm'>
-						<h1></h1>
-						<div class='notconfirm'>No</div>
-						<div class='confirm'>Yes</div>
-					</div>
-					<div class='map'>
-						<div class='entity main'><img src='textures/entity/hero/warrior/warrior.png'></div>
-					</div>
+		</div>
+		<div class='uploadpage'>
+			<h1>Plugin</h1>
+			<label>
+				<input type='file' accept='.sol' class='upload'>UPLOAD .SOL FILE
+			</label>
+		</div>
+		<div class='settingpage'>
+			<h1>Setting</h1>
+			<h2>Plugin</h2>
+			block: <div class='delete' class='deleteblock'>&lt;delete&gt;</div>
+			<br><br>
+			entity: <div class='delete' class='deleteentity'>&lt;delete&gt;</div>
+			<br><br>
+			item: <div class='delete' class='deleteitem'>&lt;delete&gt;</div>
+		</div>
+		<div class='gamearea'>
+			<div class='storymode'>
+				<div class='nameselect'>
+					<input type='text' class='namedisplay' readonly>
 				</div>
-				<!--<div class='entityselect'>
+				<div class='nameconfirm'>
+					<h1></h1>
+					<div class='notconfirm'>No</div>
+					<div class='confirm'>Yes</div>
+				</div>
+				<div class='map'>
+					<div class='entity main'><img src='textures/entity/hero/warrior/warrior.png'></div>
+				</div>
+			</div>
+			<!--<div class='entityselect'>
 					<div class='warrior entity'></div>
 					<div class='magician entity'></div>
 					<div class='entityinfo'>
@@ -257,14 +257,13 @@
 				</div>
 			</div>
 			-->
-				<div class="mobilecontrol">
-					<div class="up">UP</div>
-					<div class='down'>DOWN</div>
-					<div class='left'>LEFT</div>
-					<div class='right'>RIGHT</div>
-				</div>
-				<div class="thankspage"></div>
+			<div class="mobilecontrol">
+				<div class="up">UP</div>
+				<div class='down'>DOWN</div>
+				<div class='left'>LEFT</div>
+				<div class='right'>RIGHT</div>
 			</div>
+			<div class="thankspage"></div>
 		</div>
 
 		<!-- The core Firebase JS SDK is always required and must be listed first -->

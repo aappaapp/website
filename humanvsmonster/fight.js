@@ -10,20 +10,10 @@ function snowybullet(x, y) {
     window.bulleti++;
 }
 function powerfulsnowybullet() {
-    /*speak('Maybe you will faint.', 'textures/entity/monster/snowy/snowy.png', 100, function () {
-        speak('It\'s because my skill is unfinished.', 'textures/entity/monster/snowy/snowy.png', 100, function () {
-            speak('That hateful creator!', 'textures/entity/monster/snowy/snowy.png', 150, function () {
-                speak('I will kill him!', 'textures/entity/monster/snowy/snowy.png', 250, function () {
-                    setTimeout(function () {
-                        speak('I can\'t see my face now.', 'textures/entity/monster/snowy/snowy.png', 150, function () { }, '', 'audio/eviltalk.mp3');
-                    }, 1000);
-                }, '', 'audio/eviltalk.mp3');
-            }, '', 'audio/eviltalk.mp3');
-        });
-    });*/
     console.log('powerfulsnowybullet');
     $('.fightarea').append('<div class=\'powerfulsnowybullet\'><img src=\'textures/entity/monster/snowy/bullet.png\'></div>');
     setTimeout(function () {
+        $('body').append('<audio src=\'audio/snowypunch.mp3\' autoplay onended=\'audioended(this);\'></audio>');
         $('.powerfulsnowybullet').remove();
         snowypowerfulbulletdisapear();
     }, 1000);

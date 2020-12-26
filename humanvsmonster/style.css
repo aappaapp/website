@@ -21,18 +21,6 @@ input{
 input[type='button'], label{
 	cursor: pointer;
 }
-.ap43{
-	position: relative;
-	height: 100%;
-	padding-left: 75%;
-}
-.ap43co{
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-}
 div{
 	display: inline-block;
 }
