@@ -28,6 +28,12 @@ $('.bluevote').click(function () {
         color: 'blue'
     });
 });
+$('.clearvote').click(function () {
+    firebase.database().ref('vote').set({
+        //color: 'transparent'
+        color: 'black'
+    });
+});
 $(document).keypress(function () {
     if (event.key == 'w') {
         window.location.replace('./display.html');
