@@ -12,11 +12,9 @@ var firebaseConfig = {
 	appId: "1:485833164369:web:66144cf75de59218461a70",
 	measurementId: "G-DXYPZLMPD7"
 };
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 var uid = $.cookie('uid');
-
 function writeUserData(data, ref) {
 	firebase.database().ref('users/' + uid + '/' + ref).set({
 		data: data

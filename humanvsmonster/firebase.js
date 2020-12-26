@@ -10,14 +10,18 @@ var firebaseConfig = {
     appId: "1:485833164369:web:66144cf75de59218461a70",
     measurementId: "G-DXYPZLMPD7"
 };
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-window.alerti = 0;
-window.keys = {};
+console.log('nea');
+if (navigator.onLine) {
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+} else {
+    console.log('ne');
+    networkerror();
+}
 $('.signinbtn').click(login);
 $('.signupbtn').click(signup);
+$(document).ready(function () {
+});
 $(document).contextmenu(function () {
     event.preventDefault();
 });
@@ -26,8 +30,10 @@ $(document).keydown(function () {
         login();
     }
 });
-if ($.cookie('login')) {
-    window.location.replace('./game.html');
+function replace() {
+    if ($.cookie('login')) {
+        window.location.replace('./game.html');
+    }
 }
 function signup() {
     email = $('input.email').val();
@@ -46,6 +52,10 @@ function signup() {
             var errorMessage = error.message;
             $('.signupbtn').removeClass('disable');
             console.log(errorMessage);
+            if (errorCode == 'auth/network-request-failed') {
+                networkerror();
+                return;
+            }
             speak(errorMessage, '', 100, function () { });
             // ..
         });
@@ -69,6 +79,10 @@ function login() {
             $('.signinbtn').removeClass('disable');
             console.log(errorMessage);
             console.log(errorCode);
+            if (errorCode == 'auth/network-request-failed') {
+                networkerror();
+                return;
+            }
             speak(errorMessage, '', 100, function () { });
             if (errorCode == 'auth/user-not-found') {
                 ask = confirm('Can\'t find your account, do you want to sign up?');
@@ -78,4 +92,10 @@ function login() {
             }
             // ..
         });
+}
+function networkerror() {
+    if (confirm('Your network is error. Do you want to use the guest account to login?(tips: guest account won\'t save your data.)')) {
+        $.cookie('login', true);
+        replace();
+    }
 }
