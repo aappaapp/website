@@ -13,10 +13,12 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+window.input = true;
 var starCountRef = firebase.database().ref('vote/color');
 starCountRef.on('value', (snapshot) => {
     const data = snapshot.val();
-    $('.body').css('background-color', data);
+    $('.body').css('background', data);
+    $('.input').val(data);
 });
 $('.redvote').click(function () {
     firebase.database().ref('vote').set({
@@ -34,10 +36,22 @@ $('.clearvote').click(function () {
         color: 'black'
     });
 });
+$('.input').change(function () {
+    firebase.database().ref('vote').set({
+        //color: 'transparent'
+        color: $('.input').val()
+    });
+});
 $(document).keypress(function () {
-    if (event.key == 'w') {
+    if (window.input && event.key == 'w') {
         window.location.replace('./display.html');
-    } else if (event.key == 's') {
+    } else if (window.input && event.key == 's') {
         window.location.replace('./index.html');
     }
+});
+$('.input').focus(function () {
+    window.input = false;
+});
+$('.input').blur(function () {
+    window.input = true;
 });
