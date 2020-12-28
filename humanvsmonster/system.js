@@ -74,13 +74,15 @@ function speakeach(element, text, speed, speaki, callback, sound) {
     }, window.speakspeed);
     //}
 }
-function gotofight(icon, enemyinfo) {
+function gotofight(enemyinfo) {
     enemy1 = {
         hp: enemyinfo['1'].hp,
         name: enemyinfo['1'].name,
-        hpvalue: enemyinfo['1'].hp
+        hpvalue: enemyinfo['1'].hp,
+        icon: enemyinfo['1'].icon
     }
-    $('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + icon + '\'></div><div class=\'fightbox\'><div class=\'soul\'><img src=\'textures/entity/hero/soul.png\'></div></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
+    $('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + enemy1.icon + '\'></div><div class=\'fightbox\'><div class=\'soul\'><img src=\'textures/entity/hero/soul.png\'></div></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
+    $('.fightbox').width((30 / 100) * $('.fightarea').width()).height((30 / 100) * $('.fightarea').width());
     $('.fightarea .icon').after('<div class=\'enemyhpbar\'><div class=\'enemyhpbarline\'></div></div>');
     $('body').on('keydown.body4', function () {
         if (event.which == 87) {
@@ -112,6 +114,11 @@ function gotofight(icon, enemyinfo) {
             }, 5000);
             //((value - min) / (max - min)) * percentage
         });
+    });
+}
+function leavefight() {
+    $('.fightarea').fadeOut(100, function () {
+        $(this).remove();
     });
 }
 function confirmkeypress() {

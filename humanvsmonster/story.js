@@ -1,8 +1,9 @@
 function gotofighttutorial() {
-    gotofight('textures/entity/monster/snowy/snowy.png', {
+    gotofight({
         '1': {
             hp: 100,
-            name: 'Snowy'
+            name: 'Snowy',
+            icon: 'textures/entity/monster/snowy/snowy.png'
         }
     });
     $('.fightbar').hide();
@@ -76,10 +77,18 @@ function storystart() {
     });
 }
 function snowypowerfulbulletdisapear() {
-    speak('What happen?', '', 100, function () {
-        speak('Go away!', '', 100, function () {
-            toralsave();
-        }, '', 'none');
-    }, '.icon');
+    setTimeout(function () {
+        speak('What happen?', '', 100, function () {
+            speak('Go away!', '', 100, function () {
+                leavefight();
+                toralsave();
+                $('.snowy.entity').hide();
+            }, '', 'none');
+        }, '.icon');
+    }, 1000);
 }
-function toralsave() { }
+function toralsave() {
+    speak('What a terrible creature, hurt such a weak child.', '', '', function () {
+        speak('Hi, I am Toral. The Guardian of the Remain.');
+    });
+}

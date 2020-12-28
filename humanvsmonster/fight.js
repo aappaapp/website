@@ -16,7 +16,7 @@ function powerfulsnowybullet() {
         $('body').append('<audio src=\'audio/snowypunch.mp3\' autoplay onended=\'audioended(this);\'></audio>');
         $('.powerfulsnowybullet').remove();
         snowypowerfulbulletdisapear();
-    }, 1000);
+    }, 3000);
     //moveitv(0, 0, $('.powerfulsnowybullet'));
 }
 setInterval(function () {
