@@ -1,6 +1,6 @@
 function ap43() {
     $('.ap43').height($(document).height());
-    $('.ap43').width($(document).height() * 1.3);
+    $('.ap43').width($(document).height() * 1.33333333333);
 }
 function speak(text, icon, speed, callback, element, sound) {
     if (sound == undefined || sound == '') {
@@ -16,7 +16,7 @@ function speak(text, icon, speed, callback, element, sound) {
         callback = function () { };
     }
     if (element == '' || element == undefined) {
-        $('body').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
+        $('.ap43').append('<div class=\'speakcontainer speakcontainer' + window.speaki + '\'><img src=' + icon + '><div class=\'speak speak' + window.speaki + '\'></div></div>');
     } else if (element == '.fightbox') {
         $(element).html('<div class=\'fightspeak speak' + window.speaki + '\'></div>');
     } else if (element.includes('.icon')) {
@@ -82,19 +82,9 @@ function gotofight(enemyinfo) {
         icon: enemyinfo['1'].icon
     }
     $('.storymode').append('<div class=\'fightarea\'><div class=\'icon\'><img src=\'' + enemy1.icon + '\'></div><div class=\'fightbox\'><div class=\'soul\'><img src=\'textures/entity/hero/soul.png\'></div></div><div class=\'fightbar\'><div class=\'attackbtn fightbarbtn\'>' + window.dialog1['ui.attackbtn'] + '</div></div></div>');
-    $('.fightbox').width((30 / 100) * $('.fightarea').width()).height((30 / 100) * $('.fightarea').width());
+    $('.fightbox').width((30 / 100) * $('.fightarea').height()).height((30 / 100) * $('.fightarea').height());
     $('.fightarea .icon').after('<div class=\'enemyhpbar\'><div class=\'enemyhpbarline\'></div></div>');
-    $('body').on('keydown.body4', function () {
-        if (event.which == 87) {
-            $('.soul').move(0, -10);
-        } else if (event.which == 65) {
-            $('.soul').move(-10, 0);
-        } else if (event.which == 83) {
-            $('.soul').move(0, 10);
-        } else if (event.which == 68) {
-            $('.soul').move(10, 0);
-        }
-    });
+    $('body').on('keydown.fightwalk', fightwalk);
     $('.attackbtn').click(function () {
         $('.fightbox').css({
             'width': '80%',
@@ -117,9 +107,34 @@ function gotofight(enemyinfo) {
     });
 }
 function leavefight() {
-    $('.fightarea').fadeOut(100, function () {
+    $('.fightarea').fadeOut(250, function () {
         $(this).remove();
     });
+    $('body').append('<audio src=\'audio/leavefight.mp3\' autoplay onended=\'audioended(this);\'></audio>');
+    $('body').off('keydown.fightwalk');
+    $('body').on('keydown.walk', walk);
+}
+function walk() {
+    if (event.which == 87) {
+        $('.main.entity').move(0, -10);
+    } else if (event.which == 65) {
+        $('.main.entity').move(-10, 0);
+    } else if (event.which == 83) {
+        $('.main.entity').move(0, 10);
+    } else if (event.which == 68) {
+        $('.main.entity').move(10, 0);
+    }
+}
+function fightwalk() {
+    if (event.which == 87) {
+        $('.soul').move(0, -10);
+    } else if (event.which == 65) {
+        $('.soul').move(-10, 0);
+    } else if (event.which == 83) {
+        $('.soul').move(0, 10);
+    } else if (event.which == 68) {
+        $('.soul').move(10, 0);
+    }
 }
 function confirmkeypress() {
     if (event.which == 13 || event.which == 69) {

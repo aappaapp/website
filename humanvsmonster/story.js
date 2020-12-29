@@ -80,15 +80,21 @@ function snowypowerfulbulletdisapear() {
     setTimeout(function () {
         speak('What happen?', '', 100, function () {
             speak('Go away!', '', 100, function () {
-                leavefight();
-                toralsave();
-                $('.snowy.entity').hide();
+                speak('Oh no, is her!', '', 100, function () {
+                    leavefight();
+                    toralsave();
+                    $('.snowy.entity').hide();
+                }, '.icon');
             }, '', 'none');
         }, '.icon');
     }, 1000);
 }
 function toralsave() {
-    speak('What a terrible creature, hurt such a weak child.', '', '', function () {
-        speak('Hi, I am Toral. The Guardian of the Remain.');
-    });
+    setTimeout(function () {
+        speak('What a terrible creature, hurt such a weak child.', '', '', function () {
+            speak('Hi, I am Toral. The Guardian of the Remain.', '', '', function () {
+                speak('Come with me, child.');
+            });
+        });
+    }, 1000)
 }

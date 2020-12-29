@@ -1,0 +1,15 @@
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: darkblue;
+    color: white;
+}
+.title{
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    position: absolute;
+    text-align: center;
+}
+.gamearea{
+    display: none;
+}
