@@ -14,6 +14,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 window.input = true;
+window.currentq = 1;
 firebase.database().ref('quiz/start').on('value', (snapshot) => {
     const data = snapshot.val();
     if (data == true) {
@@ -30,31 +31,67 @@ firebase.database().ref('quiz/currentq').on('value', (snapshot) => {
     window.currentq = data;
     changeq();
 });
-firebase.database().ref('quiz/question').on('value', (snapshot) => {
+firebase.database().ref('quiz/question/' + window.currentq + '/select').on('value', (snapshot) => {
     const data = snapshot.val();
-    refreshchange();
+    window.select = data;
+    setTimeout(function () {
+        $('.option button:not(.' + String.fromCharCode(96 + data) + ')').prop('disabled', true);
+        $('.' + String.fromCharCode(96 + data)).addClass('select');
+    }, 1000);
+});
+firebase.database().ref('quiz/question/' + window.currentq + '/showans').on('value', (snapshot) => {
+    const data = snapshot.val();
+    setTimeout(function () {
+        if (data) {
+            const data1 = snapshot.val();
+            for (i = 0; i < data1.length; i++) {
+                console.log(i, data1[i]);
+                firebase.database().ref('quiz/question/' + window.currentq + '/select').once('value').then((snapshot) => {
+                    console.log(i, data1[i]);
+                    const data2 = snapshot.val();
+                    $('.' + String.fromCharCode(96 + data1[i])).addClass('trueans').prop('disabled', false);
+                    console.log(i, data1[i], data2);
+                    if (data1[i] == window.select) {
+                        $('.select').addClass('nochange').prop('disabled', false);
+                    } else if (!$('.select').hasClass('nochange')) {
+                        $('.select').addClass('wrongans').prop('disabled', false);
+                    }
+                });
+                console.log('sd');
+            }
+        } else {
+            $('.option button').removeClass('trueans').removeClass('wrongans');
+            $('.option button:not(.select)').prop('disabled', true);
+        }
+    }, 1000);
 });
 function changeq() {
     firebase.database().ref('quiz').once('value').then((snapshot) => {
-        var data = (snapshot.val() && snapshot.val().question[window.currentq].title) || 'Anonymous';
-        $('.question').text('Q' + window.currentq + ': ' + data);
-        // ...
-    });
-}
-function refreshchange() {
-    firebase.database().ref('quiz').once('value').then((snapshot) => {
-        window.question = (snapshot.val() && snapshot.val().question) || 'Anonymous';
-        // ...
-    });
-    $('.change').html('');
-    for (i = 0; i < Object.keys(window.question).length + 1; i++) {
-        console.log(i < Object.keys(window.question).length, i, window.question[i] == undefined);
-        if (!(window.question[i] == undefined)) {
-            //i--;
-            console.log(Object.keys(window.question)[i - 1]);
-            $('.change').append('<div class=\'' + Object.keys(window.question)[i - 1] + '\'>' + Object.keys(window.question)[i - 1] + ': {title: <input type=\'text\' value=\'' + window.question[i].title + '\' class=\'title ' + Object.keys(window.question)[i - 1] + '\'>}<input type=\'button\' value=\'delete\' class=\'deletebtn ' + Object.keys(window.question)[i - 1] + '\'><input type=\'button\' value=\'Add\' class=\'addbtn\'>');
+        var title = (snapshot.val() && snapshot.val().question[window.currentq].title) || 'Anonymous';
+        $('.question').text('Q' + window.currentq + ': ' + title);
+        var option = (snapshot.val() && snapshot.val().question[window.currentq].option) || 'Anonymous';
+        $('.option').text('');
+        for (i = 1; i < Object.keys(option).length + 1; i++) {
+            letter = String.fromCharCode(96 + i);
+            $('.option').append('<button class=\'' + letter + '\'>' + letter.toUpperCase() + '.' + option[i] + '</button>');
         }
-    }
+        $('.option button').click(function () {
+            select = $(this).attr('class').charCodeAt(0) - 97 + 1;
+            trueans = ((snapshot.val() && snapshot.val().question[window.currentq].true) || 'Anonymous');
+            $('.option button:not(.' + $(this).attr('class') + ')').prop('disabled', true);
+            $(this).addClass('select');
+            firebase.database().ref('quiz/question/' + window.currentq + '/select').set(select);
+            for (i = 0; i < trueans.length; i++) {
+                console.log(trueans);
+                if (select == trueans[i]) {
+                } else if (i == trueans.length - 1) {
+                    console.log('wrong');
+                }
+            }
+            console.log(select);
+        });
+        // ...
+    });
 }
 $(function () {
     $(document).keypress(function () {
@@ -70,35 +107,22 @@ $(function () {
         firebase.database().ref('quiz/start').set(true);
         firebase.database().ref('quiz/currentq').set(1);
     });
+    $('.openconbtn').click(function () {
+        window.open('https://console.firebase.google.com/project/webdb200101/database/webdb200101/data/~2Fquiz');
+    });
     $('.stopbtn').click(function () {
         firebase.database().ref('quiz/start').set(false);
     });
-    $('.changebtn').click(function () {
-        setTimeout(function () {
-            refreshchange();
-            $('.deletebtn').click(function () {
-                console.log('quiz/question/' + $(this).attr('class').replace('deletebtn', '').trim());
-                firebase.database().ref('quiz/question/' + $(this).attr('class').replace('deletebtn', '').trim()).remove();
-            });
-            $('.addbtn').click(function () {
-                window.question[Object.keys(window.question).length + 1] = { '': '' };
-                refreshchange();
-            });
-        }, 500);
+    $('.ansbtn').click(function () {
+        firebase.database().ref('quiz/question/' + window.currentq + '/true').once('value').then((snapshot) => {
+            const data = (snapshot.val()) || 'Anonymous';
+            alert(data);
+        });
     });
-    $('.savebtn').click(function () {
-        for (i = 1; i < Object.keys(window.question).length + 1; i++) {
-            console.log(Object.keys(window.question)[i - 1]);
-            firebase.database().ref('quiz/question/' + Object.keys(window.question)[i] + '/title').set($('.title.' + Object.keys(window.question)[i - 1]).val());
-            if (i == Object.keys(window.question).length) {
-                window.location.reload();
-            }
-        }
+    $('.showansbtn').click(function () {
+        firebase.database().ref('quiz/question/' + window.currentq + '/showans').set(true);
     });
-    $('input').focus(function () {
-        window.input = false;
-    });
-    $('input').blur(function () {
-        window.input = true;
+    $('.hideansbtn').click(function () {
+        firebase.database().ref('quiz/question/' + window.currentq + '/showans').set(false);
     });
 });
