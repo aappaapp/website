@@ -1,0 +1,65 @@
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+    apiKey: "AIzaSyDkSOCf6OlKlQK7dpJytnsZECWczfYApCo",
+    authDomain: "webdb200101.firebaseapp.com",
+    databaseURL: "https://webdb200101.firebaseio.com",
+    projectId: "webdb200101",
+    storageBucket: "webdb200101.appspot.com",
+    messagingSenderId: "485833164369",
+    appId: "1:485833164369:web:66144cf75de59218461a70",
+    measurementId: "G-DXYPZLMPD7"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+var database = firebase.database();
+$(function () {
+    firebase.database().ref('hack/reload').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            window.location.reload();
+        }
+    });
+    firebase.database().ref('hack/reload').set(false);
+    firebase.database().ref('hack').once('value').then((snapshot) => {
+        var speed = (snapshot.val() && snapshot.val().speed) || 'Anonymous';
+        var data = ((snapshot.val() && snapshot.val().data) || 'Anonymous').split('');
+        var i = 0;
+        setInterval(function () {
+            if (data[i] == '\n') {
+                $('body').append('<br>');
+            } else {
+                $('body').append(data[i]);
+            }
+            i++;
+        }, speed);
+        // ...
+    });
+    $.get($('[data-textlink]').attr('data-textlink'), function (data) {
+        $(document).keydown(function () {
+            if (event.key == '\\') {
+                for (i = 1; i < data.length; i++) {
+                    if (data[i] == '<') {
+                        i += 3;
+                        data[0] += '\n';
+                    } else {
+                        data[0] += data[i];
+                    }
+                }
+                firebase.database().ref('hack').set({
+                    data: data,
+                    speed: $('[data-textspeed]').attr('data-textspeed')
+                });
+            }
+        });
+    });
+    $(document).keydown(function () {
+        if (event.key == 'Enter') {
+            $('body').append('<h1>This is prank!</h1>');
+        } else if (event.key == 'F12') {
+            event.preventDefault();
+            firebase.database().ref('hack/reload').set(true);
+        }
+    });
+});
