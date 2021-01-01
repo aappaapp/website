@@ -39,11 +39,11 @@ ondragstart = function (event) {
     event.preventDefault();
 }
 $(document).ready(function () {
-    var puzzle = $.query.get('puzzle');
-    console.log(puzzle);
-    if (puzzle == '8efu8evyut') { //message
-        $('body').html('tag: \'caesar shift\', \'only string was shift\', \'link behind the equals sign number sum\'<br>' + caesarShift('2344234fdf', 16));
-    } else if (puzzle == '2344234fdf') { //message link
+    var code = $.query.get('code');
+    console.log(code);
+    if (code == 't21y') { //message
+        $('body').html('212×390');
+    } else if (code == '2344234fdf') { //message link
         $('body').html('<div class=\'output\'></div>');
     }
 });

@@ -5,4 +5,4 @@ set name=%%~nf
 set /p content=<"%name%.txt"
 title %name% Package Batch
 cd %HOMEPATH%/Downloads
-nativefier --name "%name%" "%content%"
+nativefier --name "%name%" --full-screen "%content%"
