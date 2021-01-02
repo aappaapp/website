@@ -1,6 +1,7 @@
 function ap43() {
-    $('.ap43').height($(document).height());
-    $('.ap43').width($(document).height() * 1.33333333333);
+    $('.ap43').height($(document).height()).width($(document).height() * 1.33333333333);
+    $('.ap43left').height($(document).height()).width(($(document).width() - $('.ap43').width()) / 2);
+    $('.ap43right').height($(document).height()).width(($(document).width() - $('.ap43').width()) / 2);
 }
 function speak(text, icon, speed, callback, element, sound) {
     if (sound == undefined || sound == '') {
@@ -246,4 +247,32 @@ function chosenamefuc() {
 }
 function audioended(ele) {
     $(ele).remove();
+}
+function detectscene() {
+    setInterval(function () {
+        maintop = $('.main.entity').position().top;
+        mainleft = $('.main.entity').position().left;
+        vh = $('.ap43').height();
+        vw = $('.ap43').width();
+        if (maintop <= 0) {
+            scenechange('top');
+        } else if (maintop >= vh) {
+            scenechange('bottom');
+        } else if (mainleft >= vw + $('.ap43').position().left) {
+            scenechange('right');
+        } else if (mainleft <= $('.ap43').position().left) {
+            scenechange('left');
+        }
+    });
+}
+function scenechange(direct) {
+    sceneid = $('.storymode').attr('data-scene-id');
+    if (sceneid == 'first') {
+        if (direct == 'top') {
+            if (!window.asdasd) {
+                alert('Hello, this is nothing here.');
+                window.asdasd = true;
+            }
+        }
+    }
 }

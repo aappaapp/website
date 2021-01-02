@@ -72,7 +72,7 @@ dialog.snowy.hi1 = 這是你第一次來嗎？
 #
 dialog.snowy.hi2 = 這樣不行！必須有人告訴您這裡的規則！
 #
-dialog.snowy.hi3 = 但是這裡沒有人，所以讓我這個最善良的雪人來告訴你規則！
+dialog.snowy.hi3 = 但是這裡沒有人，所以讓我，這個最善良的雪人來告訴你規則吧！
 #
 dialog.snowy.fighttur = 好，我們開始吧！
 #
