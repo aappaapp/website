@@ -1,3 +1,71 @@
+$(function () {
+    window.cornertipsi = 0;
+    window.dev = $.cookie('dev');
+    uid = $.cookie('uid');
+    setTimeout(function () {
+        if (!(uid == 'UpC6gljhDFUUUjQNyxs6t7TavS43' || window.dev) && !window.location.href.includes('index')) {
+            window.location.replace('./unfinished.html');
+        }
+    }, 1000);
+    if (window.dev === 'true') {
+        window.dev = true;
+    } else {
+        window.dev = false;
+    }
+    $(document).keydown(function () {
+        if (event.which == 191) {
+            var ans = prompt('Please enter command:');
+            if (ans == 'dev123') {
+                if (window.dev != true) {
+                    window.dev = true;
+                    $.cookie('dev', true);
+                    cornertips('dev mode is open!', 2000);
+                } else {
+                    window.dev = false;
+                    $.cookie('dev', false);
+                    cornertips('dev mode is close.', 2000);
+                }
+            } else if (ans == 'hide-cursor') {
+                $('html').css('cursor', 'none');
+            } else if (ans == 'show-cursor') {
+                $('html').css('cursor', 'default');
+            } else if (ans == 'soler') {
+                setInterval(function () {
+                    alert('This is a secret.');
+                });
+            } else if (ans == 'login') {
+                if (window.dev) {
+                    window.location.replace('./game.html');
+                    $.cookie('login', true);
+                } else {
+                    alert('Please use normal method to login.');
+                }
+            } else {
+                try {
+                    eval(ans);
+                } catch (err) {
+                    alert(err.message);
+                }
+            }
+        }
+    });
+})
+function cornertips(text, time, callback) {
+    $('body').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + text + '</div>');
+    $('.cornertips' + window.cornertipsi).each(function () {
+        cornertipseach(this, time, callback);
+    });
+    window.cornertipsi++;
+}
+function cornertipseach(element, time, callback) {
+    var ths = element;
+    setTimeout(function () {
+        $(ths).remove();
+        if (callback != '' || callback != undefined) {
+            callback();
+        }
+    }, time);
+}
 function ap43() {
     $('.ap43').height($(document).height()).width($(document).height() * 1.33333333333);
     $('.ap43left').height($(document).height()).width(($(document).width() - $('.ap43').width()) / 2);
@@ -254,18 +322,26 @@ function detectscene() {
         mainleft = $('.main.entity').position().left;
         vh = $('.ap43').height();
         vw = $('.ap43').width();
+        direct = '';
         if (maintop <= 0) {
-            scenechange('top');
+            direct = 'top';
         } else if (maintop >= vh) {
-            scenechange('bottom');
+            direct = 'bottom';
         } else if (mainleft >= vw + $('.ap43').position().left) {
-            scenechange('right');
+            direct = 'right';
         } else if (mainleft <= $('.ap43').position().left) {
-            scenechange('left');
+            direct = 'left';
         }
+        offset = {
+            'left': mainleft,
+            'right': vw - mainleft,
+            'top': maintop,
+            'bottom': vh - maintop
+        }
+        scenechange(direct, offset);
     });
 }
-function scenechange(direct) {
+function scenechange(direct, offset) {
     sceneid = $('.storymode').attr('data-scene-id');
     if (sceneid == 'first') {
         if (direct == 'top') {

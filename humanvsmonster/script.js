@@ -16,29 +16,14 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 var uid = $.cookie('uid');
 function writeUserData(data, ref) {
-	firebase.database().ref('users/' + uid + '/' + ref).set({
+	firebase.database().ref('game2/users/' + uid + '/' + ref).set({
 		data: data
 	});
 }
 function readUserData(value) {
-	firebase.database().ref('/users/' + uid).once('value').then(function (snapshot) {
+	firebase.database().ref('game2/users/' + uid).once('value').then(function (snapshot) {
 		eval('window.data[\'' + value + '\'] = (snapshot.val() && snapshot.val().' + value + ') || undefined;');
 		// ...
-	});
-}
-function moveFbRecord(oldRef, newRef) {
-	oldRef.once('value', function (snap) {
-		newRef.set(snap.value(), function (error) {
-			if (!error) { oldRef.remove(); }
-			else if (typeof (console) !== 'undefined' && console.error) { console.error(error); }
-		});
-	});
-}
-function copyFbRecord(oldRef, newRef) {
-	oldRef.once('value', function (snap) {
-		newRef.set(snap.value(), function (error) {
-			if (error && typeof (console) !== 'undefined' && console.error) { console.error(error); }
-		});
 	});
 }
 function getDeviceType() {
@@ -532,7 +517,6 @@ function setvariable() {
 	window.keys = {};
 	window.speakwaititem = {};
 	window.speakwait = false;
-	window.cornertipsi = 0;
 	window.speaki = 0;
 	window.data = {};
 	window.weapon = {};
@@ -541,7 +525,6 @@ function setvariable() {
 	window.img = {};
 	window.img.name = [];
 	window.img.src = [];
-	window.dev = eval($.cookie('dev'));
 	$.cookie.json = true;
 	console.log('dev: ' + window.dev);
 	readUserData('fight');
@@ -656,22 +639,6 @@ function interval() {
 			}, 'fight/weapon');*/
 		}
 	}, 5000);
-}
-function cornertips(text, time, callback) {
-	$('body').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + text + '</div>');
-	$('.cornertips' + window.cornertipsi).each(function () {
-		cornertipseach(this, time, callback);
-	});
-	window.cornertipsi++;
-}
-function cornertipseach(element, time, callback) {
-	var ths = element;
-	setTimeout(function () {
-		$(ths).remove();
-		if (callback != '' || callback != undefined) {
-			callback();
-		}
-	}, time);
 }
 function restore() {
 	setInterval(function () {
@@ -963,34 +930,7 @@ $(document).ready(function () {
 		}
 	});
 	$(document).keydown(function () {
-		if (event.which == 191) {
-			var ans = prompt('Please enter command:');
-			if (ans == 'dev123') {
-				if (window.dev != true) {
-					window.dev = true;
-					$.cookie('dev', true);
-					cornertips('dev mode is open!', 2000);
-				} else {
-					window.dev = false;
-					$.cookie('dev', false);
-					cornertips('dev mode is close.', 2000);
-				}
-			} else if (ans == 'hide-cursor') {
-				$('html').css('cursor', 'none');
-			} else if (ans == 'show-cursor') {
-				$('html').css('cursor', 'default');
-			} else if (ans == 'soler') {
-				cornertips('This is a secret.', 5000, function () {
-					cornertips('But what you can do?', 5000);
-				});
-			} else if (ans == 'fighttest') { } else {
-				try {
-					eval(ans);
-				} catch (err) {
-					alert(err.message);
-				}
-			}
-		} else if (event.which == 18) {
+		if (event.which == 18) {
 			event.preventDefault();
 		} else if (event.which == 71) {
 			if (window.mode == undefined) {

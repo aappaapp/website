@@ -579,9 +579,9 @@ input[type='file']{
 	left: 0;
 	padding: 20px 0px;
 }
-.fightarea .fightbarbtn{
+.fightbarbtn{
 	border: 5px solid #ff9900;
-    width: 100px;
+    width: 200px;
     margin: 0px 50px;
     padding: 10px 20px;
     cursor: pointer;
@@ -589,8 +589,9 @@ input[type='file']{
     font-size: 25px;
 	font-weight: 700;
 	text-align: center;
+	background-color: black;
 }
-.fightarea .fightbarbtn:hover{
+.fightbarbtn:hover{
 	border-color: yellow;
 	color: yellow;
 }

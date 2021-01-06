@@ -20,7 +20,8 @@ if (navigator.onLine) {
 }
 $('.signinbtn').click(login);
 $('.signupbtn').click(signup);
-$(document).ready(function () {
+$(function () {
+    replace();
 });
 $(document).contextmenu(function () {
     event.preventDefault();
@@ -31,7 +32,7 @@ $(document).keydown(function () {
     }
 });
 function replace() {
-    if ($.cookie('login')) {
+    if ($.cookie('login') === 'true') {
         window.location.replace('./game.html');
     }
 }
