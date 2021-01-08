@@ -19,8 +19,8 @@ ui.hpbar = HP:
 ui.shopbtn = Shop!(unfinished)
 #
 ui.signoutbtn = Sign Out!
-#
-ui.cmdgenbtn = Human VS Monster Command Generator!
+
+##ui.cmdgenbtn = Human VS Monster Command Generator!##
 #
 ui.mpbar = MP:
 #

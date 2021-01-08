@@ -21,8 +21,8 @@ ui.startbtn = 開始！
 ui.shopbtn = 商店！（未完成）
 #
 ui.signoutbtn = 登出！
-#
-ui.cmdgenbtn = 人類與怪物命令產生器！
+
+##ui.cmdgenbtn = 人類與怪物命令產生器！##
 #
 ui.namedisplay = 您的姓名將顯示在這裡...
 #

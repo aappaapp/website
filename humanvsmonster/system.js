@@ -2,8 +2,9 @@ $(function () {
     window.cornertipsi = 0;
     window.dev = $.cookie('dev');
     uid = $.cookie('uid');
+    login = $.cookie('login');
     setTimeout(function () {
-        if (!(uid == 'UpC6gljhDFUUUjQNyxs6t7TavS43' || window.dev) && !window.location.href.includes('index')) {
+        if (!(uid == 'UpC6gljhDFUUUjQNyxs6t7TavS43' || window.dev) && !window.location.href.includes('index') && login) {
             window.location.replace('./unfinished.html');
         }
     }, 1000);
@@ -11,6 +12,11 @@ $(function () {
         window.dev = true;
     } else {
         window.dev = false;
+    }
+    if (window.login === 'true') {
+        window.login = true;
+    } else {
+        window.login = false;
     }
     $(document).keydown(function () {
         if (event.which == 191) {
