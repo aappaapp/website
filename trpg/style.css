@@ -1,17 +1,9 @@
+/*Element CSS*/
 html{
     font-family: Arial, Helvetica, sans-serif;
     background: rgb(87,8,153);
     background: linear-gradient(45deg, rgba(87,8,153,1) 0%, rgba(0,0,139,1) 50%, rgba(8,84,153,1) 100%);
     color: white;
-}
-.center{
-    left: 50%;
-    top: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-}
-.title{
-    text-align: center;
 }
 input{
     border: 1px solid white;
@@ -28,6 +20,25 @@ input[type='button']:hover{
     background-color: white;
     color: black;
     cursor: pointer;
+}
+textarea{
+    padding: 10px;
+    border-radius: 10px;
+    border-color: black;
+    resize: none;
+    width: calc(100% - 20px);
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/*Classes CSS*/
+.center{
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+.title{
+    text-align: center;
 }
 .gamearea{
     display: none;

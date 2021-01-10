@@ -1,0 +1,77 @@
+/*All Element CSS*/
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: lightblue;
+}
+body{
+    margin: 0;
+}
+div{
+    display: inline-block;
+}
+/*Classes CSS*/
+/*nav*/
+.nav{
+    position: absolute;
+    width: 100%;
+    background-color: #0000ff55;
+    height: 30px;
+}
+.nav-item{
+    height: 30px;
+}
+.nav-item .text{
+    top: 50%;
+    position: absolute;
+    transform: translate(0%, -50%);
+}
+.aden{
+    cursor: pointer;
+}
+.time{
+    position: absolute;
+    right: 10px;
+}
+/*Desktop*/
+.desktop{
+    position: absolute;
+    top: 30px;
+    /*height: calc(100vh - 30px);
+    width: 100vw;*/
+    padding: 10px;
+}
+.appicon{
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+}
+.appicon .img img{
+    max-width: 80px;
+}
+/*Window*/
+.window{
+    border: 1px solid black;
+    min-width: 100px;
+    background-color: white;
+    color: black;
+    position: absolute;
+}
+.window .title{
+    background-color: lightgrey;
+    width: 100%;
+    cursor: default;
+}
+.window .title .close{
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    cursor: default;
+}
+.window .title .close:hover{
+    background-color: red;
+    color: white;
+}
+.window .content{
+    padding: 10px;
+    width: calc(100% - 20px);
+}
