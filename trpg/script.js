@@ -39,19 +39,26 @@ function changeref(oldRef, newRef) {
     });
 }
 function sendcommand(command) {
-    if (command.includes('D')) {
-        command1 = command.split('D');
-        returnval = command + ': ' + dice(command1[0], command1[1]);
-    } else if (command.includes('serverid')) {
-        command1 = command.split(' ');
-        changeref('server/' + window.server.id, 'server/' + command1[1]);
-        returnval = 'System: The servername is changed. Please reload and enter the new id.'
-    } else if (command.includes('deleteserver')) {
-        firebase.database().ref('larp/server/' + window.server.id).remove();
-        returnval = 'System: The server is deleted. Please reload to quit.'
-    } else if (command.includes('character')) {
-        command1 = command.split(' ');
-        console.log(command1[1]);
+    if (command[0] == '/') {
+        if (command.includes('D')) {
+            command1 = command.split('D');
+            returnval = command + ': ' + dice(command1[0], command1[1]);
+        } else if (command.includes('serverid')) {
+            command1 = command.split(' ');
+            changeref('server/' + window.server.id, 'server/' + command1[1]);
+            returnval = 'System: The servername is changed. Please reload and enter the new id.'
+        } else if (command.includes('deleteserver')) {
+            firebase.database().ref('larp/server/' + window.server.id).remove();
+            returnval = 'System: The server is deleted. Please reload to quit.'
+        } else if (command.includes('character')) {
+            command1 = command.split(' ');
+            console.log(command1[1]);
+        } else if (command.includes('mod')) {
+            command1 = command.split(' ');
+            $.get('./mod/' + command1[1] + '/character.json', function (data) {
+                console.log(data);
+            });
+        }
     } else {
         returnval = command;
     }
@@ -94,7 +101,6 @@ function goserver() {
             $('.cmdsendbtn').click(function () {
                 displaycommand($('.cmdenter').val());
             });
-            console.log('[data-windowvalue=' + (window.windowvalue - 1) + ']');
         }
     });
     generatewindow({
