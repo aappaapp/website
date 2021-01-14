@@ -14,7 +14,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 var database = firebase.database();
-firebase.database().ref('larp').on('value', (snapshot) => {
+firebase.database().ref('game3').on('value', (snapshot) => {
     const data = snapshot.val();
     console.log(data);
 });
@@ -32,13 +32,13 @@ function dice(amount, sideval) {
     return returnval;
 }
 function changeref(oldRef, newRef) {
-    firebase.database().ref('larp/' + oldRef).once('value').then((snapshot) => {
+    firebase.database().ref('game3/' + oldRef).once('value').then((snapshot) => {
         var data = (snapshot.val()) || 'Anonymous';
-        firebase.database().ref('larp/' + newRef).set(data);
-        firebase.database().ref('larp/' + oldRef).remove();
+        firebase.database().ref('game3/' + newRef).set(data);
+        firebase.database().ref('game3/' + oldRef).remove();
     });
 }
-function sendcommand(command) {
+function sendcommand(command, callback) {
     if (command[0] == '/') {
         if (command.includes('D')) {
             command1 = command.split('D');
@@ -46,29 +46,45 @@ function sendcommand(command) {
         } else if (command.includes('serverid')) {
             command1 = command.split(' ');
             changeref('server/' + window.server.id, 'server/' + command1[1]);
-            returnval = 'System: The servername is changed. Please reload and enter the new id.'
+            returnval = 'System: The server\'s name is changed. Please reload and enter the new id.'
         } else if (command.includes('deleteserver')) {
-            firebase.database().ref('larp/server/' + window.server.id).remove();
+            firebase.database().ref('game3/server/' + window.server.id).remove();
             returnval = 'System: The server is deleted. Please reload to quit.'
         } else if (command.includes('character')) {
             command1 = command.split(' ');
-            console.log(command1[1]);
+            if (typeof window.character[command1[1]] != 'undefined') {
+                returnval = 'System: Your character is changed to ' + window.character[command1[1]];
+            } else {
+                returnval = 'System: Sorry, We can\'t find your character.';
+            }
         } else if (command.includes('mod')) {
             command1 = command.split(' ');
+            $.get('./mod/' + command1[1] + '/manifest.json', function (data) {
+                firebase.database().ref('game3/server/' + window.server.id + '/mod').set({
+                    id: data.header.id
+                });
+            });
             $.get('./mod/' + command1[1] + '/character.json', function (data) {
                 console.log(data);
+                window.character = data;
+                firebase.database().ref('game3/server/' + window.server.id + '/character').set(window.character);
+                returnval = 'System: The Mod is changed to: ' + command1[1];
             });
         }
     } else {
         returnval = command;
     }
-    return returnval;
+    setTimeout(function () {
+        callback(returnval);
+    }, 500);
 }
 function displaycommand(command) {
     console.log($('.msgdisplay').val() + '<br>' + sendcommand(command));
-    $('.cmdenter').val('');
-    $('.msgdisplay').val($('.msgdisplay').val() + '\n' + sendcommand(command));
-    $('.msgdisplay').scrollTop($('.msgdisplay')[0].scrollHeight - $('.msgdisplay').height());
+    sendcommand(command, function (data) {
+        $('.cmdenter').val('');
+        $('.msgdisplay').val($('.msgdisplay').val() + '\n' + data);
+        $('.msgdisplay').scrollTop($('.msgdisplay')[0].scrollHeight - $('.msgdisplay').height());
+    });
 }
 function goserver() {
     $('.homearea').hide();
@@ -131,11 +147,18 @@ $(function () {
             $('.signupbtn').click(signup);
         }
     });
+    $(document).keydown(function () {
+        if (event.key == 'F11') {
+            event.preventDefault();
+        } else if (event.key == 'Alt') {
+            event.preventDefault();
+        }
+    });
     $('.startbtn').click(function () {
         $('.startbtn').remove();
         $('.title').append('<input type=\'text\' placeholder=\'Server Id...\' class=\'serverinput\'><input type=\'button\' value=\'Create Server\' class=\'serverjoinbtn\'>');
         $('.serverinput').change(function () {
-            firebase.database().ref('/larp/server/' + $('.serverinput').val()).once('value').then((snapshot) => {
+            firebase.database().ref('/game3/server/' + $('.serverinput').val()).once('value').then((snapshot) => {
                 var data = (snapshot.val()) || 'Anonymous';
                 window.server = {
                     exist: false,
@@ -153,15 +176,15 @@ $(function () {
         $('.serverjoinbtn').click(function () {
             console.log('exist:', window.server.exist, 'id:', window.server.id);
             if (window.server.exist == false) {
-                firebase.database().ref('larp/server/' + window.server.id).set({
+                firebase.database().ref('game3/server/' + window.server.id).set({
                     owner: $.cookie('uid'),
                     online: [$.cookie('uid')]
                 });
             } else if (window.server.exist == true) {
-                firebase.database().ref('larp/server/' + window.server.id + '/online/').once('value').then((snapshot) => {
+                firebase.database().ref('game3/server/' + window.server.id + '/online/').once('value').then((snapshot) => {
                     var data = (snapshot.val()) || 'Anonymous';
                     console.log(Object.keys(data));
-                    firebase.database().ref('larp/server/' + window.server.id + '/online/' + Object.keys(data).length).set($.cookie('uid'));
+                    firebase.database().ref('game3/server/' + window.server.id + '/online/' + Object.keys(data).length).set($.cookie('uid'));
                 });
             }
             goserver();
