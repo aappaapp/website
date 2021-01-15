@@ -32,11 +32,33 @@ function time() {
         $('.time').html(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes());
     }, 100);
 }
+function logoutpage() {
+    $('body > *').hide();
+    $('body').append('<div class=\'logoutpage\'><div class=\'usericon\'><img src=\'./userphoto.png\'></div></div>');
+}
+function addBodyContent() {
+    $('body > *').wrapAll('<div class=\'content\'></div>');
+    $('body > .content').before('<div class=\'nav\'><div class=\'aden nav-item\'><div class=\'text\'>AdenOS</div></div><div class=\'nav-item\'><div class=\'text time\'></div></div></div>');
+    $('body >.nav').after($('.content > *'));
+    $('body > .content').remove();
+}
 function init() {
     window.windowvalue = 0;
-    $('body > *').wrapAll('<div class=\'content\'></div>');
-    $('.content').before('<div class=\'nav\'><div class=\'aden nav-item\'><div class=\'text\'>AdenOS</div></div><div class=\'nav-item\'><div class=\'text time\'></div></div></div>');
+    addBodyContent();
     appicon();
+    generatewindow({
+        title: 'Welcome to AdenOS',
+        content: '<h1>Welcome to AdenOS</h1><p>This is a operating system made with HTML, CSS, JS.</p><input type=\'button\' value=\'Close\' onclick=\'closewindow(this);\'>',
+        css: {
+            this: {
+                position: 'absoulte',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)'
+            }
+        }
+    });
+    logoutpage();
 }
 function appicon() {
     $('.appicon').hover(function () {
@@ -54,18 +76,6 @@ function appicon() {
 }
 $(function () {
     init();
-    generatewindow({
-        title: 'Welcome to AdenOS',
-        content: '<h1>Welcome to AdenOS</h1><p>This is a operating system made with HTML, CSS, JS.</p><input type=\'button\' value=\'Close\' onclick=\'closewindow(this);\'>',
-        css: {
-            this: {
-                position: 'absoulte',
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)'
-            }
-        }
-    });
     time();
     $('.aden').click(function () {
         alert('AdenOS');
