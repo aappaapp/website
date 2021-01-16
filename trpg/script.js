@@ -78,12 +78,15 @@ function sendcommand(command, callback) {
         callback(returnval);
     }, 500);
 }
+function displaymsg() {
+    $('.msgdisplay').val($('.msgdisplay').val() + '\n' + data);
+    $('.msgdisplay').scrollTop($('.msgdisplay')[0].scrollHeight - $('.msgdisplay').height());
+}
 function displaycommand(command) {
     console.log($('.msgdisplay').val() + '<br>' + sendcommand(command));
     sendcommand(command, function (data) {
         $('.cmdenter').val('');
-        $('.msgdisplay').val($('.msgdisplay').val() + '\n' + data);
-        $('.msgdisplay').scrollTop($('.msgdisplay')[0].scrollHeight - $('.msgdisplay').height());
+        displaymsg();
     });
 }
 function goserver() {

@@ -1,0 +1,30 @@
+<style>
+    .welcome-window-a {
+        text-decoration: none;
+        color: blue;
+        cursor: pointer;
+    }
+</style>
+<script>
+    $('.window-welcome-documentation').click(function () {
+        $.get('./documentation.html', function (data) {
+            generatewindow({
+                title: 'Documentation',
+                content: data,
+                css: {
+                    this: {
+                        position: 'absoulte',
+                        left: '50%',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+<h1>Welcome to AdenOS</h1>
+<p>This is a operating system made with HTML, CSS, JS.</p>
+<a class='welcome-window-a window-welcome-documentation'>Documentation</a>
+<input type='button' value='Close' onclick='closewindow(this);'>
