@@ -2,30 +2,35 @@ function generatewindow(config) {
     if (typeof config.path !== 'undefined') {
         $.get(config.path, function (data) {
             $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + data + '</div></div>');
-            $('[data-windowvalue=\'' + window.windowvalue + '\'] > .title').text($('[data-windowvalue=\'' + window.windowvalue + '\'] > .content > title').text());
+            $('[data-windowvalue=\'' + window.windowvalue + '\'] > .title').html($('[data-windowvalue=\'' + window.windowvalue + '\'] > .content > title').html() + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div>');
         });
     } else {
         $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + config.content + '</div></div>');
     }
-    if (typeof config.css !== 'undefined') {
-        console.log(config.css);
-        if (config.css.this != undefined) {
-            $('[data-windowvalue=\'' + window.windowvalue + '\']').css(config.css.this);
-        }
-        console.log('[data-windowvalue=\'' + window.windowvalue + '\'] ' + Object.keys(config.css)[0]);
-        for (i = 0; i < Object.keys(config.css).length; i++) {
-            $('[data-windowvalue=\'' + window.windowvalue + '\'] ' + Object.keys(config.css)[i]).css(config.css[Object.keys(config.css)[i]]);
-        }
-    }
-    if (typeof config.callback !== 'undefined') {
-        callback = config.callback;
-        callback();
-    }
-    $('[data-windowvalue=\'' + window.windowvalue + '\']').resizable();
-    window.windowvalue++;
     setTimeout(function () {
-        draggable();
-    }, 500)
+        if (typeof config.css !== 'undefined') {
+            if (config.css.this != undefined) {
+                $('[data-windowvalue=\'' + window.windowvalue + '\']').css(config.css.this);
+            }
+            for (i = 0; i < Object.keys(config.css).length; i++) {
+                $('[data-windowvalue=\'' + window.windowvalue + '\'] ' + Object.keys(config.css)[i]).css(config.css[Object.keys(config.css)[i]]);
+            }
+        }
+        if (typeof config.callback !== 'undefined') {
+            callback = config.callback;
+            callback();
+        }
+        $('[data-windowvalue=\'' + window.windowvalue + '\']').resizable();
+        window.windowvalue++;
+        windowfocus();
+        setTimeout(function () {
+            draggable();
+        }, 500);
+    }, 500);
+}
+function generateapp(config) {
+    $('.desktop').append('<div class=\'appicon\' data-openpath=\'' + config.path + '\'><div class=\'img\'><img src=\'docs.png\'></div><div class=\'name\'>Develop Documentation</div></div>');
+    appicon();
 }
 function closewindow(ele) {
     $(ele).closest('.window').remove();
@@ -53,16 +58,28 @@ function addBodyContent() {
 }
 function init() {
     window.windowvalue = 0;
+    window.ondragstart = function () {
+        event.preventDefault();
+    }
     addBodyContent();
+    time();
     appicon();
+    windowfocus();
+    $('.deskconmenu').conmenu('.desktop');
     //logoutpage();
+}
+function windowfocus() {
+    $('.window').mousedown(function () {
+        $('.window').removeClass('focus');
+        $(this).addClass('focus');
+    });
 }
 function appicon() {
     $('.appicon').click(function () {
         $('.appicon').removeClass('focus');
         $(this).addClass('focus');
     });
-    $('.desktop .push').click(function () {
+    $('').click(function () {
         $('.appicon').removeClass('focus');
     });
     $('.appicon').hover(function () {
@@ -70,10 +87,20 @@ function appicon() {
     }, function () {
         $('.appicon').removeClass('hover');
     });
+    $('.appicon').dblclick(function () {
+        console.log($(this));
+        generatewindow({
+            path: $(this).attr('data-openpath')
+        });
+    });
 }
 $(function () {
     init();
-    time();
+    $(document).keydown(function () {
+        if (event.key == 'Alt') {
+            event.preventDefault();
+        }
+    });
     $('.aden').click(function () {
         alert('AdenOS');
     });

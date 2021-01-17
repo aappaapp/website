@@ -5,7 +5,7 @@ $(function () {
             a: {
                 'text-decoration': 'none',
                 color: 'blue',
-                cursor: 'pointer'
+                display: 'block'
             }
         }
     });
