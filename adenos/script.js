@@ -1,13 +1,11 @@
-$.get('./welcome.html', function (data) {
+$(function () {
     generatewindow({
-        title: 'Welcome to AdenOS',
-        content: data,
+        path: './welcome.html',
         css: {
-            this: {
-                position: 'absoulte',
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)'
+            a: {
+                'text-decoration': 'none',
+                color: 'blue',
+                cursor: 'pointer'
             }
         }
     });

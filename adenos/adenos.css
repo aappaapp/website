@@ -35,11 +35,10 @@ div{
 }
 /*Desktop*/
 .desktop{
+    padding-top: 30px;
+    height: calc(100% - 30px);
+    width: 100%;
     position: absolute;
-    top: 30px;
-    /*height: calc(100vh - 30px);
-    width: 100vw;*/
-    padding: 10px;
 }
 .appicon{
     width: 100px;
@@ -48,6 +47,12 @@ div{
 }
 .appicon .img img{
     max-width: 80px;
+}
+.appicon.focus{
+    background-color: #0000ff11;
+}
+.appicon.hover{
+    background-color: #0000ff11;
 }
 /*Window*/
 .window{
@@ -75,4 +80,5 @@ div{
 .window .content{
     padding: 10px;
     width: calc(100% - 20px);
+    user-select: text;
 }

@@ -1,5 +1,12 @@
 function generatewindow(config) {
-    $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + config.content + '</div></div>');
+    if (typeof config.path !== 'undefined') {
+        $.get(config.path, function (data) {
+            $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + data + '</div></div>');
+            $('[data-windowvalue=\'' + window.windowvalue + '\'] > .title').text($('[data-windowvalue=\'' + window.windowvalue + '\'] > .content > title').text());
+        });
+    } else {
+        $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + config.content + '</div></div>');
+    }
     if (typeof config.css !== 'undefined') {
         console.log(config.css);
         if (config.css.this != undefined) {
@@ -15,14 +22,10 @@ function generatewindow(config) {
         callback();
     }
     $('[data-windowvalue=\'' + window.windowvalue + '\']').resizable();
-    $('[data-windowvalue=\'' + window.windowvalue + '\']').data('dragvalue', window.windowvalue);
-    $(':data(\'dragvalue\')').ondrag(function () {
-        ths = $('[data-windowvalue=\'' + window.windowvalue + '\']');
-        console.log(ths);
-        $(ths).css('transform', '0');
-    });
     window.windowvalue++;
-    draggable();
+    setTimeout(function () {
+        draggable();
+    }, 500)
 }
 function closewindow(ele) {
     $(ele).closest('.window').remove();
@@ -55,17 +58,17 @@ function init() {
     //logoutpage();
 }
 function appicon() {
-    $('.appicon').hover(function () {
-        $(this).css('background', '#0000ff11');
-    }, function () {
-        if (!$(this).hasClass('focus')) {
-            $(this).css('background', 'transparent');
-        }
-    });
     $('.appicon').click(function () {
-        $('.appicon').css('background', 'transparent');
-        $(this).css('background', '#0000ff11');
+        $('.appicon').removeClass('focus');
         $(this).addClass('focus');
+    });
+    $('.desktop .push').click(function () {
+        $('.appicon').removeClass('focus');
+    });
+    $('.appicon').hover(function () {
+        $(this).addClass('hover');
+    }, function () {
+        $('.appicon').removeClass('hover');
     });
 }
 $(function () {
