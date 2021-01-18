@@ -1,4 +1,7 @@
 /* jquery-contextmenu.js | Made By Aden Pun | adenpun.github.io */
+$(function () {
+    $('.conmenu').hide();
+});
 $.fn.conmenu = function (place, callback) {
     var ele = this;
     $(this).hide();

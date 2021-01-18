@@ -57,7 +57,7 @@ function navbarapp() {
     }
 }
 function generateapp(config) {
-    $('.desktop').append('<div class=\'appicon\' data-openpath=\'' + config.path + '\'><div class=\'img\'><img src=\'docs.png\'></div><div class=\'name\'>Develop Documentation</div></div>');
+    $('.desktop').append('<div class=\'appicon\' data-openpath=\'' + config.path + '\'><div class=\'img\'><img src=\'' + config.icon + '\'></div><div class=\'name\'>' + config.name + '</div></div>');
     appicon();
 }
 function closewindow(ele) {
