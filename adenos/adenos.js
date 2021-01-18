@@ -21,12 +21,40 @@ function generatewindow(config) {
             callback();
         }
         $('[data-windowvalue=\'' + window.windowvalue + '\']').resizable();
-        window.windowvalue++;
-        windowfocus();
         setTimeout(function () {
+            $('.window').removeClass('focus');
+            $('[data-windowvalue=\'' + window.windowvalue + '\']').addClass('focus');
+        });
+        setTimeout(function () {
+            windowfocus();
+            navbarapp();
+            $('.titleconmenu').children('.closewin').data('close', window.windowvalue);
+            $('.titleconmenu').conmenu('[data-windowvalue=\'' + window.windowvalue + '\']', function () {
+                var ths = '.titleconmenu';
+                console.log($(ths).children('.closewin'));
+                $(ths).children('.closewin').click(function () {
+                    closewindow($('[data-windowvalue=\'' + $(ths).children().data('close') + '\']'));
+                });
+            });
             draggable();
+            setTimeout(function () {
+                window.windowvalue++;
+            }, 500);
         }, 500);
     }, 500);
+}
+function navbarapp() {
+    allapp = '<div class=\'text\'>Open App(s): </div>';
+    for (i = 0; i < $('.window').length; i++) {
+        str = $('.window').eq(i).children('.title').text();
+        str = str.substr(0, str.length - 1);
+        allapp += '<div class=\'nav-item\'><div class=\'text\'>' + str + '</div></div>';
+    }
+    if ($('.window').length != 0) {
+        $('.allapp').html(allapp);
+    } else {
+        $('.allapp').html('<div class=\'text\'></div>');
+    }
 }
 function generateapp(config) {
     $('.desktop').append('<div class=\'appicon\' data-openpath=\'' + config.path + '\'><div class=\'img\'><img src=\'docs.png\'></div><div class=\'name\'>Develop Documentation</div></div>');
@@ -34,6 +62,7 @@ function generateapp(config) {
 }
 function closewindow(ele) {
     $(ele).closest('.window').remove();
+    navbarapp();
 }
 function draggable() {
     $('.window').draggable({
@@ -43,7 +72,7 @@ function draggable() {
 function time() {
     setInterval(function () {
         date = new Date;
-        $('.time').html(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes());
+        $('.time').children().html(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes());
     }, 100);
 }
 function logoutpage() {
@@ -52,7 +81,7 @@ function logoutpage() {
 }
 function addBodyContent() {
     $('body > *').wrapAll('<div class=\'content\'></div>');
-    $('body > .content').before('<div class=\'nav\'><div class=\'aden nav-item\'><div class=\'text\'>AdenOS</div></div><div class=\'nav-item\'><div class=\'text time\'></div></div></div>');
+    $('body > .content').before('<div class=\'nav\'><div class=\'aden nav-item\'><div class=\'text\'>AdenOS</div></div><div class=\'allapp nav-item\'></div><div class=\'nav-item time\'><div class=\'text\'></div></div></div>');
     $('body >.nav').after($('.content > *'));
     $('body > .content').remove();
 }
@@ -88,7 +117,6 @@ function appicon() {
         $('.appicon').removeClass('hover');
     });
     $('.appicon').dblclick(function () {
-        console.log($(this));
         generatewindow({
             path: $(this).attr('data-openpath')
         });

@@ -24,18 +24,22 @@ div{
 }
 .nav-item{
     height: 30px;
+    padding: 0px 10px;
 }
 .nav-item .text{
     top: 50%;
-    position: absolute;
+    position: relative;
     transform: translate(0%, -50%);
+}
+.allapp{
+    width: fit-content;
 }
 .aden{
     cursor: pointer;
 }
 .time{
     position: absolute;
-    right: 10px;
+    right: 0;
 }
 /*Desktop*/
 .desktop{
@@ -68,7 +72,7 @@ div{
     position: absolute;
 }
 .window.focus{
-    z-index: 100;
+    z-index: 50;
     opacity: 1;
 }
 .window .title{

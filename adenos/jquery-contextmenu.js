@@ -1,5 +1,6 @@
-$.fn.conmenu = function (place) {
-    ele = this;
+/* jquery-contextmenu.js | Made By Aden Pun | adenpun.github.io */
+$.fn.conmenu = function (place, callback) {
+    var ele = this;
     $(this).hide();
     $(this).css({
         position: 'absolute',
@@ -12,10 +13,18 @@ $.fn.conmenu = function (place) {
             top: event.pageY,
             left: event.pageX
         });
+        console.log();
+        if (typeof callback != 'undefined') {
+            callback(ele, place);
+        }
     });
-    $(document).click(function () {
+    $(document).mousedown(function () {
         if (typeof $(event.target).closest(ele)[0] == 'undefined') {
             $(ele).hide();
+        } else {
+            setTimeout(function () {
+                $(ele).hide();
+            }, 500);
         }
     });
 }
