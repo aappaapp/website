@@ -13,6 +13,10 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+delaytime = 60000;
+firebase.database().ref('fakewncry/delaytime').on('value', (snapshot) => {
+    delaytime = snapshot.val();
+});
 firebase.database().ref('fakewncry/start').on('value', (snapshot) => {
     var data = snapshot.val();
     if (data) {
@@ -20,12 +24,12 @@ firebase.database().ref('fakewncry/start').on('value', (snapshot) => {
         exeonce = true;
         firebase.database().ref('fakewncry/time').once('value').then((snapshot) => {
             var data1 = snapshot.val();
-            var date = new Date(data1 + 60000);
-            $('.paybeforetime').text(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
             var loop = setInterval(function () {
+                var date = new Date(data1 + delaytime);
+                $('.paybeforetime').text(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
                 var date2 = new Date;
                 if (date2 >= date && exeonce) {
-                    alert('This is a prank');
+                    alert('This is a prank!');
                     exeonce = false;
                     clearInterval(loop);
                 }
@@ -42,7 +46,7 @@ firebase.database().ref('fakewncry/start').on('value', (snapshot) => {
 });
 $(function () {
     $(document).keydown(function () {
-        var diskey = ['F11', 'F12', 'I'];
+        var diskey = ['F11', 'F12', 'I', 'F8'];
         for (i = 0; i < diskey.length; i++) {
             if (event.key == diskey[i]) {
                 event.preventDefault();
