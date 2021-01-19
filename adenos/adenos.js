@@ -81,7 +81,7 @@ function logoutpage() {
 }
 function addBodyContent() {
     $('body > *').wrapAll('<div class=\'content\'></div>');
-    $('body > .content').before('<div class=\'nav\'><div class=\'aden nav-item\'><div class=\'text\'>AdenOS</div></div><div class=\'allapp nav-item\'></div><div class=\'nav-item time\'><div class=\'text\'></div></div></div>');
+    $('body > .content').before('<div class=\'nav\'><div class=\'aden nav-item\'><div class=\'text\'>AdenOS</div></div><div class=\'allapp nav-item\'><div class=\'text\'></div></div><div class=\'nav-item time\'><div class=\'text\'></div></div></div>');
     $('body >.nav').after($('.content > *'));
     $('body > .content').remove();
 }
