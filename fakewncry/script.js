@@ -28,6 +28,8 @@ firebase.database().ref('fakewncry/start').on('value', (snapshot) => {
                 var date = new Date(data1 + delaytime);
                 $('.paybeforetime').text(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
                 var date2 = new Date;
+                var date3 = new Date(date - date2);
+                $('.payremaintime').text(date3.getHours() + ':' + date3.getMinutes() + ':' + date3.getSeconds());
                 if (date2 >= date && exeonce) {
                     alert('This is a prank!');
                     exeonce = false;
@@ -45,6 +47,9 @@ firebase.database().ref('fakewncry/start').on('value', (snapshot) => {
     }
 });
 $(function () {
+    $(document).contextmenu(function () {
+        event.preventDefault();
+    });
     $(document).keydown(function () {
         var diskey = ['F11', 'F12', 'I', 'F8'];
         for (i = 0; i < diskey.length; i++) {
