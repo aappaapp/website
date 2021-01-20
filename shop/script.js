@@ -18,7 +18,13 @@ try {
 function lang() {
     var query = $.query.get('lang');
     if (query == '') {
-        location.replace($.query.set('lang', navigator.language))
+        if (typeof $.cookie('lang') == 'undefined') {
+            location.replace($.query.set('lang', navigator.language));
+        } else {
+            location.replace($.query.set('lang', $.cookie('lang')));
+        }
+    } else {
+        $.cookie('lang', query);
     }
     firebase.database().ref('shop/lang').once('value', function (snapshot) {
         if (query.includes('zh')) {
@@ -30,8 +36,14 @@ function lang() {
         $('.header-link.hot-item').text(data['hot item']);
     });
 }
-console.log('sd');
+function init() {
+    lang();
+    setTimeout(function () {
+        $('.content').css('top', $('header').height());
+    }, 500);
+}
 $(function () {
+    init();
     $.get('header.html', function (data) {
         $('.content').before(data);
         $('.header-title').click(function () {
@@ -41,6 +53,5 @@ $(function () {
     $.get('footer.html', function (data) {
         $('.content').after(data);
         console.log($('body'));
-        lang();
     });
 });
