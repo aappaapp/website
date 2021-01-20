@@ -20,7 +20,9 @@ function generatewindow(config) {
             callback = config.callback;
             callback();
         }
-        $('[data-windowvalue=\'' + window.windowvalue + '\']').resizable();
+        $('[data-windowvalue=\'' + window.windowvalue + '\']').resizable({
+            handles: "e, s, w, n, se, sw, nw, ne"
+        });
         setTimeout(function () {
             $('.window').removeClass('focus');
             $('[data-windowvalue=\'' + window.windowvalue + '\']').addClass('focus');
