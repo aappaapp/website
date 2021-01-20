@@ -30,6 +30,7 @@ firebase.database().ref('fakewncry/start').on('value', (snapshot) => {
                 var date2 = new Date;
                 var date3 = new Date(date - date2);
                 $('.payremaintime').text(date3.getHours() + ':' + date3.getMinutes() + ':' + date3.getSeconds());
+                console.log(date3);
                 if (date2 >= date && exeonce) {
                     alert('This is a prank!');
                     exeonce = false;
