@@ -1,0 +1,5 @@
+$(function () {
+    generatewindow({
+        path: 'sd'
+    });
+});

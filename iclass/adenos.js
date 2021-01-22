@@ -3,7 +3,6 @@ function generatewindow(config) {
         $.get(config.path, function (data) {
             $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + data + '</div></div>');
             $('[data-windowvalue=\'' + window.windowvalue + '\'] > .title').html($('[data-windowvalue=\'' + window.windowvalue + '\'] > .content > title').html() + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div>');
-            $('[data-windowvalue=\'' + window.windowvalue + '\']').trigger('ready');
         });
     } else {
         $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + config.content + '</div></div>');
@@ -32,7 +31,7 @@ function generatewindow(config) {
             windowfocus();
             navbarapp();
             $('.titleconmenu').children('.closewin').data('close', window.windowvalue);
-            $('.titleconmenu').conmenu('[data-windowvalue=\'' + window.windowvalue + '\'] > .title', function () {
+            $('.titleconmenu').conmenu('[data-windowvalue=\'' + window.windowvalue + '\']', function () {
                 var ths = '.titleconmenu';
                 console.log($(ths).children('.closewin'));
                 $(ths).children('.closewin').click(function () {
@@ -131,9 +130,6 @@ $(function () {
         if (event.key == 'Alt') {
             event.preventDefault();
         }
-    });
-    $(document).contextmenu(function () {
-        event.preventDefault();
     });
     $('.aden').click(function () {
         alert('AdenOS');

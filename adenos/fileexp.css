@@ -1,0 +1,7 @@
+.fileexp{
+    user-select: none;
+}
+.fileexp .sidebar div{
+    display: block;
+    cursor: pointer;
+}
