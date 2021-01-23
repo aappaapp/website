@@ -1,3 +1,6 @@
+$(function () {
+    $('body').append('<div class=\'fileexpconmenu\'>asdasd</div>');
+});
 function welcomeapp() {
     generatewindow({
         path: './welcome.html'

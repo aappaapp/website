@@ -1,14 +1,5 @@
 function generatewindow(config) {
-    if (typeof config.path !== 'undefined') {
-        $.get(config.path, function (data) {
-            $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + data + '</div></div>');
-            $('[data-windowvalue=\'' + window.windowvalue + '\'] > .title').html($('[data-windowvalue=\'' + window.windowvalue + '\'] > .content > title').html() + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div>');
-            $('[data-windowvalue=\'' + window.windowvalue + '\']').trigger('ready');
-        });
-    } else {
-        $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + config.content + '</div></div>');
-    }
-    setTimeout(function () {
+    var afterappend = function () {
         if (typeof config.css !== 'undefined') {
             if (config.css.this != undefined) {
                 $('[data-windowvalue=\'' + window.windowvalue + '\']').css(config.css.this);
@@ -24,27 +15,32 @@ function generatewindow(config) {
         $('[data-windowvalue=\'' + window.windowvalue + '\']').resizable({
             handles: "e, s, w, n, se, sw, nw, ne"
         });
-        setTimeout(function () {
-            $('.window').removeClass('focus');
-            $('[data-windowvalue=\'' + window.windowvalue + '\']').addClass('focus');
-        });
-        setTimeout(function () {
-            windowfocus();
-            navbarapp();
-            $('.titleconmenu').children('.closewin').data('close', window.windowvalue);
-            $('.titleconmenu').conmenu('[data-windowvalue=\'' + window.windowvalue + '\'] > .title', function () {
-                var ths = '.titleconmenu';
-                console.log($(ths).children('.closewin'));
-                $(ths).children('.closewin').click(function () {
-                    closewindow($('[data-windowvalue=\'' + $(ths).children().data('close') + '\']'));
-                });
+        $('.window').removeClass('focus');
+        $('[data-windowvalue=\'' + window.windowvalue + '\']').addClass('focus');
+        windowfocus();
+        navbarapp();
+        $('.titleconmenu').children('.closewin').data('close', window.windowvalue);
+        $('.titleconmenu').conmenu('[data-windowvalue=\'' + window.windowvalue + '\'] > .title', function () {
+            var ths = '.titleconmenu';
+            console.log($(ths).children('.closewin'));
+            $(ths).children('.closewin').click(function () {
+                closewindow($('[data-windowvalue=\'' + $(ths).children().data('close') + '\']'));
             });
-            draggable();
-            setTimeout(function () {
-                window.windowvalue++;
-            }, 500);
-        }, 500);
-    }, 500);
+        });
+        draggable();
+        window.windowvalue++;
+    };
+    if (typeof config.path !== 'undefined') {
+        $.get(config.path, function (data) {
+            $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + data + '</div></div>');
+            $('[data-windowvalue=\'' + window.windowvalue + '\'] > .title').html($('[data-windowvalue=\'' + window.windowvalue + '\'] > .content > title').html() + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div>');
+            $('[data-windowvalue=\'' + window.windowvalue + '\']').trigger('ready');
+            afterappend();
+        });
+    } else {
+        $('body').append('<div class=\'window\' data-windowvalue=\'' + window.windowvalue + '\'><div class=\'title\'>' + config.title + '<div class=\'close\' onclick=\'closewindow(this);\'>X</div></div><br><div class=\'content\'>' + config.content + '</div></div>');
+        afterappend();
+    }
 }
 function navbarapp() {
     allapp = '<div class=\'text\'>Open App(s): </div>';
