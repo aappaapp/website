@@ -13,4 +13,7 @@ $(function () {
             scrollTop: $('.aboutme').position().top - $('nav').height()
         }, 2000);*/
     });
+    $('.orgwebbtn').click(function () {
+        location.href = '../index.html';
+    });
 });
