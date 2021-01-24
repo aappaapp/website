@@ -16,7 +16,7 @@ $(function () {
         }
     });
 });
-function reloadchange() {
+function reloadchange(callback) {
     setTimeout(function () {
         var data = langdata;
         var i;
@@ -32,5 +32,6 @@ function reloadchange() {
             $('html').html($('html').html().replace('{{' + data2[0].trim() + '}}', data2[1]));
             console.log(data2);
         }
+        callback();
     }, 1000);
 }
