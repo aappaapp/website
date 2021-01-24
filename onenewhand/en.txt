@@ -1,0 +1,4 @@
+text.title = onenewhand's Website;
+text.nav.title = onenewhand's Website;
+text.about.title = About Me;
+text.about.content = I am<a href='https://www.youtube.com/channel/UCpX-BHOzMXL2s0T_EkjfhwQ' target='_blank'>Youtuber</a>.<br>Yes, nothing else.;

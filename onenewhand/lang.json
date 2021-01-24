@@ -1,0 +1,10 @@
+{
+    "zh": {
+        "langcode": "brolang.includes('zh')",
+        "path": "./zh.txt"
+    },
+    "en": {
+        "langcode": "brolang.includes('en')",
+        "path": "./en.txt"
+    }
+}

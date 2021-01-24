@@ -8,8 +8,9 @@ $(function () {
         $('.nav-title').click(function () {
             location = './index.html';
         });
-        $('html, body').animate({
+        reloadchange();
+        /*$('html, body').animate({
             scrollTop: $('.aboutme').position().top - $('nav').height()
-        }, 2000);
+        }, 2000);*/
     });
 });
