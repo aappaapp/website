@@ -7,14 +7,12 @@ function gamestart() {
     ballphy();
 }
 function ballphy() {
-    $('.ball').data('angle', 10);
-    var angle = $('.ball').data('angle');
-    var speed = 10;
-    var anglespeed = 100;
-    var anglemulit = 100;
-    var angledivis = 1;
-    var randomrange = 0;
-    var resetvalue = 1000;
+    var orgspeed = 2;
+    $('.ball').data('speed', orgspeed);
+    var speed = $('.ball').data('speed');
+    var angle = 20;
+    var speeddivis = 100;
+    var resetvalue = 2;
     setInterval(function () {
         var isOverlap = $('.bar').overlap({
             rect: {
@@ -24,23 +22,24 @@ function ballphy() {
                 h: $('.ball').height()
             }
         });
-        angle = $('.ball').data('angle');
+        speed = $('.ball').data('speed');
         $('.ball').css({
-            left: $('.ball').position().left + speed * (angle / anglespeed),
-            top: $('.ball').position().top + speed * (angle / (anglespeed * anglemulit))
+            left: $('.ball').position().left + speed * (speed / speed),
+            top: $('.ball').position().top + speed * (speed / (speed * angle))
         });
-        if (angle >= resetvalue || angle <= -resetvalue) {
-            $('.ball').data('angle', 10);
+        if (speed >= resetvalue) {
+            $('.ball').data('speed', orgspeed);
         }
-        console.log(angle);
-        $('.ball').before('<div class=\'ballmark\' style=\'left: ' + $('.ball').position().left + ';top: ' + $('.ball').position().top + ';\'></div>');
+        if (speed <= -resetvalue) {
+            $('.ball').data('speed', -orgspeed);
+        }
+        //$('.ball').before('<div class=\'ballmark\' style=\'left: ' + $('.ball').position().left + ';top: ' + $('.ball').position().top + ';\'></div>');
         $('.ballmark').width($('.bar').width() / 2).height($('.bar').width() / 2);
         if (typeof isOverlap[0] != 'undefined') {
-            var random = Math.floor(Math.random() * (angledivis + randomrange)) + (angledivis - randomrange);
             if ($(isOverlap).hasClass('rightbar')) {
-                $('.ball').data('angle', angle - (anglemulit / random));
+                $('.ball').data('speed', speed - (angle / speeddivis));
             } else if (($(isOverlap).hasClass('leftbar'))) {
-                $('.ball').data('angle', angle + (anglemulit / random));
+                $('.ball').data('speed', speed + (angle / speeddivis));
             }
         } else { }
     });
