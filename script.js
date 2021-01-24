@@ -16,6 +16,12 @@ function github_page() {
 function tools_page() {
     window.top.location.href = './tools.html';
 }
+function onenoob_page() {
+    window.top.location.href = './onenewhand';
+}
+function pingpong_page() {
+    window.top.location.href = './pingpong';
+}
 function game_page(value) {
     if (value == 1) {
         window.top.location.href = './ADENTALE';
