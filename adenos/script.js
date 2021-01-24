@@ -1,4 +1,3 @@
 $(function () {
-    //welcomeapp();
-    fileexp();
+    welcomeapp();
 });

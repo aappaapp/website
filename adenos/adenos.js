@@ -103,6 +103,7 @@ function windowfocus() {
     });
 }
 function appicon() {
+    $('.appicon').off();
     $('.appicon').click(function () {
         $('.appicon').removeClass('focus');
         $(this).addClass('focus');

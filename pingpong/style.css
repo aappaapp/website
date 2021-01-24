@@ -28,3 +28,8 @@ div{
     background-color: red;
     inset: 50%;
 }
+.ballmark{
+    border-radius: 50%;
+    position: absolute;
+    background-color: red;
+}

@@ -26,4 +26,5 @@
 }
 .fileexp .filedisplay *{
     display: block;
+    cursor: pointer;
 }

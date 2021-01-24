@@ -1,0 +1,21 @@
+{
+    "welcome": {
+        "path": "./welcome.html",
+        "icon": "./testapp.png",
+        "name": "Welcome"
+    },
+    "document": {
+        "path": "./documentation.html",
+        "name": "Develop Documentation",
+        "icon": "./docs.png"
+    },
+    "draw": {
+        "path": "./draw.html",
+        "name": "Draw"
+    },
+    "fileexp": {
+        "path": "./fileexp.html",
+        "name": "File Explorer",
+        "icon": "fileexp.png"
+    }
+}
