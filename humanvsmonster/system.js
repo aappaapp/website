@@ -2,22 +2,11 @@ $(function () {
 	window.cornertipsi = 0;
 	window.dev = $.cookie('dev');
 	uid = $.cookie('uid');
-	login = $.cookie('login');
 	setTimeout(function () {
-		if (!(uid == 'UpC6gljhDFUUUjQNyxs6t7TavS43' || window.dev) && !window.location.href.includes('index') && login) {
-			window.location.replace('./unfinished.html');
+		if (window.dev == 'true') {
+			window.location.replace('./game.html');
 		}
 	}, 1000);
-	if (window.dev === 'true') {
-		window.dev = true;
-	} else {
-		window.dev = false;
-	}
-	if (window.login === 'true') {
-		window.login = true;
-	} else {
-		window.login = false;
-	}
 	$(document).keydown(function () {
 		if (event.which == 191) {
 			var ans = prompt('Please enter command:');
@@ -57,7 +46,7 @@ $(function () {
 	});
 })
 function cornertips(text, time, callback) {
-	$('body').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + text + '</div>');
+	$('.ap43').append('<div class=\'cornertips cornertips' + window.cornertipsi + '\'>' + text + '</div>');
 	$('.cornertips' + window.cornertipsi).each(function () {
 		cornertipseach(this, time, callback);
 	});
@@ -110,7 +99,7 @@ function speakeach(element, text, speed, speaki, callback, sound) {
 	var i = 0;
 	window.speakspeed = speed;
 	//text = text.split('\\w');
-	$(ths).parent().css('display', 'block');
+	$(ths).parent().show();
 	//if (Array.isArray(text)) { } else {
 	var itv = setInterval(function () {
 		$('body').on('keydown.body3', function () {
@@ -227,6 +216,8 @@ function notconfirmkeypress() {
 }
 
 function story() {
+	$('.nameselect').html('').append('<input type=\'text\' class=\'namedisplay\' readonly>');
+	$('.namedisplay').attr('placeholder', window.dialog1['ui.namedisplay']);
 	$('title').text(window.dialog1['ui.storytitle']);
 	ue = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 	le = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -289,34 +280,34 @@ function story() {
 	});
 }
 function chosenamefuc() {
-	$('.nameselect').css('display', 'none');
+	var reset = function () {
+		$('.nameconfirm').hide();
+		$('.nameselect').show();
+		$('.namedisplay').val('');
+		story();
+		$('body').off('keydown.body2');
+	};
+	var yes = function () {
+		$('.nameconfirm').hide();
+		$('.nameselect').hide();
+		$('.map').show();
+		$('body').off('keydown.body2');
+		storystart();
+	};
+	$('.nameselect').hide();
 	$('.nameconfirm').show();
 	$('.nameconfirm h1').html('Your name is ' + window.name + ',<br>do you confirm?');
 	$('.notconfirm').click(function () {
-		$('.nameconfirm').css('display', 'none');
-		$('.nameselect').css('display', 'block');
-		$('.namedisplay').val('');
-		$('body').off('keydown.body2');
+		reset();
 	});
 	$('.confirm').click(function () {
-		$('.nameconfirm').css('display', 'none');
-		$('.nameselect').css('display', 'none');
-		$('.map').css('display', 'block');
-		$('body').off('keydown.body2');
-		storystart();
+		yes();
 	});
 	$('body').on('keydown.body2', function () {
 		if (notconfirmkeypress()) {
-			$('.nameconfirm').css('display', 'none');
-			$('.nameselect').css('display', 'block');
-			$('.namedisplay').val('');
-			$('body').off('keydown.body2');
+			reset();
 		} else if (confirmkeypress()) {
-			$('.nameconfirm').css('display', 'none');
-			$('.nameselect').css('display', 'none');
-			$('.map').css('display', 'block');
-			$('body').off('keydown.body2');
-			storystart();
+			yes();
 		}
 	});
 }
