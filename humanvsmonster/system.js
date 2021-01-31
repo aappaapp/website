@@ -364,3 +364,89 @@ function interactive() {
 		}
 	});
 }
+function readfile() {
+	$.get('./entity.json', function (data) {
+		var entity = data.all_entity;
+		window.entity = [];
+		window.entity1 = {};
+		for (i = 0; i < entity.length; i++) {
+			$.get('./entity/hero/' + entity[i] + '.json', function (data) {
+				window.entity.push(data);
+				window.entity1[data.id] = data;
+			});
+		}
+	});
+	$.get('./block.json', function (data) {
+		var block = data.all_block;
+		window.block = [];
+		window.block1 = {};
+		for (i = 0; i < block.length; i++) {
+			$.get('./block/' + block[i] + '.json', function (data) {
+				window.block.push(data);
+				window.block1[data.id] = data;
+			});
+		}
+	});
+	$.get('./item.json', function (data) {
+		var item = data.all_item;
+		window.item = [];
+		window.item1 = {};
+		for (i = 0; i < item.length; i++) {
+			$.get('./item/weapon/' + item[i] + '/' + item[i] + '.json', function (data) {
+				window.item.push(data);
+				window.item1[data.id] = data;
+			});
+		}
+	});
+	if (navigator.language.includes('zh')) {
+		$.get('./dialog/zh.txt', function (data) {
+			dialogfuc(data);
+		});
+	} else if (navigator.language.includes('en')) {
+		$.get('./dialog/en.txt', function (data) {
+			dialogfuc(data);
+		});
+	} else {
+		$.get('./dialog/en.txt', function (data) {
+			dialogfuc(data);
+		});
+		alert('We don\'t have language: ' + navigator.language + '(ISO 639-1) in Human VS Monster! We hope anybody can help us to translate other');
+	}
+	$.get('./thanks.txt', function (data) {
+		window.thankstext = data.split('\n');
+	});
+}
+function dialogfuc(data) {
+	dialog = data.split('\n#');
+	window.dialog1 = {};
+	for (i = 0; i < dialog.length; i++) {
+		if (dialog[i].includes('##')) {
+			dialog.splice(dialog.indexOf(dialog[i]), 1);
+		}
+	}
+	for (i = 0; i < dialog.length; i++) {
+		window.dialog1[dialog[i].split('=')[0].trim()] = dialog[i].split('=')[1].trim();
+	}
+	inner();
+}
+function inner() {
+	for (i = 0; i < window.entity.length; i++) {
+		window.entity[i].name = window.dialog1["entity." + window.entity[i].id + ".name"];
+		window.entity[i].introduction = window.dialog1["entity." + window.entity[i].id + ".intro"];
+	}
+	$('title').html(window.dialog1["ui.pagetitle"]);
+	$('.homepage .title').html(window.dialog1["ui.title"]);
+	$('.update').html(window.dialog1["ui.twinkingtext"]);
+	$('.startremind').html(window.dialog1["ui.startremind"]);
+	$('.entityinfotitle').html(window.dialog1["error.select.title"]);
+	$('.powerbarhp').html(window.dialog1["ui.hpbar"]);
+	$('.powerbarmp').html(window.dialog1["ui.mpbar"]);
+	$('.namedisplay').attr('placeholder', window.dialog1["ui.namedisplay"]);
+	$('.fightmodebtn').attr('value', window.dialog1["ui.fightmodebtn"]);
+	$('.tutorialmodebtn').attr('value', window.dialog1["ui.tutorialmodebtn"]);
+	$('.storymodebtn').attr('value', window.dialog1["ui.storymodebtn"]);
+	$('.startbtn').attr('value', window.dialog1["ui.startbtn"]);
+	$('.shopbtn').attr('value', window.dialog1["ui.shopbtn"]);
+	$('.signoutbtn').attr('value', window.dialog1["ui.signoutbtn"]);
+	$('.cmdgenbtn').attr('value', window.dialog1["ui.cmdgenbtn"]);
+}

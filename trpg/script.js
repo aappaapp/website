@@ -16,11 +16,9 @@ firebase.analytics();
 var database = firebase.database();
 firebase.database().ref('game3').on('value', (snapshot) => {
     const data = snapshot.val();
-    console.log(data);
 });
 function dice(amount, sideval) {
     returnval = '';
-    console.log(returnval);
     for (i = 0; i < amount; i++) {
         random = Math.floor(Math.random() * sideval) + 1;
         if (i != 0) {
@@ -41,8 +39,15 @@ function changeref(oldRef, newRef) {
 function sendcommand(command, callback) {
     if (command[0] == '/') {
         if (command.includes('D')) {
+            var i;
             command1 = command.split('D');
-            returnval = command + ': ' + dice(command1[0], command1[1]);
+            randomval = [];
+            console.log(command1[0]);
+            for (i = 0; i < command1[0]; i++) {
+                randomval[i] = Math.floor(Math.random() * command1[1]) + 1;
+            }
+            console.log(randomval);
+            returnval = '[ ' + command + ':' + randomval + ' ] => ' + dice(command1[0], command1[1]);
         } else if (command.includes('serverid')) {
             command1 = command.split(' ');
             changeref('server/' + window.server.id, 'server/' + command1[1]);
@@ -78,15 +83,14 @@ function sendcommand(command, callback) {
         callback(returnval);
     }, 500);
 }
-function displaymsg() {
+function displaymsg(data) {
     $('.msgdisplay').val($('.msgdisplay').val() + '\n' + data);
     $('.msgdisplay').scrollTop($('.msgdisplay')[0].scrollHeight - $('.msgdisplay').height());
 }
 function displaycommand(command) {
-    console.log($('.msgdisplay').val() + '<br>' + sendcommand(command));
     sendcommand(command, function (data) {
         $('.cmdenter').val('');
-        displaymsg();
+        displaymsg(data);
     });
 }
 function goserver() {
@@ -177,7 +181,6 @@ $(function () {
             });
         });
         $('.serverjoinbtn').click(function () {
-            console.log('exist:', window.server.exist, 'id:', window.server.id);
             if (window.server.exist == false) {
                 firebase.database().ref('game3/server/' + window.server.id).set({
                     owner: $.cookie('uid'),
@@ -186,7 +189,6 @@ $(function () {
             } else if (window.server.exist == true) {
                 firebase.database().ref('game3/server/' + window.server.id + '/online/').once('value').then((snapshot) => {
                     var data = (snapshot.val()) || 'Anonymous';
-                    console.log(Object.keys(data));
                     firebase.database().ref('game3/server/' + window.server.id + '/online/' + Object.keys(data).length).set($.cookie('uid'));
                 });
             }

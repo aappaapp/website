@@ -5,8 +5,8 @@ ui.title = Human VS Monster(Tentative name) Pre-Alpha<br>(Press G to report bug)
 ui.twinkingtext = Story Mode Update!
 #
 ui.startremind = Press screen to start
-
-##ui.fightmodebtn = Fighting Mode(unmade)##
+#
+ui.fightmodebtn = Fighting Mode(unmade)
 
 ##ui.tutorialmodebtn = Toriel Mode(unmade)##
 #

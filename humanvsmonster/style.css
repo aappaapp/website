@@ -1,7 +1,9 @@
+/*@ CSS*/
 @font-face{
 	font-family: 'unifont';
 	src: url(font/unifont-13.0.04.ttf);
 }
+/*Element CSS*/
 html{
 	font-family: 'unifont';
 	overflow: hidden;
@@ -13,18 +15,6 @@ html{
 body{
 	margin: 0;
 	text-align: center;
-}
-.ap43left{
-	position: absolute;
-	left: 0;
-	background-color: #000000;
-	z-index: 2;
-}
-.ap43right{
-	position: absolute;
-	right: 0;
-	background-color: #000000;
-	z-index: 2;
 }
 input{
 	font-family: 'unifont';
@@ -39,11 +29,25 @@ div{
 a{
 	color: blue;
 }
+/*Classes CSS*/
+/*ap43*/
+.ap43left{
+	position: absolute;
+	left: 0;
+	background-color: #000000;
+	z-index: 2;
+}
+.ap43right{
+	position: absolute;
+	right: 0;
+	background-color: #000000;
+	z-index: 2;
+}
+/*homepage*/
 .homepage{
 	background-color: #000000;
 	width: 100%;
 	height: 100%;
-	position: relative;
 }
 .homepage h1{
 	position: absolute;
@@ -69,11 +73,6 @@ a{
 	font-weight: 100;
 	display: block;
 }
-.homepage label{
-	position: absolute;
-	right: 0;
-	top: 0;
-}
 .startremind{
 	font-size: 20px;
 	position: absolute;
@@ -82,181 +81,6 @@ a{
 	transform: translate(-50%, 0%);
 	padding: 10px;
 	animation: twinkling 2s infinite;
-}
-.startbtn{
-	position: absolute;
-	right: 5%;
-	border: none;
-	top: 5%;
-	transform: translate(-50%, -50%);
-	background-color: #00000000;
-	color: white;
-}
-.entityselect{
-	background-color: #000000;
-	height: 100%;
-	width: 100%;
-	display: none;
-}
-.entity{
-	display: inline-block;
-	position: absolute;
-	z-index: 1;
-}
-.entity.main{
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-}
-.entityselect .entity img{
-	cursor: pointer;
-	max-width: 55px;
-}
-.entity img{
-	max-width: 25px;
-	position: absolute;
-}
-.entity div.weapon{
-	translate: 15px 5px;
-	transform-origin: left center;
-}
-.warrior.entity{
-	left: 50%;
-	top: 50px;
-	transform: translate(-50%, 0%);
-}
-.magician.entity{
-	left: 30%;
-	top: 50px;
-	transform: translate(-50%, 0%);
-}
-.entityinfo{
-	display: none;
-	height: 100%;
-	width: 100%;
-	position: relative;
-	background-color: black;
-}
-.entityinfo > h1{
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	margin: 0;
-	top: 10%;
-}
-.entityinfo .info{
-	position: absolute;
-	top: 20%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-.entityinfo .power{
-	position: absolute;
-	top: 25%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-.entityinfo > img{
-	max-width: 50px;
-}
-.entityinfo > input{
-	position: absolute;
-	bottom: 1%;
-	left: 50%;
-	color: white;
-	background-color: #F2B024;
-	border: 5px solid #FCDA00;
-	font-size: 20px;
-	padding: 10px 20px;
-	border-radius: 10px;
-	transform: translate(-50%, -50%);
-}
-.generateoption{
-	width: 100%;
-	height: 100%;
-	display: none;
-}
-.gamearea{
-	display: none;
-	width: 100%;
-	height: 100%;
-}
-/*.fightarea{
-	display: none;
-}*/
-.warning{
-	display: none;
-	background-color: #000000;
-	height: 100%;
-	width: 100%;
-}
-.scenecontainer{
-	width: 100%;
-	height: 100%;
-	position: relative;
-}
-.scene{
-	width: fit-content;
-	height: fit-content;
-	top: 50%;
-	left: 50%;
-	position: absolute;
-	transform: translate(-50%, -50%);
-}
-.blockgroup{
-	display: inline-grid;
-}
-.block{
-	display: inline-block;
-}
-.block img{
-	max-width: 25px;
-}
-.entityinfoinfight{
-	left: 0;
-	top: 0;
-	position: absolute;
-	z-index: 1;
-	display: none;
-	background-color: orange;
-	padding: 10px;
-}
-.hp, .mp{
-	display: block;
-}
-.hpprogress{
-	border: 1px dashed white;
-	width: 100px;
-	background-color: grey;
-}
-.hpprogress .bar{
-	width: 100%;
-	background-color: red;
-	text-align: center;
-	transition: width 0.5s;
-}
-.mpprogress{
-	border: 1px dashed white;
-	width: 100px;
-	background-color: grey;
-}
-.mpprogress .bar{
-	width: 100%;
-	background-color: blue;
-	text-align: center;
-	transition: width 0.5s;
-}
-.weapon{
-	position: absolute;
-}
-.gunbullet{
-	position: absolute;
-}
-.gunbullet img{
-	max-width: 25px;
-}
-input[type='file']{
-	display: none;
 }
 .homepage .push{
 	width: 100%;
@@ -283,19 +107,51 @@ input[type='file']{
 	color: white;
 	font-size: 20px;
 }
+.homepagesecret{
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
 .homepagesecret input{
 	position: absolute;
 	background-color: #00000000;
 	border: none;
 	color: white;
 }
-.homepage .settingpagebtn{
-	left: 0;
-	top: 0;
+/*gamearea*/
+.gamearea{
+	width: 100%;
+	height: 100%;
 }
-.homepage .uploadpagebtn{
-	right: 0;
-	top: 0;
+/*fightmode*/
+.mobselect{
+	background-color: #000000;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+/*storymode*/
+.entity{
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+}
+.entity.main{
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+.entity img{
+	max-width: 25px;
+	position: absolute;
+}
+.warning{
+	display: none;
+	background-color: #000000;
+	height: 100%;
+	width: 100%;
 }
 .uploadpage{
 	display: none;
@@ -318,13 +174,6 @@ input[type='file']{
 	width: 100%;
 	display: none;
 	z-index: 100;
-}
-.homepagesecret{
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
 }
 .bottombar{
 	width: 100%;
