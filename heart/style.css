@@ -1,0 +1,19 @@
+html{
+    background-color: black;
+    overflow: hidden;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+div{
+    display: inline-block;
+}
+.draw{
+    top: 50%;
+}
+.drawline{
+    position: absolute;
+    background-color: red;
+    border-radius: 50%;
+    padding: 10px;
+}
