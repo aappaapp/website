@@ -1,6 +1,7 @@
 $(function () {
     $('.bar').width($('.bar').height() / 10);
-    $('.ball').width($('.bar').width() / 2).height($('.bar').width() / 2);
+    size = 0.2;
+    $('.ball').width($('.bar').width() / size).height($('.bar').width() / size);
     gamestart();
 });
 function gamestart() {
@@ -9,6 +10,7 @@ function gamestart() {
 function ballphy() {
     var orgspeed = 2;
     $('.ball').data('speed', orgspeed);
+    $('.ball img').css('max-width', $('.ball').width());
     var speed = $('.ball').data('speed');
     var angle = 20;
     var speeddivis = 100;
@@ -34,7 +36,7 @@ function ballphy() {
             $('.ball').data('speed', -orgspeed);
         }
         //$('.ball').before('<div class=\'ballmark\' style=\'left: ' + $('.ball').position().left + ';top: ' + $('.ball').position().top + ';\'></div>');
-        $('.ballmark').width($('.bar').width() / 2).height($('.bar').width() / 2);
+        $('.ballmark').width($('.bar').width() / size).height($('.bar').width() / size);
         if (typeof isOverlap[0] != 'undefined') {
             if ($(isOverlap).hasClass('rightbar')) {
                 $('.ball').data('speed', speed - (angle / speeddivis));

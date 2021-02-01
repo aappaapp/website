@@ -26,7 +26,18 @@ div{
     border-radius: 50%;
     position: absolute;
     background-color: red;
+    font-size: 2em;
+    color: white;
     inset: 50%;
+}
+.ball *{
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+.ball .text{
 }
 .ballmark{
     border-radius: 50%;
