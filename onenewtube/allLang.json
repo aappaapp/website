@@ -1,0 +1,6 @@
+{
+    "zh": {
+        "langcode": "lang.includes('zh')",
+        "path": "./zh.json"
+    }
+}

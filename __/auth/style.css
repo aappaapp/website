@@ -1,0 +1,8 @@
+input{
+    border: none;
+    border-bottom: 2.5px solid black;
+}
+
+.resetPassword{
+    display: none;
+}

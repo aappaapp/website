@@ -32,12 +32,12 @@ div{
 }
 .ball *{
     border-radius: 50%;
-    text-align: center;
     position: relative;
     top: 50%;
     transform: translate(0%, -50%);
 }
 .ball .text{
+    text-align: center;
 }
 .ballmark{
     border-radius: 50%;
