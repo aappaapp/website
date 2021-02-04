@@ -2,5 +2,9 @@
     "zh": {
         "langcode": "lang.includes('zh')",
         "path": "./zh.json"
+    },
+    "en": {
+        "langcode": "lang.includes('en')",
+        "path": "./en.json"
     }
 }
