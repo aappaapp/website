@@ -62,9 +62,9 @@ function cornertipseach(element, time, callback) {
 	}, time);
 }
 function ap43() {
-	$('.ap43').height($(document).height()).width($(document).height() * 1.33333333333);
-	$('.ap43left').height($(document).height()).width(($(document).width() - $('.ap43').width()) / 2);
-	$('.ap43right').height($(document).height()).width(($(document).width() - $('.ap43').width()) / 2);
+	$('.ap43').height($('html').height()).width($('html').height() / 1.33333333333);
+	$('.ap43left').height($('html').height()).width(($('html').width() - $('.ap43').width()) / 2);
+	$('.ap43right').height($('html').height()).width(($('html').width() - $('.ap43').width()) / 2);
 }
 function speak(text, icon, speed, callback, element, sound) {
 	if (sound == undefined || sound == '') {
@@ -449,4 +449,14 @@ function inner() {
 	$('.shopbtn').attr('value', window.dialog1["ui.shopbtn"]);
 	$('.signoutbtn').attr('value', window.dialog1["ui.signoutbtn"]);
 	$('.cmdgenbtn').attr('value', window.dialog1["ui.cmdgenbtn"]);
+}
+function snowymelt() {
+	var snowymelt = 1;
+	var itv = setInterval(function () {
+		$('.snowy.entity > img').attr('src', 'textures/entity/monster/snowy/melt' + snowymelt + '.png');
+		snowymelt++;
+		if (snowymelt >= 7) {
+			clearInterval(itv);
+		}
+	}, 50);
 }

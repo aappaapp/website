@@ -91,7 +91,7 @@ a{
 	width: 100%;
 	height: 100%;
 	vertical-align: bottom;
-	position: relative;
+	transform: translate(-50%, 0%);
 }
 .homepage .mode .container{
 	bottom: -100px;
@@ -100,9 +100,10 @@ a{
 	transition: all 1s;
 	text-align: center;
 	display: none;
+	transform: translate(-50%, 0%);
 }
 .homepage .mode .container input{
-	background-color: #00000000;
+	background-color: transparent;
 	border: none;
 	color: white;
 	font-size: 20px;
@@ -116,7 +117,7 @@ a{
 }
 .homepagesecret input{
 	position: absolute;
-	background-color: #00000000;
+	background-color: transparent;
 	border: none;
 	color: white;
 }
@@ -126,6 +127,9 @@ a{
 	height: 100%;
 }
 /*fightmode*/
+.fightmode{
+	display: none;
+}
 .mobselect{
 	background-color: #000000;
 	height: 100%;
@@ -157,7 +161,7 @@ a{
 	display: none;
 }
 .backtohomepage{
-	background-color: #00000000;
+	background-color: transparent;
 	color: white;
 	border: none;
 }
@@ -303,7 +307,7 @@ a{
 	border: none;
 	top: 5%;
 	transform: translate(-50%, -50%);
-	background-color: #00000000;
+	background-color: transparent;
 	color: white;
 }
 .storymode{
@@ -333,7 +337,7 @@ a{
 }
 .namedisplay{
 	color: white;
-	background-color: #00000000;
+	background-color: transparent;
 	cursor: default;
 	border: none;
 	width: 100%;

@@ -46,7 +46,20 @@ $.fn.move = function (x, y) {
 	this.css('left', (x1 + x) + 'px');
 	this.css('top', (y1 + y) + 'px');
 }
-
+function moveitv(x, y, element) {
+	var i = 0;
+	var itv = setInterval(function () {
+		$(element).move(x, y);
+		if (i == 500) {
+			clearInterval(itv);
+			if ($(element).hasClass('snowybullet')) {
+				window.snowybulletdis = true;
+			}
+			$(element).remove();
+		}
+		i++;
+	});
+}
 //set all variable on init
 function setvariable() {
 	window.keys = {};
@@ -150,7 +163,7 @@ $(document).ready(function () {
 	});
 	$('.homepage .push').click(function () {
 		if ($('.homepage .mode .container').css('bottom') == '-100px') {
-			$('.homepage .mode .container').css('display', 'block');
+			$('.homepage .mode .container').show();
 			setTimeout(function () {
 				$('.homepage .mode .container').css('bottom', '100px');
 			}, 100);
@@ -161,10 +174,10 @@ $(document).ready(function () {
 		} else if ($('.homepage .mode .container').css('bottom') == '100px') {
 			$('.homepage .mode .container').css('bottom', '-100px');
 			$('.startremind').css('animation', 'twinkling 2s infinite');
-			window.modecontainerinterval = setInterval(function () {
+			var int1 = setInterval(function () {
 				if ($('.homepage .mode .container').css('bottom') == '-100px') {
 					$('.homepage .mode .container').css('display', 'none');
-					clearInterval(window.modecontainerinterval)
+					clearInterval(int1)
 				}
 			});
 		}
