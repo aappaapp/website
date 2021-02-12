@@ -62,6 +62,11 @@ div{
 .appicon.hover{
     background-color: #0000ff11;
 }
+.desktopbox{
+    position: absolute;
+    z-index: 40;
+    background-color: #7390EE55;
+}
 /*Window*/
 .window{
     border: 1px solid black;

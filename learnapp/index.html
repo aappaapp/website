@@ -1,0 +1,44 @@
+<!--Like Anki: https://www.youtube.com/watch?v=rMlk97ecKUw or Voc4Fun: http://blog.pulipuli.info/2017/10/voc4fun-voc4fun-mobile-app-for.html -->
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>快樂學單字</title>
+    <script src='jquery-latest.min.js'></script>
+    <script src='jquery.cookie.js'></script>
+    <script src='fp.min.js'></script>
+    <link rel='stylesheet' href='style.css'>
+</head>
+
+<body>
+    <nav>快樂學單字FunVoc</nav>
+    <div class='firsttimein page'>
+        歡迎來到 "快樂學單字FunVoc"
+        <br>
+        請輸入你的名字
+        <br>
+        <input type='text' class='name'>
+        <br>
+        <input type='button' class='login' value='登入'>
+        <input type='button' class='signup' value='註冊'>
+    </div>
+    <div class='main page'>
+        <div class='card option'>牌組+</div>
+    </div>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+    <script src='script.js'></script>
+</body>
+
+</html>

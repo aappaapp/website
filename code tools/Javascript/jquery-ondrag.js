@@ -1,13 +1,18 @@
 /* jquery-ondrag.js | Made By Aden Pun | adenpun.github.io */
 $.fn.ondrag = function (callback) {
+    var dragisfirsttime = true;
+    var dragismousedown = false;
     $(this).mousedown(function () {
-        window.dragismousedown = true;
+        dragismousedown = true;
     }).mouseup(function () {
-        window.dragismousedown = false;
+        dragisfirsttime = true;
+        dragismousedown = false;
     });
     $(this).mousemove(function () {
-        if (window.dragismousedown) {
-            callback();
+        event.first = dragisfirsttime;
+        if (dragismousedown) {
+            dragisfirsttime = false;
+            callback(event);
         }
     });
 }

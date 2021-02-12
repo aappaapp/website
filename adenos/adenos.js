@@ -94,6 +94,20 @@ function init() {
     appicon();
     windowfocus();
     $('.deskconmenu').conmenu('.desktop');
+    $('.desktop').append('<div class=\'desktopbox\'></div>').find('.desktopbox').hide();
+    $('.desktop').mouseup(function () {
+        $('.desktopbox').hide();
+    });
+    $('.desktop').ondrag(function (event) {
+        if (event.first) {
+            $('.desktopbox').css({
+                top: event.pageY,
+                left: event.pageX
+            });
+        }
+        $('.desktopbox').show();
+        $('.desktopbox').width(event.pageX - $('.desktopbox').position().left).height(event.pageY - $('.desktopbox').position().top);
+    });
     //logoutpage();
 }
 function windowfocus() {

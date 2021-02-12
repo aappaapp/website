@@ -1,0 +1,49 @@
+/*All Element*/
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    user-select: none;
+}
+body{
+    margin: 0;
+}
+input{
+    font-size: 1.2em;
+    outline: none;
+}
+input[type='text']{
+    border: none;
+    border-bottom: 1px solid grey;
+    text-align: center;
+}
+input[type='button']{
+    background-color: transparent;
+    border: 1px solid black;
+    cursor: pointer;
+}
+a{
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/*Classes*/
+/*Nav*/
+nav{
+    text-align: center;
+    font-size: 1.3em;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+}
+/*Pages*/
+.page{
+    text-align: center;
+}
+.page.main{
+    display: none;
+}
+/*Option*/
+.option:hover{
+    background-color: lightgrey;
+}
