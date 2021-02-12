@@ -39,9 +39,10 @@ nav{
 /*Pages*/
 .page{
     text-align: center;
-}
-.page.main{
     display: none;
+}
+.page.firsttimein{
+    display: block;
 }
 /*Option*/
 .option:hover{
