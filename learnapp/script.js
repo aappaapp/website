@@ -30,7 +30,7 @@ function afterloginorsignup() {
                 const dat2txtobj = Object.keys(data2[$(this).text()]);
                 for (i = 0; i < dat2txtobj.length; i++) {
                     console.log(dat2txtobj[i]);
-                    $('.folderview.page').append('<div class=\'folderview option\'>' + dat2txtobj[i] + '</div>');
+                    $('.folderview.page .display').append('<div class=\'folderview option\'>' + dat2txtobj[i] + '</div>');
                 }
                 $('.main.page').hide();
             });
