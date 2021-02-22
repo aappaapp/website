@@ -16,9 +16,24 @@ function afterloginorsignup() {
     getusername($.cookie('uid'), function (data) {
         firebase.database().ref('funvoc/user/' + data).on('value', (snapshot) => {
             const data1 = snapshot.val() || undefined;
+            const data2 = data1.folder;
+            const dat2obj = Object.keys(data2);
             var i;
             console.log(data1.folder);
             $('.main.page .display').html('');
+            $('.folderview.option').off();
+            for (i = 0; i < dat2obj.length; i++) {
+                $('.main.page .display').append('<div class=\'folderview option\'>' + dat2obj[i] + '</div>');
+            }
+            $('.folderview.option').click(function () {
+                $('.folderview.page').show();
+                const dat2txtobj = Object.keys(data2[$(this).text()]);
+                for (i = 0; i < dat2txtobj.length; i++) {
+                    console.log(dat2txtobj[i]);
+                    $('.folderview.page').append('<div class=\'folderview option\'>' + dat2txtobj[i] + '</div>');
+                }
+                $('.main.page').hide();
+            });
         });
     });
     $('.firsttimein.page').hide();
