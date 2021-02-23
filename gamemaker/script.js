@@ -1,2 +1,8 @@
-var gm = $.gamemaker;
-gm.createscene('fullscreen');
+$(function () {
+    $.gamemaker.createscene({
+        type: 'fullscreen',
+        w: 360,
+        h: 280,
+        bg: 'black'
+    });
+});
