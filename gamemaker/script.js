@@ -9,7 +9,10 @@ $(function () {
     });
     $('Scene1').gamemaker({
         createsprite: {
-            id: 'Sprite1'
+            id: 'Fye',
+            img: 'Iye - Fire - Fye.png',
         }
     });
+    $('Fye').gamemaker('gravity');
+    $('Scene1').gamemaker('gravity_floor')
 });
