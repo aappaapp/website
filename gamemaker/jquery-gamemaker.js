@@ -94,7 +94,7 @@
         for (i = 0; i < allele.length; i++) {
             var alleledat = $($('*')[i]).data();
             if (typeof alleledat.gravity_sprite != 'undefined') {
-                allele[i]
+                $(allele[i]).css({});
             };
         };
     });
