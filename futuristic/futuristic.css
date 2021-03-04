@@ -16,6 +16,10 @@ div{
 .window .title{
     background-color: transparent;
 }
+.window .title .close:hover{
+    background-color: #0D8CFF;
+    border-radius: 10px;
+}
 .window .content{
     user-select: none;
 }

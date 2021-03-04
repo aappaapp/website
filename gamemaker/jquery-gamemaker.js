@@ -30,9 +30,11 @@
                 if ($(result).attr('data-type') == 'scene') {
                     var id = config.createsprite.id || '';
                     var img = config.createsprite.img || '';
+                    var text = config.createsprite.text || '';
+                    var txtcolor = config.createsprite.txtcolor || 'black';
                     var mw = config.createsprite.mw || 100;
                     var mh = config.createsprite.mh || 100;
-                    $(result).append('<div data-id=\'' + id + '\' data-type=\'sprite\'><img src=\'' + img + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'></div>');
+                    $(result).append('<div data-id=\'' + id + '\' data-type=\'sprite\'><img src=\'' + img + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'><span style=\'color: ' + txtcolor + ';\'>' + text + '</span></div>');
                     console.warn('The sprite: ' + id + ' was created.');
                 } else {
                     throw new SyntaxError('The function \'createsprite\' should be used in the scene.');
