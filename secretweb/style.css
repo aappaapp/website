@@ -1,0 +1,46 @@
+/*Scrollbar*/
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: grey;
+}
+/*Element*/
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
+}
+body{
+    margin: 0;
+}
+a{
+    color: blue;
+    text-decoration: none;
+}
+/*Nav*/
+nav{
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    padding: 10px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: white;
+}
+nav-title{
+    font-size: 1.5em;
+    margin-right: 5px;
+}
+nav-item{
+    cursor: pointer;
+    color: blue;
+    margin: 0px 5px;
+}
+/*Content*/
+.content{
+    padding: 10px;
+}
+/*Footer*/
+footer{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}

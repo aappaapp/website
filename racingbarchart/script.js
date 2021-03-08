@@ -7,9 +7,10 @@ $(function () {
         console.log(objdatval);
         for (i = 0; i < objdatval.length; i++) {
             console.log(objdatval[i]);
-            $('body').append('<div class=\'bar\' data-id=\'' + data.value[objdatval[i]].id + '\' style=\'background-color: ' + data.value[objdatval[i]].bgcolor + ';color: ' + data.value[objdatval[i]].txtcolor + ';\'>' + objdatval[i] + '</div>');
+            $('.phase').before('<div class=\'bar\' data-id=\'' + data.value[objdatval[i]].id + '\' style=\'background-color: ' + data.value[objdatval[i]].bgcolor + ';color: ' + data.value[objdatval[i]].txtcolor + ';\'>' + objdatval[i] + '</div>');
         }
         a = 0;
+        $('.bar').css('transition', data.setting.speed * 2 + 'ms');
         setInterval(function () {
             var j;
             var objdatrunval = Object.keys(data.runvalue);
@@ -18,11 +19,11 @@ $(function () {
                     try {
                         var datrunvalobjdatrunvalthis = data.runvalue[objdatrunval[a]][$(this).attr('data-id')];
                     } catch { }
-                    $(this).width(datrunvalobjdatrunvalthis / 10 + '%');
+                    $(this).width(eval(datrunvalobjdatrunvalthis + data.setting.widthsum) + '%');
                 });
             }
             $('.phase').text(objdatrunval[a]);
             a++;
-        }, 500);
+        }, data.setting.speed);
     });
 });
