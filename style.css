@@ -118,6 +118,7 @@ iframe{
 }
 #footer-link{
     margin-bottom: 5px;
+    display: block;
 }
 #footer-sm{
     padding: 5px 0px 5px 0px;
