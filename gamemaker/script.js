@@ -24,6 +24,11 @@ $(function () {
             img: 'Iye - Fire - Fye.png'
         }
     });
+    $('startbtn').gamemaker({
+        click: function () {
+
+        }
+    });
     $('Fye').gamemaker('gravity');
     $('Main').gamemaker('gravity_floor');
 });
