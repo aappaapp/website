@@ -1,20 +1,32 @@
+function detectlanguage() { }
 function changepage(selector, config) {
+	console.log(selector);
 	var returnval = '';
+	var originalpage = $('.page').filter(function () {
+		return $(this).css('background').length > 0;
+	}).eq(0);
 	if (config == 'return') {
-		returnval = $('.page').filter(function () {
-			return $(this).css('background').length > 0;
-		}).eq(0);
+		returnval = originalpage;
 	}
+	window.lastchangepage = originalpage;
 	$('.page').hide();
 	$(selector).show();
 	return returnval;
 }
 function start() {
-	plotdisplay('asd', {
-		redirect: '.page.game'
+	$.get('plot1.txt', function (data) {
+		plotdisplay(data, {
+			redirect: '.page.game'
+		});
 	});
 	//changepage('.page.game');
 	charactercontrol();
+}
+function setting() {
+	changepage('.page.setting');
+}
+function back() {
+	changepage('.' + lastchangepage.attr('class').replaceAll(' ', '.'));
 }
 function move(x, y, ele) {
 	$(ele).css({
@@ -41,20 +53,31 @@ function charactercontrol() {
 }
 function plotdisplay(text, config) {
 	var originalpage = changepage('.page.plotdisplay', 'return');
+	var i = 0;
 	text = text.split('');
-	console.log(text);
 	var textitv = setInterval(function () {
-
-	});
-	if (typeof config.redirect != 'undefined') {
-		changepage(config.redirect);
-	}
+		$('.page.plotdisplay').append(text[i]);
+		i++;
+		if (i == text.length + 1) {
+			setTimeout(function () {
+				clearInterval(textitv);
+				if (typeof config.redirect != 'undefined') {
+					changepage(config.redirect);
+				}
+			}, 1000);
+		}
+	}, 100);
 }
 $(function () {
-	//init
-	window.keys = {}
+	//Init
+	detectlanguage();
+	window.keys = {};
 	//Start
 	$('.homestart').click(start);
+	//Setting
+	$('.setting').click(setting);
+	//Back
+	$('.select.back').click(back);
 	//Detect Keys
 	$(document).on('keydown.detectkeys', function () {
 		window.keys[event.which] = true;

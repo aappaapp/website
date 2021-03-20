@@ -21,6 +21,20 @@ div.page{
 div.page.show{
 	display: inline-block;
 }
+/*Select Tag*/
+select{
+	background-color: black;
+	border: none;
+	color: white;
+	font-size: 1em;
+	outline: none;
+	font-family: cursive;
+	-webkit-appearance: none;
+	cursor: pointer;
+}
+select:hover{
+	color: yellow;
+}
 /*Select*/
 .select{
 	cursor: pointer;
