@@ -1,0 +1,42 @@
+/*Top*/
+html{
+	background-color: black;
+	color: white;
+	user-select: none;
+	font-family: cursive;
+	font-size: 1.5em;
+}
+body{
+	margin: 0;
+}
+/*Div*/
+div{
+	display: inline-block;
+}
+div.page{
+	height: 100vh;
+	width: 100vw;
+	display: none;
+}
+div.page.show{
+	display: inline-block;
+}
+/*Select*/
+.select{
+	cursor: pointer;
+	display: block;
+	width: fit-content;
+}
+.select:hover{
+	color: yellow;
+}
+/*Home Page*/
+.page.home .homepagemain{
+	position: absolute;
+	top: 10%;
+	left: 10%;
+}
+.page.home h1{
+	margin: 0;
+	font-size: 2.5em;
+}
