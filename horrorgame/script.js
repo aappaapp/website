@@ -39,21 +39,45 @@ function changebackground() {
 		var left = character.position().left;
 		var vh = $(document).height();
 		var vw = $(document).width();
-		if (left <= -50) {
-			console.log('l: -50');
-			character.css('left', vw - 50)
+		var i;
+		var backgroundindex = {};
+		for (i = 0; i < backgrounds.length; i++) {
+			var j;
+			for (j = 0; j < backgrounds[i].length; j++) {
+				backgroundindex[backgrounds[i][j]] = {
+					x: j,
+					y: i
+				}
+			}
 		}
-		if (top <= -50) {
-			console.log('t: -50');
-			character.css('top', vh - 50)
+		var xpm = 0;
+		var ypm = 0;
+		if (left <= -50) {
+			character.css('left', vw - 50)
+			xpm = -1;
 		}
 		if (left >= vw - 50) {
-			console.log('l: vw');
 			character.css('left', -50)
+			xpm = 1;
+		}
+		if (top <= -50) {
+			character.css('top', vh - 50)
+			ypm = -1;
 		}
 		if (top >= vh - 50) {
-			console.log('t: vh');
 			character.css('top', -50)
+			ypm = 1;
+		}
+		var nx = backgroundindex[currentbackground].x;
+		var ny = backgroundindex[currentbackground].y;
+		var ax = nx + xpm;
+		var ay = ny + ypm;
+		var k;
+		for (k = 0; k < Object.keys(backgroundindex).length; k++) {
+			var objbackground = backgroundindex[Object.keys(backgroundindex)[k]];
+			if (objbackground.x == ax && objbackground.y == ay) {
+				currentbackground = Object.keys(backgroundindex)[k];
+			}
 		}
 	});
 }
@@ -78,7 +102,6 @@ function start() {
 			});
 		}
 	});
-	//changepage('.page.game');
 }
 function setting() {
 	changepage('.page.setting');
@@ -102,9 +125,9 @@ function walk(speed) {
 	}
 	window.walkitv = setInterval(function () {
 		if (window.keys[16]) {
-			walk(4)
+			walk(4);
 		} else {
-			walk(2)
+			walk(2);
 		}
 		if (window.keys[65]) {
 			move(-speed, 0, $('.character.main'));
@@ -167,6 +190,11 @@ $(function () {
 	dialogset();
 	changebackground();
 	window.keys = {};
+	window.currentbackground = 'main-playground';
+	window.backgrounds = [
+		['first-playground', 'main-playground', 'second-playground'],
+		[]
+	];
 	//Start
 	$('.homestart').click(start);
 	//Setting
