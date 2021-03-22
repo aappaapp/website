@@ -5,6 +5,7 @@ html{
 	user-select: none;
 	font-family: cursive;
 	font-size: 1.5em;
+	position: fixed;
 }
 body{
 	margin: 0;
@@ -53,4 +54,26 @@ select:hover{
 .page.home h1{
 	margin: 0;
 	font-size: 2.5em;
+}
+/*Plot Display Page*/
+.page.plotdisplay{
+	white-space: pre-wrap;
+}
+/*Speak*/
+.speakcontainer{
+	position: absolute;
+	bottom: 10%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	z-index: 10;
+	padding: 5px;
+	background-color: #000000aa;
+}
+/*Character*/
+.character{
+	position: absolute;
+	display: none;
+}
+.character.show{
+	display: inline-block;
 }
