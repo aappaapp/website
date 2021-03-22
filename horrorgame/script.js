@@ -9,6 +9,8 @@ function languagechange() {
 	dialogset();
 }
 function languagetextset() {
+	$('span.start').text(dialog['text.start']);
+	$('span.setting').text(dialog['text.setting']);
 	$('span.back').text(dialog['text.back']);
 }
 function dialogset() {
@@ -29,6 +31,31 @@ function changepage(selector, config) {
 	$('.page').hide();
 	$(selector).show();
 	return returnval;
+}
+function changebackground() {
+	setInterval(function () {
+		var character = $('.character.main');
+		var top = character.position().top;
+		var left = character.position().left;
+		var vh = $(document).height();
+		var vw = $(document).width();
+		if (left <= -50) {
+			console.log('l: -50');
+			character.css('left', vw - 50)
+		}
+		if (top <= -50) {
+			console.log('t: -50');
+			character.css('top', vh - 50)
+		}
+		if (left >= vw - 50) {
+			console.log('l: vw');
+			character.css('left', -50)
+		}
+		if (top >= vh - 50) {
+			console.log('t: vh');
+			character.css('top', -50)
+		}
+	});
 }
 function start() {
 	plotdisplay(dialog['plot1'], {
@@ -68,14 +95,17 @@ function move(x, y, ele) {
 }
 function walk(speed) {
 	if (typeof speed == 'undefined') {
-		speed = 1;
+		speed = 2;
 	}
 	if (typeof walkitv != 'undefined') {
 		clearInterval(walkitv);
 	}
 	window.walkitv = setInterval(function () {
-		$(document).on('keydown.character', function () {
-		});
+		if (window.keys[16]) {
+			walk(4)
+		} else {
+			walk(2)
+		}
 		if (window.keys[65]) {
 			move(-speed, 0, $('.character.main'));
 		}
@@ -135,6 +165,7 @@ $(function () {
 	//Init
 	detectlanguage();
 	dialogset();
+	changebackground();
 	window.keys = {};
 	//Start
 	$('.homestart').click(start);

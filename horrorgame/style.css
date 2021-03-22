@@ -33,9 +33,6 @@ select{
 	-webkit-appearance: none;
 	cursor: pointer;
 }
-select:hover{
-	color: yellow;
-}
 /*Select*/
 .select{
 	cursor: pointer;
@@ -76,4 +73,8 @@ select:hover{
 }
 .character.show{
 	display: inline-block;
+}
+.character img{
+	max-width: 50px;
+	max-height: 50px;
 }

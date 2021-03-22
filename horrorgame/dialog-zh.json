@@ -1,7 +1,9 @@
 {
+    "text.start": "開始",
+    "text.back": "返回",
+    "text.setting": "設定",
     "plot1": "2021/3/19 6:00\n學校",
     "tutorial.wasd": "按WASD來移動",
-    "text.back": "返回",
     "main.whereiam": "我在哪裡",
     "main.whereteacher": "老師們在哪裡",
     "main.whereteacher2": "我要找到他們"
