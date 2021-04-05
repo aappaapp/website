@@ -1,3 +1,6 @@
+$.fn.addEvent = function (type, handler) {
+	this.bind(type, { 'selector': this.selector }, handler);
+};
 function detectlanguage() {
 	window.language = navigator.language;
 	if (language.includes('zh')) language = 'zh';
@@ -9,6 +12,8 @@ function languagechange() {
 	dialogset();
 }
 function languagetextset() {
+	$(document).attr('title', dialog['text.name']);
+	$('span.name').text(dialog['text.name']);
 	$('span.start').text(dialog['text.start']);
 	$('span.setting').text(dialog['text.setting']);
 	$('span.back').text(dialog['text.back']);
@@ -73,10 +78,26 @@ function changebackground() {
 		var ax = nx + xpm;
 		var ay = ny + ypm;
 		var k;
+		var l;
 		for (k = 0; k < Object.keys(backgroundindex).length; k++) {
 			var objbackground = backgroundindex[Object.keys(backgroundindex)[k]];
 			if (objbackground.x == ax && objbackground.y == ay) {
 				currentbackground = Object.keys(backgroundindex)[k];
+				for (l = 0; l < Object.keys(characters).length; l++) {
+					var characterobjcharacter = characters[Object.keys(characters)[l]];
+					var characterbackground = characterobjcharacter.background;
+					var x = characterobjcharacter.x || 0;
+					var y = characterobjcharacter.y || 0;
+					if (characterbackground == currentbackground) {
+						$('.character.' + Object.keys(characters)[l]).show();
+						$('.character.' + Object.keys(characters)[l]).css({
+							'left': x,
+							'top': y
+						});
+					} else {
+						$('.character.' + Object.keys(characters)[l]).hide();
+					}
+				}
 			}
 		}
 	});
@@ -188,13 +209,45 @@ $(function () {
 	//Init
 	detectlanguage();
 	dialogset();
-	changebackground();
+	gsap.fromTo('.homepagemain > h1', 2, {
+		autoAlpha: 0,
+		y: -20
+	}, {
+		autoAlpha: 1,
+		y: 0
+	});
+	var i = 0;
+	var gsapitv = setInterval(function () {
+		gsap.fromTo($('.homepagemain > .select').eq(i).getSelector()[0], 0.6, {
+			autoAlpha: 0,
+			x: -20
+		}, {
+			autoAlpha: 1,
+			x: 0
+		});
+		i++;
+		if (i > $('.homepagemain > .select').length) {
+			clearInterval(gsapitv);
+		}
+	}, 600);
 	window.keys = {};
 	window.currentbackground = 'main-playground';
+	window.currentdirection = 'right';
 	window.backgrounds = [
 		['first-playground', 'main-playground', 'second-playground'],
 		[]
 	];
+	window.characters = {
+		'mrluk': {
+			background: 'second-playground',
+			x: '50%',
+			y: '50%'
+		}
+	};
+	changebackground();
+	window.ondragstart = function () {
+		return false;
+	};
 	//Start
 	$('.homestart').click(start);
 	//Setting

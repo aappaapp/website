@@ -52,6 +52,9 @@ select{
 	margin: 0;
 	font-size: 2.5em;
 }
+.page.home .homepagemain .select{
+	visibility: hidden;
+}
 /*Plot Display Page*/
 .page.plotdisplay{
 	white-space: pre-wrap;
