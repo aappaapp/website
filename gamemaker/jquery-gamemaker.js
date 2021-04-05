@@ -24,6 +24,8 @@
             } else if (config == 'gravity_floor') {
                 $(result).data('gravity_floor', true);
                 console.warn('The object is gravity floor now.');
+            } else {
+                $.gamemaker.help();
             };
         } else if (typeof config == 'object') {
             if (typeof config.createsprite != 'undefined') {
@@ -56,7 +58,7 @@
             };
             if (typeof config.gravityFloor != 'undefined') {
                 var gravityFloor = config.gravityFloor;
-                if (gravity) {
+                if (gravityFloor) {
                     $(value).gamemaker('gravity_floor');
                 }
             };
@@ -66,9 +68,19 @@
                     $(result).click(config.click);
                 }
             };
+        } else {
+            $.gamemaker.help();
         };
     };
-    $.gamemaker = function () { };
+    $.gamemaker = function () {
+        $.gamemaker.help();
+    };
+    $.gamemaker.help = function () {
+        var txt = 'help';
+        txt += '\n====='
+        txt += '\n$(ID).gamemaker();'
+        console.log(txt);
+    };
     $.gamemaker.createscene = function (config) {
         if (typeof config != 'object') {
             throw new SyntaxError;
