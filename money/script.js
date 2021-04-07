@@ -25,6 +25,10 @@ function main() {
     });
 }
 $(function () {
+    firebase.database().ref('money/sv').once('value').then((snapshot) => {
+        var data = snapshot.val() || 0;
+        $('.amount').text(data);
+    });
     firebase.database().ref('money/reload').set(false);
     firebase.database().ref('money/reload').on('value', (snapshot) => {
         var data = snapshot.val() || false;
