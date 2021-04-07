@@ -26,6 +26,12 @@ function main() {
 }
 $(function () {
     firebase.database().ref('money/reload').set(false);
+    firebase.database().ref('money/reload').on('value', (snapshot) => {
+        var data = snapshot.val() || false;
+        if (data) {
+            location.reload();
+        }
+    });
     firebase.database().ref('money/start').on('value', (snapshot) => {
         var data = snapshot.val() || false;
         if (data) {
@@ -35,9 +41,10 @@ $(function () {
     $('.main').click(function () {
         firebase.database().ref('money/start').set(true);
     });
-    $(document).keypress(function () {
+    $(document).keydown(function () {
         if (event.key == 'F5') {
             firebase.database().ref('money/reload').set(true);
+            event.preventDefault();
         }
     });
 });
