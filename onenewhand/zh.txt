@@ -1,5 +1,0 @@
-text.title = 只是個新手的網站;
-text.nav.title = 只是個新手的網站;
-text.nav.orgweb = 轉到原始網站（也是我的）;
-text.about.title = 關於我;
-text.about.content = 我是<a href='https://www.youtube.com/channel/UCpX-BHOzMXL2s0T_EkjfhwQ' target='_blank'>Youtuber</a>。<br>是的，沒有別的東西。;

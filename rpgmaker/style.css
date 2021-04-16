@@ -1,0 +1,26 @@
+html{
+    user-select: none;
+}
+.container{
+    height: 801px; 
+    overflow: visible; 
+    padding: 0; 
+    position: relative;
+}
+.nav{
+    background-color: blue;
+    border-radius: 10px;
+    padding: 10px;
+    display: inline-block;
+}
+.box{
+    text-align: center;
+    font-family: Asap, Avenir, Arial, sans-serif;
+    width: 50px;
+    height: 50px;
+    line-height: 100px;
+    color: black;
+    top: 0;
+    display: inline-block;
+    border-radius: 10px;
+}

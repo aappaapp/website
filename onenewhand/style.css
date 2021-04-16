@@ -52,4 +52,5 @@ nav{
     padding-right: 10px;
     width: calc(100vw - 37px);
     height: 100vh;
+    visibility: hidden;
 }
