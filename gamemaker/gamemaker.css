@@ -9,3 +9,9 @@ div{
 *[data-type='scene']{
     display: none;
 }
+.translateX{
+    transform: translateX(-50%);
+}
+.translateY{
+    transform: translateY(-50%);
+}

@@ -32,11 +32,35 @@
                 if ($(result).attr('data-type') == 'scene') {
                     var id = config.createsprite.id || '';
                     var img = config.createsprite.img || '';
+                    var vid = config.createsprite.vid || '';
                     var text = config.createsprite.text || '';
                     var txtcolor = config.createsprite.txtcolor || 'black';
                     var mw = config.createsprite.mw || 100;
                     var mh = config.createsprite.mh || 100;
-                    $(result).append('<div data-id=\'' + id + '\' data-type=\'sprite\'><img src=\'' + img + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'><span style=\'color: ' + txtcolor + ';\'>' + text + '</span></div>');
+                    var x = config.createsprite.x || 0;
+                    var y = config.createsprite.x || 0;
+                    $(result).append('<div data-id=\'' + id + '\' data-type=\'sprite\'><img src=\'' + img + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'><video src=\'' + vid + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'></video><span style=\'color: ' + txtcolor + ';\'>' + text + '</span></div>');
+                    if (x != 0 || y != 0) {
+                        $(result).find('div[data-id=\'' + id + '\'] > *').css({
+                            'position': 'absolute',
+                            'left': x,
+                            'top': y
+                        });
+                        if (x == '50%') {
+                            $(result).find('div[data-id=\'' + id + '\'] > *').addClass('translateX');
+                        };
+                        if (y == '50%') {
+                            $(result).find('div[data-id=\'' + id + '\'] > *').addClass('translateY');
+                        };
+                        if (x == '50%' && y == '50%') {
+                            $(result).find('div[data-id=\'' + id + '\'] > *').addClass('translate');
+                        };
+
+                    };
+                    $(document).on('keydown.videoplay', function () {
+                        $(result).find('div[data-id=\'' + id + '\'] > video')[0].play();
+                        $(document).off('keydown.videoplay');
+                    });
                     console.warn('The sprite: ' + id + ' was created.');
                 } else {
                     throw new SyntaxError('The function \'createsprite\' should be used in the scene.');
@@ -54,19 +78,19 @@
                 var gravity = config.gravity;
                 if (gravity) {
                     $(value).gamemaker('gravity');
-                }
+                };
             };
             if (typeof config.gravityFloor != 'undefined') {
                 var gravityFloor = config.gravityFloor;
                 if (gravityFloor) {
                     $(value).gamemaker('gravity_floor');
-                }
+                };
             };
             if (typeof config.click != 'undefined') {
                 if (typeof config.click == 'function') {
                     $(result).off('click');
                     $(result).click(config.click);
-                }
+                };
             };
         } else {
             $.gamemaker.help();
