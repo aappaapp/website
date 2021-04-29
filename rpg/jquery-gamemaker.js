@@ -33,13 +33,16 @@
                     var id = config.createsprite.id || '';
                     var img = config.createsprite.img || '';
                     var vid = config.createsprite.vid || '';
+                    var autoplay = config.createsprite.autoplay || false;
+                    var onended = config.createsprite.onended || function () { };
                     var text = config.createsprite.text || '';
                     var txtcolor = config.createsprite.txtcolor || 'black';
-                    var mw = config.createsprite.mw || 100;
-                    var mh = config.createsprite.mh || 100;
+                    var mw = config.createsprite.mw || 0;
+                    var mh = config.createsprite.mh || 0;
                     var x = config.createsprite.x || 0;
-                    var y = config.createsprite.x || 0;
+                    var y = config.createsprite.y || 0;
                     $(result).append('<div data-id=\'' + id + '\' data-type=\'sprite\'><img src=\'' + img + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'><video src=\'' + vid + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'></video><span style=\'color: ' + txtcolor + ';\'>' + text + '</span></div>');
+                    console.log(id, x, y);
                     if (x != 0 || y != 0) {
                         $(result).find('div[data-id=\'' + id + '\'] > *').css({
                             'position': 'absolute',
@@ -53,14 +56,18 @@
                             $(result).find('div[data-id=\'' + id + '\'] > *').addClass('translateY');
                         };
                         if (x == '50%' && y == '50%') {
+                            $(result).find('div[data-id=\'' + id + '\'] > *').removeClass('translateX');
+                            $(result).find('div[data-id=\'' + id + '\'] > *').removeClass('translateY');
                             $(result).find('div[data-id=\'' + id + '\'] > *').addClass('translate');
                         };
 
                     };
-                    $(document).on('keydown.videoplay', function () {
+                    if (autoplay) {
                         $(result).find('div[data-id=\'' + id + '\'] > video')[0].play();
-                        $(document).off('keydown.videoplay');
-                    });
+                    };
+                    if ($(result).find('div[data-id=\'' + id + '\'] > video').length != 0) {
+                        $(result).find('div[data-id=\'' + id + '\'] > video').on('ended', onended);
+                    };
                     console.warn('The sprite: ' + id + ' was created.');
                 } else {
                     throw new SyntaxError('The function \'createsprite\' should be used in the scene.');
