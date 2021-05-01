@@ -112,6 +112,9 @@
         txt += '\n$(ID).gamemaker();'
         console.log(txt);
     };
+    $.gamemaker.playaudio = function (audio) {
+        $('body').append('<audio src=\'' + audio + '\' autoplay></audio>');
+    };
     $.gamemaker.createscene = function (config) {
         if (typeof config != 'object') {
             throw new SyntaxError;
