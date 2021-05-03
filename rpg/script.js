@@ -60,7 +60,7 @@ $(function () {
                     $('choose_name').gamemaker({
                         createsprite: {
                             id: 'choose_name_display',
-                            text: 'as',
+                            placeholder: 'Your name...',
                             txtcolor: 'white',
                             x: '50%',
                             y: '30%'

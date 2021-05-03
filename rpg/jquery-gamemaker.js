@@ -36,6 +36,7 @@
                     var autoplay = config.createsprite.autoplay || false;
                     var onended = config.createsprite.onended || function () { };
                     var text = config.createsprite.text || '';
+                    var placeholder = config.createsprite.placeholder || '';
                     var txtcolor = config.createsprite.txtcolor || 'black';
                     var mw = config.createsprite.mw || 0;
                     var mh = config.createsprite.mh || 0;
