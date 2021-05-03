@@ -5,12 +5,6 @@ $(function () {
         id: 'start_animation',
         show: true
     });
-    $.gamemaker.createscene({
-        type: 'fullscreen',
-
-        bg: 'black',
-        id: 'start_menu'
-    });
     $('start_animation').gamemaker({
         createsprite: {
             id: 'start_animation_video',
@@ -28,7 +22,12 @@ $(function () {
         $(document).off('keydown.start');
         $($('start_animation').gamemaker('get')).fadeOut(1000, function () {
             $($('start_animation_video').gamemaker('get')).find('video')[0].pause();
-            $('start_menu').gamemaker('show');
+            $.gamemaker.createscene({
+                type: 'fullscreen',
+                bg: 'black',
+                id: 'start_menu',
+                show: true
+            });
             $.gamemaker.playaudio('BLA.mp3');
             $('start_menu').gamemaker({
                 createsprite: {
@@ -50,7 +49,23 @@ $(function () {
             });
             $(document).on('keydown.keydownstart', function (event) {
                 if (event.which == '32') {
-                    alert('sd');
+                    $(document).off('keydown.keydownstart');
+                    $('start_menu').gamemaker('hide');
+                    $.gamemaker.createscene({
+                        type: 'fullscreen',
+                        bg: 'black',
+                        id: 'choose_name',
+                        show: true
+                    });
+                    $('choose_name').gamemaker({
+                        createsprite: {
+                            id: 'choose_name_display',
+                            text: 'as',
+                            txtcolor: 'white',
+                            x: '50%',
+                            y: '30%'
+                        }
+                    });
                 }
             });
         });

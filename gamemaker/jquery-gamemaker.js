@@ -42,7 +42,6 @@
                     var x = config.createsprite.x || 0;
                     var y = config.createsprite.y || 0;
                     $(result).append('<div data-id=\'' + id + '\' data-type=\'sprite\'><img src=\'' + img + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'><video src=\'' + vid + '\' style=\'max-width: ' + mw + ';max-height: ' + mh + ';\'></video><span style=\'color: ' + txtcolor + ';\'>' + text + '</span></div>');
-                    console.log(id, x, y);
                     if (x != 0 || y != 0) {
                         $(result).find('div[data-id=\'' + id + '\'] > *').css({
                             'position': 'absolute',
@@ -73,6 +72,10 @@
                     throw new SyntaxError('The function \'createsprite\' should be used in the scene.');
                 };
             };
+            if (typeof config.text != 'undefined') {
+                var text = config.text;
+                $(result).find('span').text(text);
+            }
             if (typeof config.show != 'undefined') {
                 var show = config.show;
                 if (show) {
