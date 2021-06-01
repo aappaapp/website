@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+    <title></title>
+    <script src='jquery-latest.min.js'></script>
+    <script src='js-arrstick.js'></script>
+    <script src='jquery.cookie.js'></script>
+    <script src='script.js'></script>
+    <link rel='stylesheet' href='style.css'>
+</head>
+
+<body>
+    <page id='home'>
+        <div class='center'>
+            <h1 id='title'></h1>
+            <button id='startbtn'></button>
+            <button id='settingbtn'></button>
+        </div>
+    </page>
+    <page id='setting'>
+        <button id='backbtn'></button>
+        <br><br>
+        <select id='lang'>
+            <option value='en'>English</option>
+            <option value='zh'>中文</option>
+        </select>
+    </page>
+    <page id='animation'>
+        <sprite id='water' class='hide'><img src='sprites/water.png'></sprite>
+        <sprite id='fire' class='hide'><img src='sprites/fire.png'></sprite>
+        <sprite id='paracelsus' class='hide'>paracelsus</sprite>
+        <sprite id='earth' class='center hide'><img src='sprites/earth.png'></sprite>
+        <svg id='explode_circle_svg' width='0' height='0'>
+            <circle id='explode_circle' r='0' fill='white'></circle>
+        </svg>
+    </page>
+    <page id='menu'>
+        <div id='menu_box' class='box center'>
+            <span id='menu_name_display'></span>
+            <br><br>
+            <button id='menu_startbtn'></button>
+        </div>
+    </page>
+    <page id='choose_name'>
+        <div id='choose_name_container' class='center'>
+            <input id='choose_name_display' readonly>
+            <br><br>
+            <button id='choose_name_finishbtn'></button>
+        </div>
+        <div id='fadewhite' class='hide'></div>
+    </page>
+    <page id='map'>
+        <room id='room_start'>
+            <img src='room/testroom.png'>
+        </room>
+    </page>
+</body>
+
+</html>

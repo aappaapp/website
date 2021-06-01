@@ -1,0 +1,7 @@
+system.game.name=system.game.name
+
+ui.startbtn=Start
+ui.settingbtn=Setting
+ui.backbtn=<Back
+ui.choose_name_placeholder=Your name...
+ui.choose_name_finishbtn=Finish
