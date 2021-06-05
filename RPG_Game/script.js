@@ -29,9 +29,14 @@ function removeSave(path, value) {
 function reloadSaveVar() {
     window.savevar = $.cookie('save');
 }
+function deleteAllSave() {
+    $.removeCookie('save');
+    $.removeCookie('name');
+    $.removeCookie('story_animation');
+    $.removeCookie('lang');
+}
 //Audio
 function playaudio(path) {
-    console.log(path);
     $('body').append('<audio src=\'' + path + '\' onended=\'this.remove();\' autoplay></audio>');
 }
 //langtext
@@ -75,10 +80,11 @@ function changepage(page) {
 
 //start
 function story_animation() {
+    changepage('animation');
     $('#paracelsus, #earth').hide();
     var explode = function () {
-        $('#explode_circle_svg').attr('width', $(document).width());
-        $('#explode_circle_svg').attr('height', $(document).height());
+        $('#explode_circle_svg').attr('width', $('body').width());
+        $('#explode_circle_svg').attr('height', $('body').height());
         var itv1 = setInterval(function () {
             $('#explode_circle').attr('r', Number($('#explode_circle').attr('r')) + 25);
             if ($('#explode_circle').attr('r') >= 1000) {
@@ -192,10 +198,10 @@ function loadgame() {
     reloadSaveVar();
     if (typeof window.savevar['room'] == 'undefined') {
         save('["room"]', 'room_start');
-        console.log('sd');
         reloadSaveVar();
     }
     changepage('map');
+    move();
     changeroom(window.savevar['room']);
 }
 
@@ -205,10 +211,28 @@ function changeroom(room) {
     $('room#' + room).addClass('show');
 }
 
+//Control
+function move() {
+    window.moveitv = setInterval(function () {
+        if (window.keys[68]) {
+            $('sprite#protagonist').css('left', $('sprite#protagonist').position().left + 1);
+        }
+        if (window.keys[65]) {
+            $('sprite#protagonist').css('left', $('sprite#protagonist').position().left - 1);
+        }
+    });
+}
+
 $(function () {
     //Basic
+    //  variable
+    window.keys = {};
     //  2:1
-    $('body').width($('body').width()).height($('body').width() / 2).addClass('center');
+    $('body').width($('body').width()).height($('body').width() / 2).css({
+        top: '50%',
+        transform: 'translate(0%, -50%)',
+        position: 'absolute'
+    });
     //  cookie
     $.cookie.json = true;
     window.day = 3652;
@@ -224,7 +248,6 @@ $(function () {
     $('room > img').addClass('center');
     //Button
     $('*#startbtn').click(function () {
-        changepage('game');
         if (!$.cookie('story_animation')) {
             story_animation();
         } else {
@@ -251,8 +274,14 @@ $(function () {
             event.preventDefault();
         }
         if (event.key == 'F11') {
-            console.log('sd');
             event.preventDefault();
         }
+        window.keys[event.which] = true;
+    });
+    $(document).keyup(function () {
+        delete window.keys[event.which];
+    });
+    $(document).blur(function () {
+        window.keys = {};
     });
 });

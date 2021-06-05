@@ -19,7 +19,7 @@ h2{
     font-size: 38px;
 }
 section{
-    height: 100vh;
+    /*max-height: 100vh;*/
 }
 /*Nav*/
 nav{
@@ -71,4 +71,8 @@ button:hover{
 #section1{
     padding-top: 50px;
     visibility: hidden;
+    height: 100vh;
+}
+#section2{
+    height: 50vh;
 }

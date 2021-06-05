@@ -55,10 +55,12 @@ circle{
 }
 sprite{
     position: absolute;
+    z-index: 99;
 }
 room{
     height: 100%;
     display: none;
+    z-index: 98;
 }
 room.show{
     display: block;
@@ -95,7 +97,7 @@ span{
 #fadewhite{
     background-color: white;
     height: 100%;
-    width: 100vw;
+    width: 100%;
     position: absolute;
     z-index: 100;
 }
