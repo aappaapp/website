@@ -1,0 +1,49 @@
+@font-face {
+    font-family: unifont;
+    src: url(unifont-13.0.04.ttf);
+}
+html{
+    background-color: black;
+    color: white;
+    font-family: unifont, Arial, Helvetica, sans-serif;
+}
+page{
+    height: 100%;
+    display: none;
+}
+page.show{
+    display: block;
+}
+sprite{
+    position: absolute;
+    z-index: 99;
+}
+button{
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    font-size: var(--font-size);
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+    font-family: unifont, Arial, Helvetica, sans-serif;
+}
+button:hover{
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+.center{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#car{
+    background-color: lightblue;
+    width: 50px;
+    height: 50px;
+}

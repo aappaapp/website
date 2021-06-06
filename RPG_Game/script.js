@@ -9,6 +9,29 @@ $.fn.setsize = function (w, h) {
 window.ondragstart = function () {
     return false;
 }
+//overlaps
+var overlaps = (function () {
+    function getPositions(elem) {
+        var pos, width, height;
+        pos = $(elem).position();
+        width = $(elem).width();
+        height = $(elem).height();
+        return [[pos.left, pos.left + width], [pos.top, pos.top + height]];
+    }
+
+    function comparePositions(p1, p2) {
+        var r1, r2;
+        r1 = p1[0] < p2[0] ? p1 : p2;
+        r2 = p1[0] < p2[0] ? p2 : p1;
+        return r1[1] > r2[0] || r1[0] === r2[0];
+    }
+
+    return function (a, b) {
+        var pos1 = getPositions(a),
+            pos2 = getPositions(b);
+        return comparePositions(pos1[0], pos2[0]) && comparePositions(pos1[1], pos2[1]);
+    };
+})();
 //cookie
 function cookie(name, value) {
     $.cookie(name, value, {
@@ -34,6 +57,15 @@ function deleteAllSave() {
     $.removeCookie('name');
     $.removeCookie('story_animation');
     $.removeCookie('lang');
+}
+//cursor
+function cursor(boolean) {
+    console.log(!boolean);
+    if (boolean) {
+        $('body').css('cursor', 'default');
+    } else if (!boolean) {
+        $('body').css('cursor', 'none');
+    }
 }
 //Audio
 function playaudio(path) {
@@ -202,23 +234,49 @@ function loadgame() {
     }
     changepage('map');
     move();
-    changeroom(window.savevar['room']);
+    cursor(false);
+    changeroom(window.savevar['room'], 'left');
 }
 
 //Map
-function changeroom(room) {
+function changeroom(room, direction) {
     $('room.show').removeClass('show');
     $('room#' + room).addClass('show');
+    $('#mainchr').css({
+        'top': roomPos.room_paracelsuslab[direction].top + '%',
+        'left': roomPos.room_paracelsuslab[direction].left + '%'
+    });
 }
 
 //Control
 function move() {
+    var movespeed = 1;
     window.moveitv = setInterval(function () {
+        if (window.keys[16]) {
+            movespeed = 2;
+        }
+        if (!window.keys[16]) {
+            movespeed = 1;
+        }
         if (window.keys[68]) {
-            $('sprite#protagonist').css('left', $('sprite#protagonist').position().left + 1);
+            if (!($('#mainchr').position().left >= $('body').width() - $('#mainchr').width())) {
+                $('sprite#mainchr').css('left', $('sprite#mainchr').position().left + movespeed);
+            }
         }
         if (window.keys[65]) {
-            $('sprite#protagonist').css('left', $('sprite#protagonist').position().left - 1);
+            if (!($('#mainchr').position().left <= 0)) {
+                $('sprite#mainchr').css('left', $('sprite#mainchr').position().left - movespeed);
+            }
+        }
+        if (window.keys[87]) {
+            if (!overlaps($('sprite#mainchr')[0], $('.2-1top')[0])) {
+                $('sprite#mainchr').css('top', $('sprite#mainchr').position().top - movespeed);
+            }
+        }
+        if (window.keys[83]) {
+            if (!overlaps($('sprite#mainchr')[0], $('.2-1bottom')[0])) {
+                $('sprite#mainchr').css('top', $('sprite#mainchr').position().top + movespeed);
+            }
         }
     });
 }
@@ -228,10 +286,26 @@ $(function () {
     //  variable
     window.keys = {};
     //  2:1
-    $('body').width($('body').width()).height($('body').width() / 2).css({
-        top: '50%',
-        transform: 'translate(0%, -50%)',
-        position: 'absolute'
+    setTimeout(function () {
+        if ($('body').width()) { }
+        $('body').width($('body').width()).height($('body').width() / 2).css({
+            top: '50%',
+            transform: 'translate(0%, -50%)',
+            position: 'absolute'
+        });
+        $('body').append('<div class=\'2-1top\'></div><div class=\'2-1bottom\'></div>');
+        $('.2-1top').width($(document).width()).height($('body').position().top - 1).css({
+            position: 'absolute',
+            top: -$('body').position().top,
+            background: 'black',
+            'z-index': 101
+        });
+        $('.2-1bottom').width($(document).width()).height($('body').position().top - 1).css({
+            position: 'absolute',
+            bottom: -$('body').position().top,
+            background: 'black',
+            'z-index': 101
+        });
     });
     //  cookie
     $.cookie.json = true;
@@ -243,9 +317,51 @@ $(function () {
     setlangtext();
     $('page#home').addClass('show');
     //  room
+    //      roomspawnpositon
+    window.roomPos = {
+        'room_paracelsuslab': {
+            'left': {
+                'top': 77,
+                'left': 1
+            },
+            'right': {
+                'top': 77,
+                'left': 93
+            }
+        }
+    };
+    //      roomchangetrigger
+    setInterval(function () {
+        var posPer = {
+            x: $('#mainchr').position().left / $('body').width() * 100,
+            y: $('#mainchr').position().top / $('body').height() * 100
+        };
+        var roomChangeTri = {
+            'room_paracelsuslab': [{
+                'top': 77,
+                'left': 0
+            }]
+        };
+        var roomChangeTri2 = [
+            {
+                b: (roomChangeTri.room_paracelsuslab[0].top + 13 >= posPer.y && roomChangeTri.room_paracelsuslab[0].top - 13 <= posPer.y) && (roomChangeTri.room_paracelsuslab[0].left >= posPer.x),
+                r: 'room_other'
+            }
+        ]
+        //console.log(roomChangeTri.room_paracelsuslab[0].top);
+        var i;
+        for (i in roomChangeTri2) {
+            if (roomChangeTri2[i].b) {
+                console.log(roomChangeTri2[i].r);
+            }
+        }
+    });
+    //      roomcollision
     //      roomsize
-    $('room').setsize($('body').width(), $('body').height());
-    $('room > img').addClass('center');
+    setTimeout(function () {
+        $('room').setsize($('body').width(), $('body').height());
+        $('room > img').addClass('center');
+    });
     //Button
     $('*#startbtn').click(function () {
         if (!$.cookie('story_animation')) {
