@@ -252,30 +252,33 @@ function changeroom(room, direction) {
 function move() {
     var movespeed = 1;
     window.moveitv = setInterval(function () {
+        var playerleft = $('sprite#mainchr').position().left / $('body').width() * 100;
+        var playertop = $('sprite#mainchr').position().top / $('body').height() * 100;
         if (window.keys[16]) {
-            movespeed = 2;
+            movespeed = 0.2;
         }
         if (!window.keys[16]) {
-            movespeed = 1;
+            movespeed = 0.1;
         }
         if (window.keys[68]) {
             if (!($('#mainchr').position().left >= $('body').width() - $('#mainchr').width())) {
-                $('sprite#mainchr').css('left', $('sprite#mainchr').position().left + movespeed);
+                $('sprite#mainchr').css('left', playerleft + movespeed + '%');
             }
         }
         if (window.keys[65]) {
             if (!($('#mainchr').position().left <= 0)) {
-                $('sprite#mainchr').css('left', $('sprite#mainchr').position().left - movespeed);
+                $('sprite#mainchr').css('left', playerleft - movespeed + '%');
             }
         }
         if (window.keys[87]) {
             if (!overlaps($('sprite#mainchr')[0], $('.2-1top')[0])) {
-                $('sprite#mainchr').css('top', $('sprite#mainchr').position().top - movespeed);
+                $('sprite#mainchr').css('top', playertop - movespeed + '%');
             }
         }
         if (window.keys[83]) {
             if (!overlaps($('sprite#mainchr')[0], $('.2-1bottom')[0])) {
-                $('sprite#mainchr').css('top', $('sprite#mainchr').position().top + movespeed);
+                console.log(playertop, movespeed, playertop + movespeed);
+                $('sprite#mainchr').css('top', playertop + movespeed + '%');
             }
         }
     });
