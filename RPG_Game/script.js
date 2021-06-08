@@ -252,33 +252,36 @@ function changeroom(room, direction) {
 function move() {
     var movespeed = 1;
     window.moveitv = setInterval(function () {
-        var playerleft = $('sprite#mainchr').position().left / $('body').width() * 100;
-        var playertop = $('sprite#mainchr').position().top / $('body').height() * 100;
+        // var playerleft = $('sprite#mainchr').position().left / $('body').width() * 100;
+        // var playertop = $('sprite#mainchr').position().top / $('body').height() * 100;
+        var playerleft = $('sprite#mainchr').position().left;
+        var playertop = $('sprite#mainchr').position().top;
         if (window.keys[16]) {
-            movespeed = 0.2;
+            // movespeed = 0.2;
+            movespeed = 2;
         }
         if (!window.keys[16]) {
-            movespeed = 0.1;
+            // movespeed = 0.1;
+            movespeed = 1;
         }
         if (window.keys[68]) {
             if (!($('#mainchr').position().left >= $('body').width() - $('#mainchr').width())) {
-                $('sprite#mainchr').css('left', playerleft + movespeed + '%');
+                $('sprite#mainchr').css('left', playerleft + movespeed + '');
             }
         }
         if (window.keys[65]) {
             if (!($('#mainchr').position().left <= 0)) {
-                $('sprite#mainchr').css('left', playerleft - movespeed + '%');
+                $('sprite#mainchr').css('left', playerleft - movespeed + '');
             }
         }
         if (window.keys[87]) {
             if (!overlaps($('sprite#mainchr')[0], $('.2-1top')[0])) {
-                $('sprite#mainchr').css('top', playertop - movespeed + '%');
+                $('sprite#mainchr').css('top', playertop - movespeed + '');
             }
         }
         if (window.keys[83]) {
             if (!overlaps($('sprite#mainchr')[0], $('.2-1bottom')[0])) {
-                console.log(playertop, movespeed, playertop + movespeed);
-                $('sprite#mainchr').css('top', playertop + movespeed + '%');
+                $('sprite#mainchr').css('top', playertop + movespeed + '');
             }
         }
     });
@@ -286,6 +289,8 @@ function move() {
 
 $(function () {
     //Basic
+    //  monitorsize
+    $(document).width() < 720 ? window.close() : undefined;
     //  variable
     window.keys = {};
     //  2:1
