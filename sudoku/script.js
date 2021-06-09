@@ -126,6 +126,7 @@ $(function () {
                     let input = sudoku_squares[row][col];
                     input.value = board[row][col];
                     input.classList.add('imported_square');
+                    input.readOnly = true;
                 }
             }
         }
