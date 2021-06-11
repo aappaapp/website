@@ -1,11 +1,41 @@
 //jquery function
-$.fn.setsize = function (w, h) {
-    this.find('img').css({
-        'max-width': w,
-        'max-height': h
-    });
+$.fn.extend({
+    setsize: function (w, h) {
+        this.find('img').css({
+            'max-width': w,
+            'max-height': h
+        });
+    },
+    eachtext: function (text, speed) {
+        $this = $(this);
+        var i = 1;
+        var text2;
+        var itv = setInterval(function () {
+            text2 = text.slice(0, i);
+            $this.text(text2);
+            if (i == text.length) {
+                clearInterval(itv);
+            }
+            i++;
+        }, speed);
+    }
+})
+
+//text
+function eachtext(text, speed) {
+    var i = 1;
+    var text2;
+    var itv = setInterval(function () {
+        text2 = text.slice(0, i);
+        console.log(text2);
+        if (i == text.length) {
+            clearInterval(itv);
+        }
+        i++;
+    }, speed);
 }
 
+//drag
 window.ondragstart = function () {
     return false;
 }
@@ -68,8 +98,11 @@ function cursor(boolean) {
     }
 }
 //Audio
-function playaudio(path) {
-    $('body').append('<audio src=\'' + path + '\' onended=\'this.remove();\' autoplay></audio>');
+function playaudio(path, config) {
+    $('body').append('<audio src=\'' + path + '\' onended=\'this.remove();\' autoplay ' + (config.loop ? 'loop' : '') + ' ></audio > ');
+}
+function stopaudio() {
+    $('audio').remove();
 }
 //langtext
 function setlangtext() {
@@ -89,14 +122,15 @@ function setlangtext() {
     });
 }
 function langtextinner() {
-    $(document).attr('title', langtext['system.game.name']);
-    $('*#title').text(langtext['system.game.name']);
-    $('*#startbtn').text(langtext['ui.startbtn']);
+    //$(document).attr('title', langtext['system.game.name']);
+    $('title, *#title').eachtext(langtext['system.game.name'], 50);
+    $('*#startbtn').text(langtext['ui.startbtn'], 50);
     $('*#settingbtn').text(langtext['ui.settingbtn']);
     $('*#backbtn').text(langtext['ui.backbtn']);
     $('*#choose_name_display').attr('placeholder', langtext['ui.choose_name_placeholder']);
     $('*#choose_name_finishbtn').text(langtext['ui.choose_name_finishbtn']);
     $('*#menu_startbtn').text(langtext['ui.startbtn']);
+    $('*#fight_choice_fight').text(langtext['fight.btn.fight']);
 }
 
 //page
@@ -187,7 +221,7 @@ function gamestart() {
         newgame();
     } else {
         changepage('menu');
-        $('#menu_name_display').text($.cookie('name'));
+        $('#menu_name_display').eachtext($.cookie('name'), 50);
     }
 }
 function newgame() {
@@ -228,6 +262,7 @@ function newgame() {
 //load
 function loadgame() {
     reloadSaveVar();
+    stopaudio();
     if (typeof window.savevar['room'] == 'undefined') {
         save('["room"]', 'room_start');
         reloadSaveVar();
@@ -236,15 +271,25 @@ function loadgame() {
     move();
     cursor(false);
     changeroom(window.savevar['room'], 'left');
+    setTimeout(function () {
+        tofight([
+            {
+                name: characterData.wrong_lock.name
+            }
+        ]);
+    }, 2000);
 }
 
 //Map
 function changeroom(room, direction) {
     $('room.show').removeClass('show');
     $('room#' + room).addClass('show');
+    if (typeof direction == 'undefined') {
+        direction = '';
+    }
     $('#mainchr').css({
-        'top': roomPos.room_paracelsuslab[direction].top + '%',
-        'left': roomPos.room_paracelsuslab[direction].left + '%'
+        'top': roomPos[room][direction].top + '%',
+        'left': roomPos[room][direction].left || 0 + '%'
     });
 }
 
@@ -287,10 +332,45 @@ function move() {
     });
 }
 
+//Fight
+function tofight(config) {
+    $('#fight_overlay').width($('body').width()).height($('body').height());
+    $('sprite#mainchr').hide();
+    $('#fight_overlay').fadeIn(500);
+    //Animation
+    setTimeout(function () {
+        $('#fight_box').animate({
+            width: 150,
+            height: 150,
+            borderWidth: 5
+        }, 1000);
+        setTimeout(function () {
+            $('#fight_box').stop();
+            $('#fight_box').animate({
+                width: 500,
+                height: 125,
+                borderWidth: 5
+            }, 1000).animate({
+                top: '70%'
+            }, 1000, function () {
+                $('#fight_choice_container').animate({
+                    top: '90%'
+                }, 1000, function () {
+                    var text = window.langtext['fight.start.text1'];
+                    text = text.replace('%c', config[0].name);
+                    console.log(text);
+                    $('#fight_box').eachtext(text, 50);
+                    cursor(true);
+                });
+            });
+        }, 500);
+    }, 250);
+}
+
 $(function () {
     //Basic
     //  monitorsize
-    $(document).width() < 720 ? window.close() : undefined;
+    //$(document).width() < 720 ? window.close() : undefined;
     //  variable
     window.keys = {};
     //  2:1
@@ -306,13 +386,15 @@ $(function () {
             position: 'absolute',
             top: -$('body').position().top,
             background: 'black',
-            'z-index': 101
+            'z-index': 101,
+            cursor: 'none'
         });
         $('.2-1bottom').width($(document).width()).height($('body').position().top - 1).css({
             position: 'absolute',
             bottom: -$('body').position().top,
             background: 'black',
-            'z-index': 101
+            'z-index': 101,
+            cursor: 'none'
         });
     });
     //  cookie
@@ -328,6 +410,16 @@ $(function () {
     //      roomspawnpositon
     window.roomPos = {
         'room_paracelsuslab': {
+            'left': {
+                'top': 77,
+                'left': 1
+            },
+            'right': {
+                'top': 77,
+                'left': 93
+            }
+        },
+        'room_start': {
             'left': {
                 'top': 77,
                 'left': 1
@@ -353,14 +445,17 @@ $(function () {
         var roomChangeTri2 = [
             {
                 b: (roomChangeTri.room_paracelsuslab[0].top + 13 >= posPer.y && roomChangeTri.room_paracelsuslab[0].top - 13 <= posPer.y) && (roomChangeTri.room_paracelsuslab[0].left >= posPer.x),
-                r: 'room_other'
+                r: 'room_other',
+                a: 'room_start'
             }
         ]
         //console.log(roomChangeTri.room_paracelsuslab[0].top);
         var i;
         for (i in roomChangeTri2) {
             if (roomChangeTri2[i].b) {
-                console.log(roomChangeTri2[i].r);
+                if ($('room.show').attr('id') == roomChangeTri2[i].a) {
+                    console.log(roomChangeTri2[i].r);
+                }
             }
         }
     });
@@ -369,6 +464,18 @@ $(function () {
     setTimeout(function () {
         $('room').setsize($('body').width(), $('body').height());
         $('room > img').addClass('center');
+    });
+    //      Character Data
+    setTimeout(function () {
+        window.characterData = {
+            'wrong_lock': {
+                name: langtext['chr.wrong_lock.name']
+            }
+        };
+    });
+    //      HomePageMusic
+    playaudio('audio/mus_homepage.mp3', {
+        loop: true
     });
     //Button
     $('*#startbtn').click(function () {

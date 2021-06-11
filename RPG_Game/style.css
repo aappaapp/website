@@ -61,7 +61,7 @@ sprite{
 room{
     height: 100%;
     display: none;
-    z-index: 98;
+    z-index: 97;
 }
 room.show{
     display: block;
@@ -117,4 +117,30 @@ span{
 }
 #choose_name_display::placeholder{
     color: lightgrey;
+}
+
+/*Fight*/
+#fight_overlay{
+    display: none;
+    z-index: 98;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+}
+#fight_box{
+    border: 0px solid white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+#fight_choice_container{
+    position: absolute;
+    top: 101%;
+    width: 100%;
+    justify-content: space-evenly;
+    display: grid;
+    grid-auto-flow: column;
 }

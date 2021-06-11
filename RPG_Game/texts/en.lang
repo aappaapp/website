@@ -5,3 +5,8 @@ ui.settingbtn=Setting
 ui.backbtn=<Back
 ui.choose_name_placeholder=Your name...
 ui.choose_name_finishbtn=Finish
+
+fight.btn.fight=Fight
+fight.start.text1=%c Coming!
+
+chr.wrong_lock.name=Wrong Lock

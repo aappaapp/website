@@ -5,3 +5,8 @@ ui.settingbtn=設定
 ui.backbtn=<返回
 ui.choose_name_placeholder=你的名字...
 ui.choose_name_finishbtn=完成
+
+fight.btn.fight=戰鬥
+fight.start.text1=%c來了!
+
+chr.wrong_lock.name=錯鎖
