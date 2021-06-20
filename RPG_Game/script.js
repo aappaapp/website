@@ -10,6 +10,7 @@ $.fn.extend({
         $this = $(this);
         var i = 1;
         var text2;
+        window.eachtextcount++;
         var itv = setInterval(function () {
             text2 = text.slice(0, i);
             $this.text(text2);
@@ -18,6 +19,9 @@ $.fn.extend({
             }
             i++;
         }, speed);
+    },
+    setimg: function (src) {
+        this.find('img').attr('src', src);
     }
 })
 
@@ -90,7 +94,6 @@ function deleteAllSave() {
 }
 //cursor
 function cursor(boolean) {
-    console.log(!boolean);
     if (boolean) {
         $('body').css('cursor', 'default');
     } else if (!boolean) {
@@ -123,8 +126,8 @@ function setlangtext() {
 }
 function langtextinner() {
     //$(document).attr('title', langtext['system.game.name']);
-    $('title, *#title').eachtext(langtext['system.game.name'], 50);
-    $('*#startbtn').text(langtext['ui.startbtn'], 50);
+    $('title, *#title').text(langtext['system.game.name']);
+    $('*#startbtn').text(langtext['ui.startbtn']);
     $('*#settingbtn').text(langtext['ui.settingbtn']);
     $('*#backbtn').text(langtext['ui.backbtn']);
     $('*#choose_name_display').attr('placeholder', langtext['ui.choose_name_placeholder']);
@@ -221,7 +224,7 @@ function gamestart() {
         newgame();
     } else {
         changepage('menu');
-        $('#menu_name_display').eachtext($.cookie('name'), 50);
+        $('#menu_name_display').text($.cookie('name'));
     }
 }
 function newgame() {
@@ -271,12 +274,9 @@ function loadgame() {
     move();
     cursor(false);
     changeroom(window.savevar['room'], 'left');
+    fighttriger();
     setTimeout(function () {
-        tofight([
-            {
-                name: characterData.wrong_lock.name
-            }
-        ]);
+
     }, 2000);
 }
 
@@ -334,9 +334,19 @@ function move() {
 
 //Fight
 function tofight(config) {
-    $('#fight_overlay').width($('body').width()).height($('body').height());
+    $('#fight_overlay').width($('body').width()).height($('body').height() - 1);
     $('sprite#mainchr').hide();
+    $('sprite#fight_enemy').hide();
+    $('sprite#fight_enemy').setimg(config[0].img);
+    $('sprite#fight_enemy').setsize(150, 150);
     $('#fight_overlay').fadeIn(500);
+    $('#fight_box').text('');
+    var chrData = [
+        {
+            hp: config[0].hp
+        }
+    ];
+    console.log(config[0].hp);
     //Animation
     setTimeout(function () {
         $('#fight_box').animate({
@@ -353,18 +363,129 @@ function tofight(config) {
             }, 1000).animate({
                 top: '70%'
             }, 1000, function () {
+                $('sprite#fight_enemy').show().css('opacity', '0');
+                $('sprite#fight_enemy').animate({
+                    opacity: 1
+                }, 500);
                 $('#fight_choice_container').animate({
                     top: '90%'
                 }, 1000, function () {
                     var text = window.langtext['fight.start.text1'];
                     text = text.replace('%c', config[0].name);
                     console.log(text);
-                    $('#fight_box').eachtext(text, 50);
+                    $('#fight_box').text(text);
                     cursor(true);
+                    var choice_fight_time = 0;
+                    var presskeytext = 0;
+                    var nowpresskeytext = 1;
+                    $('#fight_choice_fight').on('click.fight_choice_fight', function () {
+                        $('#fight_choice_container').hide();
+                        choice_fight_time++;
+                        var vfight_presskey = 0;
+                        var togglepresskey = true;
+                        var togglepresskey2 = true;
+                        $('#fight_box').text(window.langtext['fight.presskey']);
+                        var fight_presskey2 = function () {
+                            $(document).on('keydown.fight_presskey', function () {
+                                if (event.key == 'z') {
+                                    //vfight_presskey += 1;
+                                    vfight_presskey += 10;
+                                    presskeytext++;
+                                    $('#fight_presskey_text').append('<div id=\'presskeytext_' + presskeytext + '\' class=\'presskeytext\'>Z</div>');
+                                    setTimeout(function () {
+                                        //$('#presskeytext_' + nowpresskeytext).fadeOut(1000);
+                                        $('#presskeytext_' + nowpresskeytext).animate({
+                                            opacity: 0
+                                        }, 1000, function () {
+                                            $('#fight_presskey_text').animate({
+                                                top: '-=' + $('.presskeytext').height()
+                                            }, 100);
+                                        });
+                                        nowpresskeytext++;
+                                    }, 0);
+                                }
+                                $(document).off('keydown.fight_presskey');
+                                $(document).on('keyup.fight_presskey2', function () {
+                                    if (togglepresskey) {
+                                        fight_presskey();
+                                    }
+                                    $(document).off('keyup.fight_presskey2');
+                                });
+                            });
+                        };
+                        var fight_presskey = function () {
+                            if (togglepresskey2) {
+                                $('#fight_presskey_text').css('top', '0%');
+                            }
+                            fight_presskey2();
+                            togglepresskey2 = false;
+                        };
+                        fight_presskey();
+                        setTimeout(function () {
+                            $('.presskeytext').remove();
+                            togglepresskey = false;
+                            togglepresskey2 = true;
+                            var level = 0;
+                            var mhp = Math.floor(Math.floor(Math.random() * vfight_presskey) + (vfight_presskey + (Math.floor(Math.random() * (choice_fight_time + 1)) + (choice_fight_time + level + 1))));
+                            chrData[0].hp -= mhp;
+                            console.log(chrData[0].hp);
+                            $('#fight_mhp_text').text(mhp);
+                            $('#fight_enemy').animate({
+                                left: '55%'
+                            }, 100).animate({
+                                left: '45%'
+                            }, 100).animate({
+                                left: '50%'
+                            }, 100);
+                            $('#fight_mhp_text').animate({
+                                opacity: 1,
+                                top: '5%'
+                            }, 500).animate({
+                                opacity: 0,
+                                top: 0
+                            }, 1000, function () {
+                                $('#fight_mhp_text').css('top', '10%');
+                                if (chrData[0].hp <= 0) {
+                                    console.log('sd');
+                                    $('#fight_box').text('Enemy Dead!');
+                                    $('#fight_enemy').animate({
+                                        opacity: 0.5
+                                    }, 750, function () {
+                                        setTimeout(function () {
+                                            $('#fight_overlay').fadeOut(1000);
+                                            $('sprite#mainchr').show();
+                                            fighttriger();
+                                        }, 500);
+                                    });
+                                }
+                            });
+                            $('#fight_choice_container').show();
+                            $('#fight_box').text(text);
+                        }, 5000);
+                    });
                 });
             });
         }, 500);
     }, 250);
+}
+function fighttriger() {
+    var random = 0;
+    var randommax = 500;
+    var ftitv = setInterval(function () {
+        random = Math.floor(Math.random() * randommax) + 1;
+        if (random <= 1) {
+            console.log(true);
+            randommax += randommax / 2;
+            clearInterval(ftitv);
+            tofight([
+                {
+                    name: characterData.wrong_lock.name,
+                    img: characterData.wrong_lock.imgc,
+                    hp: characterData.wrong_lock.hp
+                }
+            ]);
+        }
+    });
 }
 
 $(function () {
@@ -469,14 +590,20 @@ $(function () {
     setTimeout(function () {
         window.characterData = {
             'wrong_lock': {
-                name: langtext['chr.wrong_lock.name']
+                name: langtext['chr.wrong_lock.name'],
+                hp: 75,
+                imgbw: 'sprites/wrong_lock - White & Black.png',
+                imgc: 'sprites/wrong_lock - Color.png'
             }
         };
-    });
+    }, 500);
+    //      eachtext
+    window.eachtextcount = 0;
     //      HomePageMusic
-    playaudio('audio/mus_homepage.mp3', {
-        loop: true
-    });
+    // playaudio('audio/mus_homepage.mp3', {
+    //     loop: true
+    // });
+
     //Button
     $('*#startbtn').click(function () {
         if (!$.cookie('story_animation')) {
@@ -505,6 +632,9 @@ $(function () {
             event.preventDefault();
         }
         if (event.key == 'F11') {
+            event.preventDefault();
+        }
+        if (event.key == 'W') {
             event.preventDefault();
         }
         window.keys[event.which] = true;

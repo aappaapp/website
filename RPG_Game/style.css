@@ -128,6 +128,21 @@ span{
     left: 0;
     background-color: black;
 }
+#fight_enemy{
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+}
+#fight_mhp_text{
+    color: black;
+    -webkit-text-stroke-color: red;
+    -webkit-text-stroke-width: 2px;
+    font-size: 100px;
+    position: absolute;
+    left: 60%;
+    top: 10%;
+    opacity: 0;
+}
 #fight_box{
     border: 0px solid white;
     position: absolute;
@@ -143,4 +158,10 @@ span{
     justify-content: space-evenly;
     display: grid;
     grid-auto-flow: column;
+}
+#fight_presskey_text{
+    position: absolute;
+    left: 60%;
+    top: /*4*/0%;
+    font-size: 60px;
 }

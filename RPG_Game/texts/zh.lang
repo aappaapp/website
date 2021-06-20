@@ -8,5 +8,6 @@ ui.choose_name_finishbtn=完成
 
 fight.btn.fight=戰鬥
 fight.start.text1=%c來了!
+fight.presskey=按Z！
 
 chr.wrong_lock.name=錯鎖

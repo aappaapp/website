@@ -8,5 +8,6 @@ ui.choose_name_finishbtn=Finish
 
 fight.btn.fight=Fight
 fight.start.text1=%c Coming!
+fight.presskey=Press Z!
 
 chr.wrong_lock.name=Wrong Lock
