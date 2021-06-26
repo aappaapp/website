@@ -336,11 +336,16 @@ function move() {
 function tofight(config) {
     $('#fight_overlay').width($('body').width()).height($('body').height() - 1);
     $('sprite#mainchr').hide();
-    $('sprite#fight_enemy').hide();
-    $('sprite#fight_enemy').setimg(config[0].img);
+    $('sprite#fight_enemy').css('opacity', '0');
+    $('sprite#fight_enemy').setimg(config[0].imgc);
     $('sprite#fight_enemy').setsize(150, 150);
     $('#fight_overlay').fadeIn(500);
-    $('#fight_box').text('');
+    $('#fight_box').text('').css({
+        height: 0,
+        width: 0,
+        borderWidth: 0,
+        top: '50%'
+    });
     var chrData = [
         {
             hp: config[0].hp
@@ -372,7 +377,6 @@ function tofight(config) {
                 }, 1000, function () {
                     var text = window.langtext['fight.start.text1'];
                     text = text.replace('%c', config[0].name);
-                    console.log(text);
                     $('#fight_box').text(text);
                     cursor(true);
                     var choice_fight_time = 0;
@@ -388,8 +392,8 @@ function tofight(config) {
                         var fight_presskey2 = function () {
                             $(document).on('keydown.fight_presskey', function () {
                                 if (event.key == 'z') {
-                                    //vfight_presskey += 1;
-                                    vfight_presskey += 10;
+                                    vfight_presskey += 1;
+                                    //vfight_presskey += 10;
                                     presskeytext++;
                                     $('#fight_presskey_text').append('<div id=\'presskeytext_' + presskeytext + '\' class=\'presskeytext\'>Z</div>');
                                     setTimeout(function () {
@@ -407,7 +411,7 @@ function tofight(config) {
                                 $(document).off('keydown.fight_presskey');
                                 $(document).on('keyup.fight_presskey2', function () {
                                     if (togglepresskey) {
-                                        fight_presskey();
+                                        fight_presskey2();
                                     }
                                     $(document).off('keyup.fight_presskey2');
                                 });
@@ -454,8 +458,30 @@ function tofight(config) {
                                         setTimeout(function () {
                                             $('#fight_overlay').fadeOut(1000);
                                             $('sprite#mainchr').show();
-                                            fighttriger();
+                                            setTimeout(function () {
+                                                fighttriger();
+                                            }, 2000);
                                         }, 500);
+                                    });
+                                } else {
+                                    cursor(false);
+                                    $('#fight_box').text('');
+                                    $('#fight_choice_container').hide();
+                                    $('#fight_box').animate({
+                                        width: 250,
+                                        height: 250,
+                                    }, 1000, function () {
+                                        $('#fight_box').append($('#fight_mainchr > sprite')).find('sprite').show();
+                                        config[0].attack(function () {
+                                            $('#fight_choice_container').show();
+                                            $('#fight_box').animate({
+                                                width: 500,
+                                                height: 125,
+                                            }, 1000, function () {
+                                                $('#fight_box').text(text);
+                                            });
+                                            cursor(true);
+                                        });
                                     });
                                 }
                             });
@@ -477,13 +503,7 @@ function fighttriger() {
             console.log(true);
             randommax += randommax / 2;
             clearInterval(ftitv);
-            tofight([
-                {
-                    name: characterData.wrong_lock.name,
-                    img: characterData.wrong_lock.imgc,
-                    hp: characterData.wrong_lock.hp
-                }
-            ]);
+            tofight([characterData.wrong_lock]);
         }
     });
 }
@@ -593,7 +613,38 @@ $(function () {
                 name: langtext['chr.wrong_lock.name'],
                 hp: 75,
                 imgbw: 'sprites/wrong_lock - White & Black.png',
-                imgc: 'sprites/wrong_lock - Color.png'
+                imgc: 'sprites/wrong_lock - Color.png',
+                attack: function (callback) {
+                    var wronglockkeyatk = 0;
+                    var summonatk = setInterval(function () {
+                        $('#fight_box').append('<div id=\'wronglockkeyatk_' + wronglockkeyatk + '\' class=\'fight_attack wronglockkeyatk\'>Keys</div>');
+                        $('#wronglockkeyatk_' + wronglockkeyatk).css('top', (Math.floor(Math.random() * 100) + 0) + '%');
+                        wronglockkeyatk++;
+                    }, 500);
+                    var atkmove = setInterval(function () {
+                        $('.wronglockkeyatk').each(function () {
+                            $(this).css('left', $(this).position().left + 1 + 'px');
+                        });
+                    });
+                    var attackoverlaps = setInterval(function () {
+                        var i;
+                        console.log($('.wronglockkeyatk').length);
+                        for (i in $('.wronglockkeyatk').length) {
+                            console.log(i);
+                            if (overlaps($('#mainchr')[0], $('.wronglockkeyatk')[i])) {
+                                $('.wronglockkeyatk').text('AAa');
+                                console.log('overlap');
+                            }
+                        }
+                    });
+                    setTimeout(function () {
+                        clearInterval(summonatk);
+                        clearInterval(atkmove);
+                        clearInterval(attackoverlaps);
+                        $('#fight_box').text('');
+                        callback();
+                    }, 5000);
+                }
             }
         };
     }, 500);
@@ -603,6 +654,11 @@ $(function () {
     // playaudio('audio/mus_homepage.mp3', {
     //     loop: true
     // });
+
+    //fight test
+    setTimeout(function () {
+        tofight([characterData.wrong_lock]);
+    }, 1000);
 
     //Button
     $('*#startbtn').click(function () {
