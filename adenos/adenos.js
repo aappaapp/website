@@ -43,7 +43,11 @@ function generatewindow(config) {
     }
 }
 function navbarapp() {
-    allapp = '<div class=\'text\'>Open App(s): </div>';
+    var s = '';
+    if ($('.window').length >= 2) {
+        s = 's'
+    }
+    allapp = '<div class=\'text\'>Open App' + s + ': </div>';
     for (i = 0; i < $('.window').length; i++) {
         str = $('.window').eq(i).children('.title').text();
         str = str.substr(0, str.length - 1);
@@ -98,7 +102,7 @@ function init() {
     $('.desktop').mouseup(function () {
         $('.desktopbox').hide();
     });
-    $('.desktop').ondrag(function (event) {
+    /*$('.desktop').ondrag(function (event) {
         if (event.first) {
             $('.desktopbox').css({
                 top: event.pageY,
@@ -106,8 +110,14 @@ function init() {
             });
         }
         $('.desktopbox').show();
-        $('.desktopbox').width(event.pageX - $('.desktopbox').position().left).height(event.pageY - $('.desktopbox').position().top);
-    });
+        var width = event.pageX - $('.desktopbox').position().left;
+        var height = event.pageY - $('.desktopbox').position().top;
+        if (width < 0) {
+            $('.desktopbox').css('left', $('.desktopbox').position().left - 1);
+            console.log('sd');
+        }
+        $('.desktopbox').width(Math.abs(width)).height(Math.abs(height));
+    });*/
     //logoutpage();
 }
 function windowfocus() {

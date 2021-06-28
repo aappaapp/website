@@ -99,5 +99,6 @@ div{
     padding: 10px;
     width: calc(100% - 20px);
     height: 100%;
+    overflow: auto;
     user-select: text;
 }

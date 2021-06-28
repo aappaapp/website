@@ -233,6 +233,7 @@ function newgame() {
         if ($('#choose_name_display').val().length != 0) {
             cookie('name', $('#choose_name_display').val());
             cookie('save', {});
+            save('lv', 1);
             $(document).off('keydown.choose_name')
             playaudio('audio/cymbal.mp3');
             $('#fadewhite').fadeIn(5000);
@@ -295,6 +296,7 @@ function changeroom(room, direction) {
 
 //Control
 function move() {
+    clearInterval(window.moveitv);
     var movespeed = 1;
     window.moveitv = setInterval(function () {
         // var playerleft = $('sprite#mainchr').position().left / $('body').width() * 100;
@@ -334,6 +336,7 @@ function move() {
 
 //Fight
 function tofight(config) {
+    reloadSaveVar();
     $('#fight_overlay').width($('body').width()).height($('body').height() - 1);
     $('sprite#mainchr').hide();
     $('sprite#fight_enemy').css('opacity', '0');
@@ -373,7 +376,7 @@ function tofight(config) {
                     opacity: 1
                 }, 500);
                 $('#fight_choice_container').animate({
-                    top: '90%'
+                    left: '5%'
                 }, 1000, function () {
                     var text = window.langtext['fight.start.text1'];
                     text = text.replace('%c', config[0].name);
@@ -429,8 +432,8 @@ function tofight(config) {
                             $('.presskeytext').remove();
                             togglepresskey = false;
                             togglepresskey2 = true;
-                            var level = 0;
-                            var mhp = Math.floor(Math.floor(Math.random() * vfight_presskey) + (vfight_presskey + (Math.floor(Math.random() * (choice_fight_time + 1)) + (choice_fight_time + level + 1))));
+                            var level = savevar.lv;
+                            var mhp = Math.floor(Math.floor(Math.random() * vfight_presskey) + (vfight_presskey + (Math.floor(Math.random() * (choice_fight_time + 1)) + (choice_fight_time + level * 2))));
                             chrData[0].hp -= mhp;
                             console.log(chrData[0].hp);
                             $('#fight_mhp_text').text(mhp);
@@ -471,8 +474,43 @@ function tofight(config) {
                                         width: 250,
                                         height: 250,
                                     }, 1000, function () {
-                                        $('#fight_box').append($('#fight_mainchr > sprite')).find('sprite').show();
+                                        $('#fight_box').append($('#fight_mainchr > sprite').clone()).find('sprite').show();
+                                        var fightmoveitv = setInterval(function () {
+                                            // var playerleft = $('sprite#mainchr').position().left / $('body').width() * 100;
+                                            // var playertop = $('sprite#mainchr').position().top / $('body').height() * 100;
+                                            var playerleft = $('#fight_box sprite#mainchr').position().left;
+                                            var playertop = $('#fight_box sprite#mainchr').position().top;
+                                            if (window.keys[16]) {
+                                                // movespeed = 0.2;
+                                                movespeed = 2;
+                                            }
+                                            if (!window.keys[16]) {
+                                                // movespeed = 0.1;
+                                                movespeed = 1;
+                                            }
+                                            if (window.keys[68]) {
+                                                if (!($('#fight_box #mainchr').position().left >= $('#fight_box').width() - $('#fight_box #mainchr').width())) {
+                                                    $('#fight_box sprite#mainchr').css('left', playerleft + movespeed + '');
+                                                }
+                                            }
+                                            if (window.keys[65]) {
+                                                if (!($('#fight_box #mainchr').position().left <= 0)) {
+                                                    $('#fight_box sprite#mainchr').css('left', playerleft - movespeed + '');
+                                                }
+                                            }
+                                            if (window.keys[87]) {
+                                                if (!overlaps($('#fight_box sprite#mainchr')[0], $('.2-1top')[0])) {
+                                                    $('#fight_box sprite#mainchr').css('top', playertop - movespeed + '');
+                                                }
+                                            }
+                                            if (window.keys[83]) {
+                                                if (!overlaps($('#fight_box sprite#mainchr')[0], $('.2-1bottom')[0])) {
+                                                    $('#fight_box sprite#mainchr').css('top', playertop + movespeed + '');
+                                                }
+                                            }
+                                        });
                                         config[0].attack(function () {
+                                            clearInterval(fightmoveitv);
                                             $('#fight_choice_container').show();
                                             $('#fight_box').animate({
                                                 width: 500,
@@ -618,22 +656,23 @@ $(function () {
                     var wronglockkeyatk = 0;
                     var summonatk = setInterval(function () {
                         $('#fight_box').append('<div id=\'wronglockkeyatk_' + wronglockkeyatk + '\' class=\'fight_attack wronglockkeyatk\'>Keys</div>');
-                        $('#wronglockkeyatk_' + wronglockkeyatk).css('top', (Math.floor(Math.random() * 100) + 0) + '%');
+                        var random = (Math.floor(Math.random() * 100) + 0);
+                        $('#wronglockkeyatk_' + wronglockkeyatk).css('top', random + '%');
                         wronglockkeyatk++;
-                    }, 500);
+                    }, 250);
                     var atkmove = setInterval(function () {
                         $('.wronglockkeyatk').each(function () {
                             $(this).css('left', $(this).position().left + 1 + 'px');
+                            if ($(this).position().left >= $('#fight_box').width()) {
+                                $(this).remove();
+                            };
                         });
                     });
                     var attackoverlaps = setInterval(function () {
                         var i;
-                        console.log($('.wronglockkeyatk').length);
-                        for (i in $('.wronglockkeyatk').length) {
-                            console.log(i);
-                            if (overlaps($('#mainchr')[0], $('.wronglockkeyatk')[i])) {
-                                $('.wronglockkeyatk').text('AAa');
-                                console.log('overlap');
+                        for (i = 0; i < $('.wronglockkeyatk').length; i++) {
+                            if (overlaps($('#fight_box #mainchr')[0], $('.wronglockkeyatk')[i])) {
+                                $('.wronglockkeyatk').eq(i).remove();
                             }
                         }
                     });

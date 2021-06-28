@@ -156,11 +156,15 @@ span{
 }
 #fight_choice_container{
     position: absolute;
-    top: 101%;
-    width: 100%;
-    justify-content: space-evenly;
+    left: -55%;
+    top: 5%;
+    /* transform: translate(0%, -50%); */
+    width: 10%;
+    height: 50%;
+    /* justify-content: space-evenly; */
+    gap: 50%;
     display: grid;
-    grid-auto-flow: column;
+    grid-auto-flow: row;
 }
 #fight_presskey_text{
     position: absolute;

@@ -84,7 +84,7 @@ $(function () {
     };
 
     let game1 = new Sudoku();
-    let import_string = 120050000400789000089000050200060001500801004800030007040000910000912005000040078;
+    let import_string = 120450089406709103080100450200060001500801004800030007040000910000912005000040078;
     let import_button = document.getElementById('import');
     let sudoku_squares = createArray(9, 9);
 
