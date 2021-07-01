@@ -15,7 +15,7 @@ document.addEventListener('keydown', function () {
 let _APP = null;
 
 
-class SimonDevCraft extends game.Game {
+class FakeMinecraft extends game.Game {
   constructor() {
     super();
   }
@@ -66,7 +66,7 @@ class SimonDevCraft extends game.Game {
 
 
 function _Main() {
-  _APP = new SimonDevCraft();
+  _APP = new FakeMinecraft();
 }
 
 _Main();
