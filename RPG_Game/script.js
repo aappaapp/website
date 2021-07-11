@@ -1001,6 +1001,9 @@ $(function () {
 		if (event.which == 73 && !devmode) {
 			event.preventDefault();
 		}
+		if (event.which == 82 && !devmode) {
+			event.preventDefault();
+		}
 		if (event.which == 87) {
 			event.preventDefault();
 		}
@@ -1013,6 +1016,6 @@ $(function () {
 		window.keys = {};
 	});
 	if (!devmode) {
-		$('#devmodetext').hide();
+		$('#devmodetextcontainer').hide();
 	}
 });
