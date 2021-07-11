@@ -3,12 +3,17 @@ system.game.name=RPG_Game
 ui.startbtn=Start
 ui.settingbtn=Setting
 ui.backbtn=<Back
+ui.devmodetext=>< dev mode! ><
 ui.choose_name_placeholder=Your name...
 ui.choose_name_finishbtn=Finish
 ui.gameover.text=GAMEOVER
+ui.status.hp=HP: %h
+ui.status.lv=LV: %l
 
 fight.btn.fight=Fight
 fight.start.text1=%c Coming!
 fight.presskey=Press Z!
 
 chr.wrong_lock.name=Wrong Lock
+
+dialog.beginning.text1=%n!

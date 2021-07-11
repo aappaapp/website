@@ -1,3 +1,4 @@
+var devmode = true;
 (function (osetInterval, oclearInterval) {
 	var intervals = [];
 	window.setInterval = function (func, timeout) {
@@ -51,7 +52,6 @@ function eachtext(text, speed) {
 	var text2;
 	var itv = setInterval(function () {
 		text2 = text.slice(0, i);
-		console.log(text2);
 		if (i == text.length) {
 			clearInterval(itv);
 		}
@@ -122,7 +122,9 @@ function cursor(boolean) {
 }
 //Audio
 function playaudio(path, config) {
-	$('body').append('<audio src=\'' + path + '\' onended=\'this.remove();\' autoplay ' + (config.loop ? 'loop' : '') + ' ></audio > ');
+	var config = config || {};
+	var loop = config.loop || false;
+	$('body').append('<audio src=\'' + path + '\' onended=\'this.remove();\' autoplay ' + (loop ? 'loop' : '') + ' ></audio>');
 }
 function stopaudio() {
 	$('audio').remove();
@@ -150,6 +152,7 @@ function langtextinner() {
 	$('*#startbtn').text(langtext['ui.startbtn']);
 	$('*#settingbtn').text(langtext['ui.settingbtn']);
 	$('*#backbtn').text(langtext['ui.backbtn']);
+	$('*#devmodetext').text(langtext['ui.devmodetext']);
 	$('*#choose_name_display').attr('placeholder', langtext['ui.choose_name_placeholder']);
 	$('*#choose_name_finishbtn').text(langtext['ui.choose_name_finishbtn']);
 	$('*#menu_startbtn').text(langtext['ui.startbtn']);
@@ -254,11 +257,11 @@ function newgame() {
 		if ($('#choose_name_display').val().length != 0) {
 			cookie('name', $('#choose_name_display').val());
 			cookie('save', {});
-			save('.lv', 1);
 			save('.player', {
 				hp: 20,
 				def: 0,
-				atk: 0
+				atk: 0,
+				lv: 1
 			});
 			$(document).off('keydown.choose_name')
 			playaudio('audio/cymbal.mp3');
@@ -266,6 +269,7 @@ function newgame() {
 			setTimeout(function () {
 				playaudio('audio/bumbum.mp3');
 				$('#fadewhite').hide();
+				save('.new', true);
 				loadgame();
 			}, 5000);
 		}
@@ -293,15 +297,23 @@ function newgame() {
 function loadgame() {
 	reloadSaveVar();
 	stopaudio();
-	if (typeof window.savevar['room'] == 'undefined') {
-		save('.room', 'room_start');
-		reloadSaveVar();
+	if (savevar.new) {
+		removeSave('.new');
+		save('.sceneid', 'start');
+	}
+	if (savevar.sceneid == 'start') {
+		story.beginning();
 	}
 	changepage('map');
 	move();
 	cursor(false);
-	changeroom(window.savevar['room'], 'left');
+	changeroom(window.savevar['room'], window.savevar['room_dir']);
 	fighttriger();
+	$('sprite#mainchr').setsize(25, 25);
+	//$('sprite#pftest').setsize(10, 10);
+	$('sprite#slime').setsize(25, 25);
+	//pathfinding('mainchr', 'pftest');
+	//backgroundscroll();
 	setTimeout(function () {
 
 	}, 2000);
@@ -309,14 +321,42 @@ function loadgame() {
 
 //Map
 function changeroom(room, direction) {
+	var direction = direction || 'top';
 	$('room.show').removeClass('show');
 	$('room#' + room).addClass('show');
-	if (typeof direction == 'undefined') {
-		direction = '';
+	if ($('room#' + room).length == 0) {
+		$('sprite, div').hide();
+		changeroom('room_error');
 	}
-	$('#mainchr').css({
-		'top': roomPos[room][direction].top + '%',
-		'left': roomPos[room][direction].left || 0 + '%'
+	var top = roomPos[room][direction].top;
+	var left = roomPos[room][direction].left;
+	$('page#map sprite#mainchr').css({
+		'top': top + '%',
+		'left': left + '%'
+	});
+	(top == 50) ? $('page#map sprite#mainchr').css('top', $('body').height() / 2 - $('page#map sprite#mainchr').height() / 2) : null;
+	(left == 50) ? $('page#map sprite#mainchr').css('left', $('body').width() / 2 - $('page#map sprite#mainchr').width() / 2) : null;
+	save('.room', room);
+	save('.room_dir', direction);
+	reloadSaveVar();
+}
+function backgroundscroll() {
+	var camerax = 0;
+	var screenx = 0;
+	var scrollspeed = 0;
+	var x = 0;
+	/*-----*/
+	scrollspeed = 0.25;
+	x = 0;
+	$('room.show').append($('room.show > img').clone());
+	x = $('body').width();
+	var imgleft = $('room.show > img').css('left');
+	setInterval(function () {
+		screenx = Number(imgleft.slice(0, imgleft.length - 2)) + (x - (Number(camerax) * scrollspeed));
+		camerax++;
+		$('room.show > img').each(function () {
+			$(this).css('left', screenx % $('body').width());
+		});
 	});
 }
 
@@ -327,8 +367,9 @@ function move() {
 	window.moveitv = setInterval(function () {
 		// var playerleft = $('sprite#mainchr').position().left / $('body').width() * 100;
 		// var playertop = $('sprite#mainchr').position().top / $('body').height() * 100;
-		var playerleft = $('sprite#mainchr').position().left;
-		var playertop = $('sprite#mainchr').position().top;
+		var playerleft = $('page#map sprite#mainchr').position().left;
+		var playertop = $('page#map sprite#mainchr').position().top;
+		window.moving = false;
 		if (window.keys[16]) {
 			// movespeed = 0.2;
 			movespeed = 2;
@@ -338,37 +379,136 @@ function move() {
 			movespeed = 1;
 		}
 		if (window.keys[68]) {
-			if (!($('#mainchr').position().left >= $('body').width() - $('#mainchr').width())) {
-				$('sprite#mainchr').css('left', playerleft + movespeed + '');
+			if (!($('page#map sprite#mainchr').position().left >= $('body').width() - $('page#map sprite#mainchr').width())) {
+				$('page#map sprite#mainchr').css('left', playerleft + movespeed + '');
+				window.moving = true;
 			}
 		}
 		if (window.keys[65]) {
-			if (!($('#mainchr').position().left <= 0)) {
-				$('sprite#mainchr').css('left', playerleft - movespeed + '');
+			if (!($('page#map sprite#mainchr').position().left <= 0)) {
+				$('page#map sprite#mainchr').css('left', playerleft - movespeed + '');
+				window.moving = true;
 			}
 		}
 		if (window.keys[87]) {
-			if (!overlaps($('sprite#mainchr')[0], $('.2-1top')[0])) {
-				$('sprite#mainchr').css('top', playertop - movespeed + '');
+			if (!overlaps($('page#map sprite#mainchr')[0], $('.2-1top')[0])) {
+				$('page#map sprite#mainchr').css('top', playertop - movespeed + '');
+				window.moving = true;
 			}
 		}
 		if (window.keys[83]) {
-			if (!overlaps($('sprite#mainchr')[0], $('.2-1bottom')[0])) {
-				$('sprite#mainchr').css('top', playertop + movespeed + '');
+			if (!overlaps($('page#map sprite#mainchr')[0], $('.2-1bottom')[0])) {
+				$('page#map sprite#mainchr').css('top', playertop + movespeed + '');
+				window.moving = true;
 			}
 		}
 	});
 }
+function checkcollision() {
+	setInterval(function () {
+		/*Check Is Collision Object*/ typeof $('room_object').attr('coll') == 'string';
+	});
+}
+
+//npc
+function pathfinding(id1, id2) {
+	//id1 = target
+	//id2 = follower
+	var sprite = $('#map sprite#' + id1);
+	var sprite2 = $('#map sprite#' + id2);
+	var left = $('<div id=\'pf_left\' class=\'pathfinding\'>&larr;</div>');
+	var right = $('<div id=\'pf_right\' class=\'pathfinding\'>&rarr;</div>');
+	var up = $('<div id=\'pf_up\' class=\'pathfinding\'>&uarr;</div>');
+	var down = $('<div id=\'pf_down\' class=\'pathfinding\'>&darr;</div>');
+	function addpath(addto) {
+		right.css({
+			'top': addto.position().top,
+			'left': addto.position().left - addto.height(),
+			'width': addto.height(),
+			'height': addto.height(),
+			'font-size': addto.height()
+		});
+		addto.before(right.clone());
+		left.css({
+			'top': addto.position().top,
+			'left': addto.position().left + addto.height(),
+			'width': addto.height(),
+			'height': addto.height(),
+			'font-size': addto.height()
+		});
+		addto.before(left.clone());
+		up.css({
+			'top': addto.position().top + addto.width(),
+			'left': addto.position().left,
+			'width': addto.width(),
+			'height': addto.width(),
+			'font-size': addto.width()
+		});
+		addto.before(up.clone());
+		down.css({
+			'top': addto.position().top - addto.width(),
+			'left': addto.position().left,
+			'width': addto.width(),
+			'height': addto.width(),
+			'font-size': addto.width()
+		});
+		addto.before(down.clone());
+		setTimeout(function () {
+			var i;
+			var pfoverlaps = false;
+			for (i = 0; i < 4; i++) {
+				var j;
+				for (j = 0; j < $('.pathfinding').length; j++) {
+					if (overlaps($('.pathfinding')[j], sprite2[0])) {
+						pfoverlaps = true;
+					}
+				}
+				if ($('.pathfinding:not(:data(addto))').length > 0 && !pfoverlaps && $('.pathfinding').length <= 0) {
+					addpath($('.pathfinding:not(:data(addto))').eq(i));
+					$('.pathfinding:not(:data(addto))').eq(i).data('addto', true);
+					//$('.pathfinding:not(:data(addto))').eq(1).data('addto', true);
+				}
+				var k;
+				for (k = 0; k < $('.pathfinding').length; k++) {
+					if ((overlaps($('.pathfinding')[k], $('.2-1top')[0])) || (overlaps($('.pathfinding')[k], $('.2-1bottom')[0])) || ($('.pathfinding').eq(k).position().left <= 0)) {
+						$('.pathfinding').eq(k).remove();
+					}
+					var l;
+					for (l = 0; l < $('.pathfinding').length; l++) {
+						if (overlaps($('.pathfinding')[k], $('.pathfinding')[l])) {
+							if (k != l) {
+								$('.pathfinding').eq(k).remove();
+							}
+						}
+					}
+				}
+			}
+		});
+	}
+	setInterval(function () {
+		//$('.pathfinding.remove').remove();
+		if (window.moving) {
+			$('.pathfinding').remove();
+			addpath(sprite);
+		}
+	}, 100);
+}
 
 //Fight
+function updatestatus() {
+	$('#hpdisplay').text(langtext['ui.status.hp'].replace('%h', savevar.player.hp));
+	$('#lvdisplay').text(langtext['ui.status.lv'].replace('%l', savevar.player.lv));
+}
 function tofight(config) {
 	reloadSaveVar();
+	updatestatus();
 	$('#fight_overlay').width($('body').width()).height($('body').height() - 1);
 	$('sprite#mainchr').hide();
 	$('sprite#fight_enemy').css('opacity', '0');
 	$('sprite#fight_enemy').setimg(config[0].imgc);
 	$('sprite#fight_enemy').setsize(150, 150);
 	$('#fight_overlay').fadeIn(500);
+	$('#fight_status').hide();
 	$('#fight_box').text('').css({
 		height: 0,
 		width: 0,
@@ -380,7 +520,6 @@ function tofight(config) {
 			hp: config[0].hp
 		}
 	];
-	console.log(config[0].hp);
 	//Animation
 	setTimeout(function () {
 		$('#fight_box').animate({
@@ -397,6 +536,7 @@ function tofight(config) {
 			$('#fight_choice_container').animate({
 				left: '5%'
 			}, 1000, function () {
+				$('#fight_status').fadeIn(500);
 				var text = window.langtext['fight.start.text1'];
 				text = text.replace('%c', config[0].name);
 				$('#fight_box').html('<div class=\'fightboxtext\'>' + text + '</div>');
@@ -451,7 +591,7 @@ function tofight(config) {
 						$('.presskeytext').remove();
 						togglepresskey = false;
 						togglepresskey2 = true;
-						var level = savevar.lv;
+						var level = savevar.player.lv;
 						var mhp = Math.floor(Math.floor(Math.random() * vfight_presskey) + (vfight_presskey + (Math.floor(Math.random() * (choice_fight_time + 1)) + (choice_fight_time + level * 2))));
 						chrData[0].hp -= mhp;
 						$('#fight_mhp_text').text(mhp);
@@ -511,7 +651,7 @@ function tofight(config) {
 											movespeed = 1;
 										}
 										if (window.keys[68]) {
-											if (!($('#fight_box sprite#mainchr').position().left >= $('#fight_box').width() - $('#fight_box sprite#mainchr').width())) {
+											if (!($('#fight_box sprite#mainchr').position().left >= $('#fight_box').width())) {
 												$('#fight_box sprite#mainchr').css('left', playerleft + movespeed + '');
 											}
 										}
@@ -531,6 +671,7 @@ function tofight(config) {
 											}
 										}
 									});
+									$('sprite#mainchr').setsize(25, 25);
 									config[0].attack(function () {
 										clearInterval(fightmoveitv);
 										$('#fight_choice_container').show();
@@ -555,32 +696,113 @@ function tofight(config) {
 }
 function fighttriger() {
 	var random = 0;
-	var randommax = 500;
+	var randommax = 1000;
 	var ftitv = setInterval(function () {
 		random = Math.floor(Math.random() * randommax) + 1;
-		if (random <= 1) {
+		if (random <= 1 && window.moving) {
 			randommax += randommax / 2;
 			clearInterval(ftitv);
-			tofight([characterData.wrong_lock]);
+			//tofight([characterData.wrong_lock]);
 		}
 	});
 }
 function gameover() {
 	clearAllInterval();
-	console.log('GAMEOVER');
 	changepage('gameover');
 	$('#fight_overlay').fadeOut(500);
 }
 function getdamage(damage) {
-	reloadSaveVar();
-	console.log(savevar.player.hp);
-	save('.player.hp', savevar.player.hp - (damage - savevar.player.def));
-	reloadSaveVar();
+	if (!window.invincible) {
+		reloadSaveVar();
+		save('.player.hp', savevar.player.hp - (damage - savevar.player.def));
+		window.invincible = true;
+		var player = $('#fight_box sprite#mainchr');
+		var flashanimation = setInterval(function () {
+			if (player.css('opacity') == '0') {
+				player.css('opacity', '1');
+			} else {
+				player.css('opacity', '0');
+			}
+		}, 100);
+		setTimeout(function () {
+			window.invincible = false;
+			clearInterval(flashanimation);
+			player.css('opacity', '1');
+		}, 1000);
+		reloadSaveVar();
+		updatestatus();
+		playaudio('audio/aud_hurt.mp3');
+	}
 	if (savevar.player.hp <= 0) {
-		console.log(savevar.player.hp);
 		gameover();
 		save('.player.hp', 20);
 	}
+}
+
+//Story
+window.story = function () {
+	console.log('Nothing Here');
+};
+window.story.beginning = function () {
+	changeroom('room_hotcenter');
+	checkcollision();
+	setTimeout(function () {
+		dialog({
+			text: langtext['dialog.beginning.text1'].replace('%n', $.cookie('name').toUpperCase()),
+			cantmove: true,
+			callback: function () {
+				checkcollision();
+			}
+		});
+	}, 1000);
+}
+
+//Dialog
+function dialog(config) {
+	var config = config || {};
+	var text = config.text || '';
+	var timeout = config.timeout || false;
+	var callback = config.callback || function () { };
+	var cantpress = config.cantpress || false;
+	var cantmove = config.cantmove || false;
+	var final = function () {
+		$('.dialog').fadeOut(250, function () {
+			$(this).remove();
+		});
+		callback();
+	}
+	$('body').append('<div class=\'dialog\'>' + text + '</div>');
+	$('.dialog').fadeIn(250);
+	(cantmove == true) ? clearInterval(window.moveitv) : null;
+	if (cantpress == false) {
+		var dialogitv = setInterval(function () {
+			if (keys[69]) {
+				move();
+				final();
+				clearInterval(dialogitv);
+			}
+		});
+	} else {
+		clearInterval(dialogitv);
+	};
+	(timeout == false) ? null : setTimeout(function () {
+		move();
+		final();
+	}, timeout);
+}
+
+//Player
+function getplayerpos(dontlog) {
+	var top = Math.floor($('page sprite#mainchr').position().top / $('body').height() * 100);
+	var left = Math.floor($('page sprite#mainchr').position().left / $('body').width() * 100);
+	if (!dontlog) {
+		console.log('top(%): ' + top + '%');
+		console.log('left(%): ' + left + '%');
+	}
+	return {
+		top: top / 100,
+		left: left / 100
+	};
 }
 
 $(function () {
@@ -602,14 +824,14 @@ $(function () {
 			position: 'absolute',
 			top: -$('body').position().top,
 			background: 'black',
-			'z-index': 101,
+			'z-index': 102,
 			cursor: 'none'
 		});
 		$('.2-1bottom').width($(document).width()).height($('body').position().top - 1).css({
 			position: 'absolute',
 			bottom: -$('body').position().top,
 			background: 'black',
-			'z-index': 101,
+			'z-index': 102,
 			cursor: 'none'
 		});
 	});
@@ -625,7 +847,11 @@ $(function () {
 	//  room
 	//      roomspawnpositon
 	window.roomPos = {
-		'room_paracelsuslab': {
+		'room_hotcenter': {
+			'top': {
+				'top': 0,
+				'left': 0
+			},
 			'left': {
 				'top': 77,
 				'left': 1
@@ -635,14 +861,10 @@ $(function () {
 				'left': 93
 			}
 		},
-		'room_start': {
-			'left': {
-				'top': 77,
-				'left': 1
-			},
-			'right': {
-				'top': 77,
-				'left': 93
+		'room_antestart': {
+			'bottom': {
+				'top': 85,
+				'left': 50
 			}
 		}
 	};
@@ -652,25 +874,33 @@ $(function () {
 			x: $('#mainchr').position().left / $('body').width() * 100,
 			y: $('#mainchr').position().top / $('body').height() * 100
 		};
-		var roomChangeTri = {
-			'room_paracelsuslab': [{
-				'top': 77,
-				'left': 0
+		window.roomChangeTri = {
+			'room_hotcenter': [{
+				'top': 25,
+				'left': 50
 			}]
 		};
-		var roomChangeTri2 = [
+		window.roomChangeTri2 = [
 			{
-				b: (roomChangeTri.room_paracelsuslab[0].top + 13 >= posPer.y && roomChangeTri.room_paracelsuslab[0].top - 13 <= posPer.y) && (roomChangeTri.room_paracelsuslab[0].left >= posPer.x),
-				r: 'room_other',
-				a: 'room_start'
+				b: function (i) {
+					var ia = [
+						(roomChangeTri.room_hotcenter[i].top + 13 >= posPer.y && roomChangeTri.room_hotcenter[i].top - 13 <= posPer.y) && (roomChangeTri.room_hotcenter[i].left + 13 >= posPer.x && roomChangeTri.room_hotcenter[i].left - 13 <= posPer.x)
+					];
+					return ia[i];
+				},
+				r: ['room_antestart'],
+				d: ['bottom'],
+				a: 'room_hotcenter'
 			}
 		]
-		//console.log(roomChangeTri.room_paracelsuslab[0].top);
 		var i;
 		for (i in roomChangeTri2) {
-			if (roomChangeTri2[i].b) {
-				if ($('room.show').attr('id') == roomChangeTri2[i].a) {
-					console.log(roomChangeTri2[i].r);
+			var j;
+			for (j in roomChangeTri[roomChangeTri2[i].a]) {
+				if (roomChangeTri2[i].b(j)) {
+					if ($('room.show').attr('id') == roomChangeTri2[i].a) {
+						changeroom(roomChangeTri2[i].r[j], roomChangeTri2[i].d[j]);
+					}
 				}
 			}
 		}
@@ -708,7 +938,7 @@ $(function () {
 					var attackoverlaps = setInterval(function () {
 						var i;
 						for (i = 0; i < $('.wronglockkeyatk').length; i++) {
-							if (overlaps($('#fight_box #mainchr')[0], $('.wronglockkeyatk')[i])) {
+							if (overlaps($('#fight_box sprite#mainchr')[0], $('.wronglockkeyatk')[i])) {
 								getdamage(3);
 								// getdamage(10);
 								$('.wronglockkeyatk').eq(i).remove();
@@ -735,7 +965,7 @@ $(function () {
 
 	//Fight
 	setTimeout(function () {
-		tofight([characterData.wrong_lock]);
+		//tofight([characterData.wrong_lock]);
 	}, 1000);
 
 	//Button
@@ -762,13 +992,16 @@ $(function () {
 	});
 	//EventListener
 	$(document).keydown(function () {
-		if (event.key == 'Alt') {
+		if (event.key == 'Alt' && !devmode) {
 			event.preventDefault();
 		}
-		if (event.key == 'F11') {
+		if (event.key == 'F11' && !devmode) {
 			event.preventDefault();
 		}
-		if (event.key == 'W') {
+		if (event.which == 73 && !devmode) {
+			event.preventDefault();
+		}
+		if (event.which == 87) {
 			event.preventDefault();
 		}
 		window.keys[event.which] = true;
@@ -779,4 +1012,7 @@ $(function () {
 	$(document).blur(function () {
 		window.keys = {};
 	});
+	if (!devmode) {
+		$('#devmodetext').hide();
+	}
 });

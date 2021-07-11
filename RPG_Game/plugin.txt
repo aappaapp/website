@@ -1,0 +1,11 @@
+$('page#map').append('<room id=\'room_plugin\'></room>');
+window.roomPos['room_plugin'] = {
+top: {
+top:50,
+left:50
+}
+};
+window.roomChangeTri['room_plugin'] = [{
+top: 0,
+left: 0
+}];

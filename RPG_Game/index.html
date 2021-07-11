@@ -5,16 +5,21 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
     <title></title>
     <script src='jquery-latest.min.js'></script>
+    <script src='jquery-ui.min.js'></script>
     <script src='js-arrstick.js'></script>
     <script src='jquery.cookie.js'></script>
     <script src='script.js'></script>
     <link rel='stylesheet' href='style.css'>
 </head>
 
+<!--final remove the reload-->
+
 <body>
     <page id='home'>
         <div class='center'>
             <h1 id='title'></h1>
+            <span id='devmodetext'>&gt;&lt; dev mode! &gt;&lt;</span>
+            <br><br>
             <button id='startbtn'></button>
             <button id='settingbtn'></button>
         </div>
@@ -25,6 +30,7 @@
         <select id='lang'>
             <option value='en'>English</option>
             <option value='zh'>中文</option>
+            <option value='ww'>ww</option>
         </select>
     </page>
     <page id='animation'>
@@ -52,9 +58,22 @@
         <div id='fadewhite' class='hide'></div>
     </page>
     <page id='map'>
-        <sprite id='mainchr'>主角</sprite>
-        <room id='room_start'>
-            <img src='room/paracelsuslab.png'>
+        <sprite id='mainchr'><img src='sprites/mainchr.png'></sprite>
+        <!-- <sprite id='pftest'><img src='sprites/mainchr.png'></sprite> -->
+        <!-- System Room -->
+        <room id='room_error'>
+            <h1>ONHE: 001 - Room Is Not Exsit.</h1>
+        </room>
+        <room id='room_test'>
+        </room>
+
+        <!-- Plot Room -->
+        <room id='room_hotcenter'>
+            <!-- <img src='room/'> -->
+            <room_object coll></room_object>
+        </room>
+        <room id='room_antestart'>
+            <sprite id='slime'><img src='sprites/mainchr.png'></sprite>
         </room>
     </page>
     <page id='gameover'>
@@ -65,7 +84,7 @@
         <div id='fight_presskey_text'></div>
         <div id='fight_mhp_text'></div>
         <div id='fight_mainchr'>
-            <sprite id='mainchr'>主角</sprite>
+            <sprite id='mainchr'><img src='sprites/mainchr.png'></sprite>
         </div>
         <div id='fight_box'></div>
         <div id='fight_choice_container'>
@@ -73,7 +92,10 @@
             <button id='fight_choice_test1'>Test1</button>
             <button id='fight_choice_test2'>Test2</button>
         </div>
-        <div></div>
+        <div id='fight_status'>
+            <div id='hpdisplay'></div>
+            <div id='lvdisplay'></div>
+        </div>
     </div>
 </body>
 

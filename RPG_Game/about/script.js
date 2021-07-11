@@ -7,9 +7,4 @@ $(function () {
         autoAlpha: 1,
         x: 0
     });
-    $('.download1').click(function () {
-        $('body').animate({
-            scrollTop: $('#download').offset().top - $('nav').height()
-        }, 500);
-    });
 });

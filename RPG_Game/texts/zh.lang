@@ -3,12 +3,17 @@ system.game.name=RPG_Game
 ui.startbtn=開始
 ui.settingbtn=設定
 ui.backbtn=<返回
+ui.devmodetext=<<<<>>>DEV模式!!!<<<>>>>
 ui.choose_name_placeholder=你的名字...
 ui.choose_name_finishbtn=完成
 ui.gameover.text=遊戲結束
+ui.status.hp=血量: %h
+ui.status.lv=等級: %l
 
 fight.btn.fight=戰鬥
 fight.start.text1=%c來了!
 fight.presskey=按Z！
 
 chr.wrong_lock.name=錯鎖
+
+dialog.beginning.text1=到你了，%n！

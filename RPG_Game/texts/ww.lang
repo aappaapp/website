@@ -1,0 +1,19 @@
+system.game.name=RPG Gamu ww langugea
+
+ui.startbtn=Starto
+ui.settingbtn=Set somEThing
+ui.backbtn=-><-Alen Backer
+ui.devmodetext=DEvelopModee
+ui.choose_name_placeholder=YUOR NEMA
+ui.choose_name_finishbtn=Finish
+ui.gameover.text=endgame
+ui.status.hp=%hhP
+ui.status.lv=%llV
+
+fight.btn.fight=Fighto
+fight.start.text1=%c is Com e
+fight.presskey=ZZZZZZZZZZZZZZCCC
+
+chr.wrong_lock.name=Trueee Locker
+
+dialog.beginning.text1=YOUUUUUUUUUUUUUUUUUU, %n!!!!!
