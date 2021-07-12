@@ -967,7 +967,9 @@ $(function () {
 				attack: function (callback) {
 					var wronglockkeyatk = 0;
 					var summonatk = setInterval(function () {
-						$('#fight_box').append('<div id=\'wronglockkeyatk_' + wronglockkeyatk + '\' class=\'fight_attack wronglockkeyatk\'>Keys</div>');
+						//KeyAttack
+						$('#fight_box').append('<div id=\'wronglockkeyatk_' + wronglockkeyatk + '\' class=\'fight_attack wronglockkeyatk\'><img src=\'sprites/mainchr.png\'></div>');
+						$('.wronglockkeyatk').setsize(25, 25);
 						var random = (Math.floor(Math.random() * 100) + 0);
 						$('#wronglockkeyatk_' + wronglockkeyatk).css('top', random + '%');
 						wronglockkeyatk++;
