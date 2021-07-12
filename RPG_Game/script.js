@@ -305,6 +305,7 @@ function loadgame() {
 		story.beginning();
 	}
 	changepage('map');
+	checkcollision();
 	move();
 	cursor(false);
 	changeroom(window.savevar['room'], window.savevar['room_dir']);
@@ -741,20 +742,53 @@ function getdamage(damage) {
 
 //Story
 window.story = function () {
-	console.log('Nothing Here');
+	return 'Nothing Here';
 };
 window.story.beginning = function () {
 	changeroom('room_hotcenter');
-	checkcollision();
 	setTimeout(function () {
-		dialog({
-			text: langtext['dialog.beginning.text1'].replace('%n', $.cookie('name').toUpperCase()),
-			cantmove: true,
-			callback: function () {
-				checkcollision();
-			}
-		});
+		if ($('room.show').attr('id') == 'room_hotcenter') {
+			dialog({
+				text: langtext['dialog.beginning.text1'].replace('%n', $.cookie('name').toUpperCase()),
+				cantmove: true,
+				callback: function () {
+					var itv1 = setInterval(function () {
+						if ($('room.show').attr('id') == 'room_antestart') {
+							story.firstante();
+							clearInterval(itv1);
+						}
+					});
+				}
+			});
+		} else {
+			story.firstante();
+		}
 	}, 1000);
+}
+window.story.firstante = function () {
+	var timeout, dis;
+	var itv1 = function () {
+		$('#slime').animate({
+			top: $('#map sprite#mainchr').position().top,
+			left: $('#map sprite#mainchr').position().left
+		});
+		dis = ($('#map sprite#mainchr').position().left - $('#slime').position().left) * ($('#map sprite#mainchr').position().top - $('#slime').position().top) / 2 - (($('#map sprite#mainchr').position().top - $('#slime').position().top) + ($('#map sprite#mainchr').position().left - $('#slime').position().left));
+		dis = Math.abs(dis);
+		timeout = dis;
+		timeout = (timeout >= 100) ? 100 : timeout;
+		timeout = (dis > timeout) ? 100 : timeout;
+		timeout = (dis <= timeout) ? 1000 : timeout;
+		console.log(dis, timeout);
+		setTimeout(function () {
+			$('#slime').stop();
+			if (!overlaps($('#slime')[0], $('#map sprite#mainchr')[0])) {
+				itv1();
+			} else {
+				tofight([]);
+			}
+		}, timeout);
+	};
+	itv1();
 }
 
 //Dialog
