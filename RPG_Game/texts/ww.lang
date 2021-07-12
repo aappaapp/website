@@ -11,9 +11,11 @@ ui.status.hp=%hhP
 ui.status.lv=%llV
 
 fight.btn.fight=Fighto
+fight.btn.act=Actor
 fight.start.text1=%c is Com e
 fight.presskey=ZZZZZZZZZZZZZZCCC
 
 chr.wrong_lock.name=Trueee Locker
+chr.slime.name=Sliimmmmmu
 
 dialog.beginning.text1=YOUUUUUUUUUUUUUUUUUU, %n!!!!!

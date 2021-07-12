@@ -11,9 +11,11 @@ ui.status.hp=HP: %h
 ui.status.lv=LV: %l
 
 fight.btn.fight=Fight
+fight.btn.act=Act
 fight.start.text1=%c Coming!
 fight.presskey=Press Z!
 
 chr.wrong_lock.name=Wrong Lock
+chr.slime.name=Slime
 
 dialog.beginning.text1=%n!

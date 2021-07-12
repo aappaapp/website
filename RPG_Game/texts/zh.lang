@@ -11,9 +11,11 @@ ui.status.hp=血量: %h
 ui.status.lv=等級: %l
 
 fight.btn.fight=戰鬥
+fight.btn.act=行動
 fight.start.text1=%c來了!
 fight.presskey=按Z！
 
 chr.wrong_lock.name=錯鎖
+chr.slime.name=史萊姆
 
 dialog.beginning.text1=到你了，%n！

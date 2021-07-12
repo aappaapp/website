@@ -157,6 +157,7 @@ function langtextinner() {
 	$('*#choose_name_finishbtn').text(langtext['ui.choose_name_finishbtn']);
 	$('*#menu_startbtn').text(langtext['ui.startbtn']);
 	$('*#fight_choice_fight').text(langtext['fight.btn.fight']);
+	$('*#fight_choice_act').text(langtext['fight.btn.act']);
 	$('*#gameovertext').text(langtext['ui.gameover.text']);
 }
 
@@ -500,7 +501,11 @@ function updatestatus() {
 	$('#hpdisplay').text(langtext['ui.status.hp'].replace('%h', savevar.player.hp));
 	$('#lvdisplay').text(langtext['ui.status.lv'].replace('%l', savevar.player.lv));
 }
-function tofight(config) {
+function tofight(config, callback) {
+	$('room.show').addClass('fighthide').fadeOut(1000);
+	setTimeout(function () {
+		$('room.fighthide').removeClass('show');
+	}, 1000);
 	reloadSaveVar();
 	updatestatus();
 	$('#fight_overlay').width($('body').width()).height($('body').height() - 1);
@@ -621,6 +626,8 @@ function tofight(config) {
 										$('sprite#mainchr').show();
 										$('#fight_choice_fight').off();
 										setTimeout(function () {
+											$('room.fighthide').addClass('show').removeClass('fighthide').fadeIn(1000);
+											callback();
 											fighttriger();
 										}, 2000);
 									}, 500);
@@ -766,29 +773,33 @@ window.story.beginning = function () {
 	}, 1000);
 }
 window.story.firstante = function () {
-	var timeout, dis;
-	var itv1 = function () {
-		$('#slime').animate({
-			top: $('#map sprite#mainchr').position().top,
-			left: $('#map sprite#mainchr').position().left
-		});
-		dis = ($('#map sprite#mainchr').position().left - $('#slime').position().left) * ($('#map sprite#mainchr').position().top - $('#slime').position().top) / 2 - (($('#map sprite#mainchr').position().top - $('#slime').position().top) + ($('#map sprite#mainchr').position().left - $('#slime').position().left));
-		dis = Math.abs(dis);
-		timeout = dis;
-		timeout = (timeout >= 100) ? 100 : timeout;
-		timeout = (dis > timeout) ? 100 : timeout;
-		timeout = (dis <= timeout) ? 1000 : timeout;
-		console.log(dis, timeout);
-		setTimeout(function () {
-			$('#slime').stop();
-			if (!overlaps($('#slime')[0], $('#map sprite#mainchr')[0])) {
-				itv1();
-			} else {
-				tofight([]);
-			}
-		}, timeout);
-	};
-	itv1();
+	setTimeout(function () {
+		var timeout, dis;
+		var itv1 = function () {
+			$('#slime').animate({
+				top: $('#map sprite#mainchr').position().top,
+				left: $('#map sprite#mainchr').position().left
+			});
+			dis = ($('#map sprite#mainchr').position().left - $('#slime').position().left) * ($('#map sprite#mainchr').position().top - $('#slime').position().top) / 2 - (($('#map sprite#mainchr').position().top - $('#slime').position().top) + ($('#map sprite#mainchr').position().left - $('#slime').position().left));
+			dis = Math.abs(dis);
+			timeout = dis;
+			timeout = (timeout >= 100) ? 100 : timeout;
+			timeout = (dis > timeout) ? 100 : timeout;
+			timeout = (dis <= timeout) ? 1000 : timeout;
+			console.log(dis, timeout);
+			setTimeout(function () {
+				$('#slime').stop();
+				if (!overlaps($('#slime')[0], $('#map sprite#mainchr')[0])) {
+					itv1();
+				} else {
+					tofight([characterData.slime], function () {
+						$('#slime').hide();
+					});
+				}
+			}, timeout);
+		};
+		itv1();
+	}, 1000);
 }
 
 //Dialog
@@ -987,6 +998,12 @@ $(function () {
 						callback();
 					}, 5000);
 				}
+			},
+			'slime': {
+				name: langtext['chr.slime.name'],
+				hp: 10,
+				imgbw: 'sprites/mainchr.png',
+				imgc: 'sprites/mainchr.png'
 			}
 		};
 	}, 500);
