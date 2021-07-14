@@ -265,10 +265,10 @@ function newgame() {
 				lv: 1
 			});
 			$(document).off('keydown.choose_name')
-			playaudio('audio/cymbal.mp3');
+			playaudio('audio/aud_cymbal.mp3');
 			$('#fadewhite').fadeIn(5000);
 			setTimeout(function () {
-				playaudio('audio/bumbum.mp3');
+				playaudio('audio/aud_bumm.mp3');
 				$('#fadewhite').hide();
 				save('.new', true);
 				loadgame();
