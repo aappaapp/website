@@ -141,7 +141,7 @@ function setlangtext() {
 				var datasplice = dataisplit.splice(1, dataisplit.length - 1);
 				dataisplit[1] = arrstick(datasplice, '=');
 			}
-			window.langtext[dataisplit[0]] = dataisplit[1] || window.langtext[dataisplit[0]] || '';
+			window.langtext[dataisplit[0]] = dataisplit[1];
 		}
 		langtextinner();
 	});
@@ -773,33 +773,40 @@ window.story.beginning = function () {
 	}, 1000);
 }
 window.story.firstante = function () {
-	setTimeout(function () {
-		var timeout, dis;
-		var itv1 = function () {
-			$('#slime').animate({
-				top: $('#map sprite#mainchr').position().top,
-				left: $('#map sprite#mainchr').position().left
-			});
-			dis = ($('#map sprite#mainchr').position().left - $('#slime').position().left) * ($('#map sprite#mainchr').position().top - $('#slime').position().top) / 2 - (($('#map sprite#mainchr').position().top - $('#slime').position().top) + ($('#map sprite#mainchr').position().left - $('#slime').position().left));
-			dis = Math.abs(dis);
-			timeout = dis;
-			timeout = (timeout >= 100) ? 100 : timeout;
-			timeout = (dis > timeout) ? 100 : timeout;
-			timeout = (dis <= timeout) ? 1000 : timeout;
-			console.log(dis, timeout);
-			setTimeout(function () {
-				$('#slime').stop();
-				if (!overlaps($('#slime')[0], $('#map sprite#mainchr')[0])) {
-					itv1();
-				} else {
-					tofight([characterData.slime], function () {
-						$('#slime').hide();
-					});
-				}
-			}, timeout);
-		};
-		itv1();
-	}, 1000);
+	$('#slime').css({
+		top: $('body').height() / 2 - $('#slime').height() / 2,
+		left: $('body').width() / 2 - $('#slime').width() / 2
+	});
+	$('#slime').show();
+	clearInterval(window.moveitv);
+	var jumptime = 0;
+	var maxjumptime = 3;
+	function jump() {
+		jumptime++;
+		$('#slime').animate({
+			top: '-=10'
+		}, 500)
+		$('#slime').animate({
+			top: '+=10'
+		}, 1000, function () {
+			if (jumptime == maxjumptime) {
+				console.log('sd');
+				$('#slime').animate({
+					top: $('#map sprite#mainchr').position().top,
+					left: $('#map sprite#mainchr').position().left
+				}, 1000, function () {
+					tofight([characterData.slime]);
+				});
+			}
+		});
+	}
+	jump();
+	var itv1 = setInterval(function () {
+		if (jumptime == maxjumptime + 1) {
+			clearInterval(itv1);
+		}
+		jump();
+	}, 1500);
 }
 
 //Dialog
