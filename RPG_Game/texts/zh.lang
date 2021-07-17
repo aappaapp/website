@@ -9,6 +9,7 @@ ui.choose_name_finishbtn=完成
 ui.gameover.text=遊戲結束
 ui.status.hp=血量: %h
 ui.status.lv=等級: %l
+ui.status.atk=攻擊力: %a
 
 fight.btn.fight=戰鬥
 fight.btn.act=行動

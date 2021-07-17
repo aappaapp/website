@@ -9,6 +9,7 @@ ui.choose_name_finishbtn=Finish
 ui.gameover.text=GAMEOVER
 ui.status.hp=HP: %h
 ui.status.lv=LV: %l
+ui.status.atk=ATK: %a
 
 fight.btn.fight=Fight
 fight.btn.act=Act

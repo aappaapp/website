@@ -261,7 +261,7 @@ function newgame() {
 			save('.player', {
 				hp: 20,
 				def: 0,
-				atk: 0,
+				atk: 1,
 				lv: 1
 			});
 			$(document).off('keydown.choose_name')
@@ -500,8 +500,10 @@ function pathfinding(id1, id2) {
 function updatestatus() {
 	$('#hpdisplay').text(langtext['ui.status.hp'].replace('%h', savevar.player.hp));
 	$('#lvdisplay').text(langtext['ui.status.lv'].replace('%l', savevar.player.lv));
+	$('#atkdisplay').text(langtext['ui.status.atk'].replace('%a', savevar.player.atk));
 }
 function tofight(config, callback) {
+	clearInterval(moveitv);
 	callback = callback || function () { };
 	$('room.show').addClass('fighthide').fadeOut(1000);
 	setTimeout(function () {
@@ -524,7 +526,8 @@ function tofight(config, callback) {
 	});
 	var chrData = [
 		{
-			hp: config[0].hp
+			hp: config[0].hp,
+			def: config[0].def
 		}
 	];
 	//Animation
@@ -599,7 +602,9 @@ function tofight(config, callback) {
 						togglepresskey = false;
 						togglepresskey2 = true;
 						var level = savevar.player.lv;
-						var mhp = Math.floor(Math.floor(Math.random() * vfight_presskey) + (vfight_presskey + (Math.floor(Math.random() * (choice_fight_time + 1)) + (choice_fight_time + level * 2))));
+						var attack = savevar.player.atk;
+						// var mhp = Math.floor(Math.floor(Math.random() * ((choice_fight_time * level) * attack / (attack / 2)) + vfight_presskey) + ((choice_fight_time * level) * attack / (attack / 2)));
+						var mhp = Math.abs(Math.round((attack * level * choice_fight_time * vfight_presskey) / (chrData[0].def / 2.2)));
 						chrData[0].hp -= mhp;
 						$('#fight_mhp_text').text(mhp);
 						$('#fight_enemy').animate({
@@ -723,7 +728,7 @@ function gameover() {
 function getdamage(damage) {
 	if (!window.invincible) {
 		reloadSaveVar();
-		save('.player.hp', savevar.player.hp - (damage - savevar.player.def));
+		save('.player.hp', savevar.player.hp - Math.round(damage + (savevar.player.def / 5)));
 		window.invincible = true;
 		var player = $('#fight_box sprite#mainchr');
 		var flashanimation = setInterval(function () {
@@ -804,7 +809,8 @@ window.story.firstante = function () {
 					top: $('#map sprite#mainchr').position().top,
 					left: $('#map sprite#mainchr').position().left
 				}, 1000, function () {
-					tofight([characterData.slime]);
+					// tofight([characterData.slime]);
+					tofight([characterData.wrong_lock]);
 				});
 			}
 		});
@@ -1016,8 +1022,12 @@ $(function () {
 			'slime': {
 				name: langtext['chr.slime.name'],
 				hp: 10,
+				def: 20,
 				imgbw: 'sprites/mainchr.png',
-				imgc: 'sprites/mainchr.png'
+				imgc: 'sprites/mainchr.png',
+				attack: function (callback) {
+					callback();
+				}
 			}
 		};
 	}, 500);
