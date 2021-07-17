@@ -309,13 +309,13 @@ function loadgame() {
 	checkcollision();
 	move();
 	cursor(false);
-	changeroom(window.savevar['room'], window.savevar['room_dir']);
 	fighttriger();
 	$('sprite#mainchr').setsize(25, 25);
 	//$('sprite#pftest').setsize(10, 10);
 	$('sprite#slime').setsize(25, 25);
 	//pathfinding('mainchr', 'pftest');
 	//backgroundscroll();
+	changeroom(window.savevar['room'], window.savevar['room_dir']);
 	setTimeout(function () {
 
 	}, 2000);
@@ -333,11 +333,11 @@ function changeroom(room, direction) {
 	var top = roomPos[room][direction].top;
 	var left = roomPos[room][direction].left;
 	$('page#map sprite#mainchr').css({
-		'top': top + '%',
-		'left': left + '%'
+		'top': (top == 50) ? $('body').height() / 2 - $('page#map sprite#mainchr').height() / 2 : top + '%',
+		'left': (left == 50) ? $('body').width() / 2 - $('page#map sprite#mainchr').width() / 2 : left + '%'
 	});
-	(top == 50) ? $('page#map sprite#mainchr').css('top', $('body').height() / 2 - $('page#map sprite#mainchr').height() / 2) : null;
-	(left == 50) ? $('page#map sprite#mainchr').css('left', $('body').width() / 2 - $('page#map sprite#mainchr').width() / 2) : null;
+	// (top == 50) ? $('page#map sprite#mainchr').css('top', $('body').height() / 2 - $('page#map sprite#mainchr').height() / 2) : null;
+	// (left == 50) ? $('page#map sprite#mainchr').css('left', $('body').width() / 2 - $('page#map sprite#mainchr').width() / 2) : null;
 	save('.room', room);
 	save('.room_dir', direction);
 	reloadSaveVar();
@@ -502,6 +502,7 @@ function updatestatus() {
 	$('#lvdisplay').text(langtext['ui.status.lv'].replace('%l', savevar.player.lv));
 }
 function tofight(config, callback) {
+	callback = callback || function () { };
 	$('room.show').addClass('fighthide').fadeOut(1000);
 	setTimeout(function () {
 		$('room.fighthide').removeClass('show');
@@ -752,8 +753,16 @@ window.story = function () {
 	return 'Nothing Here';
 };
 window.story.beginning = function () {
-	changeroom('room_hotcenter');
+	window.story.firstanteing = false;
+	changeroom('room_hotcenter', 'middle');
+	var itv2 = setInterval(function () {
+		if ($('room.show').attr('id') == 'room_antestart') {
+			story.firstante();
+			clearInterval(itv2);
+		}
+	});
 	setTimeout(function () {
+		clearInterval(itv2);
 		if ($('room.show').attr('id') == 'room_hotcenter') {
 			dialog({
 				text: langtext['dialog.beginning.text1'].replace('%n', $.cookie('name').toUpperCase()),
@@ -767,30 +776,30 @@ window.story.beginning = function () {
 					});
 				}
 			});
-		} else {
+		} else if (!window.story.firstanteing) {
 			story.firstante();
 		}
 	}, 1000);
 }
 window.story.firstante = function () {
+	window.story.firstanteing = true;
+	clearInterval(window.moveitv);
 	$('#slime').css({
 		top: $('body').height() / 2 - $('#slime').height() / 2,
 		left: $('body').width() / 2 - $('#slime').width() / 2
 	});
 	$('#slime').show();
-	clearInterval(window.moveitv);
 	var jumptime = 0;
 	var maxjumptime = 3;
 	function jump() {
 		jumptime++;
 		$('#slime').animate({
 			top: '-=10'
-		}, 500)
+		}, 1000)
 		$('#slime').animate({
 			top: '+=10'
-		}, 1000, function () {
+		}, 500, function () {
 			if (jumptime == maxjumptime) {
-				console.log('sd');
 				$('#slime').animate({
 					top: $('#map sprite#mainchr').position().top,
 					left: $('#map sprite#mainchr').position().left
@@ -901,16 +910,12 @@ $(function () {
 	window.roomPos = {
 		'room_hotcenter': {
 			'top': {
-				'top': 0,
-				'left': 0
+				'top': 20,
+				'left': 50
 			},
-			'left': {
-				'top': 77,
-				'left': 1
-			},
-			'right': {
-				'top': 77,
-				'left': 93
+			'middle': {
+				'top': 50,
+				'left': 50
 			}
 		},
 		'room_antestart': {
