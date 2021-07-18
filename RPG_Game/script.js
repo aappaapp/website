@@ -688,14 +688,14 @@ function tofight(config, callback) {
 									$('sprite#mainchr').setsize(25, 25);
 									config[0].attack(function () {
 										clearInterval(fightmoveitv);
-										$('#fight_choice_container').show();
 										$('#fight_box').animate({
 											width: '45%',
 											height: '45%',
 										}, 1000, function () {
 											$('#fight_box').html('<div class=\'fightboxtext\'>' + text + '</div>');
+											$('#fight_choice_container').show();
+											cursor(true);
 										});
-										cursor(true);
 									});
 								});
 							}
@@ -721,6 +721,7 @@ function fighttriger() {
 	});
 }
 function gameover() {
+	hpreload();
 	clearAllInterval();
 	changepage('gameover');
 	$('#fight_overlay').fadeOut(500);
@@ -728,7 +729,12 @@ function gameover() {
 function getdamage(damage) {
 	if (!window.invincible) {
 		reloadSaveVar();
-		save('.player.hp', savevar.player.hp - Math.round(damage + (savevar.player.def / 5)));
+		var mhp = Math.round(damage - (savevar.player.def / 5));
+		if (mhp <= 0) {
+			mhp = Math.round(damage / (savevar.player.def / 5));
+		}
+		console.log(mhp);
+		save('.player.hp', savevar.player.hp - mhp);
 		window.invincible = true;
 		var player = $('#fight_box sprite#mainchr');
 		var flashanimation = setInterval(function () {
@@ -749,8 +755,10 @@ function getdamage(damage) {
 	}
 	if (savevar.player.hp <= 0) {
 		gameover();
-		save('.player.hp', 20);
 	}
+}
+function hpreload() {
+	save('.player.hp', 20 * savevar.player.lv);
 }
 
 //Story
@@ -809,8 +817,17 @@ window.story.firstante = function () {
 					top: $('#map sprite#mainchr').position().top,
 					left: $('#map sprite#mainchr').position().left
 				}, 1000, function () {
-					// tofight([characterData.slime]);
-					tofight([characterData.wrong_lock]);
+					tofight([characterData.slime], function () {
+						console.log('callback');
+						setTimeout(function () {
+							dialog({
+								text: langtext['dialog.firstante.johny.text1'],
+								cantmove: true,
+								cantpress: true,
+								timeout: 2000
+							});
+						}, 1000);
+					});
 				});
 			}
 		});
@@ -844,7 +861,7 @@ function dialog(config) {
 	if (cantpress == false) {
 		var dialogitv = setInterval(function () {
 			if (keys[69]) {
-				move();
+				(cantmove == true) ? move() : null;
 				final();
 				clearInterval(dialogitv);
 			}
@@ -853,7 +870,7 @@ function dialog(config) {
 		clearInterval(dialogitv);
 	};
 	(timeout == false) ? null : setTimeout(function () {
-		move();
+		(cantmove == true) ? move() : null;
 		final();
 	}, timeout);
 }
