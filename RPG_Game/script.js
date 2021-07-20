@@ -124,10 +124,16 @@ function cursor(boolean) {
 function playaudio(path, config) {
 	var config = config || {};
 	var loop = config.loop || false;
-	$('body').append('<audio src=\'' + path + '\' onended=\'this.remove();\' autoplay ' + (loop ? 'loop' : '') + ' ></audio>');
+	var id = config.id || 'Audio';
+	$('body').append('<audio id=\'' + id + '\' src=\'' + path + '\' onended=\'this.remove();\' autoplay ' + (loop ? 'loop' : '') + ' ></audio>');
 }
-function stopaudio() {
-	$('audio').remove();
+function stopaudio(config) {
+	var id = config || false;
+	if (id === false) {
+		$('audio').remove();
+	} else {
+		$('audio#' + id).remove();
+	}
 }
 //langtext
 function setlangtext() {
@@ -323,6 +329,7 @@ function loadgame() {
 
 //Map
 function changeroom(room, direction) {
+	stopaudio('roomMusic');
 	var direction = direction || 'top';
 	$('room.show').removeClass('show');
 	$('room#' + room).addClass('show');
@@ -330,6 +337,10 @@ function changeroom(room, direction) {
 		$('sprite, div').hide();
 		changeroom('room_error');
 	}
+	playaudio(roomMusic[room], {
+		loop: true,
+		id: 'roomMusic'
+	});
 	var top = roomPos[room][direction].top;
 	var left = roomPos[room][direction].left;
 	$('page#map sprite#mainchr').css({
@@ -818,13 +829,36 @@ window.story.firstante = function () {
 					left: $('#map sprite#mainchr').position().left
 				}, 1000, function () {
 					tofight([characterData.slime], function () {
+						$('#slime').hide();
 						console.log('callback');
 						setTimeout(function () {
 							dialog({
 								text: langtext['dialog.firstante.johny.text1'],
 								cantmove: true,
 								cantpress: true,
-								timeout: 2000
+								timeout: 3000,
+								callback: function () {
+									dialog({
+										text: langtext['dialog.firstante.johny.text2'],
+										cantmove: true,
+										cantpress: true,
+										timeout: 3000,
+										choice: [
+											{
+												text: langtext['dialog.firstante.johny.text2.c1'],
+												callback: function () {
+													console.log('Yes');
+												}
+											},
+											{
+												text: langtext['dialog.firstante.johny.text2.c2'],
+												callback: function () {
+													console.log('No');
+												}
+											}
+										]
+									});
+								}
 							});
 						}, 1000);
 					});
@@ -985,6 +1019,10 @@ $(function () {
 			}
 		}
 	});
+	//		roombgm
+	window.roomMusic = {
+		'room_hotcenter': 'audio/mus_hotcenter.mp3'
+	};
 	//      roomcollision
 	//      roomsize
 	setTimeout(function () {
@@ -1051,9 +1089,10 @@ $(function () {
 	//      eachtext
 	window.eachtextcount = 0;
 	//      HomePageMusic
-	// playaudio('audio/mus_homepage.mp3', {
-	//     loop: true
-	// });
+	playaudio('audio/mus_homepage2.mp3', {
+		loop: true,
+		id: 'homepage'
+	});
 
 	//Fight
 	setTimeout(function () {
@@ -1080,7 +1119,8 @@ $(function () {
 	//Select
 	$('#lang').change(function () {
 		cookie('lang', $('#lang').val());
-		setlangtext();
+		window.location.reload();
+		//setlangtext();
 	});
 	//EventListener
 	$(document).keydown(function () {

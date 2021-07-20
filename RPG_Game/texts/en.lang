@@ -21,3 +21,6 @@ chr.slime.name=Slime
 
 dialog.beginning.text1=%n!
 dialog.firstante.johny.text1=Who..are you?
+dialog.firstante.johny.text2=Are..you here to..defeat TREAST?
+dialog.firstante.johny.text2.c1=Yes
+dialog.firstante.johny.text2.c2=No
