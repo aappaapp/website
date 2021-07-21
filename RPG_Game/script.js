@@ -337,10 +337,10 @@ function changeroom(room, direction) {
 		$('sprite, div').hide();
 		changeroom('room_error');
 	}
-	playaudio(roomMusic[room], {
+	(typeof roomMusic[room] != 'undefined') ? playaudio(roomMusic[room], {
 		loop: true,
 		id: 'roomMusic'
-	});
+	}) : null;
 	var top = roomPos[room][direction].top;
 	var left = roomPos[room][direction].left;
 	$('page#map sprite#mainchr').css({
@@ -830,7 +830,6 @@ window.story.firstante = function () {
 				}, 1000, function () {
 					tofight([characterData.slime], function () {
 						$('#slime').hide();
-						console.log('callback');
 						setTimeout(function () {
 							dialog({
 								text: langtext['dialog.firstante.johny.text1'],
@@ -883,6 +882,7 @@ function dialog(config) {
 	var callback = config.callback || function () { };
 	var cantpress = config.cantpress || false;
 	var cantmove = config.cantmove || false;
+	var choice = config.choice || false;
 	var final = function () {
 		$('.dialog').fadeOut(250, function () {
 			$(this).remove();
@@ -923,6 +923,24 @@ function getplayerpos(dontlog) {
 	};
 }
 
+
+
+function getmoveangle(speed, angle) {
+	var x = speed * Math.cos(angle * Math.PI / 180);
+	var y = speed * Math.sin(angle * Math.PI / 180);
+	return {
+		x: x,
+		y: y
+	};
+}
+function getRotateAngle() {
+	var matrix = $('page #mainchr').css('transform');
+	var values = matrix.split('(')[1].split(')')[0].split(',');
+	var a = values[0];
+	var b = values[1];
+	var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+	return angle;
+}
 $(function () {
 	//Basic
 	//  monitorsize
