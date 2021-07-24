@@ -841,7 +841,6 @@ window.story.firstante = function () {
 										text: langtext['dialog.firstante.johny.text2'],
 										cantmove: true,
 										cantpress: true,
-										timeout: 3000,
 										choice: [
 											{
 												text: langtext['dialog.firstante.johny.text2.c1'],
@@ -884,7 +883,7 @@ function dialog(config) {
 	var cantmove = config.cantmove || false;
 	var choice = config.choice || false;
 	var final = function () {
-		$('.dialog').fadeOut(250, function () {
+		$('.dialog, .dialog_choice').fadeOut(250, function () {
 			$(this).remove();
 		});
 		callback();
@@ -903,6 +902,18 @@ function dialog(config) {
 	} else {
 		clearInterval(dialogitv);
 	};
+	if (!!choice) {
+		$('body').append('<div id=\'dialog_choice_container\'></div>');
+		for (i = 0; i < choice.length; i++) {
+			$('#dialog_choice_container').append('<button id=\'dialog_choice' + i + '\' class=\'dialog_choice\' data-dialog_choice=\'' + i + '\'>' + choice[i].text + '</button>');
+		}
+		$('.dialog_choice').click(function () {
+			var id = $(this).data('dialog_choice');
+			choice[id].callback();
+			$('.dialog_choice').off();
+			final();
+		});
+	}
 	(timeout == false) ? null : setTimeout(function () {
 		(cantmove == true) ? move() : null;
 		final();

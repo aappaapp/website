@@ -131,6 +131,21 @@ span{
 	background-color: #000c;
 	display: none;
 }
+#dialog_choice_container{
+	z-index: 101;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.dialog_choice{
+	margin: 0px 10px;
+	border-width: 5px;
+	background-color: #000c;
+}
+.dialog_choice:hover{
+	background-color: #fffe;
+}
 
 /*Map*/
 /*	PathFinding*/

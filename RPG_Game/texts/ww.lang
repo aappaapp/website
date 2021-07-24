@@ -1,4 +1,4 @@
-system.game.name=RPG Gamu ww langugea
+system.game.name=RPG_Game ww langugea
 
 ui.startbtn=Starto
 ui.settingbtn=Set somEThing
@@ -24,3 +24,4 @@ dialog.firstante.johny.text1=Wait a minute........ WHO R U
 dialog.firstante.johny.text2=R U come to FIGJHTHHHHTHTH TREAST?
 dialog.firstante.johny.text2.c1=YS
 dialog.firstante.johny.text2.c2=NoNoNooNono
+dialog.firstante.johny.text2b.c1=FIGHTREAST
