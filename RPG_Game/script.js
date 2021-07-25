@@ -837,6 +837,9 @@ window.story.firstante = function () {
 								cantpress: true,
 								timeout: 3000,
 								callback: function () {
+									var choicecallback = function () {
+										console.log('Defeat TREAST');
+									}
 									dialog({
 										text: langtext['dialog.firstante.johny.text2'],
 										cantmove: true,
@@ -845,13 +848,25 @@ window.story.firstante = function () {
 											{
 												text: langtext['dialog.firstante.johny.text2.c1'],
 												callback: function () {
-													console.log('Yes');
+													choicecallback();
 												}
 											},
 											{
 												text: langtext['dialog.firstante.johny.text2.c2'],
 												callback: function () {
-													console.log('No');
+													dialog({
+														text: langtext['dialog.firstante.johny.text2b'],
+														cantmove: true,
+														cantpress: true,
+														choice: [
+															{
+																text: langtext['dialog.firstante.johny.text2b.c1'],
+																callback: function () {
+																	choicecallback();
+																}
+															}
+														]
+													});
 												}
 											}
 										]
@@ -909,9 +924,9 @@ function dialog(config) {
 		}
 		$('.dialog_choice').click(function () {
 			var id = $(this).data('dialog_choice');
-			choice[id].callback();
 			$('.dialog_choice').off();
 			final();
+			choice[id].callback();
 		});
 	}
 	(timeout == false) ? null : setTimeout(function () {
