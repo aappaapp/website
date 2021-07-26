@@ -902,9 +902,10 @@ function dialog(config) {
 	var cantpress = config.cantpress || false;
 	var cantmove = config.cantmove || false;
 	var choice = config.choice || false;
-	var final = function () {
+	var final = function (callbacka) {
 		$('.dialog, .dialog_choice').fadeOut(250, function () {
 			$(this).remove();
+			callbacka();
 		});
 		callback();
 	}
@@ -930,8 +931,7 @@ function dialog(config) {
 		$('.dialog_choice').click(function () {
 			var id = $(this).data('dialog_choice');
 			$('.dialog_choice').off();
-			final();
-			choice[id].callback();
+			final(choice[id].callback);
 		});
 	}
 	(timeout == false) ? null : setTimeout(function () {
