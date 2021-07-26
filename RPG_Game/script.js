@@ -147,7 +147,10 @@ function setlangtext() {
 				var datasplice = dataisplit.splice(1, dataisplit.length - 1);
 				dataisplit[1] = arrstick(datasplice, '=');
 			}
-			window.langtext[dataisplit[0]] = dataisplit[1];
+			window.langtext[dataisplit[0]] = dataisplit[1] || '';
+			if (window.langtext[dataisplit[0]].length == 1) {
+				window.langtext[dataisplit[0]] = dataisplit[0];
+			}
 		}
 		langtextinner();
 	});
@@ -838,7 +841,9 @@ window.story.firstante = function () {
 								timeout: 3000,
 								callback: function () {
 									var choicecallback = function () {
-										console.log('Defeat TREAST');
+										dialog({
+											text: langtext['dialog.firstante.johny.text3']
+										});
 									}
 									dialog({
 										text: langtext['dialog.firstante.johny.text2'],

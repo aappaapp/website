@@ -1,3 +1,4 @@
+system.test.blank=
 system.game.name=RPG_Game
 
 ui.startbtn=開始
@@ -19,6 +20,7 @@ fight.presskey=按Z！
 chr.wrong_lock.name=錯鎖
 chr.slime.name=史萊姆
 
+#dialog.SCENE.CHARACTER.textｎ=(...)
 dialog.beginning.text1=到你了，%n！
 dialog.firstante.johny.text1=你...是誰？
 dialog.firstante.johny.text2=你是來..打敗..TREAST..的嗎？
@@ -26,3 +28,4 @@ dialog.firstante.johny.text2.c1=是
 dialog.firstante.johny.text2.c2=不是
 dialog.firstante.johny.text2b=那你來做什麼？
 dialog.firstante.johny.text2b.c1=打敗TREAST
+dialog.firstante.johny.text3=我可以幫助你，我的名字是Johny。
