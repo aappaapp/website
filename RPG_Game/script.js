@@ -842,7 +842,17 @@ window.story.firstante = function () {
 								callback: function () {
 									var choicecallback = function () {
 										dialog({
-											text: langtext['dialog.firstante.johny.text3']
+											text: langtext['dialog.firstante.johny.text3'],
+											cantmove: true,
+											callback: function () {
+												dialog({
+													text: '現在是...」「..晚上11點..」「你先來我家休息一下吧，我們明天再出發！',
+													cantmove: true,
+													callback: function () {
+														story.secondDayante();
+													}
+												});
+											}
 										});
 									}
 									dialog({
@@ -892,6 +902,9 @@ window.story.firstante = function () {
 		jump();
 	}, 1500);
 }
+window.story.secondDayante = function () {
+	console.log('sd');
+}
 
 //Dialog
 function dialog(config) {
@@ -903,6 +916,7 @@ function dialog(config) {
 	var cantmove = config.cantmove || false;
 	var choice = config.choice || false;
 	var final = function (callbacka) {
+		var callbacka = callbacka || function () { };
 		$('.dialog, .dialog_choice').fadeOut(250, function () {
 			$(this).remove();
 			callbacka();
@@ -913,15 +927,16 @@ function dialog(config) {
 	$('.dialog').fadeIn(250);
 	(cantmove == true) ? clearInterval(window.moveitv) : null;
 	if (cantpress == false) {
-		var dialogitv = setInterval(function () {
+		$(document).on('keypress.dialog', function () {
 			if (keys[69]) {
 				(cantmove == true) ? move() : null;
+				$(document).off('keypress.dialog');
 				final();
-				clearInterval(dialogitv);
 			}
 		});
-	} else {
-		clearInterval(dialogitv);
+		var dialogitv = setInterval(function () {
+			clearInterval(dialogitv);
+		});
 	};
 	if (!!choice) {
 		$('body').append('<div id=\'dialog_choice_container\'></div>');
@@ -1131,6 +1146,19 @@ $(function () {
 				imgc: 'sprites/mainchr.png',
 				attack: function (callback) {
 					callback();
+				}
+			},
+			'dummy': {
+				name: langtext['chr.dummy.name'],
+				hp: 5,
+				def: 37.5,
+				imgbw: 'sprites/mainchr.png',
+				imgc: 'sprites/mainchr.png',
+				attack: function (callback) {
+					$('#fight_box').text('...');
+					setTimeout(function () {
+						callback();
+					}, 2500);
 				}
 			}
 		};
