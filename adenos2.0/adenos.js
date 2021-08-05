@@ -35,9 +35,13 @@ window._init.style = function () {
 			color: white;
 			cursor: default;
 			user-select: none;
+			font-family: Arial, Helvetica, sans-serif;
 		}
 		body {
 			margin: 0;
+		}
+		input {
+			outline: none;
 		}
 		.startscreen {
 			background-color: black;
@@ -89,12 +93,8 @@ window._init.gl = function () {
 window._init.finish = function () {
 	clearInterval(window._start.itv1);
 	$('body > .startscreen').fadeOut(100, function () {
-		window.location.href = 'https://adenpun.github.io/RPG_Game/';
-		if (window._system.firstuse) {
-			window._system.generateregisterpage();
-		} else {
-			window._system.generateloginpage();
-		}
+		//window.location.href = 'https://adenpun.github.io/RPG_Game/';
+		window._system.generateloginpage();
 	});
 	//window._desktop.generate();
 };
@@ -110,7 +110,7 @@ window._system.reloadtheme = function () {
 window._system.generateloginpage = function () {
 	window._system.reloadtheme();
 	$('body').html('');
-	$('body').append('<div></div>');
+	$('body').append('<input type=\'password\' placeholder=\'Your Password...\'>');
 };
 
 //Desktop
