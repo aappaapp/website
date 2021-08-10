@@ -29,7 +29,11 @@ camera.rotation.x = -1;
 
 function animate() {
 	requestAnimationFrame(animate);
-	CharSphere.position.y += 0.1
+	camera.rotation.x += 0.025;
+	camera.rotation.y += 0.025;
+	camera.rotation.z += 0.025;
+	camera.position.x -= 0.025;
+	camera.position.z -= 0.025;
 	renderer.render(scene, camera);
 }
 animate();

@@ -809,6 +809,7 @@ window.story.beginning = function () {
 	}, 1000);
 }
 window.story.firstante = function () {
+	changeroom('room_antestart', 'bottom');
 	window.story.firstanteing = true;
 	clearInterval(window.moveitv);
 	$('#slime').css({
@@ -837,24 +838,47 @@ window.story.firstante = function () {
 							dialog({
 								text: langtext['dialog.firstante.johny.text1'],
 								cantmove: true,
-								cantpress: true,
-								timeout: 3000,
 								callback: function () {
 									var choicecallback = function () {
 										dialog({
 											text: langtext['dialog.firstante.johny.text3'],
 											cantmove: true,
 											callback: function () {
-												dialog({
-													text: '現在是...」「..晚上11點..」「你先來我家休息一下吧，我們明天再出發！',
-													cantmove: true,
-													callback: function () {
-														story.secondDayante();
-													}
-												});
+												var afterif = function () {
+													dialog({
+														text: langtext['dialog.firstante.johny.text4'],
+														cantmove: true,
+														callback: function () {
+															dialog({
+																text: langtext['dialog.firstante.johny.text5'],
+																cantmove: true,
+																callback: function () {
+																	dialog({
+																		text: langtext['dialog.firstante.johny.text6'],
+																		cantmove: true,
+																		callback: function () {
+																			story.secondDayante();
+																		}
+																	});
+																}
+															});
+														}
+													});
+												};
+												if ($.cookie('lang') == 'en') {
+													dialog({
+														text: langtext['dialog.firstante.johny.text3b'],
+														cantmove: true,
+														callback: function () {
+															afterif();
+														}
+													});
+												} else {
+													afterif();
+												}
 											}
 										});
-									}
+									};
 									dialog({
 										text: langtext['dialog.firstante.johny.text2'],
 										cantmove: true,
@@ -870,12 +894,12 @@ window.story.firstante = function () {
 												text: langtext['dialog.firstante.johny.text2.c2'],
 												callback: function () {
 													dialog({
-														text: langtext['dialog.firstante.johny.text2b'],
+														text: langtext['dialog.firstante.johny.text2c2'],
 														cantmove: true,
 														cantpress: true,
 														choice: [
 															{
-																text: langtext['dialog.firstante.johny.text2b.c1'],
+																text: langtext['dialog.firstante.johny.text2c2.c1'],
 																callback: function () {
 																	choicecallback();
 																}
@@ -1205,9 +1229,6 @@ $(function () {
 			event.preventDefault();
 		}
 		if (event.key == 'F11' && !devmode) {
-			event.preventDefault();
-		}
-		if (event.which == 73 && !devmode) {
 			event.preventDefault();
 		}
 		if (event.which == 82 && !devmode) {
