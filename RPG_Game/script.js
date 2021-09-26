@@ -518,6 +518,9 @@ function updatestatus() {
 }
 function tofight(config, callback) {
 	clearInterval(moveitv);
+	playaudio('audio/mus_fight.mp3', {
+		loop: true
+	})
 	callback = callback || function () { };
 	$('room.show').addClass('fighthide').fadeOut(1000);
 	setTimeout(function () {
@@ -544,6 +547,20 @@ function tofight(config, callback) {
 			def: config[0].def
 		}
 	];
+	//Sprite Animation
+	$('#fight_choice_container').animate({
+		left: -10,
+		top: -10
+	}).animate({
+		left: 10,
+		top: -10
+	}).animate({
+		left: 10,
+		top: 10
+	}).animate({
+		left: -10,
+		top: 10
+	});
 	//Animation
 	setTimeout(function () {
 		$('#fight_box').animate({
