@@ -1207,7 +1207,7 @@ $(function () {
 	//      eachtext
 	window.eachtextcount = 0;
 	//      HomePageMusic
-	playaudio('audio/mus_homepage2.mp3', {
+	playaudio('audio/mus_homepage3.mp3', {
 		loop: true,
 		id: 'homepage'
 	});
