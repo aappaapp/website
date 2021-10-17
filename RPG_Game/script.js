@@ -211,7 +211,7 @@ function story_animation() {
 			'transform': 'translate(-50%, -50%)'
 		});
 		$('#water, #fire').show();
-		$('#water, #fire').setsize(50, 50);
+		$('#water, #fire').setsize(25, 25);
 		var time = 0;
 		var time2 = 0;
 		var itv = setInterval(function () {
@@ -319,7 +319,7 @@ function loadgame() {
 	move();
 	cursor(false);
 	fighttriger();
-	$('sprite#mainchr').setsize(25, 25);
+	$('sprite#mainchr').setsize(80, 80);
 	//$('sprite#pftest').setsize(10, 10);
 	$('sprite#slime').setsize(25, 25);
 	//pathfinding('mainchr', 'pftest');
@@ -397,24 +397,28 @@ function move() {
 		if (window.keys[68]) {
 			if (!($('page#map sprite#mainchr').position().left >= $('body').width() - $('page#map sprite#mainchr').width())) {
 				$('page#map sprite#mainchr').css('left', playerleft + movespeed + '');
+				$('page#map sprite#mainchr img').attr('src', 'sprites/mainchr_r.png')
 				window.moving = true;
 			}
 		}
 		if (window.keys[65]) {
 			if (!($('page#map sprite#mainchr').position().left <= 0)) {
 				$('page#map sprite#mainchr').css('left', playerleft - movespeed + '');
+				$('page#map sprite#mainchr img').attr('src', 'sprites/mainchr_l.png')
 				window.moving = true;
 			}
 		}
 		if (window.keys[87]) {
 			if (!overlaps($('page#map sprite#mainchr')[0], $('.2-1top')[0])) {
 				$('page#map sprite#mainchr').css('top', playertop - movespeed + '');
+				$('page#map sprite#mainchr img').attr('src', 'sprites/mainchr_b.png')
 				window.moving = true;
 			}
 		}
 		if (window.keys[83]) {
 			if (!overlaps($('page#map sprite#mainchr')[0], $('.2-1bottom')[0])) {
 				$('page#map sprite#mainchr').css('top', playertop + movespeed + '');
+				$('page#map sprite#mainchr img').attr('src', 'sprites/mainchr_f.png')
 				window.moving = true;
 			}
 		}
@@ -519,7 +523,8 @@ function updatestatus() {
 function tofight(config, callback) {
 	clearInterval(moveitv);
 	playaudio('audio/mus_fight.mp3', {
-		loop: true
+		loop: true,
+		id: 'fight'
 	})
 	callback = callback || function () { };
 	$('room.show').addClass('fighthide').fadeOut(1000);
@@ -665,6 +670,7 @@ function tofight(config, callback) {
 										setTimeout(function () {
 											$('room.fighthide').addClass('show').removeClass('fighthide').fadeIn(1000);
 											callback();
+											stopaudio('fight');
 											fighttriger();
 										}, 2000);
 									}, 500);
@@ -716,7 +722,7 @@ function tofight(config, callback) {
 											}
 										}
 									});
-									$('sprite#mainchr').setsize(25, 25);
+									$('sprite#mainchr').setsize(32, 32);
 									config[0].attack(function () {
 										clearInterval(fightmoveitv);
 										$('#fight_box').animate({
@@ -851,85 +857,7 @@ window.story.firstante = function () {
 				}, 1000, function () {
 					tofight([characterData.slime], function () {
 						$('#slime').hide();
-						setTimeout(function () {
-							dialog({
-								text: langtext['dialog.firstante.johny.text1'],
-								cantmove: true,
-								callback: function () {
-									var choicecallback = function () {
-										dialog({
-											text: langtext['dialog.firstante.johny.text3'],
-											cantmove: true,
-											callback: function () {
-												var afterif = function () {
-													dialog({
-														text: langtext['dialog.firstante.johny.text4'],
-														cantmove: true,
-														callback: function () {
-															dialog({
-																text: langtext['dialog.firstante.johny.text5'],
-																cantmove: true,
-																callback: function () {
-																	dialog({
-																		text: langtext['dialog.firstante.johny.text6'],
-																		cantmove: true,
-																		callback: function () {
-																			story.secondDayante();
-																		}
-																	});
-																}
-															});
-														}
-													});
-												};
-												if ($.cookie('lang') == 'en') {
-													dialog({
-														text: langtext['dialog.firstante.johny.text3b'],
-														cantmove: true,
-														callback: function () {
-															afterif();
-														}
-													});
-												} else {
-													afterif();
-												}
-											}
-										});
-									};
-									dialog({
-										text: langtext['dialog.firstante.johny.text2'],
-										cantmove: true,
-										cantpress: true,
-										choice: [
-											{
-												text: langtext['dialog.firstante.johny.text2.c1'],
-												callback: function () {
-													choicecallback();
-												}
-											},
-											{
-												text: langtext['dialog.firstante.johny.text2.c2'],
-												callback: function () {
-													dialog({
-														text: langtext['dialog.firstante.johny.text2c2'],
-														cantmove: true,
-														cantpress: true,
-														choice: [
-															{
-																text: langtext['dialog.firstante.johny.text2c2.c1'],
-																callback: function () {
-																	choicecallback();
-																}
-															}
-														]
-													});
-												}
-											}
-										]
-									});
-								}
-							});
-						}, 1000);
+						window.story.firstmeetjohny();
 					});
 				});
 			}
@@ -942,6 +870,90 @@ window.story.firstante = function () {
 		}
 		jump();
 	}, 1500);
+}
+window.story.firstmeetjohny = function () {
+	playaudio('audio/mus_strange.mp3', {
+		loog: true
+	});
+	setTimeout(function () {
+		dialog({
+			text: langtext['dialog.firstante.johny.text1'],
+			cantmove: true,
+			callback: function () {
+				var choicecallback = function () {
+					dialog({
+						text: langtext['dialog.firstante.johny.text3'],
+						cantmove: true,
+						callback: function () {
+							var afterif = function () {
+								dialog({
+									text: langtext['dialog.firstante.johny.text4'],
+									cantmove: true,
+									callback: function () {
+										dialog({
+											text: langtext['dialog.firstante.johny.text5'],
+											cantmove: true,
+											callback: function () {
+												dialog({
+													text: langtext['dialog.firstante.johny.text6'],
+													cantmove: true,
+													callback: function () {
+														story.secondDayante();
+													}
+												});
+											}
+										});
+									}
+								});
+							};
+							if ($.cookie('lang') == 'en') {
+								dialog({
+									text: langtext['dialog.firstante.johny.text3b'],
+									cantmove: true,
+									callback: function () {
+										afterif();
+									}
+								});
+							} else {
+								afterif();
+							}
+						}
+					});
+				};
+				dialog({
+					text: langtext['dialog.firstante.johny.text2'],
+					cantmove: true,
+					cantpress: true,
+					choice: [
+						{
+							text: langtext['dialog.firstante.johny.text2.c1'],
+							callback: function () {
+								choicecallback();
+							}
+						},
+						{
+							text: langtext['dialog.firstante.johny.text2.c2'],
+							callback: function () {
+								dialog({
+									text: langtext['dialog.firstante.johny.text2c2'],
+									cantmove: true,
+									cantpress: true,
+									choice: [
+										{
+											text: langtext['dialog.firstante.johny.text2c2.c1'],
+											callback: function () {
+												choicecallback();
+											}
+										}
+									]
+								});
+							}
+						}
+					]
+				});
+			}
+		});
+	}, 1000);
 }
 window.story.secondDayante = function () {
 	console.log('sd');
@@ -981,6 +993,7 @@ function dialog(config) {
 	};
 	if (!!choice) {
 		$('body').append('<div id=\'dialog_choice_container\'></div>');
+		var i;
 		for (i = 0; i < choice.length; i++) {
 			$('#dialog_choice_container').append('<button id=\'dialog_choice' + i + '\' class=\'dialog_choice\' data-dialog_choice=\'' + i + '\'>' + choice[i].text + '</button>');
 		}
@@ -1146,7 +1159,7 @@ $(function () {
 					var wronglockkeyatk = 0;
 					var summonatk = setInterval(function () {
 						//KeyAttack
-						$('#fight_box').append('<div id=\'wronglockkeyatk_' + wronglockkeyatk + '\' class=\'fight_attack wronglockkeyatk\'><img src=\'sprites/mainchr.png\'></div>');
+						$('#fight_box').append('<div id=\'wronglockkeyatk_' + wronglockkeyatk + '\' class=\'fight_attack wronglockkeyatk\'><img src=\'sprites/red.png\'></div>');
 						$('.wronglockkeyatk').setsize(25, 25);
 						var random = (Math.floor(Math.random() * 100) + 0);
 						$('#wronglockkeyatk_' + wronglockkeyatk).css('top', random + '%');
@@ -1183,8 +1196,8 @@ $(function () {
 				name: langtext['chr.slime.name'],
 				hp: 10,
 				def: 20,
-				imgbw: 'sprites/mainchr.png',
-				imgc: 'sprites/mainchr.png',
+				imgbw: 'sprites/red.png',
+				imgc: 'sprites/red.png',
 				attack: function (callback) {
 					callback();
 				}
@@ -1193,8 +1206,8 @@ $(function () {
 				name: langtext['chr.dummy.name'],
 				hp: 5,
 				def: 37.5,
-				imgbw: 'sprites/mainchr.png',
-				imgc: 'sprites/mainchr.png',
+				imgbw: 'sprites/red.png',
+				imgc: 'sprites/red.png',
 				attack: function (callback) {
 					$('#fight_box').text('...');
 					setTimeout(function () {
