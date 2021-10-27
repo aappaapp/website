@@ -4,6 +4,7 @@ ui.startbtn=Start
 ui.settingbtn=Setting
 ui.backbtn=<Back
 ui.devmodetext=>< dev mode! ><
+ui.setting.plug=Plugin
 ui.choose_name_placeholder=Your name...
 ui.choose_name_finishbtn=Finish
 ui.gameover.text=GAMEOVER

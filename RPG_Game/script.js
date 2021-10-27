@@ -162,6 +162,7 @@ function langtextinner() {
 	$('*#settingbtn').text(langtext['ui.settingbtn']);
 	$('*#backbtn').text(langtext['ui.backbtn']);
 	$('*#devmodetext').text(langtext['ui.devmodetext']);
+	$('*#plug').text(langtext['ui.setting.plug']);
 	$('*#choose_name_display').attr('placeholder', langtext['ui.choose_name_placeholder']);
 	$('*#choose_name_finishbtn').text(langtext['ui.choose_name_finishbtn']);
 	$('*#menu_startbtn').text(langtext['ui.startbtn']);

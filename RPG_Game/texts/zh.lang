@@ -4,6 +4,7 @@ ui.startbtn=開始
 ui.settingbtn=設定
 ui.backbtn=<返回
 ui.devmodetext=<<<<>>>DEV模式!!!<<<>>>>
+ui.setting.plug=插件
 ui.choose_name_placeholder=你的名字...
 ui.choose_name_finishbtn=完成
 ui.gameover.text=遊戲結束

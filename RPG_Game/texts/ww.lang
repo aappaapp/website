@@ -4,6 +4,7 @@ ui.startbtn=Starto
 ui.settingbtn=Set somEThing
 ui.backbtn=-><-Alen Backer
 ui.devmodetext=DEvelopModee
+ui.setting.plug=Pubgin
 ui.choose_name_placeholder=YUOR NEMA
 ui.choose_name_finishbtn=Finish
 ui.gameover.text=endgame
