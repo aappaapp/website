@@ -1,0 +1,14 @@
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.page{
+    display: none;
+}
+
+#player{
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    right: 50%;
+}
