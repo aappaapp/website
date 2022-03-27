@@ -94,7 +94,7 @@ window._init.finish = function () {
 	clearInterval(window._start.itv1);
 	$('body > .startscreen').fadeOut(100, function () {
 		//window.location.href = 'https://adenpun.github.io/RPG_Game/';
-		window._system.generateloginpage();
+		//window._system.generateloginpage();
 	});
 	//window._desktop.generate();
 };
@@ -106,6 +106,11 @@ window._system.reloadtheme = function () {
 		background-color: ${window._system.setting.theme.bgcolor};
 		color: ${window._system.setting.theme.txtcolor};
 	}`);
+};
+window._system.generateregisterpage = function () {
+	window._system.reloadtheme();
+	$('body').html('');
+	$('body').append('<input type=\'password\' placeholder=\'Your Password...\'>');
 };
 window._system.generateloginpage = function () {
 	window._system.reloadtheme();
