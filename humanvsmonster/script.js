@@ -76,10 +76,10 @@ function setvariable() {
 	$.cookie.json = true;
 	console.log('dev: ' + window.dev);
 	readUserData('fight');
-	if ($.cookie('login') != true) {
+	/*if ($.cookie('login') != true) {
 		alert(window.dialog1['error.unlogin']);
 		window.location.href = 'index.html';
-	}
+	}*/
 	if ($.cookie('entity') != null) {
 		window.entity = JSON.parse($.cookie('entity'));
 	} else if ($.cookie('item') != null) {

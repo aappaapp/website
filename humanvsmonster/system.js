@@ -3,7 +3,7 @@ $(function () {
 	window.dev = $.cookie('dev');
 	uid = $.cookie('uid');
 	setTimeout(function () {
-		if (window.dev == 'true') {
+		if (window.dev == 'true' && window.location.pathname != "/game.html") {
 			window.location.replace('./game.html');
 		}
 	}, 1000);
