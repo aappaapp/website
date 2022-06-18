@@ -33,28 +33,28 @@ $('#fight-line').toSprite('sprite');
 //my custom script with jquery
 var uid = $().getCookie('uid');
 var plot = JSON.parse($().getCookie('plot'));
-$.fn.set = function(ref, data1){
+$.fn.set = function (ref, data1) {
 	firebase.database().ref('/users/' + uid).set({
 		data: data1
 	});
 }
-$.fn.read = function(){
-	return firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
+$.fn.read = function () {
+	return firebase.database().ref('/users/' + uid).once('value').then(function (snapshot) {
 		var data = (snapshot.val() && snapshot.val().data) || 'Anonymous';
 		window.readData = data;
 		$().setCookie('data', JSON.stringify(data), 0.5)
 		// ...
 	});
 }
-$.fn.intoFight = function(config){
+$.fn.intoFight = function (config) {
 	$('.fighpage').css('display', 'block')
 	$('.enemy').css('display', 'none');
-	$( '.control' ).css('z-index', '1');
-	$( '.control' ).css({'top': '50%', 'left': '50%'});
-	$( '.pausbtn' ).css('display', 'none');
+	$('.control').css('z-index', '1');
+	$('.control').css({ 'top': '50%', 'left': '50%' });
+	$('.pausbtn').css('display', 'none');
 	console.log('asd');
-	if(config.name == 'santa'){
-		if(config.other.seeTime == 'first'){
+	if (config.name == 'santa') {
+		if (config.other.seeTime == 'first') {
 			$('#fightarea').css('width', '500px');
 			$('#sprite').css('display', 'none')
 			$('#btn').css('display', 'none')
@@ -63,18 +63,18 @@ $.fn.intoFight = function(config){
 	}
 
 }
-if($().getDeviceType() == 'mobile'){
+if ($().getDeviceType() == 'mobile') {
 	console.log($().getDeviceType())
 	$('#HomePage h1').text('You can\'t play Adentale in mobile now')
 	$('#HomePage input').css('display', 'none')
 }
-$('#mercy-btn').click(function(){
+$('#mercy-btn').click(function () {
 	$('#mercy-alert').css('display', 'block');
 });
-$('#mercy-alert #cancel-btn').click(function(){
+$('#mercy-alert #cancel-btn').click(function () {
 	$('#mercy-alert').css('display', 'none');
 });
-$('#fight-btn').click(function(){
+$('#fight-btn').click(function () {
 	window.startfight = true;
 	$('#fight-line').css('left', '0');
 	$('#fightarea').css('width', '500px');
@@ -82,19 +82,19 @@ $('#fight-btn').click(function(){
 	$('#fightbar').css('display', 'flex');
 	$('#btn').css('display', 'none');
 	$('#fight-btn').blur();
-	setTimeout(function(){
+	setTimeout(function () {
 		$('#fight-line').css('display', 'block');
-		window.repeatofightline = setInterval(function(){$('#fight-line').teleport('move', 2.5, 0);}, 0.1);
+		window.repeatofightline = setInterval(function () { $('#fight-line').teleport('move', 2.5, 0); }, 0.1);
 	}, 1000)
 });
-$(window).keydown(function(){
-	if(event.which == 32){
+$(window).keydown(function () {
+	if (event.which == 32) {
 		clearInterval(window.repeatofightline)
-		if(window.startfight == true){
-			if($().overlap($('#fight-line'), $('#green-bar'))){
-				
+		if (window.startfight == true) {
+			if ($().overlap($('#fight-line'), $('#green-bar'))) {
+
 			} else {
-				
+
 			}
 		}
 		$('#fightarea').css('width', '200px');
@@ -103,11 +103,11 @@ $(window).keydown(function(){
 		$('#fight-line').css('display', 'none');
 		window.startfight = false;
 	}
-	if(window.start && window.fighting != true){
-		if($().overlap($('.control'), $('.enemy'))){
+	if (window.start && window.fighting != true) {
+		if ($().overlap($('.control'), $('.enemy'))) {
 			var overlap = window.overlap;
 			window.fighting = true;
-			if(overlap.includes('santa')){
+			if (overlap.includes('santa')) {
 				$().intoFight({
 					name: 'santa',
 					other: {
@@ -122,14 +122,14 @@ $(window).keydown(function(){
 //my custom script with function
 window.startfight = false;
 var firebaseConfig = {
-	apiKey: "AIzaSyDkSOCf6OlKlQK7dpJytnsZECWczfYApCo",
-	authDomain: "webdb200101.firebaseapp.com",
-	databaseURL: "https://webdb200101.firebaseio.com",
-	projectId: "webdb200101",
-	storageBucket: "webdb200101.appspot.com",
-	messagingSenderId: "485833164369",
-	appId: "1:485833164369:web:66144cf75de59218461a70",
-	measurementId: "G-DXYPZLMPD7"
+	apiKey: "AIzaSyCFhgKQiV_9q5dViKHLAslf4e1FJuN6qvk",
+	authDomain: "adenpun-2000.firebaseapp.com",
+	databaseURL: "https://adenpun-2000-default-rtdb.asia-southeast1.firebasedatabase.app",
+	projectId: "adenpun-2000",
+	storageBucket: "adenpun-2000.appspot.com",
+	messagingSenderId: "336986061967",
+	appId: "1:336986061967:web:a5e17b0ebc6c3cda4404fa",
+	measurementId: "G-G8FC08N334"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -141,6 +141,6 @@ function writeUserData(userId, name, email, imageUrl) {
 	firebase.database().ref('users/' + userId).set({
 		username: name,
 		email: email,
-		profile_picture : imageUrl
+		profile_picture: imageUrl
 	});
 }
