@@ -3,4 +3,4 @@ User-agent: *
 Disallow: /firebase/
 Disallow: /authsetting/
 
-Sitemap: https://adenpun.github.io/sitemap.xml
+Sitemap: https://adenpun.ml/sitemap.xml
