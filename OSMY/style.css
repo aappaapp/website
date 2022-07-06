@@ -32,7 +32,11 @@ body {
 .ip {
     text-align: center;
     font-weight: 100;
-    color: #ff0000;
+}
+
+.ip a {
+    color: red;
+    text-decoration: none;
 }
 
 /* -- Youtube Embed -- */
