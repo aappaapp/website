@@ -1,14 +1,14 @@
 // TODO: Replace the following with your app's Firebase project configuration
 // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 var firebaseConfig = {
-    apiKey: "AIzaSyCFhgKQiV_9q5dViKHLAslf4e1FJuN6qvk",
-    authDomain: "adenpun-2000.firebaseapp.com",
-    databaseURL: "https://adenpun-2000-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "adenpun-2000",
-    storageBucket: "adenpun-2000.appspot.com",
-    messagingSenderId: "336986061967",
-    appId: "1:336986061967:web:a5e17b0ebc6c3cda4404fa",
-    measurementId: "G-G8FC08N334"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
 };
 
 // Initialize Firebase
@@ -133,7 +133,7 @@ $(function () {
         });
     });
     $('.openconbtn').click(function () {
-        window.open('https://console.firebase.google.com/project/adenpun-2000/database/adenpun-2000/data/~2Fquiz');
+        window.open('https://console.firebase.google.com/project//database//data/~2Fquiz');
     });
     $('.stopbtn').click(function () {
         firebase.database().ref('quiz/start').set(false);
