@@ -1,9 +1,0 @@
-@font-face{
-	font-family: 'unifont';
-    src: url(./unifont-13.0.04.ttf);
-}
-html{
-    background-color: black;
-    color: white;
-    font-family: unifont ,Arial, Helvetica, sans-serif;
-}

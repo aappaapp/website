@@ -1,9 +1,0 @@
-{
-    "home": {
-        "title1.txt": "content1",
-        "title2.txt": "content1\ncontent2",
-        "folder1": {
-            "title3.txt": "content1\ncontent2\ncontent3"
-        }
-    }
-}
