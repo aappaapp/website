@@ -1,0 +1,12 @@
+import redirectJson from "./redirect.json";
+
+const queries = new URLSearchParams(location.search);
+document.body.innerHTML += `<pre>${JSON.stringify(redirectJson, null, 2)}</pre>`;
+let found = false;
+Object.keys(redirectJson).forEach((key: string) => {
+    if (queries.has(key)) {
+        found = true;
+        location.replace((redirectJson as any)[key]);
+    }
+});
+if (found === false) document.body.innerHTML += `<h1>Couldn't find "?${queries.toString()}"</h1>`;
