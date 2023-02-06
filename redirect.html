@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect</title>
-    <script>
-        window.urlSearchParams = new URLSearchParams(location.search);
-        window.id = urlSearchParams.get("id");
-        if (id == "pg_ps") {
-            location.replace("https://docs.google.com/presentation/d/1Pf3Hvbe_4iu6hXFZ5NyRdIhqZHEVY8aQ9_G1x_QPOY0/edit?usp=sharing");
-        }
-    </script>
-</head>
-
-<body>
-
-</body>
-
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Redirect</title>
+    </head>
+    <body>
+        <script type="module" src="/src/redirect.ts"></script>
+    </body>
 </html>
