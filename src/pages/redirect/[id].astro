@@ -1,0 +1,18 @@
+---
+import redirectJson from "@/data/redirect.json";
+export async function getStaticPaths() {
+    return Object.keys(redirectJson).map((id) => {
+        return {
+            params: {
+                id,
+            },
+        };
+    });
+}
+
+const target = (redirectJson as any)[Astro.params.id!];
+---
+
+<head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+</head>
