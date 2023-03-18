@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
-
 import sitemap from "@astrojs/sitemap";
-
+import solidJs from "@astrojs/solid-js";
 const SITEMAP_EXCLUDE: string[] = [];
 
 // https://astro.build/config
@@ -15,6 +14,7 @@ export default defineConfig({
                 );
             },
         }),
+        solidJs(),
     ],
     site: "https://adenpun.ml/",
     server: {

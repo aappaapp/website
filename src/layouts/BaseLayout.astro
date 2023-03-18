@@ -15,9 +15,17 @@ const { title, description, keywords } = Astro.props;
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <meta name="description" content={description} />
+        {
+            typeof description !== "undefined" ? (
+                <meta name="description" content={description ?? ""} />
+            ) : undefined
+        }
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        <meta name="keywords" content={typeof keywords === "undefined" ? "" : keywords.join(",")} />
+        {
+            typeof keywords !== "undefined" ? (
+                <meta name="keywords" content={keywords.join(",")} />
+            ) : undefined
+        }
 
         <title>{title}</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />

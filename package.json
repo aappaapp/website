@@ -10,11 +10,11 @@
         "preview": "astro preview",
         "astro": "astro"
     },
-    "dependencies": {
-        "@astrojs/sitemap": "^1.2.1",
-        "astro": "^2.0.18"
-    },
     "devDependencies": {
-        "sass": "^1.59.3"
+        "@astrojs/sitemap": "^1.2.1",
+        "@astrojs/solid-js": "^2.1.0",
+        "astro": "^2.0.18",
+        "sass": "^1.59.3",
+        "solid-js": "^1.4.3"
     }
 }
