@@ -1,8 +1,7 @@
-import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import solidJs from "@astrojs/solid-js";
-import mdx from "@astrojs/mdx";
-import { readFileSync } from "fs";
+import { defineConfig } from "astro/config";
 
 const SITEMAP_EXCLUDE: string[] = [];
 const SITE = "https://adenpun.ml/";
@@ -16,7 +15,7 @@ export default defineConfig({
             filter: (page) => {
                 return !(
                     SITEMAP_EXCLUDE.includes(page) ||
-                    page.startsWith("https://adenpun.ml/redirect/")
+                    page.startsWith(`${SITE}redirect/`)
                 );
             },
         }),
