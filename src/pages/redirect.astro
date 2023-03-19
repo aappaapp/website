@@ -2,7 +2,11 @@
     import redirectJson from "@/data/redirect.json";
 
     const queries = new URLSearchParams(location.search);
-    document.body.innerHTML += `<pre>${JSON.stringify(redirectJson, null, 2)}</pre>`;
+    document.body.innerHTML += `<pre>${JSON.stringify(
+        redirectJson,
+        null,
+        2
+    )}</pre>`;
     let found = false;
     Object.keys(redirectJson).forEach((key: string) => {
         if (queries.has(key)) {

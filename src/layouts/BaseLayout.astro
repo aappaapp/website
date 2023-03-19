@@ -3,9 +3,12 @@ interface Props {
     title: string;
     description?: string;
     keywords?: string[];
+    image?: string;
 }
 
-const { title, description, keywords } = Astro.props;
+import Nav from "@/components/Nav.astro";
+
+const { title, description, keywords, image } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -15,28 +18,32 @@ const { title, description, keywords } = Astro.props;
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {
-            typeof description !== "undefined" ? (
-                <meta name="description" content={description ?? ""} />
-            ) : undefined
-        }
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        {description && <meta name="description" content={description} />}
+        <meta name="generator" content={Astro.generator} />
+        {keywords && <meta name="keywords" content={keywords.join(",")} />}
         {
-            typeof keywords !== "undefined" ? (
-                <meta name="keywords" content={keywords.join(",")} />
-            ) : undefined
+            description && (
+                <meta property="og:description" content={description} />
+            )
         }
+        {image && <meta property="og:image" content={image} />}
+        <meta property="og:title" content={title} />
+        <meta property="og:url" content={Astro.url} />
 
-        <title>{title}</title>
+        <title>{title} - Aden Pun</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="sitemap" href="/sitemap-index.xml" />
     </head>
-    <body
-        ><slot />
+    <body>
+        <Nav />
+        <hr />
+        <slot />
+        <hr />
         <footer>
             built with {Astro.generator}
-        </footer></body
-    >
+        </footer>
+    </body>
 </html>
 
 <style lang="scss" is:global>
@@ -49,5 +56,10 @@ const { title, description, keywords } = Astro.props;
     body {
         background-color: #000000;
         color: #ffffff;
+    }
+
+    a {
+        color: yellow;
+        text-decoration: none;
     }
 </style>

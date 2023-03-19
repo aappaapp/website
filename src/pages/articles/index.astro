@@ -1,8 +1,26 @@
 ---
 import ArticleList from "@/components/ArticleList";
 import Layout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+const articles = await getCollection("articles");
 ---
 
-<Layout title="Articles">
-    <ArticleList client:load />
+<Layout title="Articles" description="Aden Pun's articles">
+    <main>
+        <h1>My blogs/article</h1>
+        <ArticleList articles={articles} client:load />
+    </main>
 </Layout>
+
+<style lang="scss">
+    main :global(article) {
+        background-color: #000000;
+        border-radius: 10px;
+        padding: 10px;
+        transition: 150ms;
+
+        &:hover {
+            background-color: #333333;
+        }
+    }
+</style>

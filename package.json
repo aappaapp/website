@@ -6,15 +6,21 @@
     "scripts": {
         "dev": "astro dev",
         "start": "astro dev",
-        "build": "astro build",
+        "build": "pnpm run prettier && pnpm run build:astro",
+        "build:astro": "astro build",
+        "build:prettier": "pnpm run build && cd ./dist && prettier -w --plugin-search-dir=.. .",
         "preview": "astro preview",
-        "astro": "astro"
+        "prettier": "prettier -w --plugin-search-dir=. ."
     },
     "devDependencies": {
+        "@astrojs/mdx": "^0.18.1",
         "@astrojs/sitemap": "^1.2.1",
         "@astrojs/solid-js": "^2.1.0",
         "astro": "^2.0.18",
+        "prettier": "^2.8.4",
+        "prettier-plugin-astro": "^0.8.0",
         "sass": "^1.59.3",
-        "solid-js": "^1.4.3"
+        "solid-js": "^1.4.3",
+        "typestyle": "^2.4.0"
     }
 }

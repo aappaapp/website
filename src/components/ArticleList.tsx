@@ -1,14 +1,36 @@
-import { Component, createSignal, For } from "solid-js";
-// import data from "@/data/"
-import * as Astro from "astro";
+import type { CollectionEntry } from "astro:content";
+import { Component, createEffect, createSignal, For, onMount } from "solid-js";
+import Article from "./Article";
 
-const BlogList: Component = () => {
-    // createSignal();
+interface Props {
+    articles: CollectionEntry<"articles">[];
+}
+
+const ArticleList: Component<Props> = (props) => {
+    const [articles, setArticles] = createSignal(props.articles);
+
+    setArticles(
+        props.articles.sort(
+            (a, b) => a.data.lastmod.getTime() - b.data.lastmod.getTime()
+        )
+    );
+
     return (
-        <For each={items} fallback={<div>No items</div>}>
-            {(item, index) => <div>{item}</div>}
-        </For>
+        <>
+            <For each={articles()}>
+                {(article) => {
+                    console.log(article);
+                    return (
+                        <Article
+                            title={article.data.title}
+                            href={article.slug}
+                            lastmod={article.data.lastmod}
+                        />
+                    );
+                }}
+            </For>
+        </>
     );
 };
 
-export default BlogList;
+export default ArticleList;
