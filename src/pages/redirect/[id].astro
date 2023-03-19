@@ -15,4 +15,5 @@ const target = (redirectJson as any)[Astro.params.id!];
 
 <head>
     <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <meta name="robots" content="noindex" />
 </head>
