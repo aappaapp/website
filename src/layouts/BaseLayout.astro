@@ -7,6 +7,7 @@ interface Props {
 }
 
 import Nav from "@/components/Nav.astro";
+import { SEO } from "astro-seo";
 
 const { title, description, keywords, image } = Astro.props;
 ---
@@ -17,21 +18,30 @@ const { title, description, keywords, image } = Astro.props;
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        {description && <meta name="description" content={description} />}
+
+        <SEO
+            canonical={Astro.url.toString()}
+            charset={"UTF-8"}
+            description={description}
+            openGraph={{
+                basic: {
+                    image: image ?? "",
+                    title,
+                    type: "website",
+                    url: Astro.url.toString(),
+                },
+                optional: {
+                    description,
+                    siteName: "Aden Pun",
+                },
+            }}
+            title={`${title} - Aden Pun`}
+        />
+
         <meta name="generator" content={Astro.generator} />
         {keywords && <meta name="keywords" content={keywords.join(",")} />}
-        {
-            description && (
-                <meta property="og:description" content={description} />
-            )
-        }
-        {image && <meta property="og:image" content={image} />}
-        <meta property="og:title" content={title} />
-        <meta property="og:url" content={Astro.url} />
 
-        <title>{title} - Aden Pun</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="sitemap" href="/sitemap-index.xml" />
     </head>
@@ -43,23 +53,22 @@ const { title, description, keywords, image } = Astro.props;
         <footer>
             built with {Astro.generator}
         </footer>
+        <style lang="scss" is:global>
+            @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
+
+            * {
+                font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
+            }
+
+            body {
+                background-color: #000000;
+                color: #ffffff;
+            }
+
+            a {
+                color: yellow;
+                text-decoration: none;
+            }
+        </style>
     </body>
 </html>
-
-<style lang="scss" is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
-
-    * {
-        font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
-    }
-
-    body {
-        background-color: #000000;
-        color: #ffffff;
-    }
-
-    a {
-        color: yellow;
-        text-decoration: none;
-    }
-</style>
