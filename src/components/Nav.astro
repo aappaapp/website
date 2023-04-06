@@ -1,4 +1,27 @@
+---
+interface Props {
+    pages: Page[];
+}
+
+interface Page {
+    name: string;
+    link: string;
+    subpages?: Page[];
+}
+
+const { pages } = Astro.props;
+---
+
 <nav>
-    <a href="/">home</a>
-    <a href="/articles/">articles</a>
+    {
+        pages.map((value) => {
+            return <a href={value.link}>{value.name}</a>;
+        })
+    }
 </nav>
+
+<style>
+    nav > a {
+        margin-right: 10px;
+    }
+</style>

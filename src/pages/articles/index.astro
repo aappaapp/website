@@ -8,7 +8,10 @@ const articles = await getCollection("articles");
 <Layout title="Articles" description="Aden Pun's articles">
     <main>
         <h1>My blogs/article</h1>
-        <ArticleList articles={articles} client:load />
+        <ArticleList
+            articles={articles.map((a) => ({ ...a.data, slug: a.slug }))}
+            client:load
+        />
     </main>
 </Layout>
 

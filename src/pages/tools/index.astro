@@ -1,0 +1,15 @@
+---
+import Nav from "@/components/Nav.astro";
+import Layout from "@/layouts/BaseLayout.astro";
+---
+
+<Layout title="Tools" description="My tools!">
+    <Nav
+        pages={[
+            {
+                name: "budget",
+                link: "/tools/budget",
+            },
+        ]}
+    />
+</Layout>

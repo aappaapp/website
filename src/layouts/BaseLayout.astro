@@ -4,12 +4,15 @@ interface Props {
     description?: string;
     keywords?: string[];
     image?: string;
+    noindex?: boolean;
+    contentSecurityPolicy?: any;
 }
 
 import Nav from "@/components/Nav.astro";
 import { SEO } from "astro-seo";
 
-const { title, description, keywords, image } = Astro.props;
+const { title, description, keywords, image, noindex, contentSecurityPolicy } =
+    Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -19,11 +22,16 @@ const { title, description, keywords, image } = Astro.props;
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <!-- <meta
+            http-equiv="Content-Security-Policy"
+            content={contentSecurityPolicy}
+        /> -->
 
         <SEO
             canonical={Astro.url.toString()}
             charset={"UTF-8"}
             description={description}
+            noindex={noindex}
             openGraph={{
                 basic: {
                     image: image ?? "",
@@ -46,7 +54,22 @@ const { title, description, keywords, image } = Astro.props;
         <link rel="sitemap" href="/sitemap-index.xml" />
     </head>
     <body>
-        <Nav />
+        <Nav
+            pages={[
+                {
+                    name: "home",
+                    link: "/",
+                },
+                {
+                    name: "articles",
+                    link: "/articles",
+                },
+                // {
+                //     name: "tools",
+                //     link: "/tools",
+                // },
+            ]}
+        />
         <hr />
         <slot />
         <hr />
