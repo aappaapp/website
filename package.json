@@ -13,7 +13,7 @@
         "prettier": "prettier -w --plugin-search-dir=. ."
     },
     "devDependencies": {
-        "@adenpun2000/budget": "github:adenpun/budget#dev",
+        "@adenpun2000/budget": "github:adenpun/budget",
         "@astrojs/mdx": "^0.18.1",
         "@astrojs/sitemap": "^1.2.1",
         "@astrojs/solid-js": "^2.1.0",
