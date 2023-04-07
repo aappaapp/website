@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 devDependencies:
   '@adenpun2000/budget':
-    specifier: github:adenpun/budget
-    version: github.com/adenpun/budget/7d56b198466ff660f74dccfe99468eda67aafbfc
+    specifier: ^0.1.0
+    version: 0.1.0
   '@astrojs/mdx':
     specifier: ^0.18.1
     version: 0.18.1(astro@2.2.0)(rollup@3.20.2)
@@ -33,6 +33,10 @@ devDependencies:
     version: 1.1.2
 
 packages:
+
+  /@adenpun2000/budget@0.1.0:
+    resolution: {integrity: sha512-9m/+Sbwp7xvBlzAFUkmdEzBZUyzh+2r5XT+k2DO0S0yv0diXyNeqrD73ziQ70niUcRsVWQPl6lzklzICpMtl4g==}
+    dev: true
 
   /@ampproject/remapping@2.2.0:
     resolution: {integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==}
@@ -4212,10 +4216,4 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
-    dev: true
-
-  github.com/adenpun/budget/7d56b198466ff660f74dccfe99468eda67aafbfc:
-    resolution: {tarball: https://codeload.github.com/adenpun/budget/tar.gz/7d56b198466ff660f74dccfe99468eda67aafbfc}
-    name: '@adenpun2000/budget'
-    version: 0.1.0
     dev: true
