@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 devDependencies:
   '@adenpun2000/budget':
-    specifier: github:adenpun/budget#dev
-    version: github.com/adenpun/budget/cad4639d5e725ad769990a2ec4cd0a84d6696c6d
+    specifier: github:adenpun/budget
+    version: github.com/adenpun/budget/7d56b198466ff660f74dccfe99468eda67aafbfc
   '@astrojs/mdx':
     specifier: ^0.18.1
     version: 0.18.1(astro@2.2.0)(rollup@3.20.2)
@@ -22,12 +22,6 @@ devDependencies:
   astro-seo:
     specifier: ^0.7.1
     version: 0.7.1
-  prettier:
-    specifier: ^2.8.4
-    version: 2.8.4
-  prettier-plugin-astro:
-    specifier: ^0.8.0
-    version: 0.8.0
   sass:
     specifier: ^1.59.3
     version: 1.59.3
@@ -50,10 +44,6 @@ packages:
 
   /@astrojs/compiler@0.31.4:
     resolution: {integrity: sha512-6bBFeDTtPOn4jZaiD3p0f05MEGQL9pw2Zbfj546oFETNmjJFWO3nzHz6/m+P53calknCvyVzZ5YhoBLIvzn5iw==}
-    dev: true
-
-  /@astrojs/compiler@1.2.1:
-    resolution: {integrity: sha512-HmHgN/h/CapbMIJnnaB6WQ6Kg85byCEz+GuKl87mNEwxa6anfMJKC9TC/D1bVNwDwTCEOsDG7WJVMDIJbE4hkw==}
     dev: true
 
   /@astrojs/compiler@1.3.0:
@@ -3246,16 +3236,6 @@ packages:
       synckit: 0.8.5
     dev: true
 
-  /prettier-plugin-astro@0.8.0:
-    resolution: {integrity: sha512-kt9wk33J7HvFGwFaHb8piwy4zbUmabC8Nu+qCw493jhe96YkpjscqGBPy4nJ9TPy9pd7+kEx1zM81rp+MIdrXg==}
-    engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
-    dependencies:
-      '@astrojs/compiler': 1.2.1
-      prettier: 2.8.4
-      sass-formatter: 0.7.6
-      synckit: 0.8.5
-    dev: true
-
   /prettier@2.8.4:
     resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
     engines: {node: '>=10.13.0'}
@@ -4234,8 +4214,8 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: true
 
-  github.com/adenpun/budget/cad4639d5e725ad769990a2ec4cd0a84d6696c6d:
-    resolution: {tarball: https://codeload.github.com/adenpun/budget/tar.gz/cad4639d5e725ad769990a2ec4cd0a84d6696c6d}
+  github.com/adenpun/budget/7d56b198466ff660f74dccfe99468eda67aafbfc:
+    resolution: {tarball: https://codeload.github.com/adenpun/budget/tar.gz/7d56b198466ff660f74dccfe99468eda67aafbfc}
     name: '@adenpun2000/budget'
     version: 0.1.0
     dev: true
