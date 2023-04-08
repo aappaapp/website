@@ -1,81 +1,54 @@
-import type { Accessor } from "solid-js";
-import { createRenderEffect, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
+import { createMutable } from "solid-js/store";
 
-interface LocalStorageOptions<T> {
-    serializer?: (value: T) => string;
-    deserializer?: (value: string) => T;
+export function useLocalStorage(
+    key: string,
+    initialValue?: string
+): [() => string | null, (value: string) => void, () => void] {
+    const [value, setValue] = createSignal<string | null>(
+        localStorage.getItem(key) ?? initialValue ?? null
+    );
+
+    if (
+        localStorage.getItem(key) === null &&
+        typeof initialValue !== "undefined"
+    )
+        localStorage.setItem(key, initialValue);
+
+    return [
+        () => {
+            return value();
+        },
+        (value) => {
+            localStorage.setItem(key, value);
+            setValue(value);
+        },
+        () => {
+            setValue(null);
+        },
+    ];
 }
 
-export function useLocalStorage<T>(
+export function useLocalStorageStore<T extends object>(
     key: string,
-    initialValue: T,
-    options?: LocalStorageOptions<T>
-): [Accessor<T>, (value: T) => void, () => void];
-export function useLocalStorage<T>(
-    key: string,
-    initialValue?: T,
-    options?: LocalStorageOptions<T>
-): [Accessor<T | undefined>, (value: T) => void, () => void];
-export function useLocalStorage<T>(
-    key: string,
-    initialValue?: T,
-    options?: LocalStorageOptions<T>
-): [Accessor<T | undefined>, (value: T) => void, () => void] {
-    const serializer = (value: T) => {
-        if (options?.serializer) {
-            return options.serializer(value);
-        }
-        return JSON.stringify(value);
-    };
+    initialValue: T
+): T {
+    const store = createMutable<T>(
+        localStorage.getItem(key) === null
+            ? initialValue
+            : JSON.parse(localStorage.getItem(key)!)
+    );
 
-    const deserializer = (value: string) => {
-        if (options?.deserializer) {
-            return options.deserializer(value);
-        }
+    if (localStorage.getItem(key) === null)
+        localStorage.setItem(key, JSON.stringify(initialValue));
 
-        try {
-            return JSON.parse(value);
-        } catch {
-            return value;
-        }
-    };
-
-    const getStoredValue = () => {
-        try {
-            const raw = localStorage.getItem(key);
-            if (raw) {
-                return deserializer(raw);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-
-        return initialValue;
-    };
-
-    const [state, setState] = createSignal<T | undefined>(getStoredValue());
-
-    const set = (value: T) => {
-        try {
-            localStorage.setItem(key, serializer(value));
-            setState(() => value);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const remove = () => {
-        try {
-            localStorage.removeItem(key);
-            setState(undefined);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    createRenderEffect(() => {
-        set(getStoredValue());
+    const a = new Proxy(store, {
+        get(target, p, receiver) {
+            localStorage.setItem(key, JSON.stringify(store));
+            // @ts-ignore
+            return target[p];
+        },
     });
 
-    return [state, set, remove];
+    return a;
 }

@@ -1,11 +1,14 @@
-import { useLocalStorage } from "@/components/hooks";
-import { Budget } from "@adenpun2000/budget";
+import { useLocalStorage, useLocalStorageStore } from "@/components/hooks";
+import { Budget, BudgetType } from "@adenpun2000/budget";
+import { createSignal } from "solid-js";
 
-export const saveData = useLocalStorage("save", new Budget(), {
-    deserializer(value) {
-        return Budget.fromJSON(JSON.parse(value));
-    },
-    serializer(value) {
-        return value.toString();
-    },
-});
+export const saveData = useLocalStorageStore<BudgetType>(
+    "save",
+    new Budget().toJSON()
+);
+
+export const token = useLocalStorage("gh_token");
+
+export const repo = useLocalStorage("gh_repo");
+
+export const counter = useLocalStorage("counter");
