@@ -16,11 +16,9 @@ const articles = await getCollection("articles");
 </Layout>
 
 <style lang="scss">
-    main :global(article) {
-        background-color: #000000;
-        border-radius: 10px;
+    main :global(a) {
+        display: block;
         padding: 10px;
-        transition: 150ms;
 
         &:hover {
             background-color: #333333;

@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
+
+* {
+    font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #111111;
+    color: #ffffff;
+    margin: 0;
+}
+
+a {
+    color: #ffff00;
+    text-decoration: none;
+    transition: 10px;
+
+    &:hover {
+        color: #ffffff;
+    }
+}

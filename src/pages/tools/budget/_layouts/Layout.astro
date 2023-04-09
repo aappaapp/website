@@ -1,10 +1,10 @@
 ---
-import Nav from "@/components/Nav.astro";
+import PageList from "@/components/PageList.astro";
 import Layout from "@/layouts/BaseLayout.astro";
 ---
 
 <Layout title="Budget" noindex>
-    <Nav
+    <PageList
         pages={[
             {
                 name: "overview",
@@ -15,8 +15,12 @@ import Layout from "@/layouts/BaseLayout.astro";
                 link: "/tools/budget/income",
             },
             {
-                name: "expense",
-                link: "/tools/budget/expense",
+                name: "transactions",
+                link: "/tools/budget/transactions",
+            },
+            {
+                name: "settings",
+                link: "/tools/budget/settings",
             },
         ]}
     />

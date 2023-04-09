@@ -1,0 +1,31 @@
+---
+interface Props {
+    pages: Page[];
+}
+
+interface Page {
+    name: string;
+    link: string;
+    subpages?: Page[];
+}
+
+const { pages } = Astro.props;
+---
+
+<nav>
+    {
+        pages.map((value) => {
+            return <a href={value.link}>{value.name}</a>;
+        })
+    }
+</nav>
+
+<style lang="scss">
+    nav {
+        padding: 10px;
+    }
+
+    nav > a {
+        margin-right: 10px;
+    }
+</style>

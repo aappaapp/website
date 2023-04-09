@@ -2,17 +2,16 @@
 interface Props {
     title: string;
     description?: string;
-    keywords?: string[];
     image?: string;
     noindex?: boolean;
     contentSecurityPolicy?: any;
 }
 
-import Nav from "@/components/Nav.astro";
+import NavBar from "@/components/NavBar.astro";
+import "@/styles/main.scss";
 import { SEO } from "astro-seo";
 
-const { title, description, keywords, image, noindex, contentSecurityPolicy } =
-    Astro.props;
+const { title, description, image, noindex } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -22,10 +21,6 @@ const { title, description, keywords, image, noindex, contentSecurityPolicy } =
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        <!-- <meta
-            http-equiv="Content-Security-Policy"
-            content={contentSecurityPolicy}
-        /> -->
 
         <SEO
             canonical={Astro.url.toString()}
@@ -48,13 +43,12 @@ const { title, description, keywords, image, noindex, contentSecurityPolicy } =
         />
 
         <meta name="generator" content={Astro.generator} />
-        {keywords && <meta name="keywords" content={keywords.join(",")} />}
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="sitemap" href="/sitemap-index.xml" />
     </head>
     <body>
-        <Nav
+        <NavBar
             pages={[
                 {
                     name: "home",
@@ -70,28 +64,9 @@ const { title, description, keywords, image, noindex, contentSecurityPolicy } =
                 // },
             ]}
         />
-        <hr />
         <slot />
         <hr />
-        <footer>
-            built with {Astro.generator}
-        </footer>
-        <style lang="scss" is:global>
-            @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
-
-            * {
-                font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
-            }
-
-            body {
-                background-color: #000000;
-                color: #ffffff;
-            }
-
-            a {
-                color: yellow;
-                text-decoration: none;
-            }
-        </style>
+        <footer>&copy; 2023 Aden Pun</footer>
+        <style lang="scss"></style>
     </body>
 </html>
