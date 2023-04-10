@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { writeFile } from "./github";
+import { writeFile } from "../../../../utils/github";
 import { repo, saveData, token } from "./states";
 
 interface Props {}
@@ -17,7 +17,9 @@ export const Push: Component<Props> = (props) => {
                         getRepo()!,
                         "budget.json",
                         JSON.stringify(saveData)
-                    );
+                    ).then(() => {
+                        alert("Done");
+                    });
                 }}
             >
                 Push to GitHub

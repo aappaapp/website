@@ -13,17 +13,17 @@ export const TokenSettings: Component<Props> = (props) => {
     return (
         <div>
             {"Token: "}
-            <Show when={show()} fallback={<>{getSecuredToken()}</>}>
-                <input
-                    type="text"
-                    value={getToken() ?? ""}
-                    onChange={(v) => {
-                        setToken((v.target as HTMLInputElement).value);
-                    }}
-                />
-            </Show>
+            <input
+                type="text"
+                value={show() ? getToken() ?? "" : getSecuredToken()}
+                placeholder="Enter your GitHub token..."
+                onChange={(v) => {
+                    setToken((v.target as HTMLInputElement).value);
+                }}
+                readonly={!show()}
+            />
             <button onClick={() => setShow(!show())}>
-                {show() ? "Hide" : "Show"}
+                {show() ? "Hide" : "Show and Edit"}
             </button>
         </div>
     );

@@ -12,6 +12,7 @@ export const RepoSettings: Component<Props> = (props) => {
             <input
                 type="text"
                 value={getRepo() ?? ""}
+                placeholder="Enter your GitHub repository name..."
                 onChange={(e) => setRepo((e.target as HTMLInputElement).value)}
             />
         </div>

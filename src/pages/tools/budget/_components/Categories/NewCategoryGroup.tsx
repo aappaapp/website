@@ -12,8 +12,11 @@ export const NewCategoryGroup: Component<Props> = (props) => {
             <input type="text" placeholder="Enter the name..." ref={text} />
             <button
                 onClick={() => {
-                    let a = Budget.fromJSON(saveData);
-                    a.addCategoryGroup(text?.value ?? "");
+                    if (typeof text?.value !== "undefined") {
+                        let a = Budget.fromJSON(saveData);
+                        a.addCategoryGroup(text?.value ?? "");
+                        text.value = "";
+                    }
                 }}
             >
                 New Group
