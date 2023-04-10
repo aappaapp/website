@@ -1,8 +1,23 @@
 ---
-import { CategoryList } from "./_components/CategoryList";
+import { CategoryList } from "./_components/Categories/CategoryList";
 import Layout from "./_layouts/Layout.astro";
 ---
 
 <Layout>
-    <CategoryList client:only />
+    <main>
+        <CategoryList client:only />
+    </main>
 </Layout>
+
+<style lang="scss">
+    main :global(.category-group) {
+        display: block;
+        padding: 10px;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: #333333;
+        }
+    }
+</style>

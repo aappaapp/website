@@ -22,11 +22,9 @@ export const TokenSettings: Component<Props> = (props) => {
                     }}
                 />
             </Show>
-            <input
-                type="button"
-                value={show() ? "Hide" : "Show"}
-                onClick={() => setShow(!show())}
-            />
+            <button onClick={() => setShow(!show())}>
+                {show() ? "Hide" : "Show"}
+            </button>
         </div>
     );
 };
