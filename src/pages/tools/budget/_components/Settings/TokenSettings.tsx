@@ -1,11 +1,10 @@
-import { Component, Show, createSignal } from "solid-js";
-import { repo, token } from "../states";
+import { Component, createSignal } from "solid-js";
+import { token } from "../states";
 
 interface Props {}
 
 export const TokenSettings: Component<Props> = (props) => {
     const [getToken, setToken] = token;
-    const [getRepo, setRepo] = repo;
     const [show, setShow] = createSignal(false);
 
     const getSecuredToken = () => (getToken() ?? "").replace(/./g, "*");

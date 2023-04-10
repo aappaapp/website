@@ -1,6 +1,5 @@
 import type { Component } from "solid-js";
-import { saveData } from "../states";
-import { Budget } from "@adenpun2000/budget";
+import { saveDataBudget } from "../states";
 
 interface Props {}
 
@@ -13,8 +12,7 @@ export const NewCategoryGroup: Component<Props> = (props) => {
             <button
                 onClick={() => {
                     if (typeof text?.value !== "undefined") {
-                        let a = Budget.fromJSON(saveData);
-                        a.addCategoryGroup(text?.value ?? "");
+                        saveDataBudget.addCategoryGroup(text?.value ?? "");
                         text.value = "";
                     }
                 }}

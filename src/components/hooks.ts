@@ -24,6 +24,7 @@ export function useLocalStorage(
             setValue(value);
         },
         () => {
+            localStorage.removeItem(key);
             setValue(null);
         },
     ];
