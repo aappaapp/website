@@ -4,6 +4,7 @@ import { Component, For, Show, createSignal } from "solid-js";
 import Sortable from "sortablejs";
 import { saveDataBudget } from "../states";
 import { styled } from "solid-styled-components";
+import { Category } from "./Category";
 
 type Props = CategoryGroupType;
 
@@ -17,6 +18,10 @@ const StyledCategoryGroup = styled.div`
     &:hover {
         background-color: #111111;
     }
+`;
+
+const StyledList = styled.div`
+    padding: 10px;
 `;
 
 export const CategoryGroup: Component<Props> = (props) => {
@@ -39,20 +44,25 @@ export const CategoryGroup: Component<Props> = (props) => {
                 >
                     {props.name}
                     {showAdd() ? (
-                        <span
-                            class="material-symbols-outlined"
-                            onClick={() => {
-                                let name = window.prompt("Name");
-                                if (name !== null)
-                                    saveDataBudget.addCategory(props.id, name);
-                            }}
-                        >
-                            add_circle
-                        </span>
+                        <>
+                            <span
+                                class="material-symbols-outlined"
+                                onClick={() => {
+                                    let name = window.prompt("Name");
+                                    if (name !== null)
+                                        saveDataBudget.addCategory(
+                                            props.id,
+                                            name
+                                        );
+                                }}
+                            >
+                                add_circle
+                            </span>
+                        </>
                     ) : undefined}
                 </div>
                 <Show when={show()}>
-                    <div
+                    <StyledList
                         ref={(el) => {
                             Sortable.create(el, {
                                 animation: 150,
@@ -71,10 +81,10 @@ export const CategoryGroup: Component<Props> = (props) => {
                     >
                         <For each={props.categories}>
                             {(c) => {
-                                return <div>{c.name}</div>;
+                                return <Category {...c} />;
                             }}
                         </For>
-                    </div>
+                    </StyledList>
                 </Show>
             </StyledCategoryGroup>
         </>
