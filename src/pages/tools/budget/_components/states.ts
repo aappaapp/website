@@ -10,5 +10,3 @@ export const saveData = useLocalStorageStore<BudgetType>(
 export const token = useLocalStorage("gh_token");
 
 export const repo = useLocalStorage("gh_repo");
-
-export const counter = useLocalStorage("counter");

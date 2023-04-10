@@ -20,9 +20,10 @@
         "js-base64": "^3.7.5",
         "sass": "^1.59.3",
         "solid-js": "^1.4.3",
-        "solidjs-hooks": "^1.1.2"
+        "solidjs-hooks": "^1.1.2",
+        "typescript": "^5.0.4"
     },
     "dependencies": {
-        "@adenpun2000/budget": "^1.2.0"
+        "@adenpun2000/budget": "^2.0.1"
     }
 }

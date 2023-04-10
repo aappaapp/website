@@ -42,11 +42,17 @@ export function useLocalStorageStore<T extends object>(
     if (localStorage.getItem(key) === null)
         localStorage.setItem(key, JSON.stringify(initialValue));
 
-    const a = new Proxy(store, {
+    const a = new Proxy<T>(store, {
         get(target, p, receiver) {
             localStorage.setItem(key, JSON.stringify(store));
             // @ts-ignore
             return target[p];
+        },
+        set(target, p, newValue, receiver) {
+            // @ts-ignore
+            target[p] = newValue;
+            localStorage.setItem(key, JSON.stringify(store));
+            return true;
         },
     });
 

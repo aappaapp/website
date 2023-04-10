@@ -1,11 +1,12 @@
 ---
 import Layout from "./_layouts/Layout.astro";
 import { Push } from "./_components/Push";
-import { Counter } from "./_components/Counter";
+import { Pull } from "./_components/Pull";
 ---
 
 <Layout>
     <div>
+        <Pull client:only />
         <Push client:only />
     </div>
     Welcome to this useless budget thing

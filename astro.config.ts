@@ -23,8 +23,8 @@ export default defineConfig({
         }),
         solidJs(),
     ],
-    site: SITE,
     server: {
         port: 8080,
     },
+    site: SITE,
 });

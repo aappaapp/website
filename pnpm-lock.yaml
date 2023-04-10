@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@adenpun2000/budget':
-    specifier: ^1.2.0
-    version: 1.2.0
+    specifier: ^2.0.1
+    version: 2.0.1
 
 devDependencies:
   '@astrojs/mdx':
@@ -39,11 +39,14 @@ devDependencies:
   solidjs-hooks:
     specifier: ^1.1.2
     version: 1.1.2
+  typescript:
+    specifier: ^5.0.4
+    version: 5.0.4
 
 packages:
 
-  /@adenpun2000/budget@1.2.0:
-    resolution: {integrity: sha512-dVUmCpNaD+soYUXFE7AiN7SKscoYuWlEeTHeV1tuFAzoUiBz51SFGfPNWITq4AhsPDepzd6KYLjrQ+7Lp1yhlA==}
+  /@adenpun2000/budget@2.0.1:
+    resolution: {integrity: sha512-O8BGArtiUX4izIKoOPu7FLo00H/7xFqsvGcauWPZB8Dd6YJsE3DxepFGvvDcqPJdnd4xXFyTNzNCFVjE41PRBg==}
     dev: false
 
   /@ampproject/remapping@2.2.0:
@@ -1212,7 +1215,7 @@ packages:
       strip-ansi: 7.0.1
       supports-esm: 1.0.0
       tsconfig-resolver: 3.0.1
-      typescript: 5.0.2
+      typescript: 5.0.4
       unist-util-visit: 4.1.2
       vfile: 5.3.7
       vite: 4.2.1(sass@1.59.3)
@@ -3984,8 +3987,8 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  /typescript@5.0.2:
-    resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
+  /typescript@5.0.4:
+    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
     hasBin: true
     dev: true

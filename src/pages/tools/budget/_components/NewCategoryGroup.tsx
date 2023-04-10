@@ -4,7 +4,7 @@ import { Budget } from "@adenpun2000/budget";
 
 interface Props {}
 
-export const NewCategoryGroupButton: Component<Props> = (props) => {
+export const NewCategoryGroup: Component<Props> = (props) => {
     let text: HTMLInputElement | undefined;
 
     return (

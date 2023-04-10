@@ -1,0 +1,19 @@
+import type { Component } from "solid-js";
+import { repo } from "../states";
+
+interface Props {}
+
+export const RepoSettings: Component<Props> = (props) => {
+    const [getRepo, setRepo] = repo;
+
+    return (
+        <div>
+            Repo:{" "}
+            <input
+                type="text"
+                value={getRepo() ?? ""}
+                onChange={(e) => setRepo((e.target as HTMLInputElement).value)}
+            />
+        </div>
+    );
+};
