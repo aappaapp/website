@@ -9,27 +9,42 @@ type Props = ModalProps & {
 
 export const CategoryEditor: Component<Props> = (props) => {
     const [month] = currentMonth;
-
     return (
         <Modal onClose={props.onClose} opened={props.opened}>
             <h1>{props.category.name}</h1>
-            <input
-                type="number"
-                placeholder="Assigned"
-                onChange={(e) =>
-                    saveDataBudget.assign(
-                        props.category.id,
-                        month(),
-                        Number((e.target as HTMLInputElement).value)
-                    )
-                }
-            />
-            <progress
-                value={(
-                    saveDataBudget.getAssigned(props.category.id, month()) ??
-                    0 / 100
-                )?.toString()}
-            ></progress>
+            <section>
+                <input
+                    type="number"
+                    placeholder="Assigned"
+                    value={
+                        saveDataBudget.getAssigned(
+                            props.category.id,
+                            month()
+                        ) ?? 0
+                    }
+                    onChange={(e) =>
+                        saveDataBudget.assign(
+                            props.category.id,
+                            month(),
+                            Number((e.target as HTMLInputElement).value)
+                        )
+                    }
+                />
+                <progress
+                    value={(
+                        saveDataBudget.getAssigned(
+                            props.category.id,
+                            month()
+                        ) ??
+                        0 /
+                            (saveDataBudget.getTarget(
+                                props.category.id,
+                                month()
+                            )?.amount ?? 1)
+                    )?.toString()}
+                ></progress>
+            </section>
+            <section>Target:</section>
         </Modal>
     );
 };

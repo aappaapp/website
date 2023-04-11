@@ -7,7 +7,7 @@ type Props = CategoryType;
 
 const StyledCategory = styled.div`
     background-color: #222222;
-    display: block;
+    display: flex;
     padding: 10px;
 
     cursor: pointer;
@@ -22,6 +22,15 @@ export const Category: Component<Props> = (props) => {
     return (
         <>
             <StyledCategory onClick={() => setShow(true)}>
+                <span
+                    class="material-symbols-outlined handle"
+                    style={{
+                        flex: "0 0 auto",
+                        "font-size": "24px",
+                    }}
+                >
+                    drag_indicator
+                </span>
                 {props.name}
             </StyledCategory>
             <CategoryEditor

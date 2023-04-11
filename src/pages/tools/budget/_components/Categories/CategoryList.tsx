@@ -17,6 +17,7 @@ export const CategoryList: Component<Props> = (props) => {
                     Sortable.create(el, {
                         animation: 150,
                         group: "categoryGroup",
+                        handle: ".handle",
                         onEnd(event) {
                             arrayMoveMutable(
                                 saveData.categories,

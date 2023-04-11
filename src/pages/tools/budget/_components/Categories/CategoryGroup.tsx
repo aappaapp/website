@@ -20,53 +20,71 @@ const StyledCategoryGroup = styled.div`
     }
 `;
 
+const StyledCategoryGroupTitle = styled.div`
+    display: flex;
+`;
+
 const StyledList = styled.div`
     padding: 10px;
 `;
 
 export const CategoryGroup: Component<Props> = (props) => {
     const [show, setShow] = createSignal(false);
-    const [showAdd, setShowAdd] = createSignal(false);
 
     return (
         <>
             <StyledCategoryGroup>
-                <div
-                    onClick={() => {
-                        setShow(!show());
-                    }}
-                    onMouseEnter={() => {
-                        setShowAdd(true);
-                    }}
-                    onMouseLeave={() => {
-                        setShowAdd(false);
-                    }}
-                >
-                    {props.name}
-                    {showAdd() ? (
-                        <>
-                            <span
-                                class="material-symbols-outlined"
-                                onClick={() => {
-                                    let name = window.prompt("Name");
-                                    if (name !== null)
-                                        saveDataBudget.addCategory(
-                                            props.id,
-                                            name
-                                        );
-                                }}
-                            >
-                                add_circle
-                            </span>
-                        </>
-                    ) : undefined}
-                </div>
+                <StyledCategoryGroupTitle>
+                    <span
+                        class="material-symbols-outlined handle"
+                        style={{
+                            flex: "0 0 auto",
+                            "font-size": "24px",
+                        }}
+                    >
+                        drag_indicator
+                    </span>
+                    <span
+                        class="material-symbols-outlined"
+                        style={{
+                            flex: "0 0 auto",
+                            "font-size": "24px",
+                        }}
+                        onClick={() => {
+                            setShow(!show());
+                        }}
+                    >
+                        {show() ? "expand_more" : "chevron_right"}
+                    </span>
+                    <span
+                        style={{
+                            flex: "1 1 auto",
+                        }}
+                    >
+                        {props.name}
+                    </span>
+                    <span
+                        class="material-symbols-outlined"
+                        style={{
+                            flex: "0 0 auto",
+                            "font-size": "24px",
+                        }}
+                        onClick={() => {
+                            let name = window.prompt("Name");
+                            if (name !== null)
+                                saveDataBudget.addCategory(props.id, name);
+                        }}
+                    >
+                        add_circle
+                    </span>
+                </StyledCategoryGroupTitle>
                 <Show when={show()}>
                     <StyledList
                         ref={(el) => {
                             Sortable.create(el, {
                                 animation: 150,
                                 group: "category",
+                                handle: ".handle",
                                 onEnd(event) {
                                     arrayMoveMutable(
                                         saveDataBudget.getCategoryGroup(

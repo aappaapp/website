@@ -30,12 +30,18 @@ const StyledModalContent = styled.div`
 `;
 
 export const Modal: Component<Props> = (props) => {
+    let ref: HTMLDivElement | undefined;
     return (
         <Show when={props.opened}>
             <Portal>
-                <StyledModalBg onClick={props.onClose}>
+                <StyledModalBg
+                    ref={ref}
+                    onClick={(e) => {
+                        if (e.target === ref) props.onClose();
+                    }}
+                >
                     <StyledModalContent>
-                        <button onClick={props.onClose}>Close</button>
+                        <button onClick={() => props.onClose()}>Close</button>
                         <div>{props.children}</div>
                     </StyledModalContent>
                 </StyledModalBg>
