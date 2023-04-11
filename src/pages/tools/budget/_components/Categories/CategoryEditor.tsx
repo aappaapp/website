@@ -9,6 +9,7 @@ type Props = ModalProps & {
 
 export const CategoryEditor: Component<Props> = (props) => {
     const [month] = currentMonth;
+
     return (
         <Modal onClose={props.onClose} opened={props.opened}>
             <h1>{props.category.name}</h1>

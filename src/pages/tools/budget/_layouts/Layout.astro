@@ -4,6 +4,11 @@ import Layout from "@/layouts/BaseLayout.astro";
 ---
 
 <Layout title="Budget" noindex>
+    <link
+        rel="manifest"
+        href="/tools/budget/budget.webmanifest"
+        slot="custom-head"
+    />
     <PageList
         pages={[
             {
@@ -27,3 +32,17 @@ import Layout from "@/layouts/BaseLayout.astro";
     <hr />
     <slot />
 </Layout>
+
+<script lang="ts">
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+            .register("/tools/budget/sw.js", { scope: "/tools/budget/" })
+            .then((registration) => {
+                registration.update();
+            });
+    }
+
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+        document.querySelector("nav").remove();
+    }
+</script>

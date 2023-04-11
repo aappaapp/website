@@ -42,7 +42,7 @@ export const CategoryGroup: Component<Props> = (props) => {
                             "font-size": "24px",
                         }}
                     >
-                        drag_indicator
+                        drag_handle
                     </span>
                     <span
                         class="material-symbols-outlined"
