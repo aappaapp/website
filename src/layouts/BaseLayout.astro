@@ -5,13 +5,14 @@ interface Props {
     image?: string;
     noindex?: boolean;
     contentSecurityPolicy?: any;
+    customHead?: any;
 }
 
 import NavBar from "@/components/NavBar.astro";
 import "@/styles/main.scss";
 import { SEO } from "astro-seo";
 
-const { title, description, image, noindex } = Astro.props;
+const { title, description, image, noindex, customHead } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -43,6 +44,7 @@ const { title, description, image, noindex } = Astro.props;
         />
 
         <meta name="generator" content={Astro.generator} />
+        <slot name="custom-head" />
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="sitemap" href="/sitemap-index.xml" />

@@ -1,5 +1,5 @@
 ---
-import ArticleList from "@/components/ArticleList";
+import ArticleList from "./_components/ArticleList";
 import Layout from "@/layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 const articles = await getCollection("articles");
@@ -15,13 +15,4 @@ const articles = await getCollection("articles");
     </main>
 </Layout>
 
-<style lang="scss">
-    main :global(a) {
-        display: block;
-        padding: 10px;
-
-        &:hover {
-            background-color: #333333;
-        }
-    }
-</style>
+<style lang="scss"></style>

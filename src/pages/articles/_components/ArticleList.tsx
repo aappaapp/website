@@ -19,15 +19,22 @@ const ArticleList: Component<Props> = (props) => {
 
     return (
         <>
-            <For each={articles()}>
+            <For
+                each={articles().sort(
+                    (a, b) => b.publish.getTime() - a.publish.getTime()
+                )}
+            >
                 {(article) => {
-                    console.log(article);
                     return (
-                        <Article
-                            title={article.title}
-                            href={`/articles/${article.slug}`}
-                            lastmod={article.lastmod}
-                        />
+                        <div>
+                            <a href={`/articles/${article.slug}`}>
+                                {article.title +
+                                    " - " +
+                                    new Intl.DateTimeFormat(["en-GB"]).format(
+                                        article.publish
+                                    )}
+                            </a>
+                        </div>
                     );
                 }}
             </For>

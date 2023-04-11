@@ -4,6 +4,7 @@ const articlesCollection = defineCollection({
     schema: z.object({
         title: z.string(),
         lastmod: z.date(),
+        publish: z.date(),
     }),
 });
 
