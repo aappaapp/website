@@ -30,6 +30,6 @@
         "uglify-js": "^3.17.4"
     },
     "dependencies": {
-        "@adenpun2000/budget": "^2.0.1"
+        "@adenpun2000/budget": "^3.0.0"
     }
 }
