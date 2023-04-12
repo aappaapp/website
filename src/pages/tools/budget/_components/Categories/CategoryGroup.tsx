@@ -5,7 +5,7 @@ import Sortable from "sortablejs";
 import { saveDataBudget } from "../states";
 import { styled } from "solid-styled-components";
 import { Category } from "./Category";
-import { FlexSpan } from "../Flex0Span";
+import { FlexSpan } from "../FlexSpan";
 
 type Props = CategoryGroupType;
 

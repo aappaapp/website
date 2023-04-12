@@ -2,7 +2,7 @@ import type { Category as CategoryType } from "@adenpun2000/budget";
 import { Component, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
 import { CategoryEditor } from "./CategoryEditor";
-import { FlexSpan } from "../Flex0Span";
+import { FlexSpan } from "../FlexSpan";
 
 type Props = CategoryType;
 

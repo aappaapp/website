@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@adenpun2000/budget':
-    specifier: ^3.2.1
-    version: 3.2.1
+    specifier: ^3.2.2
+    version: 3.2.2
 
 devDependencies:
   '@astrojs/mdx':
@@ -66,8 +66,8 @@ devDependencies:
 
 packages:
 
-  /@adenpun2000/budget@3.2.1:
-    resolution: {integrity: sha512-Wf8FQwnA/d2ODDr2B60mzhWZQXE7NeECOzL1gDHWlVg/oHvmeDtVgLTZ0kwcKhZrJEqJbxgBZp1ezdRYFkNzow==}
+  /@adenpun2000/budget@3.2.2:
+    resolution: {integrity: sha512-Aiumx1lz4YrehJnS/Pc10isIUL6Z8te7CqKHi4bQiekCa+T739CwPke+7Pwq01683ZNu12vBkVXRrTyESjb/mg==}
     dev: false
 
   /@ampproject/remapping@2.2.1:

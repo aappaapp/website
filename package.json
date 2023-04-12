@@ -5,7 +5,8 @@
     "version": "0.0.0",
     "scripts": {
         "dev": "astro dev --host",
-        "build": "astro build",
+        "lint": "tsc --noEmit",
+        "build": "pnpm run lint && astro build",
         "preview": "astro preview"
     },
     "devDependencies": {
@@ -30,6 +31,6 @@
         "uglify-js": "^3.17.4"
     },
     "dependencies": {
-        "@adenpun2000/budget": "^3.2.1"
+        "@adenpun2000/budget": "^3.2.2"
     }
 }

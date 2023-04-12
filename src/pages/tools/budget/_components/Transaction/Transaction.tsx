@@ -1,7 +1,7 @@
 import type { Transaction as TransactionType } from "@adenpun2000/budget";
 import type { Component } from "solid-js";
 import { styled } from "solid-styled-components";
-import { FlexSpan } from "../Flex0Span";
+import { FlexSpan } from "../FlexSpan";
 import { saveDataBudget } from "../states";
 
 type Props = TransactionType;

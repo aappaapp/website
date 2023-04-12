@@ -13,7 +13,7 @@ export const RepoSettings: Component<Props> = (props) => {
                 type="text"
                 value={getRepo() ?? ""}
                 placeholder="Enter your GitHub repository name..."
-                onChange={(e) => setRepo((e.target as HTMLInputElement).value)}
+                onChange={(e) => setRepo(e.target.value)}
             />
         </div>
     );
