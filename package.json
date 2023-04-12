@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "astro dev --host",
         "lint": "tsc --noEmit",
-        "build": "pnpm run lint && astro build",
+        "build": "astro sync && pnpm run lint && astro build",
         "preview": "astro preview"
     },
     "devDependencies": {
