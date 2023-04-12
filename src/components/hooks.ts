@@ -5,8 +5,8 @@ export function useLocalStorage<T extends string>(
     key: string,
     initialValue?: T
 ): [() => T | null, (value: T) => void, () => void] {
-    const [value, setValue] = createSignal<string | null>(
-        localStorage.getItem(key) ?? initialValue ?? null
+    const [value, setValue] = createSignal<T | null>(
+        (localStorage.getItem(key) as T) ?? initialValue ?? null
     );
 
     if (
@@ -21,7 +21,7 @@ export function useLocalStorage<T extends string>(
         },
         (value) => {
             localStorage.setItem(key, value);
-            setValue(value);
+            setValue(() => value);
         },
         () => {
             localStorage.removeItem(key);
