@@ -1,10 +1,10 @@
 import { createSignal } from "solid-js";
 import { createMutable } from "solid-js/store";
 
-export function useLocalStorage(
+export function useLocalStorage<T extends string>(
     key: string,
-    initialValue?: string
-): [() => string | null, (value: string) => void, () => void] {
+    initialValue?: T
+): [() => T | null, (value: T) => void, () => void] {
     const [value, setValue] = createSignal<string | null>(
         localStorage.getItem(key) ?? initialValue ?? null
     );

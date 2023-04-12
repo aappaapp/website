@@ -7,9 +7,14 @@ export const NewCategoryGroup: Component<Props> = (props) => {
     let text: HTMLInputElement | undefined;
 
     return (
-        <>
+        <div
+            style={{
+                display: "flex",
+            }}
+        >
             <input type="text" placeholder="Enter the name..." ref={text} />
             <button
+                class="material-symbols-outlined"
                 onClick={() => {
                     if (typeof text?.value !== "undefined") {
                         saveDataBudget.addCategoryGroup(text?.value ?? "");
@@ -17,8 +22,8 @@ export const NewCategoryGroup: Component<Props> = (props) => {
                     }
                 }}
             >
-                New Group
+                add_circle
             </button>
-        </>
+        </div>
     );
 };

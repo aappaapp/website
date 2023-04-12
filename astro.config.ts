@@ -11,7 +11,6 @@ const SITE = "https://adenpun.ml/";
 export default defineConfig({
     integrations: [
         compress({ image: false }),
-        // @ts-ignore
         mdx(),
         sitemap({
             filter: (page) => {

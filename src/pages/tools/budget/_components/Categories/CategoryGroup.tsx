@@ -5,6 +5,7 @@ import Sortable from "sortablejs";
 import { saveDataBudget } from "../states";
 import { styled } from "solid-styled-components";
 import { Category } from "./Category";
+import { FlexSpan } from "../Flex0Span";
 
 type Props = CategoryGroupType;
 
@@ -35,40 +36,20 @@ export const CategoryGroup: Component<Props> = (props) => {
         <>
             <StyledCategoryGroup>
                 <StyledCategoryGroupTitle>
-                    <span
-                        class="material-symbols-outlined handle"
-                        style={{
-                            flex: "0 0 auto",
-                            "font-size": "24px",
-                        }}
-                    >
+                    <FlexSpan class="material-symbols-outlined handle">
                         drag_handle
-                    </span>
-                    <span
+                    </FlexSpan>
+                    <FlexSpan
                         class="material-symbols-outlined"
-                        style={{
-                            flex: "0 0 auto",
-                            "font-size": "24px",
-                        }}
                         onClick={() => {
                             setShow(!show());
                         }}
                     >
                         {show() ? "expand_more" : "chevron_right"}
-                    </span>
-                    <span
-                        style={{
-                            flex: "1 1 auto",
-                        }}
-                    >
-                        {props.name}
-                    </span>
-                    <span
+                    </FlexSpan>
+                    <FlexSpan flexGrow={1}>{props.name}</FlexSpan>
+                    <FlexSpan
                         class="material-symbols-outlined"
-                        style={{
-                            flex: "0 0 auto",
-                            "font-size": "24px",
-                        }}
                         onClick={() => {
                             let name = window.prompt("Name");
                             if (name !== null)
@@ -76,7 +57,7 @@ export const CategoryGroup: Component<Props> = (props) => {
                         }}
                     >
                         add_circle
-                    </span>
+                    </FlexSpan>
                 </StyledCategoryGroupTitle>
                 <Show when={show()}>
                     <StyledList

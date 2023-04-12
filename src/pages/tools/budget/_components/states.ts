@@ -1,5 +1,5 @@
 import { useLocalStorage, useLocalStorageStore } from "@/components/hooks";
-import { Budget, BudgetType, Month } from "@adenpun2000/budget";
+import { Budget, BudgetType, Month, DateToMonth } from "@adenpun2000/budget";
 import { createSignal } from "solid-js";
 
 export const saveData = useLocalStorageStore<BudgetType>(
@@ -9,8 +9,12 @@ export const saveData = useLocalStorageStore<BudgetType>(
 
 export const saveDataBudget = Budget.fromJSON(saveData);
 
-export const currentMonth = createSignal<Month>(
-    `${new Date().getFullYear()}-${new Date().getMonth()}`
+// @ts-ignore
+globalThis.saveDataBudget = saveDataBudget;
+
+export const currentMonth = useLocalStorage<Month>(
+    "month",
+    DateToMonth(Date.now())
 );
 
 export const token = useLocalStorage("gh_token");

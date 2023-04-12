@@ -1,7 +1,8 @@
 import { Modal, Props as ModalProps } from "@/components/Modal";
-import type { Category as CategoryType } from "@adenpun2000/budget";
+import { Category as CategoryType, DateToMonth } from "@adenpun2000/budget";
 import type { Component } from "solid-js";
 import { currentMonth, saveDataBudget } from "../states";
+import { Stats } from "../Stats";
 
 type Props = ModalProps & {
     category: CategoryType;
@@ -12,6 +13,7 @@ export const CategoryEditor: Component<Props> = (props) => {
 
     return (
         <Modal onClose={props.onClose} opened={props.opened}>
+            <Stats />
             <h1>{props.category.name}</h1>
             <section>
                 <input
@@ -20,13 +22,13 @@ export const CategoryEditor: Component<Props> = (props) => {
                     value={
                         saveDataBudget.getAssigned(
                             props.category.id,
-                            month()
+                            month() ?? undefined
                         ) ?? 0
                     }
                     onChange={(e) =>
                         saveDataBudget.assign(
                             props.category.id,
-                            month(),
+                            month() ?? DateToMonth(Date.now()),
                             Number((e.target as HTMLInputElement).value)
                         )
                     }

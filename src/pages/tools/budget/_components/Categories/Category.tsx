@@ -2,6 +2,7 @@ import type { Category as CategoryType } from "@adenpun2000/budget";
 import { Component, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
 import { CategoryEditor } from "./CategoryEditor";
+import { FlexSpan } from "../Flex0Span";
 
 type Props = CategoryType;
 
@@ -22,16 +23,15 @@ export const Category: Component<Props> = (props) => {
     return (
         <>
             <StyledCategory onClick={() => setShow(true)}>
-                <span
+                <FlexSpan
                     class="material-symbols-outlined handle"
                     style={{
-                        flex: "0 0 auto",
                         "font-size": "24px",
                     }}
                 >
                     drag_handle
-                </span>
-                {props.name}
+                </FlexSpan>
+                <FlexSpan flexGrow={1}>{props.name}</FlexSpan>
             </StyledCategory>
             <CategoryEditor
                 onClose={() => setShow(false)}
