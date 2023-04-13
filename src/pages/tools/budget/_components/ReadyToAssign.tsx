@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 import { styled } from "solid-styled-components";
-import { currentMonth, saveDataBudget } from "./states";
+import { currentMonth, getCurrentMonth, saveDataBudget } from "./states";
 import { formatMoney } from "./utils";
 
 interface Props {}
@@ -13,14 +13,11 @@ const StyledDiv = styled.div<{ available: number }>`
 `;
 
 export const ReadyToAssign: Component<Props> = (props) => {
-    const [getCurrentMonth] = currentMonth;
-
-    const available = () =>
-        saveDataBudget.getAvailable(getCurrentMonth() ?? undefined);
+    const limit = () => saveDataBudget.getAssignLimit(getCurrentMonth());
 
     return (
-        <StyledDiv available={available()}>{`Ready to assign: ${formatMoney(
-            available()
+        <StyledDiv available={limit()}>{`Ready to assign: ${formatMoney(
+            limit()
         )}`}</StyledDiv>
     );
 };

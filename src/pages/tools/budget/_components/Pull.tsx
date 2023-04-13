@@ -1,5 +1,5 @@
 import { Component, createSignal } from "solid-js";
-import { readFile } from "../../../../utils/github";
+import { readFile } from "@/utils/github";
 import { repo, saveData, token } from "./states";
 import { Modal } from "@/components/Modal";
 

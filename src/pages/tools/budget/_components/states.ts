@@ -16,6 +16,10 @@ export const currentMonth = useLocalStorage<Month>(
     DateToMonth(Date.now())
 );
 
+export const getCurrentMonth = (): Month => {
+    return currentMonth[0]() ?? DateToMonth(Date.now());
+};
+
 export const token = useLocalStorage("gh_token");
 
 export const repo = useLocalStorage("gh_repo");

@@ -1,20 +1,18 @@
 import { Modal, Props as ModalProps } from "@/components/Modal";
 import { Category as CategoryType, DateToMonth } from "@adenpun2000/budget";
 import { Component, Show } from "solid-js";
-import { currentMonth, saveDataBudget } from "../states";
-import { Stats } from "../Stats";
+import { getCurrentMonth, saveDataBudget } from "../states";
 
 type Props = ModalProps & {
     category: CategoryType;
 };
 
 export const CategoryEditor: Component<Props> = (props) => {
-    const [month1] = currentMonth;
-    const month = () => month1() ?? DateToMonth(Date.now());
-
+    console.log(
+        saveDataBudget.getAssigned(props.category.id, getCurrentMonth())
+    );
     return (
         <Modal onClose={props.onClose} opened={props.opened}>
-            <Stats />
             <h1>{props.category.name}</h1>
             <section>
                 <h2>Assign:</h2>
@@ -24,13 +22,14 @@ export const CategoryEditor: Component<Props> = (props) => {
                     value={
                         saveDataBudget.getAssigned(
                             props.category.id,
-                            month()
+                            getCurrentMonth(),
+                            false
                         ) ?? 0
                     }
                     onChange={(e) =>
                         saveDataBudget.assign(
                             props.category.id,
-                            month(),
+                            getCurrentMonth(),
                             Number(e.target.value)
                         )
                     }
@@ -39,12 +38,14 @@ export const CategoryEditor: Component<Props> = (props) => {
                     value={
                         saveDataBudget.getAssigned(
                             props.category.id,
-                            month()
+                            getCurrentMonth()
                         ) ?? 0
                     }
                     max={
-                        saveDataBudget.getTarget(props.category.id, month())
-                            ?.amount ?? 0
+                        saveDataBudget.getTarget(
+                            props.category.id,
+                            getCurrentMonth()
+                        )?.amount ?? 0
                     }
                 ></progress>
             </section>
@@ -52,8 +53,10 @@ export const CategoryEditor: Component<Props> = (props) => {
                 <h2>Target:</h2>
                 <Show
                     when={
-                        saveDataBudget.getTarget(props.category.id, month()) !==
-                        null
+                        saveDataBudget.getTarget(
+                            props.category.id,
+                            getCurrentMonth()
+                        ) !== null
                     }
                     fallback={
                         <>
@@ -61,7 +64,7 @@ export const CategoryEditor: Component<Props> = (props) => {
                                 onClick={() => {
                                     saveDataBudget.setTarget(
                                         props.category.id,
-                                        month(),
+                                        getCurrentMonth(),
                                         {
                                             amount: 0,
                                             day: 0,
@@ -80,7 +83,7 @@ export const CategoryEditor: Component<Props> = (props) => {
                             onClick={() => {
                                 saveDataBudget.deleteTarget(
                                     props.category.id,
-                                    month()
+                                    getCurrentMonth()
                                 );
                             }}
                         >
@@ -89,17 +92,19 @@ export const CategoryEditor: Component<Props> = (props) => {
                     </div>
                     <select
                         value={
-                            saveDataBudget.getTarget(props.category.id, month())
-                                ?.type
+                            saveDataBudget.getTarget(
+                                props.category.id,
+                                getCurrentMonth()
+                            )?.type
                         }
                         onChange={(e) =>
                             saveDataBudget.setTarget(
                                 props.category.id,
-                                month(),
+                                getCurrentMonth(),
                                 {
                                     ...saveDataBudget.getTarget(
                                         props.category.id,
-                                        month()
+                                        getCurrentMonth()
                                     )!,
                                     // @ts-ignore
                                     type: e.target.value,
@@ -113,10 +118,14 @@ export const CategoryEditor: Component<Props> = (props) => {
                     </select>
                     <Show
                         when={
-                            saveDataBudget.getTarget(props.category.id)
-                                ?.type === "monthly" ||
-                            saveDataBudget.getTarget(props.category.id)
-                                ?.type === "weekly"
+                            saveDataBudget.getTarget(
+                                props.category.id,
+                                getCurrentMonth()
+                            )?.type === "monthly" ||
+                            saveDataBudget.getTarget(
+                                props.category.id,
+                                getCurrentMonth()
+                            )?.type === "weekly"
                         }
                         fallback={
                             <input
@@ -125,18 +134,18 @@ export const CategoryEditor: Component<Props> = (props) => {
                                 value={
                                     saveDataBudget.getTarget(
                                         props.category.id,
-                                        month()
+                                        getCurrentMonth()
                                         // @ts-ignore
                                     )?.date
                                 }
                                 onChange={(e) =>
                                     saveDataBudget.setTarget(
                                         props.category.id,
-                                        month(),
+                                        getCurrentMonth(),
                                         {
                                             ...saveDataBudget.getTarget(
                                                 props.category.id,
-                                                month()
+                                                getCurrentMonth()
                                             )!,
                                             // @ts-ignore
                                             date: DateToMonth(
@@ -156,18 +165,18 @@ export const CategoryEditor: Component<Props> = (props) => {
                             value={
                                 saveDataBudget.getTarget(
                                     props.category.id,
-                                    month()
+                                    getCurrentMonth()
                                     // @ts-ignore
                                 )?.day
                             }
                             onChange={(e) =>
                                 saveDataBudget.setTarget(
                                     props.category.id,
-                                    month(),
+                                    getCurrentMonth(),
                                     {
                                         ...saveDataBudget.getTarget(
                                             props.category.id,
-                                            month()
+                                            getCurrentMonth()
                                         )!,
                                         // @ts-ignore
                                         day: parseInt(e.target.value),
@@ -180,17 +189,19 @@ export const CategoryEditor: Component<Props> = (props) => {
                         type="number"
                         placeholder="Enter amount..."
                         value={
-                            saveDataBudget.getTarget(props.category.id, month())
-                                ?.amount
+                            saveDataBudget.getTarget(
+                                props.category.id,
+                                getCurrentMonth()
+                            )?.amount
                         }
                         onChange={(e) =>
                             saveDataBudget.setTarget(
                                 props.category.id,
-                                month(),
+                                getCurrentMonth(),
                                 {
                                     ...saveDataBudget.getTarget(
                                         props.category.id,
-                                        month()
+                                        getCurrentMonth()
                                     )!,
                                     // @ts-ignore
                                     amount: parseInt(e.target.value),

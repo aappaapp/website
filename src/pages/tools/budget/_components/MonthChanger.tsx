@@ -1,26 +1,26 @@
 import { NextMonth, PreviousMonth } from "@adenpun2000/budget";
 import type { Component } from "solid-js";
-import { currentMonth } from "./states";
+import { currentMonth, getCurrentMonth } from "./states";
 
 interface Props {}
 
 export const MonthChanger: Component<Props> = (props) => {
-    const [month, setMonth] = currentMonth;
+    const [_, setMonth] = currentMonth;
     return (
         <div style={{ "align-items": "center", display: "flex" }}>
             <button
                 class="material-symbols-outlined"
                 onClick={() => {
-                    setMonth(PreviousMonth(month()!));
+                    setMonth(PreviousMonth(getCurrentMonth()!));
                 }}
             >
                 navigate_before
             </button>
-            <span>{month()}</span>
+            <span>{getCurrentMonth()}</span>
             <button
                 class="material-symbols-outlined"
                 onClick={() => {
-                    setMonth(NextMonth(month()!));
+                    setMonth(NextMonth(getCurrentMonth()!));
                 }}
             >
                 navigate_next

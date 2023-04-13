@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { writeFile } from "../../../../utils/github";
+import { writeFile } from "@/utils/github";
 import { repo, saveData, token } from "./states";
 
 interface Props {}
