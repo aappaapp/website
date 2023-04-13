@@ -7,7 +7,7 @@ export const TransactionList: Component = () => {
     return (
         <>
             <NewTransaction />
-            <For each={saveData.transactions}>
+            <For each={saveData.transactions.sort((a, b) => b.date - a.date)}>
                 {(v) => {
                     return <Transaction {...v} />;
                 }}

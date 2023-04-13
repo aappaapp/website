@@ -31,6 +31,12 @@ export const Transaction: Component<Props> = (props) => {
                 ) : undefined}
                 <FlexSpan flexGrow={0}>{props.type}</FlexSpan>
                 <FlexSpan flexGrow={0}>{props.amount}</FlexSpan>
+                <FlexSpan
+                    class="material-symbols-outlined handle"
+                    onClick={() => saveDataBudget.deleteTransaction(props.id)}
+                >
+                    delete
+                </FlexSpan>
             </StyledTransaction>
         </>
     );

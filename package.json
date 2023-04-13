@@ -6,17 +6,19 @@
     "scripts": {
         "dev": "astro dev --host",
         "lint": "tsc --noEmit",
-        "build": "astro sync && pnpm run lint && astro build",
+        "build": "astro sync && pnpm run lint && pnpm run build:astro",
+        "build:astro": "astro build",
         "preview": "astro preview"
     },
     "devDependencies": {
-        "@astrojs/mdx": "^0.18.3",
+        "@adenpun2000/budget": "^3.3.2",
+        "@astrojs/mdx": "^0.18.4",
         "@astrojs/sitemap": "^1.2.2",
         "@astrojs/solid-js": "^2.1.0",
         "@types/sortablejs": "^1.15.1",
         "@types/uglify-js": "^3.17.1",
         "array-move": "^4.0.0",
-        "astro": "^2.2.2",
+        "astro": "^2.2.3",
         "astro-compress": "^1.1.35",
         "astro-seo": "^0.7.2",
         "autoprefixer": "^10.4.14",
@@ -29,8 +31,5 @@
         "sortablejs": "^1.15.0",
         "typescript": "^5.0.4",
         "uglify-js": "^3.17.4"
-    },
-    "dependencies": {
-        "@adenpun2000/budget": "^3.2.2"
     }
 }

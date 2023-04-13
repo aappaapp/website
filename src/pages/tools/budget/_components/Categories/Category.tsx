@@ -3,6 +3,7 @@ import { Component, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
 import { CategoryEditor } from "./CategoryEditor";
 import { FlexSpan } from "../FlexSpan";
+import { saveDataBudget } from "../states";
 
 type Props = CategoryType;
 
@@ -22,16 +23,19 @@ export const Category: Component<Props> = (props) => {
     const [show, setShow] = createSignal(false);
     return (
         <>
-            <StyledCategory onClick={() => setShow(true)}>
-                <FlexSpan
-                    class="material-symbols-outlined handle"
-                    style={{
-                        "font-size": "24px",
-                    }}
-                >
+            <StyledCategory>
+                <FlexSpan class="material-symbols-outlined handle">
                     drag_handle
                 </FlexSpan>
-                <FlexSpan flexGrow={1}>{props.name}</FlexSpan>
+                <FlexSpan flexGrow={1} onClick={() => setShow(true)}>
+                    {props.name}
+                </FlexSpan>
+                <FlexSpan
+                    class="material-symbols-outlined handle"
+                    onClick={() => saveDataBudget.deleteCategory(props.id)}
+                >
+                    delete
+                </FlexSpan>
             </StyledCategory>
             <CategoryEditor
                 onClose={() => setShow(false)}

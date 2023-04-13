@@ -6,6 +6,7 @@ import { saveDataBudget } from "../states";
 import { styled } from "solid-styled-components";
 import { Category } from "./Category";
 import { FlexSpan } from "../FlexSpan";
+import { NewCategory } from "./NewCategory";
 
 type Props = CategoryGroupType;
 
@@ -78,6 +79,7 @@ export const CategoryGroup: Component<Props> = (props) => {
                             });
                         }}
                     >
+                        <NewCategory categoryGroup={props.id} />
                         <For each={props.categories}>
                             {(c) => {
                                 return <Category {...c} />;

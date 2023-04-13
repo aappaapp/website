@@ -1,16 +1,17 @@
-import { Component, For, onMount } from "solid-js";
-import { NewCategoryGroup } from "./NewCategoryGroup";
+import { arrayMoveMutable } from "array-move";
+import { Component, For } from "solid-js";
+import Sortable from "sortablejs";
+import { ReadyToAssign } from "../ReadyToAssign";
 import { saveData } from "../states";
 import { CategoryGroup } from "./CategoryGroup";
-import Sortable from "sortablejs";
-import { arrayMoveMutable } from "array-move";
-import { Budget } from "@adenpun2000/budget";
+import { NewCategoryGroup } from "./NewCategoryGroup";
 
 interface Props {}
 
 export const CategoryList: Component<Props> = (props) => {
     return (
         <>
+            <ReadyToAssign />
             <NewCategoryGroup />
             <div
                 ref={(el) => {

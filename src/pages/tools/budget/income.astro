@@ -1,10 +1,12 @@
 ---
 import { CategoryList } from "./_components/Categories/CategoryList";
+import { MonthChanger } from "./_components/MonthChanger";
 import Layout from "./_layouts/Layout.astro";
 ---
 
 <Layout>
     <main>
+        <MonthChanger client:only />
         <CategoryList client:only />
     </main>
 </Layout>
