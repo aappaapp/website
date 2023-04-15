@@ -13,3 +13,16 @@ self.addEventListener("install", (e) => {
         })()
     );
 });
+
+self.addEventListener("fetch", (e) => {
+    e.respondWith(
+        (async () => {
+            const r = await caches.match(e.request);
+            if (typeof r !== "undefined") return r;
+            const response = await fetch(e.request);
+            const cache = await caches.open(cacheName);
+            cache.put(e.request, response.clone());
+            return response;
+        })()
+    );
+});
