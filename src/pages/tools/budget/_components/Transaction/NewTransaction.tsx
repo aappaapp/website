@@ -20,9 +20,9 @@ export const NewTransaction: Component = () => {
     return (
         <div style={{ display: "flex" }}>
             <input
-                type="text"
-                placeholder="Enter description..."
                 onChange={(e) => setStore("description", e.target.value)}
+                placeholder="Enter description..."
+                type="text"
             />
             <select onChange={(e) => setStore("type", e.target.value as any)}>
                 <option value="outflow">Outflow</option>
@@ -30,11 +30,11 @@ export const NewTransaction: Component = () => {
             </select>
             <Show when={store.type === "outflow"}>
                 <select
-                    value={
-                        store.type === "outflow" ? store.categoryId : undefined
-                    }
                     onChange={(e) =>
                         setStore("categoryId" as any, e.target.value)
+                    }
+                    value={
+                        store.type === "outflow" ? store.categoryId : undefined
                     }
                 >
                     <For each={saveData.categories}>
@@ -57,10 +57,10 @@ export const NewTransaction: Component = () => {
                 </select>
             </Show>
             <input
-                type="number"
-                value={store.amount}
                 onChange={(e) => setStore("amount", parseFloat(e.target.value))}
                 placeholder="Enter amount..."
+                type="number"
+                value={store.amount}
             />
             <button
                 class="material-symbols-outlined"

@@ -5,7 +5,6 @@ import Sortable from "sortablejs";
 import { saveDataBudget } from "../states";
 import { styled } from "solid-styled-components";
 import { Category } from "./Category";
-import { FlexSpan } from "../FlexSpan";
 import { NewCategory } from "./NewCategory";
 
 type Props = CategoryGroupType;
@@ -37,28 +36,33 @@ export const CategoryGroup: Component<Props> = (props) => {
         <>
             <StyledCategoryGroup>
                 <StyledCategoryGroupTitle>
-                    <FlexSpan class="material-symbols-outlined handle">
+                    <span
+                        class="material-symbols-outlined handle"
+                        style={{ "flex-grow": 0 }}
+                    >
                         drag_handle
-                    </FlexSpan>
-                    <FlexSpan
+                    </span>
+                    <span
                         class="material-symbols-outlined"
                         onClick={() => {
                             setShow(!show());
                         }}
+                        style={{ "flex-grow": 0 }}
                     >
                         {show() ? "expand_more" : "chevron_right"}
-                    </FlexSpan>
-                    <FlexSpan flexGrow={1}>{props.name}</FlexSpan>
-                    <FlexSpan
+                    </span>
+                    <span style={{ "flex-grow": 1 }}>{props.name}</span>
+                    <span
                         class="material-symbols-outlined"
                         onClick={() => {
                             let name = window.prompt("Name");
                             if (name !== null)
                                 saveDataBudget.addCategory(props.id, name);
                         }}
+                        style={{ "flex-grow": 0 }}
                     >
                         add_circle
-                    </FlexSpan>
+                    </span>
                 </StyledCategoryGroupTitle>
                 <Show when={show()}>
                     <StyledList

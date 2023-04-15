@@ -8,24 +8,12 @@ type Props = ModalProps & {
 };
 
 export const CategoryEditor: Component<Props> = (props) => {
-    console.log(
-        saveDataBudget.getAssigned(props.category.id, getCurrentMonth())
-    );
     return (
         <Modal onClose={props.onClose} opened={props.opened}>
             <h1>{props.category.name}</h1>
             <section>
                 <h2>Assign:</h2>
                 <input
-                    type="number"
-                    placeholder="Assigned"
-                    value={
-                        saveDataBudget.getAssigned(
-                            props.category.id,
-                            getCurrentMonth(),
-                            false
-                        ) ?? 0
-                    }
                     onChange={(e) =>
                         saveDataBudget.assign(
                             props.category.id,
@@ -33,31 +21,36 @@ export const CategoryEditor: Component<Props> = (props) => {
                             Number(e.target.value)
                         )
                     }
-                />
-                <progress
+                    placeholder="Assigned"
+                    type="number"
                     value={
                         saveDataBudget.getAssigned(
                             props.category.id,
-                            getCurrentMonth()
+                            getCurrentMonth(),
+                            false
                         ) ?? 0
                     }
+                />
+                <progress
                     max={
                         saveDataBudget.getTarget(
                             props.category.id,
                             getCurrentMonth()
                         )?.amount ?? 0
                     }
+                    value={
+                        saveDataBudget.getAssigned(
+                            props.category.id,
+                            getCurrentMonth(),
+                            true,
+                            true
+                        ) ?? 0
+                    }
                 ></progress>
             </section>
             <section>
                 <h2>Target:</h2>
                 <Show
-                    when={
-                        saveDataBudget.getTarget(
-                            props.category.id,
-                            getCurrentMonth()
-                        ) !== null
-                    }
                     fallback={
                         <>
                             <button
@@ -77,6 +70,12 @@ export const CategoryEditor: Component<Props> = (props) => {
                             </button>
                         </>
                     }
+                    when={
+                        saveDataBudget.getTarget(
+                            props.category.id,
+                            getCurrentMonth()
+                        ) !== null
+                    }
                 >
                     <div>
                         <button
@@ -91,12 +90,6 @@ export const CategoryEditor: Component<Props> = (props) => {
                         </button>
                     </div>
                     <select
-                        value={
-                            saveDataBudget.getTarget(
-                                props.category.id,
-                                getCurrentMonth()
-                            )?.type
-                        }
                         onChange={(e) =>
                             saveDataBudget.setTarget(
                                 props.category.id,
@@ -110,6 +103,12 @@ export const CategoryEditor: Component<Props> = (props) => {
                                     type: e.target.value,
                                 }
                             )
+                        }
+                        value={
+                            saveDataBudget.getTarget(
+                                props.category.id,
+                                getCurrentMonth()
+                            )?.type
                         }
                     >
                         <option value="weekly">Weekly</option>
@@ -158,17 +157,8 @@ export const CategoryEditor: Component<Props> = (props) => {
                         }
                     >
                         <input
-                            type="number"
-                            placeholder="Enter day of week/month..."
-                            min={1}
                             max={31}
-                            value={
-                                saveDataBudget.getTarget(
-                                    props.category.id,
-                                    getCurrentMonth()
-                                    // @ts-ignore
-                                )?.day
-                            }
+                            min={1}
                             onChange={(e) =>
                                 saveDataBudget.setTarget(
                                     props.category.id,
@@ -183,17 +173,18 @@ export const CategoryEditor: Component<Props> = (props) => {
                                     }
                                 )
                             }
+                            placeholder="Enter day of week/month..."
+                            type="number"
+                            value={
+                                saveDataBudget.getTarget(
+                                    props.category.id,
+                                    getCurrentMonth()
+                                    // @ts-ignore
+                                )?.day
+                            }
                         />
                     </Show>
                     <input
-                        type="number"
-                        placeholder="Enter amount..."
-                        value={
-                            saveDataBudget.getTarget(
-                                props.category.id,
-                                getCurrentMonth()
-                            )?.amount
-                        }
                         onChange={(e) =>
                             saveDataBudget.setTarget(
                                 props.category.id,
@@ -207,6 +198,14 @@ export const CategoryEditor: Component<Props> = (props) => {
                                     amount: parseInt(e.target.value),
                                 }
                             )
+                        }
+                        placeholder="Enter amount..."
+                        type="number"
+                        value={
+                            saveDataBudget.getTarget(
+                                props.category.id,
+                                getCurrentMonth()
+                            )?.amount
                         }
                     />
                 </Show>

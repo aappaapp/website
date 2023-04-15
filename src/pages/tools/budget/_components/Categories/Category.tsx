@@ -2,8 +2,7 @@ import type { Category as CategoryType } from "@adenpun2000/budget";
 import { Component, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
 import { CategoryEditor } from "./CategoryEditor";
-import { FlexSpan } from "../FlexSpan";
-import { saveDataBudget } from "../states";
+import { getCurrentMonth, saveDataBudget } from "../states";
 
 type Props = CategoryType;
 
@@ -24,23 +23,30 @@ export const Category: Component<Props> = (props) => {
     return (
         <>
             <StyledCategory>
-                <FlexSpan class="material-symbols-outlined handle">
+                <span
+                    class="material-symbols-outlined handle"
+                    style={{ "flex-grow": 0 }}
+                >
                     drag_handle
-                </FlexSpan>
-                <FlexSpan flexGrow={1} onClick={() => setShow(true)}>
+                </span>
+                <span onClick={() => setShow(true)} style={{ "flex-grow": 1 }}>
                     {props.name}
-                </FlexSpan>
-                <FlexSpan
+                </span>
+                <span onClick={() => setShow(true)} style={{ "flex-grow": 0 }}>
+                    {saveDataBudget.getAvailable(props.id, getCurrentMonth())}
+                </span>
+                <span
                     class="material-symbols-outlined handle"
                     onClick={() => saveDataBudget.deleteCategory(props.id)}
+                    style={{ "flex-grow": 0 }}
                 >
                     delete
-                </FlexSpan>
+                </span>
             </StyledCategory>
             <CategoryEditor
+                category={props}
                 onClose={() => setShow(false)}
                 opened={show()}
-                category={props}
             />
         </>
     );
