@@ -16,8 +16,8 @@ import Layout from "@/layouts/BaseLayout.astro";
                 link: "/tools/budget/",
             },
             {
-                name: "income",
-                link: "/tools/budget/income/",
+                name: "categories",
+                link: "/tools/budget/categories/",
             },
             {
                 name: "transactions",
@@ -34,14 +34,6 @@ import Layout from "@/layouts/BaseLayout.astro";
 </Layout>
 
 <script lang="ts">
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-            .register("/tools/budget/sw.js", { scope: "/tools/budget/" })
-            .then((registration) => {
-                registration.update();
-            });
-    }
-
     if (window.matchMedia("(display-mode: standalone)").matches) {
         document.querySelector("nav").remove();
     }

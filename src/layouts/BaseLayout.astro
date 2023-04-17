@@ -69,6 +69,16 @@ const { title, description, image, noindex, customHead } = Astro.props;
         <slot />
         <hr />
         <footer>&copy; 2023 Aden Pun</footer>
-        <style lang="scss"></style>
+        <script lang="ts">
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker
+                    .register("/sw.js", {
+                        scope: "/",
+                    })
+                    .then((registration) => {
+                        registration.update();
+                    });
+            }
+        </script>
     </body>
 </html>

@@ -1,16 +1,16 @@
 ---
 import redirectJson from "@/data/redirect.json";
 export async function getStaticPaths() {
-    return Object.keys(redirectJson).map((id) => {
+    return Object.keys(redirectJson).map((slug) => {
         return {
             params: {
-                id,
+                slug,
             },
         };
     });
 }
 
-const target = (redirectJson as any)[Astro.params.id!];
+const target = (redirectJson as any)[Astro.params.slug!];
 ---
 
 <head>

@@ -1,4 +1,5 @@
 {
-    "sat2": "https://docs.google.com/presentation/d/1cC6pm0S0P0Vxo0bW98fP8XPKuNSjj0RtCdlp8PMfdzU/edit?usp=sharing",
-    "sat3": "https://docs.google.com/presentation/d/1mNYhwkKU9VBbEXndj_gMKjQmZ6kENy0i-r92ujB26hA/edit?usp=sharing"
+    "redirect/sat2": "https://docs.google.com/presentation/d/1cC6pm0S0P0Vxo0bW98fP8XPKuNSjj0RtCdlp8PMfdzU/edit?usp=sharing",
+    "redirect/sat3": "https://docs.google.com/presentation/d/1mNYhwkKU9VBbEXndj_gMKjQmZ6kENy0i-r92ujB26hA/edit?usp=sharing",
+    "tools/budget/income": "/tools/budget/categories/"
 }
