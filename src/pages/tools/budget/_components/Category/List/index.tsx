@@ -1,10 +1,10 @@
 import { arrayMoveMutable } from "array-move";
 import { Component, For } from "solid-js";
 import Sortable from "sortablejs";
-import { ReadyToAssign } from "../ReadyToAssign";
-import { saveData } from "../states";
-import { CategoryGroup } from "./CategoryGroup";
-import { NewCategoryGroup } from "./NewCategoryGroup";
+import { ReadyToAssign } from "../../ReadyToAssign";
+import { saveData } from "../../states";
+import { CategoryGroup } from "./ItemGroup";
+import { NewCategoryGroup } from "../NewCategoryGroup";
 
 interface Props {}
 
@@ -30,7 +30,7 @@ export const CategoryList: Component<Props> = (props) => {
                 }}
             >
                 <For each={saveData.categories}>
-                    {(v, i) => {
+                    {(v) => {
                         return <CategoryGroup {...v} />;
                     }}
                 </For>

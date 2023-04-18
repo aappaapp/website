@@ -2,10 +2,10 @@ import type { CategoryGroup as CategoryGroupType } from "@adenpun2000/budget";
 import { arrayMoveMutable } from "array-move";
 import { Component, For, Show, createSignal } from "solid-js";
 import Sortable from "sortablejs";
-import { saveDataBudget } from "../states";
+import { saveDataBudget } from "../../states";
 import { styled } from "solid-styled-components";
-import { Category } from "./Category";
-import { NewCategory } from "./NewCategory";
+import { Category } from "./ItemGroupItem";
+import { NewCategory } from "../NewCategory";
 
 type Props = CategoryGroupType;
 

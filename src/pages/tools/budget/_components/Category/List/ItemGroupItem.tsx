@@ -1,8 +1,8 @@
 import type { Category as CategoryType } from "@adenpun2000/budget";
 import { Component, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
-import { CategoryEditor } from "./CategoryEditor";
-import { getCurrentMonth, saveDataBudget } from "../states";
+import { CategoryEditor } from "../Editor";
+import { getCurrentMonth, saveDataBudget } from "../../states";
 
 type Props = CategoryType;
 
