@@ -1,7 +1,6 @@
-import { Component, createSignal } from "solid-js";
 import { readFile } from "@/utils/github";
-import { repo, saveData, token } from "./states";
-import { Modal } from "@/components/Modal";
+import { Component, createSignal } from "solid-js";
+import { repo, token } from "./states";
 
 interface Props {}
 
@@ -17,10 +16,9 @@ export const Pull: Component<Props> = (props) => {
                     const a: any = JSON.parse(
                         await readFile(getToken()!, getRepo()!, "budget.json")
                     );
-                    Object.keys(a).forEach((v) => {
-                        (saveData as any)[v] = a[v];
-                    });
+                    localStorage.setItem("save", JSON.stringify(a));
                     alert("Done!");
+                    location.reload();
                 }}
             >
                 Pull from GitHub
