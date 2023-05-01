@@ -1,9 +1,9 @@
-import type { Category as CategoryType } from "@adenpun2000/budget";
+import type { Category as CategoryType, z } from "@adenpun2000/budget";
 import { Component, Match, Show, Switch } from "solid-js";
 import { getCurrentMonth, saveDataBudget } from "../../states";
 
 interface Props {
-    category: CategoryType;
+    category: z.infer<typeof CategoryType>;
 }
 
 export const TargetSection: Component<Props> = (props) => {
@@ -22,8 +22,9 @@ export const TargetSection: Component<Props> = (props) => {
                                 getCurrentMonth(),
                                 {
                                     amount: 0,
-                                    day: 0,
-                                    type: "weekly",
+                                    dayOfWeek: 1,
+                                    every: 1,
+                                    type: "every_x_week",
                                 }
                             );
                         }}
@@ -79,8 +80,8 @@ export const TargetSection: Component<Props> = (props) => {
                 <Switch>
                     <Match
                         when={
-                            getTarget().type === "monthly" &&
-                            getTarget().type === "weekly"
+                            getTarget().type === "every_x_month" &&
+                            getTarget().type === "every_x_year"
                         }
                     >
                         <input
@@ -108,7 +109,7 @@ export const TargetSection: Component<Props> = (props) => {
                             }
                         />
                     </Match>
-                    <Match when={getTarget().type === "yearly"}>
+                    <Match when={getTarget().type === "every_x_year"}>
                         <input
                             onChange={(e) =>
                                 saveDataBudget.setTarget(

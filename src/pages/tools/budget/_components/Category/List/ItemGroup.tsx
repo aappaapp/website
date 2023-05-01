@@ -1,4 +1,7 @@
-import type { CategoryGroup as CategoryGroupType } from "@adenpun2000/budget";
+import type {
+    CategoryGroup as CategoryGroupType,
+    z,
+} from "@adenpun2000/budget";
 import { arrayMoveMutable } from "array-move";
 import { Component, For, Show, createSignal } from "solid-js";
 import Sortable from "sortablejs";
@@ -7,7 +10,7 @@ import { styled } from "solid-styled-components";
 import { Category } from "./ItemGroupItem";
 import { NewCategory } from "../NewCategory";
 
-type Props = CategoryGroupType;
+type Props = z.infer<typeof CategoryGroupType>;
 
 const StyledCategoryGroup = styled.div`
     background-color: #222222;

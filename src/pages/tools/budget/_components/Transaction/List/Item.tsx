@@ -1,9 +1,9 @@
-import type { Transaction as TransactionType } from "@adenpun2000/budget";
+import type { Transaction as TransactionType, z } from "@adenpun2000/budget";
 import type { Component } from "solid-js";
 import { styled } from "solid-styled-components";
-import { saveDataBudget } from "../states";
+import { saveDataBudget } from "../../states";
 
-type Props = TransactionType;
+type Props = z.infer<typeof TransactionType>;
 
 const StyledTransaction = styled.div`
     background-color: #222222;
@@ -18,7 +18,7 @@ const StyledTransaction = styled.div`
     }
 `;
 
-export const Transaction: Component<Props> = (props) => {
+export const TransactionListItem: Component<Props> = (props) => {
     return (
         <>
             <StyledTransaction>

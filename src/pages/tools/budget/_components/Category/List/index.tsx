@@ -21,7 +21,7 @@ export const CategoryList: Component<Props> = (props) => {
                         handle: ".handle",
                         onEnd(event) {
                             arrayMoveMutable(
-                                saveData.categories,
+                                saveData.categoryGroups,
                                 event.oldIndex ?? 0,
                                 event.newIndex ?? 0
                             );
@@ -29,7 +29,7 @@ export const CategoryList: Component<Props> = (props) => {
                     });
                 }}
             >
-                <For each={saveData.categories}>
+                <For each={saveData.categoryGroups}>
                     {(v) => {
                         return <CategoryGroup {...v} />;
                     }}

@@ -1,10 +1,10 @@
-import type { Category as CategoryType } from "@adenpun2000/budget";
+import type { Category as CategoryType, z } from "@adenpun2000/budget";
 import { Component, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
 import { CategoryEditor } from "../Editor";
 import { getCurrentMonth, saveDataBudget } from "../../states";
 
-type Props = CategoryType;
+type Props = z.infer<typeof CategoryType>;
 
 const StyledCategory = styled.div`
     background-color: #222222;
