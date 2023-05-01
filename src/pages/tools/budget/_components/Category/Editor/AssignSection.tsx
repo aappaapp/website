@@ -1,11 +1,10 @@
-import type { Props as ModalProps } from "@/components/Modal";
-import type { Category as CategoryType } from "@adenpun2000/budget";
+import type { Category as CategoryType, z } from "@adenpun2000/budget";
 import type { Component } from "solid-js";
 import { ProgressBar } from "../../ProgressBar";
 import { getCurrentMonth, saveDataBudget } from "../../states";
 
 interface Props {
-    category: CategoryType;
+    category: z.infer<typeof CategoryType>;
 }
 
 export const AssignSection: Component<Props> = (props) => {
