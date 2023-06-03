@@ -12,22 +12,14 @@ interface Page {
 const { pages } = Astro.props;
 ---
 
-<nav>
+<nav class="bg-black p-5 dark:bg-white">
     {
         pages.map((value) => {
-            return <a href={value.link}>{value.name}</a>;
+            return (
+                <a class="mr-2 text-white dark:text-black" href={value.link}>
+                    {value.name}
+                </a>
+            );
         })
     }
 </nav>
-
-<style lang="scss">
-    nav {
-        background-color: #000;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        padding: 15px;
-    }
-    nav > a {
-        margin-right: 10px;
-    }
-</style>

@@ -16,7 +16,7 @@ const { title, description, image, noindex, customHead } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -49,7 +49,7 @@ const { title, description, image, noindex, customHead } = Astro.props;
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="sitemap" href="/sitemap-index.xml" />
     </head>
-    <body>
+    <body class="bg-white dark:bg-black">
         <NavBar
             pages={[
                 {
@@ -65,16 +65,5 @@ const { title, description, image, noindex, customHead } = Astro.props;
         <slot />
         <hr />
         <footer>&copy; 2023 Aden Pun</footer>
-        <script lang="ts">
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker
-                    .register("/sw.js", {
-                        scope: "/",
-                    })
-                    .then((registration) => {
-                        registration.update();
-                    });
-            }
-        </script>
     </body>
 </html>

@@ -1,23 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
 
-* {
-    font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
-}
-
-body {
-    background-color: #111111;
-    color: #ffffff;
-    margin: 0;
-}
-
-a {
-    color: #ffff00;
-    text-decoration: none;
-    transition: 10px;
-
-    &:hover {
-        color: #ffffff;
+@layer base {
+    * {
+        @apply font-mono text-black dark:text-white;
+    }
+    a {
+        @apply underline hover:no-underline;
+    }
+    h1 {
+        @apply my-5 text-3xl;
+    }
+    h2 {
+        @apply my-4 text-2xl;
     }
 }
 
@@ -32,24 +31,6 @@ input {
 
 input::placeholder {
     color: #aaaaaa;
-}
-
-button {
-    background-color: #333333;
-    border: none;
-    border-radius: 5px;
-    color: #ffffff;
-    padding: 10px;
-
-    cursor: pointer;
-
-    &:hover {
-        background-color: #777777;
-    }
-
-    &:active {
-        background-color: #111111;
-    }
 }
 
 select {
