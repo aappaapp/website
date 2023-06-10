@@ -15,10 +15,9 @@ const { pages } = Astro.props;
 <nav class="bg-black p-5 dark:bg-white">
     {
         pages.map((value) => {
+            // prettier-ignore
             return (
-                <a class="mr-2 text-white dark:text-black" href={value.link}>
-                    {value.name}
-                </a>
+                <a class="mr-2 text-white dark:text-black" href={value.link}>{value.name}</a>
             );
         })
     }
