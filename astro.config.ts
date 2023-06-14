@@ -1,14 +1,21 @@
 import mdx from "@astrojs/mdx";
+import netlify from "@astrojs/netlify";
 import sitemap from "@astrojs/sitemap";
+import svelte from "@astrojs/svelte";
+import tailwind from "@astrojs/tailwind";
 import compress from "astro-compress";
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import svelte from "@astrojs/svelte";
+import redirects from "./src/data/redirect.json";
+
 const SITEMAP_EXCLUDE: string[] = [];
 const SITE = "https://adenpun.ml/";
 
 // https://astro.build/config
 export default defineConfig({
+    adapter: netlify(),
+    experimental: {
+        redirects: true,
+    },
     integrations: [
         compress({
             image: false,
@@ -23,8 +30,14 @@ export default defineConfig({
             },
         }),
         svelte(),
-        tailwind({ config: { applyBaseStyles: false } }),
+        tailwind({
+            config: {
+                applyBaseStyles: false,
+            },
+        }),
     ],
+    output: "hybrid",
+    redirects,
     server: {
         port: 8080,
     },

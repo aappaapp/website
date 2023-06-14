@@ -1,6 +1,5 @@
 {
-    "redirect/sat2": "https://docs.google.com/presentation/d/1cC6pm0S0P0Vxo0bW98fP8XPKuNSjj0RtCdlp8PMfdzU/edit?usp=sharing",
-    "redirect/sat3": "https://docs.google.com/presentation/d/1mNYhwkKU9VBbEXndj_gMKjQmZ6kENy0i-r92ujB26hA/edit?usp=sharing",
-    "r/apex": "https://onenewhand.ml/v/apex/",
-    "tools/budget/income": "/tools/budget/categories/"
+    "/redirect/sat2": "https://docs.google.com/presentation/d/1cC6pm0S0P0Vxo0bW98fP8XPKuNSjj0RtCdlp8PMfdzU/edit?usp=sharing",
+    "/redirect/sat3": "https://docs.google.com/presentation/d/1mNYhwkKU9VBbEXndj_gMKjQmZ6kENy0i-r92ujB26hA/edit?usp=sharing",
+    "/r/apex": "https://onenewhand.ml/v/apex/"
 }

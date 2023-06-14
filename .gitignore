@@ -1,3 +1,5 @@
+.netlify/
+
 ## * Astro
 # build output
 dist/
