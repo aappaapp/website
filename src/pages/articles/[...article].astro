@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/BaseLayout.astro";
-import { getCollection, CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 interface Props {
     article: CollectionEntry<"articles">;
@@ -16,27 +16,9 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await article.render();
-
-const schema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.data.title,
-    datePublished: article.data.publish.toISOString(),
-    dateModified: article.data.lastmod.toISOString(),
-    author: {
-        "@type": "Person",
-        name: "Aden Pun",
-        url: "https://adenpun.ml/",
-    },
-};
 ---
 
 <Layout title={article.data.title}>
-    <script
-        slot="custom-head"
-        type="application/ld+json"
-        set:html={JSON.stringify(schema)}
-    />
     <main>
         <Content />
     </main>
