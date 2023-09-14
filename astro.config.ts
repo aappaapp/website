@@ -32,7 +32,7 @@ export default defineConfig({
     output: "hybrid",
     redirects,
     server: {
-        port: 8080,
+        port: 3000,
     },
     site: SITE,
 });
