@@ -29,7 +29,7 @@ export default defineConfig({
             applyBaseStyles: false,
         }),
     ],
-    output: "hybrid",
+    output: "server",
     redirects,
     server: {
         port: 3000,
