@@ -1,69 +1,72 @@
 ---
 interface Props {
-  title: string;
-  description?: string;
-  image?: string;
-  noindex?: boolean;
-  contentSecurityPolicy?: any;
-  customHead?: any;
+    title: string;
+    description?: string;
+    image?: string;
+    noindex?: boolean;
+    contentSecurityPolicy?: any;
+    customHead?: any;
 }
 
 import NavBar from "@/components/NavBar.astro";
-import "@/styles/main.scss";
 import { SEO } from "astro-seo";
+import "@/styles/main.scss";
+import { ViewTransitions } from "astro:transitions";
 
 const { title, description, image, noindex, customHead } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 
-    <SEO
-      canonical={Astro.url.toString()}
-      charset={"UTF-8"}
-      description={description}
-      noindex={noindex}
-      openGraph={{
-        basic: {
-          image: image ?? "",
-          title,
-          type: "website",
-          url: Astro.url.toString(),
-        },
-        optional: {
-          description,
-          siteName: "Aden Pun",
-        },
-      }}
-      title={`${title} - Aden Pun`}
-    />
+        <SEO
+            canonical={Astro.url.toString()}
+            charset={"UTF-8"}
+            description={description}
+            noindex={noindex}
+            openGraph={{
+                basic: {
+                    image: image ?? "",
+                    title,
+                    type: "website",
+                    url: Astro.url.toString(),
+                },
+                optional: {
+                    description,
+                    siteName: "Aden Pun",
+                },
+            }}
+            title={`${title} - Aden Pun`}
+        />
 
-    <meta name="generator" content={Astro.generator} />
-    <slot name="custom-head" />
+        <meta name="generator" content={Astro.generator} />
+        <slot name="custom-head" />
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-  </head>
-  <body class="bg-white dark:bg-black">
-    <NavBar
-      pages={[
-        {
-          name: "home",
-          link: "/",
-        },
-        {
-          name: "articles",
-          link: "/articles",
-        },
-      ]}
-    />
-    <slot />
-    <hr />
-    <footer>&copy; 2023 Aden Pun</footer>
-  </body>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+
+        <ViewTransitions />
+    </head>
+    <body class="bg-white dark:bg-black">
+        <NavBar
+            pages={[
+                {
+                    name: "home",
+                    link: "/",
+                },
+                {
+                    name: "articles",
+                    link: "/articles",
+                },
+            ]}
+        />
+        <slot />
+        <hr />
+        <footer>&copy; 2023 Aden Pun</footer>
+    </body>
 </html>
