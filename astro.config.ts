@@ -3,6 +3,7 @@ import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
+import robotsTxt from "astro-robots-txt";
 import { defineConfig } from "astro/config";
 import redirects from "./src/data/redirect.json";
 
@@ -28,6 +29,7 @@ export default defineConfig({
         tailwind({
             applyBaseStyles: true,
         }),
+        robotsTxt(),
     ],
     output: "server",
     redirects,
