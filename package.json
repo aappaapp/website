@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "@astrojs/node": "^6.0.3",
+        "astro-compressor": "^0.4.1",
         "texsvg": "^2.0.2",
         "three": "^0.157.0"
     },

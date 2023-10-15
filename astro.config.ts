@@ -3,6 +3,7 @@ import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
+import compressor from "astro-compressor";
 import robotsTxt from "astro-robots-txt";
 import { defineConfig } from "astro/config";
 import redirects from "./src/data/redirect.json";
@@ -16,7 +17,11 @@ export default defineConfig({
         mode: "standalone",
     }),
     integrations: [
+        svelte(),
         mdx(),
+        tailwind({
+            applyBaseStyles: true,
+        }),
         sitemap({
             filter: (page) => {
                 return !(
@@ -25,11 +30,8 @@ export default defineConfig({
                 );
             },
         }),
-        svelte(),
-        tailwind({
-            applyBaseStyles: true,
-        }),
         robotsTxt(),
+        compressor(),
     ],
     output: "server",
     redirects,
