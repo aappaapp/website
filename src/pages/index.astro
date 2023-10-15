@@ -1,5 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LinkBlock from "../components/LinkBlock.astro";
 ---
 
-bruh
+<BaseLayout title="home">
+    <h1 class="text-4xl sm:text-8xl">
+        Hi! I am <strong
+            class="my-4 inline-block animate-bounce cursor-wait text-blue-400"
+            >Aden</strong
+        >.
+    </h1>
+    <div class="p-2">
+        <h2 class="my-4 text-2xl sm:text-4xl">My Projects</h2>
+        <div class="flex gap-2">
+            <LinkBlock
+                href="https://github.com/aappaapp/website"
+                description="ugly af"
+            >
+                This Website
+            </LinkBlock>
+            <LinkBlock
+                href="https://github.com/meliyn/fanghuo-rpg"
+                description="idk what this is."
+            >
+                放火 RPG
+            </LinkBlock>
+        </div>
+    </div>
+</BaseLayout>

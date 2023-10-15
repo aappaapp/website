@@ -10,8 +10,6 @@ interface Props {
 
 import NavBar from "@/components/NavBar.astro";
 import { SEO } from "astro-seo";
-import "@/styles/main.scss";
-import { ViewTransitions } from "astro:transitions";
 
 const { title, description, image, noindex, customHead } = Astro.props;
 ---
@@ -25,7 +23,7 @@ const { title, description, image, noindex, customHead } = Astro.props;
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 
         <SEO
-            canonical={Astro.url.toString()}
+            canonical={Astro.site.toString()}
             charset={"UTF-8"}
             description={description}
             noindex={noindex}
@@ -34,34 +32,27 @@ const { title, description, image, noindex, customHead } = Astro.props;
                     image: image ?? "",
                     title,
                     type: "website",
-                    url: Astro.url.toString(),
+                    url: Astro.site.toString(),
                 },
                 optional: {
                     description,
-                    siteName: "Aden Pun",
+                    siteName: "adenpun.net",
                 },
             }}
-            title={`${title} - Aden Pun`}
+            title={`${title} - adenpun.net`}
         />
 
         <meta name="generator" content={Astro.generator} />
-        <slot name="custom-head" />
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="sitemap" href="/sitemap-index.xml" />
-
-        <ViewTransitions />
     </head>
-    <body class="bg-white dark:bg-black">
+    <body class="bg-neutral-900 text-white">
         <NavBar
             pages={[
                 {
                     name: "home",
                     link: "/",
-                },
-                {
-                    name: "articles",
-                    link: "/articles",
                 },
             ]}
         />

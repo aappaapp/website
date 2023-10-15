@@ -1,3 +1,3 @@
 # aappaapp/website
 
-[My personal website!](https://adenpun.ml/)
+[My personal website!](https://adenpun.net/)

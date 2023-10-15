@@ -26,7 +26,7 @@ export default defineConfig({
         }),
         svelte(),
         tailwind({
-            applyBaseStyles: false,
+            applyBaseStyles: true,
         }),
     ],
     output: "server",

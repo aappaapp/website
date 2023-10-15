@@ -1,0 +1,12 @@
+---
+import texsvg from "texsvg";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Test from "./_components/test.svelte";
+
+const a = await texsvg("Volume of a pyramid = \\frac{\\frac{abcdefg}{b}}{b}");
+---
+
+<BaseLayout title="Math Notes">
+    <Test client:load />
+    <Fragment set:html={a} />
+</BaseLayout>
