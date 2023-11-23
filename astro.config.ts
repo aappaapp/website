@@ -5,8 +5,18 @@ import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import compressor from "astro-compressor";
 import robotsTxt from "astro-robots-txt";
-import { defineConfig } from "astro/config";
-import redirects from "./src/data/redirect.json";
+import { type AstroUserConfig, defineConfig } from "astro/config";
+import redirectData from "./src/data/redirect.json";
+
+const redirects: AstroUserConfig["redirects"] = {};
+for (const key in redirectData) {
+    redirects[key] = {
+        destination: redirectData[key as keyof typeof redirectData],
+        status: 307,
+    };
+}
+
+console.log(redirects);
 
 const SITEMAP_EXCLUDE: string[] = [];
 const SITE = "https://adenpun.net/";
@@ -20,14 +30,11 @@ export default defineConfig({
         svelte(),
         mdx(),
         tailwind({
-            applyBaseStyles: true,
+            applyBaseStyles: false,
         }),
         sitemap({
             filter: (page) => {
-                return !(
-                    SITEMAP_EXCLUDE.includes(page) ||
-                    page.startsWith(`${SITE}redirect/`)
-                );
+                return !SITEMAP_EXCLUDE.includes(page);
             },
         }),
         robotsTxt(),
@@ -35,7 +42,14 @@ export default defineConfig({
     ],
     output: "server",
     redirects,
+    prefetch: {
+        prefetchAll: true,
+    },
     server: {
+        headers: {
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+        },
         port: 3000,
     },
     site: SITE,
