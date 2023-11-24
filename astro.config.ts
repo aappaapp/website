@@ -16,8 +16,6 @@ for (const key in redirectData) {
     };
 }
 
-console.log(redirects);
-
 const SITEMAP_EXCLUDE: string[] = [];
 const SITE = "https://adenpun.net/";
 
@@ -46,10 +44,6 @@ export default defineConfig({
         prefetchAll: true,
     },
     server: {
-        headers: {
-            "Cross-Origin-Opener-Policy": "same-origin",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-        },
         port: 3000,
     },
     site: SITE,

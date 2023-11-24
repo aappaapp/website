@@ -1,0 +1,34 @@
+# Day 14: No zero days November
+
+Been a calm day today, decided to work a bit more on the extension's interface to be able to troubleshoot a bit better whilst working on the importer.
+
+## Interface?
+
+So we have 4 classes, the pipe renderer (which can serve as a backup, probably going to remove this at some point though), the renderer, and importer. The 4th class is the interface. With this you'll be able to use more ffmpeg functions which return data about video files, or about system data, to check by example which codecs can be used on your system and which can't be used.
+
+## Plans for tomorrow?
+
+For tomorrow, I want to work a bit more on the Godot side of things as I will really need to invest a bit more time in editing videos for my other channels, can't let them stay in the fridge. ^^" However, starting from the day after tomorrow I'll be working fully on the importer again. In the beginning of No zero days November I felt that I should work as much as possible each and every day, kind of started figuring out that over exhausting myself each day will make me not last for the entire month hahah. so I'm setting limits of 3 hours each day on the work I do on GoZen. This gives me enough time to spend time with family, cleaning, cooking, and working on my other channels. No time for hobbies, but I enjoy everything I do, even though the programming makes me want to pull out my hair every now and then hahah.
+
+## Conclusion
+
+Progress has been coming allong each and evey day, sometimes a lot, sometimes not so much, but having finished the renderer with the ffmpeg library crosses a big checkmark on "Is GoZen actually possible?" list. 2 other items on that list are the importer and the timeline. Once we have a basic version of that, I'll be a lot more confident in saying that GoZen will become a real video editor which can beat the competition. 😄
+
+## An hour later...
+
+### Almost double performance in rendering speed
+
+I actually forgot to delete a line of code which was causing memory issues:
+`PackedByteArray frame_data = frame_image->save_webp_to_buffer(false, 1.0);` Basically this was using cpu power to process each frame into an image, which we did not even end up using. So it would allocate memory, generate the image, and write the data before the actual data was send to the ffmpeg process. Woops hahah. completely forgot about removing that line.
+
+### New times
+
+These are the times for the 10 second video clip:
+
+-   h.264: 5.85 seconds; (Previously 10.79)
+-   mpeg4: 6.97 seconds; (Previously 13.00)
+-   mpeg1: 7.11 seconds; (Previously 13.28)
+-   mpeg2: 7.98 seconds; (Previously 11.76)
+-   webm: 32.26 seconds; (Previously 38.33)
+
+This is not early optimization, just me cleaning up my mess hahaha

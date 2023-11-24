@@ -1,0 +1,27 @@
+# Day 18: No zero days November
+
+Quite early to post, but I had to wake up early again to get work done as some family stuff came up. ^^"
+
+## Sound update
+
+Instead of working on ffmpeg, again, I decieded to instead focus on a part which is still one big question mark for me: Audio. I have general ideas in my head of how I could do this, but I had yet to try those out. Today I tested one way of generating the audio data, which is basically creating a new audio bus, add the record effect, and make the output of the audio streams send their data to that audio bus. This works ... but with 1 big disadvantage.
+
+### Working, but not really
+
+So this approach is fine for short videos, as it plays everything silently (you won't hear it in your speakers, because the audio is send to a different audio bus), but it has to go through the entire video at normal speed to record everything properly. So if you have a 1 hour video and render time is only 30 minutes, than you would still have to wait 30 minutes extra for the audio to finish.
+
+## Next plan
+
+My next strategy is to be taking raw data from the audio files and make my own data array. Just go through every second of the audio lines of the timeline, and copy paste the data in a new data array which can then be saved into the file which ffmpeg is rendering the frames for at the same time. If this process would be fast we could let this run at the end of the video rendering process. But we will probably have this audio data creating process on a separate thread instead. Only worry is if ffmpeg will get angry when adding the audio data whilst it is loading frames, we should probably generate the data at the same time, but add the audio after all visual frames are done.
+
+### How about add_frame?
+
+Another way is to send the raw audio data for each frame to ffmpeg directly, just as we do with the frames. But that's all for later, I mainly wanted to fill in this gap of my knowledge by testing some things out today.
+
+## Done for today?
+
+Nope, ... maybe. Really depends on how the day will go and if I'll be able to make time free in the evening or not.
+
+## Conclusion
+
+Gap in my knowledge is filled, I have some more examples as well, and I was also able to work a bit on the ffmpeg after I had a succesful run of creating audio data with Godot by using multiple audio files. ^^

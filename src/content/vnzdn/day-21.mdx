@@ -1,0 +1,21 @@
+# Day 21: No zero days November
+
+Made some progress today on getting the decoded audio to play within Godot.
+
+## What works
+
+I can put the frame data from the audio and from the video inside of PackedByteArrays.
+
+## What doesn't work
+
+Actually using those bytes. ^^"
+
+## Why?
+
+Because we are handling raw audio frame data and raw video frame data. We need some header in front of the audio data to turn it into wav/mp3 so Godot can read it, best bet is creating a wav header and attaching that in front of the audio frames. Been trying to do this without much success so far, but the code is actually not as I first thought, quite easy to put the data into a PackedByteArray. First couple of days trying to figure this out I was overthinking it and adding lots of code ... looking back at it, I wasted a lot of time because I was overthinking and trying to fix something which wasn't broken to begin with. ^^"
+
+## Conclusion
+
+Still some work to go, first I'll have to create the wav header and hope that works. After that ... the video. 0_0 No idea if I'll have to add some kind of header to that as well or if raw data will work somehow. Raw image data is supposed to be easier to read compared to raw audio data.
+
+Image data, atleast in rgba, has a value for red, green, blue, and alpha (transparancy). So as long as the data is not in YUV, this will go easily, but even then I don't expect it to be that complicated. Audio on the other hand can have different bitrates, multiple channels, ...
