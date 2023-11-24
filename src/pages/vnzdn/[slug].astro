@@ -6,15 +6,24 @@ const { slug } = Astro.params;
 
 const entry = await getEntry("vnzdn", slug);
 if (typeof entry === "undefined") {
-    return new Response(null, { status: 404 });
+    return Astro.redirect("/vnzdn/", 307);
 }
 
+const current = Number(slug.split("-")[1]);
 const { Content } = await entry.render();
 ---
 
 <Layout title={`No zero days November - Day ${slug}`}>
     <main class="p-2">
-        <Content />
+        <div class="p-2">
+            <Content />
+        </div>
+        <hr />
+        <div class="p-2">
+            <a href={`/vnzdn/day-${current - 1}/`}>Previous Day</a> | <a
+                href="/vnzdn/">Up</a
+            > | <a href={`/vnzdn/day-${current + 1}/`}>Next Day</a>
+        </div>
     </main>
 </Layout>
 

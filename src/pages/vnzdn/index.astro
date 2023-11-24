@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const { slug } = Astro.params;
+
+const entries = await getCollection("vnzdn");
+---
+
+<Layout title={`No zero days November`}>
+    <main class="p-2">
+        <h1 class="my-[0.67em] text-[2em] font-bold">
+            Voylin's No zero days November
+        </h1>
+        <ul class="list-disc pl-[40px]">
+            {
+                entries
+                    .sort(
+                        (a, b) =>
+                            Number(a.slug.split("-")[1]) -
+                            Number(b.slug.split("-")[1]),
+                    )
+                    .map((v) => (
+                        <li>
+                            <a href={`/vnzdn/${v.slug}`}>{v.slug}</a>
+                        </li>
+                    ))
+            }
+        </ul>
+    </main>
+</Layout>
