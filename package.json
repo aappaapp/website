@@ -1,7 +1,8 @@
 {
     "dependencies": {
         "@astrojs/node": "^6.0.4",
-        "astro-compressor": "^0.4.1"
+        "astro-compressor": "^0.4.1",
+        "sharp": "^0.32.6"
     },
     "devDependencies": {
         "@astrojs/mdx": "1.1.5",
