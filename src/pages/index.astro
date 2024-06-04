@@ -1,31 +1,17 @@
----
-import BaseLayout from "../layouts/Layout.astro";
-import LinkBlock from "../components/LinkBlock.astro";
-import { getCollection } from "astro:content";
----
+<p>This site is under construction again.</p>
+<img src="https://media1.tenor.com/m/oVqjhn9WWV0AAAAd/cool-fun.gif" alt="cool gif" />
+<style>
+  p {
+    text-align: center;
+  }
 
-<BaseLayout title="home" description="Hi! I am Aden.">
-    <h1 class="text-4xl sm:text-8xl">
-        Hi! I am <strong
-            class="my-4 inline-block animate-bounce cursor-wait text-blue-400"
-            >Aden</strong
-        >.
-    </h1>
-    <div class="p-2">
-        <h2 class="my-4 text-2xl sm:text-4xl">My Projects</h2>
-        <div class="flex gap-2">
-            <LinkBlock
-                href="https://github.com/aappaapp/website"
-                description="ugly af"
-            >
-                This Website
-            </LinkBlock>
-            <LinkBlock
-                href="https://github.com/meliyn/fanghuo-rpg"
-                description="idk what this is."
-            >
-                放火 RPG
-            </LinkBlock>
-        </div>
-    </div>
-</BaseLayout>
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  body {
+    background-color: black;
+    color: white;
+  }
+</style>
