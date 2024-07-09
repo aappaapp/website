@@ -1,17 +1,58 @@
-<p>This site is under construction again.</p>
-<img src="https://media1.tenor.com/m/oVqjhn9WWV0AAAAd/cool-fun.gif" alt="cool gif" />
-<style>
-  p {
-    text-align: center;
-  }
+---
+import Layout from "../layouts/MainLayout.astro";
+const checkouts = [
+  ["my GitHub account", "https://github.com/aappaapp"],
+  ["my YouTube channel (personal)", "https://www.youtube.com/@adenpun"],
+  ["my YouTube channel (新手Newhand)", "https://www.youtube.com/@onenewhand"],
+  ["my Twitter account", "https://twitter.com/PunAden"],
+];
+const links = [
+  [
+    "鄧鏡波學校 2023-2024年度音樂節 流行歌曲獨唱及合唱比賽 決賽",
+    "https://www.youtube.com/playlist?list=PLZnGT1zalWT5R7AMdxJWY_AJDLQIn3nVL",
+  ],
+];
+---
 
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-
-  body {
-    background-color: black;
-    color: white;
-  }
-</style>
+<Layout
+  title="Hi, I am Aden!"
+  description="I play and make games. (and make YouTube videos)"
+>
+  <section class="p-10">
+    <h1 class="text-8xl">Aden Pun</h1>
+    <p class="text-2xl">I play and make games. (and make YouTube videos)</p>
+    {
+      checkouts.map((v) => (
+        <p class="text-xl">
+          Check out{" "}
+          <a href={v[1]} target="_blank" class="font-bold">
+            {v[0]}
+          </a>
+        </p>
+      ))
+    }
+  </section>
+  <section class="p-10">
+    <h2 class="text-4xl">Wanna learn more about me?</h2>
+    <p>
+      No? Ok then. <a
+        href="https://www.youtube.com/@onenewhand?sub_confirmation=1"
+        target="_blank">Subscribe to me</a
+      >.
+    </p>
+  </section>
+  <section class="p-10">
+    <h2 class="text-4xl">Links</h2>
+    <ul class="list-disc">
+      {
+        links.map((v) => (
+          <li>
+            <a href={v[1]} target="_blank">
+              {v[0]}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>

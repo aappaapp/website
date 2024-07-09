@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <style is:global>
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+
+      @layer base {
+        a {
+          @apply text-blue-700 underline hover:no-underline;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
