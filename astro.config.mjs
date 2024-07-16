@@ -11,5 +11,6 @@ export default defineConfig({
   integrations: [tailwind(), sitemap()],
   adapter: node({
     mode: "standalone",
+    port: 3000,
   }),
 });
