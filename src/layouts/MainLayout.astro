@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+
 interface Props {
   title: string;
   description: string;
@@ -15,17 +17,6 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
-    <style is:global>
-      @tailwind base;
-      @tailwind components;
-      @tailwind utilities;
-
-      @layer base {
-        a {
-          @apply text-blue-700 underline hover:no-underline;
-        }
-      }
-    </style>
   </head>
   <body>
     <slot />

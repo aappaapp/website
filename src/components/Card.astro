@@ -1,0 +1,23 @@
+---
+interface Props {
+  colSpan: string;
+  rowSpan: string;
+  class?: string;
+  href?: string;
+}
+
+const { colSpan, rowSpan, class: c, href } = Astro.props;
+---
+
+<div
+  class={`block overflow-hidden rounded-2xl border-2 border-neutral-400 p-7 shadow-white transition duration-100 hover:border-neutral-200 hover:shadow-sm ${colSpan} ${rowSpan} ${c}`}
+>
+  {
+    href && (
+      <a {href} class="block h-full w-full">
+        <slot />
+      </a>
+    )
+  }
+  {!href && <slot />}
+</div>

@@ -1,15 +1,19 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "static",
   site: "https://adenpun.net",
-  integrations: [tailwind(), sitemap()],
+  integrations: [sitemap()],
   adapter: netlify(),
+  vite: {
+    plugins: [tailwindcss()],
+  },
   server: {
     port: 3000,
+    allowedHosts: ["prevent-promoting-avi-messenger.trycloudflare.com"],
   },
 });
