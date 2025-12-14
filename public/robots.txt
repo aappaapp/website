@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://adenpun.net/sitemap-index.xml
