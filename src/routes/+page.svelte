@@ -43,9 +43,6 @@
 			<li>
 				<a href="https://github.com/aappaapp/website">This website</a>
 			</li>
-			<li>
-				<a href="https://mafia.adeen.link/">A Werewolf dashboard (WIP)</a>
-			</li>
 			<li>More coming soon...</li>
 		</ul>
 	</Card>
