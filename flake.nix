@@ -21,6 +21,7 @@
           packages = with pkgs; [
             nodejs_24
             corepack
+            prettierd
           ];
         };
       };
