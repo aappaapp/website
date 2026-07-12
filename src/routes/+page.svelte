@@ -16,8 +16,7 @@
 		<h2 class="text-2xl font-bold">About Me</h2>
 		<p>
 			I'm Aden Pun, a secondary school student from Hong Kong with a silly dream of making an indie
-			hit game. I have been interested in programming since I was 9. I don't really know what to say
-			here so I'm gonna leave it at that.
+			hit game. I have been interested in programming since I was 9.
 		</p>
 	</Card>
 	<Card colSpan="col-span-6" rowSpan="row-span-4">
