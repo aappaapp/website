@@ -60,10 +60,10 @@
 	</Card>
 	<Card colSpan="col-span-4" rowSpan="row-span-2">
 		<p>
-			Proudly built with Astro. Heavily inspired by <a
+			Proudly built with Svelte. Heavily inspired by <a
 				href="https://gianmarcocavallo.com/"
 				target="_blank">gianmarcocavallo.com</a
-			>. Copyright &copy; 2025 Aden Pun. All rights reserved.
+			>. Copyright &copy; 2025-2026 Aden Pun. All rights reserved.
 		</p>
 	</Card>
 </main>
